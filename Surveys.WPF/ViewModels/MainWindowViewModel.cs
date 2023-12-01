@@ -1,17 +1,21 @@
 ﻿using System.Windows.Markup;
+using MediatR;
 using Surveys.WPF.ViewModels.Base;
 
 namespace Surveys.WPF.ViewModels;
 
 [MarkupExtensionReturnType(typeof(MainWindowViewModel))]
-public class MainWindowViewModel : ViewModel
+public class MainWindowViewModel : TitledViewModel
 {
-    private string _title = "Test";
+    private readonly IMediator _mediator;
 
-    
-    public string Title
+    public MainWindowViewModel(IMediator mediator) : base("MainWindow")
     {
-        get => _title;
-        set => Set(ref _title, value);
+        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+    }
+
+    public MainWindowViewModel() : base("MainWindow")
+    {
+        
     }
 }
