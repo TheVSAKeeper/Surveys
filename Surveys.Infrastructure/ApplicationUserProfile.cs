@@ -3,17 +3,17 @@
 namespace Surveys.Infrastructure;
 
 /// <summary>
-///     Represent person with login information (ApplicationUser)
+///     Представляет пользователя с информацией для входа (ApplicationUser)
 /// </summary>
 public class ApplicationUserProfile : Auditable
 {
     /// <summary>
-    ///     Account
+    ///     Учетная запись
     /// </summary>
     public virtual ApplicationUser? ApplicationUser { get; set; }
 
     /// <summary>
-    ///     Application permission for policy-based authorization
+    ///     Разрешения приложения для авторизации на основе политик
     /// </summary>
     public List<AppPermission>? Permissions { get; set; }
 }

@@ -17,7 +17,7 @@ public static class DatabaseInitializer
         IEnumerable<string> pending = await context.Database.GetPendingMigrationsAsync();
 
         if (pending.Any())
-            await context!.Database.MigrateAsync();
+            await context.Database.MigrateAsync();
 
         if (context.Users.Any())
             return;
@@ -28,7 +28,7 @@ public static class DatabaseInitializer
         {
             RoleManager<ApplicationRole> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
 
-            if (!context!.Roles.Any(r => r.Name == role))
+            if (context.Roles.Any(applicationRole => applicationRole.Name == role) == false)
                 await roleManager.CreateAsync(new ApplicationRole { Name = role, NormalizedName = role.ToUpper() });
         }
 
@@ -63,7 +63,7 @@ public static class DatabaseInitializer
             }
         };
 
-        if (!context!.Users.Any(u => u.UserName == developer1.UserName))
+        if (!context.Users.Any(u => u.UserName == developer1.UserName))
         {
             PasswordHasher<ApplicationUser> password = new();
             string hashed = password.HashPassword(developer1, "123qwe!@#");
@@ -100,7 +100,7 @@ public static class DatabaseInitializer
         IEnumerable<string> pending = await context.Database.GetPendingMigrationsAsync();
 
         if (pending.Any())
-            await context!.Database.MigrateAsync();
+            await context.Database.MigrateAsync();
 
         if (context.EventItems.Any())
             return;

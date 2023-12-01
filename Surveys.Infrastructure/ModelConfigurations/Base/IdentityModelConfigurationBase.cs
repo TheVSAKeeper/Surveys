@@ -5,7 +5,7 @@ using Surveys.Domain.Base;
 namespace Surveys.Infrastructure.ModelConfigurations.Base;
 
 /// <summary>
-///     Audit-able Model Configuration base
+///     Базовая конфигурация для модели с возможностью аудита
 /// </summary>
 /// <typeparam name="T"></typeparam>
 public abstract class IdentityModelConfigurationBase<T> : IEntityTypeConfiguration<T> where T : Identity
@@ -15,18 +15,17 @@ public abstract class IdentityModelConfigurationBase<T> : IEntityTypeConfigurati
         builder.ToTable(TableName());
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).IsRequired();
-
         AddBuilder(builder);
     }
 
     /// <summary>
-    ///     Add custom properties for your entity
+    ///     Добавьте настраиваемые свойства для вашего объекта
     /// </summary>
     /// <param name="builder"></param>
     protected abstract void AddBuilder(EntityTypeBuilder<T> builder);
 
     /// <summary>
-    ///     Table name
+    ///     Название таблицы
     /// </summary>
     /// <returns></returns>
     protected abstract string TableName();

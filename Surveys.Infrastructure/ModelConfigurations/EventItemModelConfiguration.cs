@@ -5,7 +5,7 @@ using Surveys.Infrastructure.ModelConfigurations.Base;
 namespace Surveys.Infrastructure.ModelConfigurations;
 
 /// <summary>
-///     Entity Type Configuration for Log entity
+///     Конфигурация типа сущности для сущности Log
 /// </summary>
 public class EventItemModelConfiguration : IdentityModelConfigurationBase<EventItem>
 {

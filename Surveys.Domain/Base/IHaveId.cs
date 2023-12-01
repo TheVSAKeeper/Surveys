@@ -1,12 +1,12 @@
 ﻿namespace Surveys.Domain.Base;
 
 /// <summary>
-///     Identifier common interface
+///     Общий интерфейс идентификатора
 /// </summary>
 public interface IHaveId
 {
     /// <summary>
-    ///     Identifier
+    ///     Идентификатор
     /// </summary>
     Guid Id { get; set; }
 }
