@@ -1,10 +1,9 @@
 ﻿using System.Reflection;
-using Surveys.Domain.Base;
 using Calabonga.UnitOfWork;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Surveys.Infrastructure;
+using Surveys.Domain.Base;
 
 namespace Surveys.Infrastructure.Base;
 

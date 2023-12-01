@@ -1,12 +1,12 @@
 ﻿namespace Surveys.Domain.Base;
 
 /// <summary>
-/// Order
+///     Order
 /// </summary>
 public class Sortable : Auditable
 {
     /// <summary>
-    /// Sorting index for entity
+    ///     Sorting index for entity
     /// </summary>
     public int SortIndex { get; set; }
 }

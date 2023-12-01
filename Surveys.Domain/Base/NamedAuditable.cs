@@ -1,7 +1,7 @@
 ﻿namespace Surveys.Domain.Base;
 
 /// <summary>
-/// Audit-able with name
+///     Audit-able with name
 /// </summary>
 public abstract class NamedAuditable : Auditable
 {

@@ -1,22 +1,22 @@
 ﻿namespace Surveys.Domain.Base;
 
 /// <summary>
-/// NamedIdentity dictionary for selector
+///     NamedIdentity dictionary for selector
 /// </summary>
 public abstract class NamedIdentity : Identity
 {
     /// <summary>
-    /// Entity name
+    ///     Entity name
     /// </summary>
     public string? Name { get; set; }
 
     /// <summary>
-    /// Entity brief name
+    ///     Entity brief name
     /// </summary>
     public string? BriefName { get; set; }
 
     /// <summary>
-    /// Brief descriptions
+    ///     Brief descriptions
     /// </summary>
     public string? Description { get; set; }
 }

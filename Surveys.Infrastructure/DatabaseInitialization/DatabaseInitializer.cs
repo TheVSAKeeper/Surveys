@@ -1,8 +1,8 @@
-﻿using Surveys.Domain;
-using Surveys.Domain.Base;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Surveys.Domain;
+using Surveys.Domain.Base;
 
 namespace Surveys.Infrastructure.DatabaseInitialization;
 
@@ -90,7 +90,6 @@ public static class DatabaseInitializer
         await context.SaveChangesAsync();
     }
 
-   
     public static async void SeedEvents(IServiceProvider serviceProvider)
     {
         using IServiceScope scope = serviceProvider.CreateScope();

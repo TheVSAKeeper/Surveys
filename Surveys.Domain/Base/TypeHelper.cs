@@ -1,12 +1,12 @@
 ﻿namespace Surveys.Domain.Base;
 
 /// <summary>
-/// Some helpful methods for Type manipulations
+///     Some helpful methods for Type manipulations
 /// </summary>
 public static class TypeHelper
 {
     /// <summary>
-    /// Check type before converting
+    ///     Check type before converting
     /// </summary>
     /// <param name="value"></param>
     /// <param name="conversionType"></param>
@@ -14,9 +14,7 @@ public static class TypeHelper
     public static bool CanChangeType(object value, Type conversionType)
     {
         if (conversionType == null)
-        {
             return false;
-        }
 
         return value is IConvertible;
     }

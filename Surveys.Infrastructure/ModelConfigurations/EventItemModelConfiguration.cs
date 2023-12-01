@@ -1,5 +1,5 @@
-﻿using Surveys.Domain;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Surveys.Domain;
 using Surveys.Infrastructure.ModelConfigurations.Base;
 
 namespace Surveys.Infrastructure.ModelConfigurations;

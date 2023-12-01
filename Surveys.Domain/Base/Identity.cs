@@ -1,12 +1,12 @@
 ﻿namespace Surveys.Domain.Base;
 
 /// <summary>
-/// Identifier
+///     Identifier
 /// </summary>
 public abstract class Identity : IHaveId
 {
     /// <summary>
-    /// Identifier
+    ///     Identifier
     /// </summary>
     public Guid Id { get; set; }
 }

@@ -1,12 +1,12 @@
 ﻿namespace Surveys.Domain.Base;
 
 /// <summary>
-/// ViewModelBase for 
+///     ViewModelBase for
 /// </summary>
 public class ViewModelBase : IViewModel, IHaveId
 {
     /// <summary>
-    /// Identifier
+    ///     Identifier
     /// </summary>
     public Guid Id { get; set; }
 }

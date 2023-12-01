@@ -1,6 +1,6 @@
-﻿using Surveys.Domain;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Surveys.Domain;
 using Surveys.Infrastructure.Base;
 
 namespace Surveys.Infrastructure;
@@ -29,7 +29,7 @@ public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<Applicati
 {
     public ApplicationDbContext CreateDbContext(string[] args)
     {
-        DbContextOptionsBuilder<ApplicationDbContext> optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+        DbContextOptionsBuilder<ApplicationDbContext> optionsBuilder = new();
         optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=surveys_test;Username=postgres;)");
         return new ApplicationDbContext(optionsBuilder.Options);
     }
