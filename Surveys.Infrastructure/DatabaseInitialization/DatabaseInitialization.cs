@@ -6,8 +6,16 @@ using Surveys.Domain.Base;
 
 namespace Surveys.Infrastructure.DatabaseInitialization;
 
-public static class DatabaseInitializer
+/// <summary>
+///     Инициализатор базы данных
+/// </summary>
+public static class DatabaseInitialization
 {
+    /// <summary>
+    ///     Заполняет базу данных одними начальными данными пользователя для демонстрационных целей
+    /// </summary>
+    /// <param name="serviceProvider"></param>
+    /// <exception cref="InvalidOperationException"></exception>
     public static async void SeedUsers(IServiceProvider serviceProvider)
     {
         using IServiceScope scope = serviceProvider.CreateScope();
@@ -28,20 +36,26 @@ public static class DatabaseInitializer
         {
             RoleManager<ApplicationRole> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
 
-            if (context.Roles.Any(applicationRole => applicationRole.Name == role) == false)
-                await roleManager.CreateAsync(new ApplicationRole { Name = role, NormalizedName = role.ToUpper() });
+            if (context.Roles.Any(applicationRole => applicationRole.Name == role))
+                continue;
+
+            ApplicationRole applicationRole = new()
+                {
+                    Name = role,
+                    NormalizedName = role.ToUpper()
+                };
+
+            await roleManager.CreateAsync(applicationRole);
         }
 
         #region developer
 
-        ApplicationUser developer1 = new()
+        ApplicationUser developer = new()
         {
-            Email = "microservice@yopmail.com",
-            NormalizedEmail = "MICROSERVICE@YOPMAIL.COM",
-            UserName = "microservice@yopmail.com",
-            FirstName = "Microservice",
+           UserName = "Superuser",
+            FirstName = "Survey",
             LastName = "Administrator",
-            NormalizedUserName = "MICROSERVICE@YOPMAIL.COM",
+            NormalizedUserName = "SUPERUSER",
             PhoneNumber = "+79000000000",
             EmailConfirmed = true,
             PhoneNumberConfirmed = true,
@@ -63,22 +77,24 @@ public static class DatabaseInitializer
             }
         };
 
-        if (!context.Users.Any(u => u.UserName == developer1.UserName))
+        if (!context.Users.Any(u => u.UserName == developer.UserName))
         {
             PasswordHasher<ApplicationUser> password = new();
-            string hashed = password.HashPassword(developer1, "123qwe!@#");
-            developer1.PasswordHash = hashed;
+            
+            string hashed = password.HashPassword(developer, "123qwerty");
+            developer.PasswordHash = hashed;
+            
             ApplicationUserStore userStore = scope.ServiceProvider.GetRequiredService<ApplicationUserStore>();
-            IdentityResult result = await userStore.CreateAsync(developer1);
+            IdentityResult result = await userStore.CreateAsync(developer);
 
-            if (!result.Succeeded)
+            if (result.Succeeded == false)
                 throw new InvalidOperationException("Cannot create account");
 
             UserManager<ApplicationUser>? userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
 
             foreach (string role in roles)
             {
-                IdentityResult roleAdded = await userManager!.AddToRoleAsync(developer1, role);
+                IdentityResult roleAdded = await userManager!.AddToRoleAsync(developer, role);
 
                 if (roleAdded.Succeeded)
                     await context.SaveChangesAsync();
@@ -90,6 +106,10 @@ public static class DatabaseInitializer
         await context.SaveChangesAsync();
     }
 
+    /// <summary>
+    ///     Заполняет базу данных одним событием для демонстрационных целей
+    /// </summary>
+    /// <param name="serviceProvider"></param>
     public static async void SeedEvents(IServiceProvider serviceProvider)
     {
         using IServiceScope scope = serviceProvider.CreateScope();
