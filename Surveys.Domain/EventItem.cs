@@ -2,9 +2,6 @@
 
 namespace Surveys.Domain;
 
-/// <summary>
-///     EventItem entity for demo purposes only
-/// </summary>
 public class EventItem : Identity
 {
     public DateTime CreatedAt { get; set; }
