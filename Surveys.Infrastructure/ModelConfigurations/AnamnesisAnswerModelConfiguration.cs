@@ -9,8 +9,8 @@ public class AnamnesisAnswerModelConfiguration : IdentityModelConfigurationBase<
     protected override void AddBuilder(EntityTypeBuilder<AnamnesisAnswer> builder)
     {
         builder.HasOne(anamnesisAnswer => anamnesisAnswer.Question);
-        builder.HasOne(anamnesisAnswer => anamnesisAnswer.Anamnesis);
         builder.HasMany(anamnesisAnswer => anamnesisAnswer.Answers);
+        builder.HasOne(anamnesisAnswer => anamnesisAnswer.Anamnesis);
     }
 
     protected override string GetTableName() => nameof(AnamnesisAnswer);

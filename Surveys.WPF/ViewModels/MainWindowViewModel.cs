@@ -16,6 +16,5 @@ public class MainWindowViewModel : TitledViewModel
 
     public MainWindowViewModel() : base("MainWindow")
     {
-        
     }
 }

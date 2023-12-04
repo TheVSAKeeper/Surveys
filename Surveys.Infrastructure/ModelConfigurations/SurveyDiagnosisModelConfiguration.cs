@@ -8,7 +8,9 @@ public class SurveyDiagnosisModelConfiguration : AuditableModelConfigurationBase
 {
     protected override void AddBuilder(EntityTypeBuilder<SurveyDiagnosis> builder)
     {
-        builder.Property(surveyDiagnosis => surveyDiagnosis.Reason).IsRequired();
+        builder.Property(surveyDiagnosis => surveyDiagnosis.Reason)
+               .HasMaxLength(1024)
+               .IsRequired();
 
         builder.HasOne(surveyDiagnosis => surveyDiagnosis.Diagnosis);
         builder.HasOne(surveyDiagnosis => surveyDiagnosis.Patient);

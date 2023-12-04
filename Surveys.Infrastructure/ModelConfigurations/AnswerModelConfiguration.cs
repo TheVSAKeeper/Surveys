@@ -8,7 +8,7 @@ public class AnswerModelConfiguration : IdentityModelConfigurationBase<Answer>
 {
     protected override void AddBuilder(EntityTypeBuilder<Answer> builder)
     {
-        builder.Property(answer => answer.Content).IsRequired();
+        builder.Property(answer => answer.Content).HasMaxLength(1024).IsRequired();
 
         builder.HasOne(answer => answer.QuestionAnswers);
     }

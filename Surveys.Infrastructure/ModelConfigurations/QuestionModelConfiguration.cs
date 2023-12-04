@@ -8,7 +8,11 @@ public class QuestionModelConfiguration : IdentityModelConfigurationBase<Questio
 {
     protected override void AddBuilder(EntityTypeBuilder<Question> builder)
     {
-        builder.Property(question => question.Content).IsRequired();
+        builder.Property(question => question.Content)
+               .HasMaxLength(1024)
+               .IsRequired();
+        
+        builder.HasOne(question => question.AnamnesisTemplate);
 
         builder.HasMany(question => question.AnamnesisAnswers);
     }
