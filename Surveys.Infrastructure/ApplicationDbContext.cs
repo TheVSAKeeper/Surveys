@@ -5,24 +5,24 @@ using Surveys.Infrastructure.Base;
 
 namespace Surveys.Infrastructure;
 
-public class ApplicationDbContext : DbContextBase
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContextBase(options)
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options)
-    {
-    }
+    public DbSet<Anamnesis> Anamneses { get; set; } = null!;
+    public DbSet<AnamnesisAnswer> AnamnesisAnswers { get; set; } = null!;
+    public DbSet<AnamnesisTemplate> AnamnesisTemplates { get; set; } = null!;
 
-    public DbSet<EventItem> EventItems { get; set; }
+    public DbSet<Answer> Answers { get; set; } = null!;
+    public DbSet<Question> Questions { get; set; } = null!;
 
-    public DbSet<ApplicationUserProfile> Profiles { get; set; }
+    public DbSet<Diagnosis> Diagnoses { get; set; } = null!;
+    public DbSet<SurveyDiagnosis> SurveyDiagnoses { get; set; } = null!;
 
-    public DbSet<AppPermission> Permissions { get; set; }
+    public DbSet<Survey> Surveys { get; set; } = null!;
+    public DbSet<Patient> Patients { get; set; } = null!;
 
-    protected override void OnModelCreating(ModelBuilder builder)
-    {
-        //builder.UseOpenIddict<Guid>();
-        base.OnModelCreating(builder);
-    }
+    public DbSet<EventItem> EventItems { get; set; } = null!;
+    public DbSet<ApplicationUserProfile> Profiles { get; set; } = null!;
+    public DbSet<AppPermission> Permissions { get; set; } = null!;
 }
 
 public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>

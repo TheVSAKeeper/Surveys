@@ -6,5 +6,7 @@ public class Question : Identity
 {
     public string Content { get; set; } = null!;
 
-    public virtual ICollection<AnamnesisAnswer>? QuestionAnswers { get; set; }
+    public AnamnesisTemplate AnamnesisTemplate { get; set; } = null!;
+
+    public virtual ICollection<AnamnesisAnswer>? AnamnesisAnswers { get; set; }
 }

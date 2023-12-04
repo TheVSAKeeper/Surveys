@@ -10,8 +10,8 @@ public class ApplicationUserProfileModelConfiguration : AuditableModelConfigurat
 {
     protected override void AddBuilder(EntityTypeBuilder<ApplicationUserProfile> builder)
     {
-        builder.HasOne(x => x.ApplicationUser);
+        builder.HasOne(applicationUserProfile => applicationUserProfile.ApplicationUser);
     }
 
-    protected override string TableName() => "Profiles";
+    protected override string GetTableName() => nameof(ApplicationUserProfile);
 }

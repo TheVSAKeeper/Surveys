@@ -12,7 +12,7 @@ public abstract class IdentityModelConfigurationBase<T> : IEntityTypeConfigurati
 {
     public void Configure(EntityTypeBuilder<T> builder)
     {
-        builder.ToTable(TableName());
+        builder.ToTable(GetTableName());
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).IsRequired();
         AddBuilder(builder);
@@ -28,5 +28,5 @@ public abstract class IdentityModelConfigurationBase<T> : IEntityTypeConfigurati
     ///     Название таблицы
     /// </summary>
     /// <returns></returns>
-    protected abstract string TableName();
+    protected abstract string GetTableName();
 }

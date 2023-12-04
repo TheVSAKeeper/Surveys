@@ -12,7 +12,7 @@ public abstract class AuditableModelConfigurationBase<T> : IEntityTypeConfigurat
 {
     public void Configure(EntityTypeBuilder<T> builder)
     {
-        builder.ToTable(TableName());
+        builder.ToTable(GetTableName());
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).IsRequired();
         // аудит
@@ -33,5 +33,5 @@ public abstract class AuditableModelConfigurationBase<T> : IEntityTypeConfigurat
     ///     Имя таблицы
     /// </summary>
     /// <returns></returns>
-    protected abstract string TableName();
+    protected abstract string GetTableName();
 }

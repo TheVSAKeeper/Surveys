@@ -40,10 +40,10 @@ public static class DatabaseInitialization
                 continue;
 
             ApplicationRole applicationRole = new()
-                {
-                    Name = role,
-                    NormalizedName = role.ToUpper()
-                };
+            {
+                Name = role,
+                NormalizedName = role.ToUpper()
+            };
 
             await roleManager.CreateAsync(applicationRole);
         }
@@ -52,7 +52,7 @@ public static class DatabaseInitialization
 
         ApplicationUser developer = new()
         {
-           UserName = "Superuser",
+            UserName = "Superuser",
             FirstName = "Survey",
             LastName = "Administrator",
             NormalizedUserName = "SUPERUSER",
@@ -80,10 +80,10 @@ public static class DatabaseInitialization
         if (!context.Users.Any(u => u.UserName == developer.UserName))
         {
             PasswordHasher<ApplicationUser> password = new();
-            
+
             string hashed = password.HashPassword(developer, "123qwerty");
             developer.PasswordHash = hashed;
-            
+
             ApplicationUserStore userStore = scope.ServiceProvider.GetRequiredService<ApplicationUserStore>();
             IdentityResult result = await userStore.CreateAsync(developer);
 

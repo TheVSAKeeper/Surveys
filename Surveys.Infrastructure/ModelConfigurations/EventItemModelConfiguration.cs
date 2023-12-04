@@ -19,5 +19,5 @@ public class EventItemModelConfiguration : IdentityModelConfigurationBase<EventI
         builder.Property(x => x.ExceptionMessage).HasMaxLength(2000);
     }
 
-    protected override string TableName() => "EventItems";
+    protected override string GetTableName() => nameof(EventItem);
 }

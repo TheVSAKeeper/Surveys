@@ -8,9 +8,6 @@ public class AppPermission : Auditable
 
     public virtual ApplicationUserProfile? ApplicationUserProfile { get; set; }
 
-    /// <summary>
-    ///     Authorize attribute policy name
-    /// </summary>
     public string PolicyName { get; set; } = null!;
 
     public string Description { get; set; } = null!;
