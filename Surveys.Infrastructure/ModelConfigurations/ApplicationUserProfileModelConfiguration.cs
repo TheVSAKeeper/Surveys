@@ -4,14 +4,14 @@ using Surveys.Infrastructure.ModelConfigurations.Base;
 namespace Surveys.Infrastructure.ModelConfigurations;
 
 /// <summary>
-///     Entity Type Configuration for entity Person
+///     Конфигурация типа сущности для сущности Person
 /// </summary>
 public class ApplicationUserProfileModelConfiguration : AuditableModelConfigurationBase<ApplicationUserProfile>
 {
     protected override void AddBuilder(EntityTypeBuilder<ApplicationUserProfile> builder)
     {
-        builder.HasOne(x => x.ApplicationUser);
+        builder.HasOne(applicationUserProfile => applicationUserProfile.ApplicationUser);
     }
 
-    protected override string TableName() => "Profiles";
+    protected override string GetTableName() => nameof(ApplicationUserProfile);
 }

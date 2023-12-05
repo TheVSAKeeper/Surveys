@@ -4,22 +4,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Surveys.Infrastructure;
 
-public class ApplicationUserStore : UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, Guid>
+public class ApplicationUserStore(ApplicationDbContext context, IdentityErrorDescriber describer)
+    : UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, Guid>(context, describer)
 {
-    public ApplicationUserStore(ApplicationDbContext context, IdentityErrorDescriber describer)
-        : base(context, describer)
-    {
-    }
-
-    public override Task<ApplicationUser> FindByIdAsync(string userId, CancellationToken cancellationToken = default)
+    public override Task<ApplicationUser?> FindByIdAsync(string userId, CancellationToken cancellationToken = default)
         => Users
-            .Include(x => x.ApplicationUserProfile)
-            .ThenInclude(x => x.Permissions)
-            .FirstOrDefaultAsync(u => u.Id.ToString() == userId, cancellationToken)!;
+           .Include(x => x.ApplicationUserProfile)
+           .ThenInclude(x => x!.Permissions)
+           .FirstOrDefaultAsync(u => u.Id.ToString() == userId, cancellationToken);
 
-    public override Task<ApplicationUser> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken = default)
+    public override Task<ApplicationUser?> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken = default)
         => Users
-            .Include(x => x.ApplicationUserProfile)
-            .ThenInclude(x => x.Permissions)
-            .FirstOrDefaultAsync(u => u.NormalizedUserName == normalizedUserName, cancellationToken)!;
+           .Include(x => x.ApplicationUserProfile)
+           .ThenInclude(x => x!.Permissions)
+           .FirstOrDefaultAsync(u => u.NormalizedUserName == normalizedUserName, cancellationToken);
 }

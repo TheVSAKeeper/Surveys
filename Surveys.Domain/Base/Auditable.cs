@@ -1,29 +1,29 @@
 ﻿namespace Surveys.Domain.Base;
 
 /// <summary>
-/// Represents 'Audit-able' table from the Property Database
+///     Представляет 'аудиторию' таблицу из базы данных недвижимости
 /// </summary>
 public abstract class Auditable : Identity, IAuditable
 {
     /// <summary>
-    /// DateTime when entity created.
-    /// It's never changed
+    ///     Дата и время, когда создана сущность.
+    ///     Никогда не меняется
     /// </summary>
     public DateTime CreatedAt { get; set; }
 
     /// <summary>
-    /// User name who created entity.
-    /// It's never changed
+    ///     Имя пользователя, который создал сущность.
+    ///     Никогда не меняется
     /// </summary>
     public string CreatedBy { get; set; } = null!;
 
     /// <summary>
-    /// Last date entity updated
+    ///     Последняя дата обновления сущности
     /// </summary>
     public DateTime? UpdatedAt { get; set; }
 
     /// <summary>
-    /// Author of last updated
+    ///     Автор последнего обновления
     /// </summary>
     public string? UpdatedBy { get; set; }
 }

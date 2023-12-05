@@ -4,7 +4,8 @@ namespace Surveys.Domain;
 
 public class Anamnesis : Identity
 {
-    public string Name { get; set; } = null!;
+    public Guid AnamnesisTemplateId { get; set; }
+    public virtual AnamnesisTemplate AnamnesisTemplate { get; set; } = null!;
 
     public virtual ICollection<AnamnesisAnswer>? Answers { get; set; }
 

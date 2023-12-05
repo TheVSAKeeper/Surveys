@@ -11,7 +11,7 @@ public class SurveyDiagnosis : Auditable
 
     public Guid PatientId { get; set; }
     public virtual Patient Patient { get; set; } = null!;
-    
+
     public Guid SurveyId { get; set; }
     public virtual Survey Survey { get; set; } = null!;
 }

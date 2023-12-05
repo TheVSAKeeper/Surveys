@@ -3,13 +3,13 @@
 namespace Surveys.Infrastructure;
 
 /// <summary>
-///     Default user for application.
-///     Add profile data for application users by adding properties to the ApplicationUser class
+///     Пользователь по умолчанию для приложения.
+///     Добавьте данные профиля для пользователей приложения, добавив свойства в класс ApplicationUser
 /// </summary>
 public class ApplicationUser : IdentityUser<Guid>
 {
     public string? FirstName { get; set; }
-  
+
     public string? LastName { get; set; }
 
     public Guid? ApplicationUserProfileId { get; set; }

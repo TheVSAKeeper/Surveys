@@ -1,27 +1,27 @@
 ﻿namespace Surveys.Domain.Base;
 
 /// <summary>
-/// Represent information about creation and last update
+///     Представляет информацию о создании и последнем обновлении
 /// </summary>
 public interface IAuditable
 {
     /// <summary>
-    /// DateTime of creation. This value will never changed
+    ///     Время создания. Это значение никогда не изменяется
     /// </summary>
     DateTime CreatedAt { get; set; }
 
     /// <summary>
-    /// Author name. This value never changed
+    ///     Имя автора. Это значение никогда не изменяется
     /// </summary>
     string CreatedBy { get; set; }
 
     /// <summary>
-    /// DateTime of last value update. Should be updated when entity data updated
+    ///     Время последнего обновления значения. Должно быть обновлено, когда обновляются данные сущности
     /// </summary>
     DateTime? UpdatedAt { get; set; }
 
     /// <summary>
-    /// Author of last value update. Should be updated when entity data updated
+    ///     Автор последнего обновления значения. Должно быть обновлено, когда обновляются данные сущности
     /// </summary>
     string? UpdatedBy { get; set; }
 }

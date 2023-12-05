@@ -1,18 +1,19 @@
-﻿using Surveys.Domain.Base;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Surveys.Domain.Base;
 
 namespace Surveys.Infrastructure.ModelConfigurations.Base;
 
 /// <summary>
-///     Audit-able Model Configuration base
+///     Базовая конфигурация для модели с возможностью аудита
 /// </summary>
 /// <typeparam name="T"></typeparam>
 public abstract class IdentityModelConfigurationBase<T> : IEntityTypeConfiguration<T> where T : Identity
 {
     public void Configure(EntityTypeBuilder<T> builder)
     {
-        builder.ToTable(TableName());
+        builder.ToTable(GetTableName());
+
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).IsRequired();
 
@@ -20,14 +21,14 @@ public abstract class IdentityModelConfigurationBase<T> : IEntityTypeConfigurati
     }
 
     /// <summary>
-    ///     Add custom properties for your entity
+    ///     Добавьте настраиваемые свойства для вашего объекта
     /// </summary>
     /// <param name="builder"></param>
     protected abstract void AddBuilder(EntityTypeBuilder<T> builder);
 
     /// <summary>
-    ///     Table name
+    ///     Название таблицы
     /// </summary>
     /// <returns></returns>
-    protected abstract string TableName();
+    protected abstract string GetTableName();
 }
