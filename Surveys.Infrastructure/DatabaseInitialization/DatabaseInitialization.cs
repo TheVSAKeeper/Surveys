@@ -6,16 +6,8 @@ using Surveys.Domain.Base;
 
 namespace Surveys.Infrastructure.DatabaseInitialization;
 
-/// <summary>
-///     Инициализатор базы данных
-/// </summary>
 public static class DatabaseInitialization
 {
-    /// <summary>
-    ///     Заполняет базу данных одними начальными данными пользователя для демонстрационных целей
-    /// </summary>
-    /// <param name="serviceProvider"></param>
-    /// <exception cref="InvalidOperationException"></exception>
     public static async void SeedUsers(IServiceProvider serviceProvider)
     {
         using IServiceScope scope = serviceProvider.CreateScope();
@@ -24,7 +16,7 @@ public static class DatabaseInitialization
                                                    ?? throw new InvalidOperationException($"{typeof(ApplicationDbContext)} dont registered");
 
         await context.Database.EnsureCreatedAsync();
-        
+
         IEnumerable<string> pendingMigrations = await context.Database.GetPendingMigrationsAsync();
 
         if (pendingMigrations.Any())
@@ -109,10 +101,6 @@ public static class DatabaseInitialization
         await context.SaveChangesAsync();
     }
 
-    /// <summary>
-    ///     Заполняет базу данных одним событием для демонстрационных целей
-    /// </summary>
-    /// <param name="serviceProvider"></param>
     public static async void SeedEvents(IServiceProvider serviceProvider)
     {
         using IServiceScope scope = serviceProvider.CreateScope();
@@ -138,5 +126,40 @@ public static class DatabaseInitialization
             Logger = "SEED",
             Message = "Seed method some entities successfully save to ApplicationDbContext"
         });
+    }
+
+    public static async void SeedDiagnoses(IServiceProvider serviceProvider)
+    {
+        using IServiceScope scope = serviceProvider.CreateScope();
+
+        ApplicationDbContext context = await GetApplicationDbContext(scope);
+
+        if (context.Diagnoses.Any())
+            return;
+
+        List<Diagnosis> diagnoses =
+        [
+            new Diagnosis { Id = Guid.Parse("1467a5b9-e61f-82b0-425b-7ec75f5c5029"), Name = "Diagnosis 1", Description = "Description 1" },
+            new Diagnosis { Id = Guid.Parse("1467a5b9-e61f-82b0-425b-7ec75f5c5030"), Name = "Diagnosis 2", Description = "Description 2" },
+            new Diagnosis { Id = Guid.Parse("1467a5b9-e61f-82b0-425b-7ec75f5c5031"), Name = "Diagnosis 3", Description = "Description 3" }
+        ];
+
+        await context.Diagnoses.AddRangeAsync(diagnoses);
+        await context.SaveChangesAsync();
+    }
+
+    private static async Task<ApplicationDbContext> GetApplicationDbContext(IServiceScope scope)
+    {
+        ApplicationDbContext context = scope.ServiceProvider.GetService<ApplicationDbContext>()
+                                       ?? throw new InvalidOperationException($"{typeof(ApplicationDbContext)} dont registered");
+
+        await context.Database.EnsureCreatedAsync();
+        
+        IEnumerable<string> pending = await context.Database.GetPendingMigrationsAsync();
+
+        if (pending.Any())
+            await context.Database.MigrateAsync();
+
+        return context;
     }
 }

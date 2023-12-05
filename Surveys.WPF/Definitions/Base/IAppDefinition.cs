@@ -6,5 +6,6 @@ namespace Surveys.WPF.Definitions.Base;
 public interface IAppDefinition
 {
     bool Enabled { get; }
-    void ConfigureServices(IServiceCollection builder, HostBuilderContext context);
+    void ConfigureServices(IServiceCollection services, HostBuilderContext context);
+    void ConfigureApplication(IHost host);
 }

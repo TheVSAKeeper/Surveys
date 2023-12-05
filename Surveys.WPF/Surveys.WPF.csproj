@@ -10,9 +10,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="Endpoints\"/>
-        <Folder Include="Infrastructure\"/>
-        <Folder Include="Models\"/>
+        <Folder Include="Definitions\Identity\"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -25,6 +23,7 @@
 
     <ItemGroup>
         <PackageReference Include="Calabonga.UnitOfWork" Version="3.1.0"/>
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.8.1"/>
         <PackageReference Include="MediatR" Version="12.2.0"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0">
             <PrivateAssets>all</PrivateAssets>
@@ -33,6 +32,7 @@
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0"/>
         <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77"/>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0"/>
+        <PackageReference Include="OperationResultCore" Version="4.1.0"/>
         <PackageReference Include="Serilog.Extensions.Hosting" Version="8.0.0"/>
         <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1"/>
         <PackageReference Include="Serilog.Sinks.RichTextBox.Wpf" Version="1.1.0"/>
@@ -42,6 +42,10 @@
         <None Update="appsettings.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Surveys.Infrastructure\Surveys.Infrastructure.csproj"/>
     </ItemGroup>
 
 </Project>

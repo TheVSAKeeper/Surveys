@@ -14,14 +14,16 @@ internal class Program
         {
             Log.Logger = new LoggerConfiguration()
                          .MinimumLevel.Debug()
-                         .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                         .MinimumLevel.Override("Microsoft",
+                                                minimumLevel: LogEventLevel.Information)
                          .Enrich.FromLogContext()
                          .WriteTo.Console()
                          .CreateLogger();
 
             IHost host = Host.CreateDefaultBuilder(args)
                              .UseSerilog()
-                             .ConfigureServices((host, serviceCollection) => serviceCollection.AddDefinitions(host, typeof(Program)))
+                             .ConfigureServices((host, serviceCollection) => serviceCollection.AddDefinitions(context: host,
+                                                                                                              typeof(Program)))
                              .Build();
 
             App app = new();
@@ -33,10 +35,12 @@ internal class Program
         {
             string type = ex.GetType().Name;
 
-            if (type.Equals("StopTheHostException", StringComparison.Ordinal))
+            if (type.Equals("StopTheHostException",
+                            comparisonType: StringComparison.Ordinal))
                 throw;
 
-            Log.Fatal(ex, "Unhandled exception");
+            Log.Fatal(exception: ex,
+                      "Unhandled exception");
         }
         finally
         {

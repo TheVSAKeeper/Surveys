@@ -5,7 +5,7 @@ using Surveys.WPF.Definitions.Base;
 
 namespace Surveys.WPF;
 
-public partial class App : Application
+public partial class App : System.Windows.Application
 {
     private static IHost? _host;
     public static bool IsDesignTime { get; private set; } = true;
@@ -13,7 +13,9 @@ public partial class App : Application
     public static IHost Host => _host ??= Program.CreateHostBuilder(Environment.GetCommandLineArgs()).Build();
 
     public static IServiceProvider Services => Host.Services;
-    internal static void ConfigureServices(HostBuilderContext host, IServiceCollection services) => services.AddDefinitions(host, typeof(Program));
+
+    internal static void ConfigureServices(HostBuilderContext host, IServiceCollection services) => services.AddDefinitions(context: host,
+                                                                                                                            typeof(Program));
 
     protected override async void OnStartup(StartupEventArgs e)
     {
@@ -26,7 +28,7 @@ public partial class App : Application
     protected override async void OnExit(ExitEventArgs e)
     {
         using IHost host = Host;
-        
+
         base.OnExit(e);
         await host.StopAsync();
     }
