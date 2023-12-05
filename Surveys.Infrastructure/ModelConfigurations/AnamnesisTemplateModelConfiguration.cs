@@ -9,8 +9,8 @@ public class AnamnesisTemplateModelConfiguration : IdentityModelConfigurationBas
     protected override void AddBuilder(EntityTypeBuilder<AnamnesisTemplate> builder)
     {
         builder.Property(anamnesisTemplate => anamnesisTemplate.Name)
-               .HasMaxLength(50)
-               .IsRequired();
+            .HasMaxLength(50)
+            .IsRequired();
 
         builder.HasMany(anamnesisTemplate => anamnesisTemplate.Anamneses);
         builder.HasMany(anamnesisTemplate => anamnesisTemplate.Questions);

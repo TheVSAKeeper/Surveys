@@ -16,10 +16,10 @@ public static class AppDefinitionExtensions
         foreach (Type type in entryPointsAssembly)
         {
             List<IAppDefinition> foundedDefinitions = type.Assembly.ExportedTypes
-                                                          .Where(Predicate)
-                                                          .Select(Activator.CreateInstance)
-                                                          .Cast<IAppDefinition>()
-                                                          .ToList();
+                .Where(Predicate)
+                .Select(Activator.CreateInstance)
+                .Cast<IAppDefinition>()
+                .ToList();
 
             List<IAppDefinition> enabledDefinitions = foundedDefinitions.Where(definition => definition.Enabled).ToList();
 
@@ -48,8 +48,8 @@ public static class AppDefinitionExtensions
         ILogger<AppDefinition> logger = host.Services.GetRequiredService<ILogger<AppDefinition>>();
 
         List<IAppDefinition> definitions = host.Services.GetRequiredService<IReadOnlyCollection<IAppDefinition>>()
-                                               .Where(definition => definition.Enabled)
-                                               .ToList();
+            .Where(definition => definition.Enabled)
+            .ToList();
 
         definitions.ForEach(definition => definition.ConfigureApplication(host));
 

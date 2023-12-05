@@ -58,8 +58,8 @@ public abstract class DbContextBase(DbContextOptions options) : IdentityDbContex
     private void SaveCreated()
     {
         IEnumerable<EntityEntry> createdEntries = ChangeTracker
-                                                  .Entries()
-                                                  .Where(e => e.State == EntityState.Added);
+            .Entries()
+            .Where(e => e.State == EntityState.Added);
 
         foreach (EntityEntry entry in createdEntries)
         {
@@ -82,8 +82,8 @@ public abstract class DbContextBase(DbContextOptions options) : IdentityDbContex
     private void SaveUpdated()
     {
         IEnumerable<EntityEntry> updatedEntries = ChangeTracker
-                                                  .Entries()
-                                                  .Where(e => e.State == EntityState.Modified);
+            .Entries()
+            .Where(e => e.State == EntityState.Modified);
 
         foreach (EntityEntry entry in updatedEntries)
         {

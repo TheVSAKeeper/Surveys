@@ -10,7 +10,6 @@
         <vm:MainWindowViewModel />
     </Window.DataContext>
     <Grid>
-        <TextBox HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="Black"
-                 Text="{Binding Path=Title}" />
+        <DataGrid BorderBrush="Black" ItemsSource="{Binding Path=Diagnosis}" />
     </Grid>
 </Window>

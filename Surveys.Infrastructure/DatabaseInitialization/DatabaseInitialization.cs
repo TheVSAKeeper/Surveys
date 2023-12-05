@@ -154,7 +154,7 @@ public static class DatabaseInitialization
                                        ?? throw new InvalidOperationException($"{typeof(ApplicationDbContext)} dont registered");
 
         await context.Database.EnsureCreatedAsync();
-        
+
         IEnumerable<string> pending = await context.Database.GetPendingMigrationsAsync();
 
         if (pending.Any())
