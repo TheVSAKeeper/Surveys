@@ -37,8 +37,8 @@ public static class AppDefinitionExtensions
             addedDefinitions.AddRange(enabledDefinitions);
         }
 
-        addedDefinitions.ForEach(definition => definition.ConfigureServices(services: services,
-                                                                            context: context));
+        addedDefinitions.ForEach(definition => definition.ConfigureServices(services,
+                                                                            context));
 
         services.AddSingleton((IReadOnlyCollection<IAppDefinition>)addedDefinitions);
     }

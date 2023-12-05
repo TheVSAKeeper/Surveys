@@ -14,8 +14,8 @@ public partial class App : System.Windows.Application
 
     public static IServiceProvider Services => Host.Services;
 
-    internal static void ConfigureServices(HostBuilderContext host, IServiceCollection services) => services.AddDefinitions(context: host,
-                                                                                                                            typeof(Program));
+    internal static void ConfigureServices(HostBuilderContext host, IServiceCollection services) =>
+        services.AddDefinitions(host, typeof(Program));
 
     protected override async void OnStartup(StartupEventArgs e)
     {
@@ -23,6 +23,7 @@ public partial class App : System.Windows.Application
 
         base.OnStartup(e);
         await Host.StartAsync();
+        Host.UseDefinitions();
     }
 
     protected override async void OnExit(ExitEventArgs e)

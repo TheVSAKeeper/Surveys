@@ -16,8 +16,8 @@ public abstract class BaseViewModel : INotifyPropertyChanged
 
     protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
     {
-        if (Equals(objA: field,
-                   objB: value))
+        if (Equals(field,
+                   value))
             return false;
 
         field = value;

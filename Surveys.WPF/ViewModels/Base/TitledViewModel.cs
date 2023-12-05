@@ -5,7 +5,7 @@ public class TitledViewModel(string title) : BaseViewModel
     public string Title
     {
         get => title;
-        set => Set(field: ref title,
-                   value: value);
+        set => Set(ref title,
+                   value);
     }
 }
