@@ -19,12 +19,15 @@ public static class DatabaseInitialization
     public static async void SeedUsers(IServiceProvider serviceProvider)
     {
         using IServiceScope scope = serviceProvider.CreateScope();
-        await using ApplicationDbContext? context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
-        await context!.Database.EnsureCreatedAsync();
-        IEnumerable<string> pending = await context.Database.GetPendingMigrationsAsync();
+        await using ApplicationDbContext context = scope.ServiceProvider.GetService<ApplicationDbContext>()
+                                                   ?? throw new InvalidOperationException($"{typeof(ApplicationDbContext)} dont registered");
 
-        if (pending.Any())
+        await context.Database.EnsureCreatedAsync();
+        
+        IEnumerable<string> pendingMigrations = await context.Database.GetPendingMigrationsAsync();
+
+        if (pendingMigrations.Any())
             await context.Database.MigrateAsync();
 
         if (context.Users.Any())
@@ -77,11 +80,11 @@ public static class DatabaseInitialization
             }
         };
 
-        if (!context.Users.Any(u => u.UserName == developer.UserName))
+        if (context.Users.Any(applicationUser => applicationUser.UserName == developer.UserName) == false)
         {
             PasswordHasher<ApplicationUser> password = new();
 
-            string hashed = password.HashPassword(developer, "123qwerty");
+            string hashed = password.HashPassword(developer, "123qwe");
             developer.PasswordHash = hashed;
 
             ApplicationUserStore userStore = scope.ServiceProvider.GetRequiredService<ApplicationUserStore>();
@@ -113,9 +116,11 @@ public static class DatabaseInitialization
     public static async void SeedEvents(IServiceProvider serviceProvider)
     {
         using IServiceScope scope = serviceProvider.CreateScope();
-        await using ApplicationDbContext? context = scope.ServiceProvider.GetService<ApplicationDbContext>();
 
-        await context!.Database.EnsureCreatedAsync();
+        await using ApplicationDbContext context = scope.ServiceProvider.GetService<ApplicationDbContext>()
+                                                   ?? throw new InvalidOperationException($"{typeof(ApplicationDbContext)} dont registered");
+
+        await context.Database.EnsureCreatedAsync();
 
         IEnumerable<string> pending = await context.Database.GetPendingMigrationsAsync();
 

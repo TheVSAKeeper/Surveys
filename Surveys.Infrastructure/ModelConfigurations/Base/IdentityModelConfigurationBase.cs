@@ -13,10 +13,10 @@ public abstract class IdentityModelConfigurationBase<T> : IEntityTypeConfigurati
     public void Configure(EntityTypeBuilder<T> builder)
     {
         builder.ToTable(GetTableName());
-        
+
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).IsRequired();
-        
+
         AddBuilder(builder);
     }
 
