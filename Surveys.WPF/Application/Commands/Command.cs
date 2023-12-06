@@ -4,13 +4,21 @@ namespace Surveys.WPF.Application.Commands;
 
 internal abstract class Command : ICommand
 {
-    public event EventHandler CanExecuteChanged
+    event EventHandler? ICommand.CanExecuteChanged
     {
         add => CommandManager.RequerySuggested += value;
-        remove => CommandManager.RequerySuggested -= value;
+        remove => CommandManager.RequerySuggested += value;
     }
 
-    public abstract bool CanExecute(object parameter);
+    bool ICommand.CanExecute(object? parameter) => CanExecute(parameter);
 
-    public abstract void Execute(object parameter);
+    void ICommand.Execute(object? parameter)
+    {
+        if (CanExecute(parameter))
+            Execute(parameter);
+    }
+
+    public virtual bool CanExecute(object? parameter) => true;
+
+    public abstract void Execute(object? parameter);
 }

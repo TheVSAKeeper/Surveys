@@ -1,23 +1,17 @@
 ﻿namespace Surveys.WPF.Application.Commands;
 
-internal class LambdaCommand : Command
+internal class LambdaCommand(Action<object> execute, Func<object, bool>? canExecute = null) : Command
 {
-    private readonly Action<object> _Execute;
-    private readonly Func<object, bool> _CanExecute;
+    private readonly Action<object> _execute = execute ?? throw new ArgumentNullException(nameof(execute));
 
-    public LambdaCommand(Action<object> Execute, Func<object, bool> CanExecute = null)
+    public override bool CanExecute(object? parameter) => parameter != null && (canExecute?.Invoke(parameter) ?? true);
+
+    public override void Execute(object? parameter)
     {
-        _Execute = Execute ?? throw new ArgumentNullException(nameof(Execute));
-        _CanExecute = CanExecute;
-    }
-
-    public override bool CanExecute(object parameter) => _CanExecute?.Invoke(parameter) ?? true;
-
-    public override void Execute(object parameter)
-    {
-        if (!CanExecute(parameter))
+        if (CanExecute(parameter) == false)
             return;
 
-        _Execute(parameter);
+        if (parameter != null)
+            _execute(parameter);
     }
 }
