@@ -1,7 +1,9 @@
 ﻿using System.Windows;
+using MaterialDesignThemes.Wpf;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Surveys.WPF.Definitions.Base;
+using Surveys.WPF.Properties;
 
 namespace Surveys.WPF;
 
@@ -21,8 +23,8 @@ public partial class App : System.Windows.Application
     {
         IsDesignTime = false;
 
+        Host.StartAsync().Wait();
         base.OnStartup(e);
-        await Host.StartAsync();
         Host.UseDefinitions();
     }
 

@@ -5,11 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         xmlns:vm="clr-namespace:Surveys.WPF.ViewModels"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="{materialDesign:MaterialDesignFont}"
         Title="{Binding Path=Title}" Height="450" Width="800">
     <Window.DataContext>
         <vm:MainWindowViewModel />
     </Window.DataContext>
-    <Grid>
-        <DataGrid BorderBrush="Black" ItemsSource="{Binding Path=Diagnosis}" />
-    </Grid>
+
+    <TabControl>
+        <TabItem Header="Диагнозы">
+            <GroupBox>
+                <GroupBox.Header>
+                    <TextBlock>
+                        <Run Text="Количество диагнозов - " />
+                        <Run Text="{Binding Path=Diagnosis.Count, FallbackValue='0', Mode=OneWay}" />
+                    </TextBlock>
+                </GroupBox.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <DataGrid IsReadOnly="True" BorderBrush="Black"
+                              ItemsSource="{Binding Path=Diagnosis}"
+                              AutoGenerateColumns="False" Margin="5" VerticalAlignment="Stretch">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Название" Binding="{Binding Path=Name}" Width="200" />
+                            <DataGridTextColumn Header="Описание" Binding="{Binding Path=Description}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Button Grid.Row="1" Command="{Binding Path=ShowAllDiagnosisCommand}"
+                            Margin="5" Width="180" HorizontalAlignment="Right">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Refresh" />
+                            <TextBlock Margin="10,0,0,0">Загрузить из базы</TextBlock>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </GroupBox>
+        </TabItem>
+        <TabItem Header="Пациенты"></TabItem>
+    </TabControl>
 </Window>

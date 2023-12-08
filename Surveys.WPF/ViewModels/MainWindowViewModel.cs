@@ -17,7 +17,7 @@ public class MainWindowViewModel : TitledViewModel
 
     private List<DiagnosisViewModel>? _diagnosis;
 
-    public MainWindowViewModel() : base("MainWindow")
+    public MainWindowViewModel() : base("Главная страница")
     {
         _mediator = App.Services.GetRequiredService<IMediator>();
     }

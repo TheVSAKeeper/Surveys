@@ -14,17 +14,10 @@ internal class Program
         {
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
-                .MinimumLevel.Override("Microsoft",
-                                       LogEventLevel.Information)
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
                 .CreateLogger();
-
-            IHost host = Host.CreateDefaultBuilder(args)
-                .UseSerilog()
-                .ConfigureServices((host, serviceCollection) => serviceCollection.AddDefinitions(host,
-                                                                                                 typeof(Program)))
-                .Build();
 
             App app = new();
 
@@ -39,8 +32,7 @@ internal class Program
                             StringComparison.Ordinal))
                 throw;
 
-            Log.Fatal(ex,
-                      "Unhandled exception");
+            Log.Fatal(ex, "Unhandled exception");
         }
         finally
         {
@@ -50,5 +42,6 @@ internal class Program
 
     public static IHostBuilder CreateHostBuilder(string[] args) => Host
         .CreateDefaultBuilder(args)
+        .UseSerilog()
         .ConfigureServices(App.ConfigureServices);
 }

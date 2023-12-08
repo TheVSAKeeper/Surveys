@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Surveys.Domain;
 using Surveys.Domain.Base;
 
@@ -128,23 +129,41 @@ public static class DatabaseInitialization
         });
     }
 
-    public static async void SeedDiagnoses(IServiceProvider serviceProvider)
+    public static async void SeedDiagnoses(IServiceProvider services)
     {
-        using IServiceScope scope = serviceProvider.CreateScope();
+        using IServiceScope scope = services.CreateScope();
 
+        ILogger<Diagnosis> logger = services.GetRequiredService<ILogger<Diagnosis>>();
         ApplicationDbContext context = await GetApplicationDbContext(scope);
 
         if (context.Diagnoses.Any())
             return;
 
-        List<Diagnosis> diagnoses =
-        [
-            new Diagnosis { Id = Guid.Parse("1467a5b9-e61f-82b0-425b-7ec75f5c5029"), Name = "Diagnosis 1", Description = "Description 1" },
-            new Diagnosis { Id = Guid.Parse("1467a5b9-e61f-82b0-425b-7ec75f5c5030"), Name = "Diagnosis 2", Description = "Description 2" },
-            new Diagnosis { Id = Guid.Parse("1467a5b9-e61f-82b0-425b-7ec75f5c5031"), Name = "Diagnosis 3", Description = "Description 3" }
-        ];
+        const string DiagnosesPath = "diagnoses.txt";
 
-        await context.Diagnoses.AddRangeAsync(diagnoses);
+        if (File.Exists(DiagnosesPath) == false)
+        {
+            logger.LogError("[DatabaseInitialization] Not found {File}", DiagnosesPath);
+            return;
+        }
+
+        string[] lines = await File.ReadAllLinesAsync(DiagnosesPath);
+
+        Diagnosis[] diagnosis = lines
+            .Select(line => line.Split('-', StringSplitOptions.RemoveEmptyEntries))
+            .Select(parts => new Diagnosis
+            {
+                Id = Guid.NewGuid(),
+                Name = parts[0].Trim(),
+                Description = parts[1].Trim()
+            })
+            .ToArray();
+
+        logger.LogDebug("[DatabaseInitialization] Founded diagnosis: {FoundedDiagnosisCount}. Added: {AddedDiagnosisCount}",
+                        lines.Length,
+                        diagnosis.Length);
+
+        await context.Diagnoses.AddRangeAsync(diagnosis);
         await context.SaveChangesAsync();
     }
 
