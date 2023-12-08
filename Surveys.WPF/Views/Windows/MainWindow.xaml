@@ -38,13 +38,23 @@
                             <DataGridTextColumn Header="Описание" Binding="{Binding Path=Description}" />
                         </DataGrid.Columns>
                     </DataGrid>
-                    <Button Grid.Row="1" Command="{Binding Path=ShowAllDiagnosisCommand}"
-                            Margin="5" Width="180" HorizontalAlignment="Right">
-                        <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Refresh" />
-                            <TextBlock Margin="10,0,0,0">Загрузить из базы</TextBlock>
-                        </StackPanel>
-                    </Button>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Command="{Binding Path=ClearTable}"
+                                Margin="5" Width="auto">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Delete" />
+                                <TextBlock Margin="10,0,0,0">Очистить</TextBlock>
+                            </StackPanel>
+                        </Button>
+                        <Button Command="{Binding Path=ShowAllDiagnosisCommand}"
+                                Margin="5" Width="auto">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="Refresh" />
+                                <TextBlock Margin="10,0,0,0">Загрузить из базы</TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+
                 </Grid>
             </GroupBox>
         </TabItem>

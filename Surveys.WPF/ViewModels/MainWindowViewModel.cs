@@ -11,16 +11,11 @@ using Surveys.WPF.ViewModels.Base;
 namespace Surveys.WPF.ViewModels;
 
 [MarkupExtensionReturnType(typeof(MainWindowViewModel))]
-public class MainWindowViewModel : TitledViewModel
+public class MainWindowViewModel() : TitledViewModel("Главная страница")
 {
-    private readonly IMediator _mediator;
+    private readonly IMediator _mediator = App.Services.GetRequiredService<IMediator>();
 
     private List<DiagnosisViewModel>? _diagnosis;
-
-    public MainWindowViewModel() : base("Главная страница")
-    {
-        _mediator = App.Services.GetRequiredService<IMediator>();
-    }
 
     public List<DiagnosisViewModel>? Diagnosis
     {
@@ -33,7 +28,7 @@ public class MainWindowViewModel : TitledViewModel
     private ICommand? _showAllDiagnosisCommand;
 
     public ICommand ShowAllDiagnosisCommand => _showAllDiagnosisCommand
-        ??= new LambdaCommand(OnShowAllDiagnosisCommandExecuted);
+        ??= new LambdaCommand(OnShowAllDiagnosisCommandExecuted, _ => _diagnosis is null);
 
     private void OnShowAllDiagnosisCommandExecuted(object? parameter)
     {
@@ -44,6 +39,20 @@ public class MainWindowViewModel : TitledViewModel
     {
         OperationResult<List<DiagnosisViewModel>> result = await _mediator.Send(new DiagnosisGetAllRequest());
         Diagnosis = result.Result;
+    }
+
+    #endregion
+
+    #region ClearTable
+
+    private ICommand? _clearTable;
+
+    public ICommand ClearTable => _clearTable
+        ??= new LambdaCommand(OnClearTableCommandExecuted, _ => _diagnosis is not null);
+
+    private void OnClearTableCommandExecuted(object? parameter)
+    {
+        Diagnosis = null;
     }
 
     #endregion
