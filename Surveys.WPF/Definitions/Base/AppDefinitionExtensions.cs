@@ -26,19 +26,19 @@ public static class AppDefinitionExtensions
             if (logger.IsEnabled(LogLevel.Debug))
             {
                 logger.LogDebug("[AppDefinitions] Founded: {AppDefinitionsCountTotal}. Enabled: {AppDefinitionsCountEnabled}",
-                                foundedDefinitions.Count,
-                                enabledDefinitions.Count);
+                    foundedDefinitions.Count,
+                    enabledDefinitions.Count);
 
                 logger.LogDebug("[AppDefinitions] Registered [{Total}]",
-                                string.Join(", ",
-                                            enabledDefinitions.Select(definition => definition.GetType().Name)));
+                    string.Join(", ",
+                        enabledDefinitions.Select(definition => definition.GetType().Name)));
             }
 
             addedDefinitions.AddRange(enabledDefinitions);
         }
 
         addedDefinitions.ForEach(definition => definition.ConfigureServices(services,
-                                                                            context));
+            context));
 
         services.AddSingleton((IReadOnlyCollection<IAppDefinition>)addedDefinitions);
     }
@@ -56,7 +56,6 @@ public static class AppDefinitionExtensions
         if (logger.IsEnabled(LogLevel.Debug) == false)
             return;
 
-        logger.LogDebug("Total application definitions configured {Count}",
-                        definitions.Count);
+        logger.LogDebug("Total application definitions configured {Count}", definitions.Count);
     }
 }

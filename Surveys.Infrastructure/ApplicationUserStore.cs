@@ -10,12 +10,12 @@ public class ApplicationUserStore(ApplicationDbContext context, IdentityErrorDes
     public override Task<ApplicationUser?> FindByIdAsync(string userId, CancellationToken cancellationToken = default)
         => Users
             .Include(x => x.ApplicationUserProfile)
-            .ThenInclude(x => x!.Permissions)
+            .ThenInclude(x => x!.Roles)
             .FirstOrDefaultAsync(u => u.Id.ToString() == userId, cancellationToken);
 
     public override Task<ApplicationUser?> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken = default)
         => Users
             .Include(x => x.ApplicationUserProfile)
-            .ThenInclude(x => x!.Permissions)
+            .ThenInclude(x => x!.Roles)
             .FirstOrDefaultAsync(u => u.NormalizedUserName == normalizedUserName, cancellationToken);
 }

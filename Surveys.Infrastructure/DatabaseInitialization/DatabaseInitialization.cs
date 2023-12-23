@@ -28,10 +28,10 @@ public static class DatabaseInitialization
 
         string[] roles = AppData.Roles.ToArray();
 
+        RoleManager<ApplicationRole> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
+
         foreach (string role in roles)
         {
-            RoleManager<ApplicationRole> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
-
             if (context.Roles.Any(applicationRole => applicationRole.Name == role))
                 continue;
 
@@ -44,6 +44,8 @@ public static class DatabaseInitialization
             await roleManager.CreateAsync(applicationRole);
         }
 
+        ApplicationRole administratorRole = (await roleManager.FindByNameAsync(AppData.SystemAdministratorRoleName))!;
+
         #region developer
 
         ApplicationUser developer = new()
@@ -51,6 +53,7 @@ public static class DatabaseInitialization
             UserName = "Superuser",
             FirstName = "Survey",
             LastName = "Administrator",
+            Patronymic = "Patronymic",
             NormalizedUserName = "SUPERUSER",
             PhoneNumber = "+79000000000",
             EmailConfirmed = true,
@@ -58,17 +61,11 @@ public static class DatabaseInitialization
             SecurityStamp = Guid.NewGuid().ToString("D"),
             ApplicationUserProfile = new ApplicationUserProfile
             {
-                CreatedAt = DateTime.Now,
+                CreatedAt = DateTime.UtcNow,
                 CreatedBy = "SEED",
-                Permissions = new List<AppPermission>
+                Roles = new List<ApplicationRole>
                 {
-                    new()
-                    {
-                        CreatedAt = DateTime.Now,
-                        CreatedBy = "SEED",
-                        PolicyName = "EventItems:UserRoles:View",
-                        Description = "Access policy for EventItems controller user view"
-                    }
+                    administratorRole
                 }
             }
         };
@@ -78,6 +75,7 @@ public static class DatabaseInitialization
             PasswordHasher<ApplicationUser> password = new();
 
             string hashed = password.HashPassword(developer, "123qwe");
+
             developer.PasswordHash = hashed;
 
             ApplicationUserStore userStore = scope.ServiceProvider.GetRequiredService<ApplicationUserStore>();

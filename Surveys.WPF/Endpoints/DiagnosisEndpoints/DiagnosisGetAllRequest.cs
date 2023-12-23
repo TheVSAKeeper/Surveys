@@ -15,12 +15,12 @@ public class DiagnosisGetAllRequestHandler(IUnitOfWork unitOfWork) : IRequestHan
         IList<DiagnosisViewModel> items = await unitOfWork
             .GetRepository<Diagnosis>()
             .GetAllAsync(diagnosis => new DiagnosisViewModel
-                         {
-                             Id = diagnosis.Id,
-                             Name = diagnosis.Name,
-                             Description = diagnosis.Description ?? "Описание отсутствует"
-                         },
-                         true);
+                {
+                    Id = diagnosis.Id,
+                    Name = diagnosis.Name,
+                    Description = diagnosis.Description ?? "Описание отсутствует"
+                },
+                true);
 
         return OperationResult.CreateResult(items.ToList());
     }

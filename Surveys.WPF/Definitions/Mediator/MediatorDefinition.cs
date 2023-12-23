@@ -11,7 +11,7 @@ public class MediatorDefinition : AppDefinition
     public override void ConfigureServices(IServiceCollection services, HostBuilderContext context)
     {
         services.AddTransient(typeof(IPipelineBehavior<,>),
-                              typeof(ValidatorBehavior<,>));
+            typeof(ValidatorBehavior<,>));
 
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
     }

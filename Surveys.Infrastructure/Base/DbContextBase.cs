@@ -66,7 +66,7 @@ public abstract class DbContextBase(DbContextOptions options) : IdentityDbContex
             if (entry.Entity is IAuditable)
             {
                 object userName = entry.Property(CreatedBy).CurrentValue ?? DefaultUserName;
-                DateTime creationDate = DateTime.Now.ToUniversalTime();
+                DateTime creationDate = DateTime.UtcNow;
 
                 entry.Property(CreatedAt).CurrentValue ??= creationDate;
                 entry.Property(UpdatedAt).CurrentValue ??= creationDate;
@@ -90,7 +90,7 @@ public abstract class DbContextBase(DbContextOptions options) : IdentityDbContex
             if (entry.Entity is IAuditable)
             {
                 entry.Property(UpdatedBy).CurrentValue ??= DefaultUserName;
-                entry.Property(UpdatedAt).CurrentValue = DateTime.Now.ToUniversalTime();
+                entry.Property(UpdatedAt).CurrentValue = DateTime.UtcNow;
             }
 
             LastSaveChangesResult.AddMessage($"ChangeTracker has modified entities: {entry.Entity.GetType()}");

@@ -27,8 +27,8 @@
                 </GroupBox.Header>
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <DataGrid IsReadOnly="True" BorderBrush="Black"
                               ItemsSource="{Binding Path=Diagnosis}"
@@ -58,6 +58,6 @@
                 </Grid>
             </GroupBox>
         </TabItem>
-        <TabItem Header="Пациенты"></TabItem>
+        <TabItem Header="Пациенты" />
     </TabControl>
 </Window>

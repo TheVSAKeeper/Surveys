@@ -1,9 +1,11 @@
 ﻿using System.Windows;
-using MaterialDesignThemes.Wpf;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Surveys.WPF.Application.DependencyInjection;
+using Surveys.WPF.Application.Initialization;
 using Surveys.WPF.Definitions.Base;
-using Surveys.WPF.Properties;
+using Surveys.WPF.Features.Authentication;
+using Surveys.WPF.Views.Windows;
 
 namespace Surveys.WPF;
 
@@ -12,18 +14,29 @@ public partial class App : System.Windows.Application
     private static IHost? _host;
     public static bool IsDesignTime { get; private set; } = true;
 
-    public static IHost Host => _host ??= Program.CreateHostBuilder(Environment.GetCommandLineArgs()).Build();
+    public static IHost Host => _host ??= Program.CreateHostBuilder(Environment.GetCommandLineArgs())
+        .AddNavigation()
+        .AddMainWindow()
+        .Build();
 
     public static IServiceProvider Services => Host.Services;
 
-    internal static void ConfigureServices(HostBuilderContext host, IServiceCollection services) =>
-        services.AddDefinitions(host, typeof(Program));
+    internal static void ConfigureServices(HostBuilderContext host, IServiceCollection services) => services
+            .AddSingleton<AuthenticationStore>()
+            .AddDefinitions(host, typeof(Program));
 
     protected override async void OnStartup(StartupEventArgs e)
     {
-        IsDesignTime = false;
+        await Host.StartAsync();
+        
+        ApplicationInitializer applicationInitializer = Services.GetRequiredService<ApplicationInitializer>();
+        await applicationInitializer.Initialize();
 
-        Host.StartAsync().Wait();
+        MainWindow = Services.GetRequiredService<MainWindow>();
+        MainWindow.Show();
+
+        IsDesignTime = false;
+        
         base.OnStartup(e);
         Host.UseDefinitions();
     }

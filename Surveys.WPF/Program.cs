@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
-using Surveys.WPF.Definitions.Base;
 
 namespace Surveys.WPF;
 
@@ -29,10 +28,11 @@ internal class Program
             string type = ex.GetType().Name;
 
             if (type.Equals("StopTheHostException",
-                            StringComparison.Ordinal))
+                    StringComparison.Ordinal))
                 throw;
 
-            Log.Fatal(ex, "Unhandled exception");
+            Log.Fatal(ex,
+                "Unhandled exception");
         }
         finally
         {

@@ -15,5 +15,5 @@ public class ApplicationUserProfile : Auditable
     /// <summary>
     ///     Разрешения приложения для авторизации на основе политик
     /// </summary>
-    public List<AppPermission>? Permissions { get; set; }
+    public List<ApplicationRole>? Roles { get; set; }
 }
