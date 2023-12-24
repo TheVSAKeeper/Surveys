@@ -5,14 +5,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:Surveys.WPF"
         xmlns:vms="clr-namespace:Surveys.WPF.Pages.Home"
-        xmlns:views="clr-namespace:SecretMessage.WPF.Views"
         mc:Ignorable="d"
         Title="Surveys" Height="450" Width="800">
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <ContentControl Content="{Binding CurrentViewModel}">
             <ContentControl.Resources>
                 <DataTemplate DataType="{x:Type vms:HomeViewModel}">
-                    <views:HomeView />
+                    <vms:HomeView />
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

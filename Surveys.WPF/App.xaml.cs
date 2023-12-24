@@ -17,6 +17,8 @@ public partial class App : System.Windows.Application
     public static IHost Host => _host ??= Program.CreateHostBuilder(Environment.GetCommandLineArgs())
         .AddNavigation()
         .AddMainWindow()
+        .AddHomePage()
+        .AddLoginPage()
         .Build();
 
     public static IServiceProvider Services => Host.Services;

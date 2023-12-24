@@ -1,47 +1,48 @@
-﻿using System.Windows.Input;
-using Surveys.WPF.Shared.Commands;
+﻿using System.Windows.Markup;
+using Surveys.WPF.Features.Authentication;
 using Surveys.WPF.Shared.Navigation;
 using Surveys.WPF.Shared.ViewModels;
 
-namespace Surveys.WPF.Pages.Home
+namespace Surveys.WPF.Pages.Home;
+
+[MarkupExtensionReturnType(typeof(HomeViewModel))]
+public class HomeViewModel : ViewModelBase
 {
-    public class HomeViewModel : ViewModelBase
+    private readonly AuthenticationStore _authenticationStore;
+    //  private readonly CurrentUserStore _currentUserStore;
+
+      public string Username => _authenticationStore.User?.Email ?? "Unknown";
+
+    //   public ICommand NavigateProfileCommand { get; }
+    //  public ICommand LogoutCommand { get; }
+
+    public HomeViewModel(
+        AuthenticationStore authenticationStore,
+        // CurrentUserStore currentUserStore,
+        //INavigationService profileNavigationService,
+        INavigationService loginNavigationService)
     {
-      //  private readonly CurrentUserStore _currentUserStore;
+        _authenticationStore = authenticationStore;
+        //  _currentUserStore = currentUserStore;
 
-      //  public string Username => _currentUserStore.User?.DisplayName ?? "Unknown";
+        //  NavigateProfileCommand = new NavigateCommand(profileNavigationService);
+        // LogoutCommand = new LogoutCommand(authenticationStore, loginNavigationService);
+    }
 
-        public ICommand NavigateProfileCommand { get; }
-      //  public ICommand LogoutCommand { get; }
+    public static HomeViewModel LoadViewModel(
+        AuthenticationStore authenticationStore,
+        //      CurrentUserStore currentUserStore,
+        // INavigationService profileNavigationService,
+        INavigationService loginNavigationService)
+    {
+        HomeViewModel homeViewModel = new(authenticationStore,
+            //       currentUserStore,
+            //      getSecretMessageQuery,
+            //    profileNavigationService,
+            loginNavigationService);
 
-        public HomeViewModel(
-            //AuthenticationStore authenticationStore, 
-           // CurrentUserStore currentUserStore,
-            INavigationService profileNavigationService,
-            INavigationService loginNavigationService)
-        {
-          //  _currentUserStore = currentUserStore;
+        // homeViewModel.LoadSecretMessageCommand.Execute(null);
 
-            NavigateProfileCommand = new NavigateCommand(profileNavigationService);
-           // LogoutCommand = new LogoutCommand(authenticationStore, loginNavigationService);
-        }
-
-        public static HomeViewModel LoadViewModel(
-         //   AuthenticationStore authenticationStore, 
-      //      CurrentUserStore currentUserStore,
-            INavigationService profileNavigationService,
-            INavigationService loginNavigationService)
-        {
-            HomeViewModel homeViewModel = new HomeViewModel(
-                //authenticationStore,
-         //       currentUserStore,
-          //      getSecretMessageQuery,
-                profileNavigationService,
-                loginNavigationService);
-
-           // homeViewModel.LoadSecretMessageCommand.Execute(null);
-
-            return homeViewModel;
-        }
+        return homeViewModel;
     }
 }
