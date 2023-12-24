@@ -52,12 +52,10 @@ public class AuthenticationStore(UserManager<ApplicationUser> userManager)
         return SignInResult.Success;
     }
 
-    public Task SignOutAsync()
+    public void SignOut()
     {
         User = null;
         ClearAuthenticationState();
-
-        return Task.CompletedTask;
     }
 
     private void SaveAuthenticationState()
@@ -80,6 +78,7 @@ public class AuthenticationStore(UserManager<ApplicationUser> userManager)
     {
         ApplicationUser user = new()
         {
+            Id = Guid.NewGuid(),
             UserName = username,
             NormalizedUserName = username.ToUpper(),
             FirstName = string.Empty,

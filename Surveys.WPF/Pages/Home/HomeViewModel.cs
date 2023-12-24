@@ -35,9 +35,7 @@ public class HomeViewModel : ViewModelBase
         INavigationService loginNavigationService
     )
     {
-        HomeViewModel homeViewModel = new(authenticationStore,
-            profileNavigationService,
-            loginNavigationService);
+        HomeViewModel homeViewModel = new(authenticationStore, profileNavigationService, loginNavigationService);
 
         return homeViewModel;
     }

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using Microsoft.AspNetCore.Identity;
 using Surveys.WPF.Shared.Commands;
 using Surveys.WPF.Shared.Navigation;
 
@@ -25,17 +26,22 @@ public class LoginCommand : AsyncCommandBase
     {
         try
         {
-            PasswordBox box = (PasswordBox)parameter;
+            if (parameter is not PasswordBox passwordBox)
+                return;
 
-            await _authenticationStore.SignInAsync(_loginViewModel.Email, box.Password);
+            SignInResult result = await _authenticationStore.SignInAsync(_loginViewModel.Email, passwordBox.Password);
 
-            MessageBox.Show("Successfully logged in!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            if (result.Succeeded == false)
+            {
+                MessageBox.Show("Неверный логин или пароль.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             _homeNavigationService.Navigate();
         }
         catch (Exception)
         {
-            MessageBox.Show("Login failed. Please check your information or try again later.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("Ошибка входа. Пожалуйста, проверьте вашу информацию или повторите попытку позже.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }
