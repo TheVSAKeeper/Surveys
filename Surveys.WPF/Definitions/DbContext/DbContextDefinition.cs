@@ -18,11 +18,14 @@ public class DbContextDefinition : AppDefinition
         });
 
         services.AddIdentityCore<ApplicationUser>()
-          //  .AddRoles<ApplicationRole>()
+            .AddRoles<ApplicationRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             //.AddUserStore<ApplicationUserStore>()
            // .AddRoleStore<ApplicationRoleStore>()
            // .AddUserManager<UserManager<ApplicationUser>>()
           ;
+
+        services.AddScoped<ApplicationUserStore>();
+        services.AddScoped<ApplicationRoleStore>();
     }
 }

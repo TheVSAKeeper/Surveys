@@ -26,7 +26,8 @@
                 VerticalAlignment="Center"
                 Command="{Binding NavigateProfileCommand}">
                 <TextBlock>
-                    <Run Text="Hello, " /><Run FontWeight="Bold" Text="{Binding Username, Mode=OneWay}" /><Run Text="!" />
+                    <Run Text="Hello, " /><Run FontWeight="Bold" Text="{Binding Username, Mode=OneWay}" />
+                    <Run Text="!" />
                 </TextBlock>
             </Button>
 
@@ -36,14 +37,5 @@
                 Command="{Binding LogoutCommand}"
                 Content="Logout" />
         </Grid>
-
-        <TextBlock
-            Grid.Row="1"
-            Margin="20"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            FontSize="48"
-            Text="{Binding SecretMessage}"
-            TextAlignment="Center" />
     </Grid>
 </UserControl>

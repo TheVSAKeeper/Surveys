@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Security;
+using System.Text.Json;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Surveys.Infrastructure;
@@ -73,5 +74,25 @@ public class AuthenticationStore(UserManager<ApplicationUser> userManager)
     {
         Settings.Default.User = null;
         Settings.Default.Save();
+    }
+
+    public async Task<IdentityResult> CreateUserAsync(string username, string password, string role)
+    {
+        ApplicationUser user = new()
+        {
+            UserName = username,
+            NormalizedUserName = username.ToUpper(),
+            FirstName = string.Empty,
+            LastName = string.Empty,
+            Patronymic = string.Empty,
+            EmailConfirmed = true,
+            PhoneNumberConfirmed = true,
+            SecurityStamp = Guid.NewGuid().ToString("D")
+        };
+
+        IdentityResult createResult = await userManager.CreateAsync(user, password);
+        IdentityResult addRoleResult = await userManager.AddToRoleAsync(user, role);
+
+        return addRoleResult.Succeeded == false ? addRoleResult : createResult;
     }
 }

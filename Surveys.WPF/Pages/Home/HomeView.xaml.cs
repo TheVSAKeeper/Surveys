@@ -1,15 +1,14 @@
 ﻿using System.Windows.Controls;
 
-namespace Surveys.WPF.Pages.Home
+namespace Surveys.WPF.Pages.Home;
+
+/// <summary>
+///     Interaction logic for HomeView.xaml
+/// </summary>
+public partial class HomeView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for HomeView.xaml
-    /// </summary>
-    public partial class HomeView : UserControl
+    public HomeView()
     {
-        public HomeView()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

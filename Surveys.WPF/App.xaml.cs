@@ -5,7 +5,6 @@ using Surveys.WPF.Application.DependencyInjection;
 using Surveys.WPF.Application.Initialization;
 using Surveys.WPF.Definitions.Base;
 using Surveys.WPF.Features.Authentication;
-using Surveys.WPF.Views.Windows;
 
 namespace Surveys.WPF;
 
@@ -19,27 +18,29 @@ public partial class App : System.Windows.Application
         .AddMainWindow()
         .AddHomePage()
         .AddLoginPage()
+        .AddRegisterPage()
+        .AddProfilePage()
         .Build();
 
     public static IServiceProvider Services => Host.Services;
 
     internal static void ConfigureServices(HostBuilderContext host, IServiceCollection services) => services
-            .AddSingleton<AuthenticationStore>()
-            .AddDefinitions(host, typeof(Program));
+        .AddSingleton<AuthenticationStore>()
+        .AddDefinitions(host, typeof(Program));
 
     protected override async void OnStartup(StartupEventArgs e)
     {
         await Host.StartAsync();
-        
-        ApplicationInitializer applicationInitializer = Services.GetRequiredService<ApplicationInitializer>();
-        await applicationInitializer.Initialize();
 
-        MainWindow = Services.GetRequiredService<MainWindow>();
-        MainWindow.Show();
+       ApplicationInitializer applicationInitializer = Services.GetRequiredService<ApplicationInitializer>();
+       await applicationInitializer.Initialize();
 
-        IsDesignTime = false;
-        
-        base.OnStartup(e);
+       MainWindow = Services.GetRequiredService<MainWindow>();
+       MainWindow.Show();
+
+       IsDesignTime = false;
+
+       base.OnStartup(e);
         Host.UseDefinitions();
     }
 

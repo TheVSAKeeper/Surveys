@@ -18,13 +18,9 @@ public class ApplicationInitializer(
             await authenticationStore.Initialize();
 
             if (authenticationStore.IsLoggedIn)
-            {
                 homeNavigationService.Navigate();
-            }
             else
-            {
                 loginNavigationService.Navigate();
-            }
         }
         catch (Exception)
         {

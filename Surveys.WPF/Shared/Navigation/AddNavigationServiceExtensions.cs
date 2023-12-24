@@ -9,8 +9,7 @@ public static class AddNavigationServiceExtensions
         where TViewModel : ViewModelBase
     {
         return serviceCollection.AddSingleton<NavigationService<TViewModel>>(services =>
-            new NavigationService<TViewModel>(
-                services.GetRequiredService<NavigationStore>(),
+            new NavigationService<TViewModel>(services.GetRequiredService<NavigationStore>(),
                 services.GetRequiredService<TViewModel>));
     }
 }

@@ -2,8 +2,6 @@
 using Microsoft.Extensions.Hosting;
 using Surveys.WPF.Application.Initialization;
 using Surveys.WPF.Shared.ViewModels;
-using Surveys.WPF.ViewModels;
-using Surveys.WPF.Views.Windows;
 
 namespace Surveys.WPF.Application.DependencyInjection;
 

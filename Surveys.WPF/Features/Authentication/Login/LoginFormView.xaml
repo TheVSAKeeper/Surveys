@@ -23,25 +23,20 @@
 
         <StackPanel Grid.Row="1" Margin="0 10 0 0">
             <TextBlock Text="Password" />
-            <PasswordBox Password="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
-            <!--<Button
-                Margin="0 5 0 0"
-                HorizontalAlignment="Left"
-                Command="{Binding NavigatePasswordResetCommand}"
-                Content="Forgot password?"
-                Style="{StaticResource ButtonLink}" />-->
+            <PasswordBox x:Name="PasswordBox" />
         </StackPanel>
 
         <Button
             Grid.Row="2"
             Margin="0 20 0 0"
             Command="{Binding SubmitCommand}"
+            CommandParameter="{Binding ElementName=PasswordBox}"
             Content="Submit" />
 
-        <!--<Button
+        <Button
             Grid.Row="3"
             Margin="0 10 0 0"
             Command="{Binding NavigateRegisterCommand}"
-            Content="Need an account? Register"/>-->
+            Content="Need an account? Register"/>
     </Grid>
 </UserControl>

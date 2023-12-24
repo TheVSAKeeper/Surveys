@@ -30,7 +30,7 @@ public class MainWindowViewModel : TitledViewModel
     private static async void NewMethod()
     {
         AuthenticationStore authenticationStore = App.Services.GetRequiredService<AuthenticationStore>();
-        
+
         if (authenticationStore.IsLoggedIn)
         {
             MessageBox.Show($"Loaded user {authenticationStore.User?.FirstName}");

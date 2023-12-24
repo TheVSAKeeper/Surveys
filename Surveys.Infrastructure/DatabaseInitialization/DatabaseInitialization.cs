@@ -51,6 +51,7 @@ public static class DatabaseInitialization
         ApplicationUser developer = new()
         {
             UserName = "Superuser",
+            DisplayName = "Superuser",
             FirstName = "Survey",
             LastName = "Administrator",
             Patronymic = "Patronymic",
@@ -59,14 +60,9 @@ public static class DatabaseInitialization
             EmailConfirmed = true,
             PhoneNumberConfirmed = true,
             SecurityStamp = Guid.NewGuid().ToString("D"),
-            ApplicationUserProfile = new ApplicationUserProfile
+            Roles = new List<ApplicationRole>
             {
-                CreatedAt = DateTime.UtcNow,
-                CreatedBy = "SEED",
-                Roles = new List<ApplicationRole>
-                {
-                    administratorRole
-                }
+                administratorRole
             }
         };
 
@@ -84,7 +80,7 @@ public static class DatabaseInitialization
             if (result.Succeeded == false)
                 throw new InvalidOperationException("Cannot create account");
 
-            UserManager<ApplicationUser>? userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
+            UserManager<ApplicationUser>? userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
             foreach (string role in roles)
             {
@@ -158,8 +154,8 @@ public static class DatabaseInitialization
             .ToArray();
 
         logger.LogDebug("[DatabaseInitialization] Founded diagnosis: {FoundedDiagnosisCount}. Added: {AddedDiagnosisCount}",
-                        lines.Length,
-                        diagnosis.Length);
+            lines.Length,
+            diagnosis.Length);
 
         await context.Diagnoses.AddRangeAsync(diagnosis);
         await context.SaveChangesAsync();
