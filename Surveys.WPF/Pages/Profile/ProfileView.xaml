@@ -6,6 +6,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewProfile="clr-namespace:Surveys.WPF.Features.Authentication.ViewProfile"
     xmlns:profile="clr-namespace:Surveys.WPF.Pages.Profile"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    Background="{DynamicResource MaterialDesignPaper}"
+    TextElement.FontWeight="Medium"
+    TextElement.FontSize="14"
+    FontFamily="{materialDesign:MaterialDesignFont}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d" d:DataContext="{d:DesignInstance profile:ProfileViewModel}">

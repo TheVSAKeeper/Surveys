@@ -1,5 +1,4 @@
-﻿using System.Security;
-using System.Text.Json;
+﻿using System.Text.Json;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Surveys.Infrastructure;
@@ -7,7 +6,7 @@ using Surveys.WPF.Properties;
 
 namespace Surveys.WPF.Features.Authentication;
 
-public class AuthenticationStore(UserManager<ApplicationUser> userManager)
+public class AuthenticationStore(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
 {
     public ApplicationUser? User { get; private set; }
 
@@ -74,8 +73,13 @@ public class AuthenticationStore(UserManager<ApplicationUser> userManager)
         Settings.Default.Save();
     }
 
-    public async Task<IdentityResult> CreateUserAsync(string username, string password, string role)
+    public async Task<IdentityResult> CreateUserAsync(string username, string password, string roleName)
     {
+        ApplicationRole? role = await roleManager.FindByNameAsync(roleName);
+
+        if (role == null)
+            return IdentityResult.Failed();
+
         ApplicationUser user = new()
         {
             Id = Guid.NewGuid(),
@@ -86,12 +90,17 @@ public class AuthenticationStore(UserManager<ApplicationUser> userManager)
             Patronymic = string.Empty,
             EmailConfirmed = true,
             PhoneNumberConfirmed = true,
-            SecurityStamp = Guid.NewGuid().ToString("D")
+            SecurityStamp = Guid.NewGuid().ToString("D"), 
+            Roles = new List<ApplicationRole>
+            {
+                role
+            }
         };
 
+        
+     //   ApplicationRole? role = await roleStore.FindByNameAsync(roleName.ToUpper());
         IdentityResult createResult = await userManager.CreateAsync(user, password);
-        IdentityResult addRoleResult = await userManager.AddToRoleAsync(user, role);
 
-        return addRoleResult.Succeeded == false ? addRoleResult : createResult;
+        return createResult;
     }
 }

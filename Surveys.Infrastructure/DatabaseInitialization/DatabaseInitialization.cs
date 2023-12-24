@@ -80,11 +80,11 @@ public static class DatabaseInitialization
             if (result.Succeeded == false)
                 throw new InvalidOperationException("Cannot create account");
 
-            UserManager<ApplicationUser>? userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+            UserManager<ApplicationUser> userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
             foreach (string role in roles)
             {
-                IdentityResult roleAdded = await userManager!.AddToRoleAsync(developer, role);
+                IdentityResult roleAdded = await userManager.AddToRoleAsync(developer, role);
 
                 if (roleAdded.Succeeded)
                     await context.SaveChangesAsync();
