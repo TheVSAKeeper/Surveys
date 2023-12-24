@@ -6,7 +6,6 @@
         xmlns:vms="clr-namespace:Surveys.WPF.Pages.Home"
         xmlns:profile="clr-namespace:Surveys.WPF.Pages.Profile"
         xmlns:login="clr-namespace:Surveys.WPF.Pages.Login"
-        xmlns:register="clr-namespace:Surveys.WPF.Pages.Register"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
@@ -18,9 +17,6 @@
     <ScrollViewer VerticalScrollBarVisibility="Auto">
         <ContentControl Content="{Binding CurrentViewModel}">
             <ContentControl.Resources>
-                <DataTemplate DataType="{x:Type register:RegisterViewModel}">
-                    <register:RegisterView />
-                </DataTemplate>
                 <DataTemplate DataType="{x:Type login:LoginViewModel}">
                     <login:LoginView />
                 </DataTemplate>

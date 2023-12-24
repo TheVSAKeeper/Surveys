@@ -13,8 +13,7 @@ public static class AddProfilePageExtensions
     {
         host.ConfigureServices(serviceCollection =>
         {
-            serviceCollection.AddTransient<ProfileViewModel>(services => new ProfileViewModel(services.GetRequiredService<AuthenticationStore>(),
-                services.GetRequiredService<NavigationService<HomeViewModel>>()));
+            serviceCollection.AddTransient<ProfileViewModel>();
 
             serviceCollection.AddNavigationService<ProfileViewModel>();
         });

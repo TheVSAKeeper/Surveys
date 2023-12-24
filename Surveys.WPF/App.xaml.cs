@@ -18,7 +18,6 @@ public partial class App : System.Windows.Application
         .AddMainWindow()
         .AddHomePage()
         .AddLoginPage()
-        .AddRegisterPage()
         .AddProfilePage()
         .Build();
 
@@ -32,15 +31,15 @@ public partial class App : System.Windows.Application
     {
         await Host.StartAsync();
 
-       ApplicationInitializer applicationInitializer = Services.GetRequiredService<ApplicationInitializer>();
-       await applicationInitializer.Initialize();
+        ApplicationInitializer applicationInitializer = Services.GetRequiredService<ApplicationInitializer>();
+        await applicationInitializer.Initialize();
 
-       MainWindow = Services.GetRequiredService<MainWindow>();
-       MainWindow.Show();
+        MainWindow = Services.GetRequiredService<MainWindow>();
+        MainWindow.Show();
 
-       IsDesignTime = false;
+        IsDesignTime = false;
 
-       base.OnStartup(e);
+        base.OnStartup(e);
         Host.UseDefinitions();
     }
 

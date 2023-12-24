@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -21,9 +20,9 @@ public class DbContextDefinition : AppDefinition
             .AddRoles<ApplicationRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             //.AddUserStore<ApplicationUserStore>()
-           // .AddRoleStore<ApplicationRoleStore>()
-           // .AddUserManager<UserManager<ApplicationUser>>()
-          ;
+            // .AddRoleStore<ApplicationRoleStore>()
+            // .AddUserManager<UserManager<ApplicationUser>>()
+            ;
 
         services.AddScoped<ApplicationUserStore>();
         services.AddScoped<ApplicationRoleStore>();

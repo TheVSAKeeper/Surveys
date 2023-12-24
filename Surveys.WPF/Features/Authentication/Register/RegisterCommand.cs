@@ -6,22 +6,11 @@ using Surveys.WPF.Shared.Navigation;
 
 namespace Surveys.WPF.Features.Authentication.Register;
 
-public class RegisterCommand : AsyncCommandBase
+public class RegisterCommand(
+    RegisterFormViewModel registerViewModel,
+    AuthenticationStore authenticationStore)
+    : AsyncCommandBase
 {
-    private readonly AuthenticationStore _authenticationStore;
-    private readonly INavigationService _loginNavigationService;
-    private readonly RegisterFormViewModel _registerViewModel;
-
-    public RegisterCommand(
-        RegisterFormViewModel registerViewModel,
-        AuthenticationStore authenticationStore,
-        INavigationService loginNavigationService)
-    {
-        _registerViewModel = registerViewModel;
-        _authenticationStore = authenticationStore;
-        _loginNavigationService = loginNavigationService;
-    }
-
     protected override async Task ExecuteAsync(object? parameter)
     {
         try
@@ -29,7 +18,7 @@ public class RegisterCommand : AsyncCommandBase
             if (parameter is not PasswordBox passwordBox)
                 return;
 
-            IdentityResult result = await _authenticationStore.CreateUserAsync(_registerViewModel.Username, passwordBox.Password, _registerViewModel.Role);
+            IdentityResult result = await authenticationStore.CreateUserAsync(registerViewModel.Username, passwordBox.Password, registerViewModel.Role);
 
             if (result.Succeeded == false)
             {
@@ -39,8 +28,6 @@ public class RegisterCommand : AsyncCommandBase
             }
 
             MessageBox.Show("Успешно зарегистрирован!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
-
-            _loginNavigationService.Navigate();
         }
         catch (Exception)
         {

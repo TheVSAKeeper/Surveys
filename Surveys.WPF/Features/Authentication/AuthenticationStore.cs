@@ -12,6 +12,11 @@ public class AuthenticationStore(UserManager<ApplicationUser> userManager, RoleM
 
     public bool IsLoggedIn => User != null;
 
+    public bool IsInRole(string roleName)
+    {
+        return User != null && Task.Run(async () => await userManager.IsInRoleAsync(User, roleName)).Result;
+    }
+
     public async Task Initialize()
     {
         string userIdJson = Settings.Default.User;
@@ -90,17 +95,24 @@ public class AuthenticationStore(UserManager<ApplicationUser> userManager, RoleM
             Patronymic = string.Empty,
             EmailConfirmed = true,
             PhoneNumberConfirmed = true,
-            SecurityStamp = Guid.NewGuid().ToString("D"), 
+            SecurityStamp = Guid.NewGuid().ToString("D"),
             Roles = new List<ApplicationRole>
             {
                 role
             }
         };
 
-        
-     //   ApplicationRole? role = await roleStore.FindByNameAsync(roleName.ToUpper());
+        //   ApplicationRole? role = await roleStore.FindByNameAsync(roleName.ToUpper());
         IdentityResult createResult = await userManager.CreateAsync(user, password);
 
         return createResult;
+    }
+
+    public async Task<IdentityResult> UpdateUserAsync(ApplicationUser? user)
+    {
+        if (user == null)
+            return IdentityResult.Failed();
+        
+        return await userManager.UpdateAsync(user);
     }
 }

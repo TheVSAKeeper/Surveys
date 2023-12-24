@@ -5,8 +5,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewProfile="clr-namespace:Surveys.WPF.Features.Authentication.ViewProfile"
+    xmlns:register="clr-namespace:Surveys.WPF.Features.Authentication.Register"
     xmlns:profile="clr-namespace:Surveys.WPF.Pages.Profile"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:converters="clr-namespace:Surveys.WPF.Shared.Converters"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     Background="{DynamicResource MaterialDesignPaper}"
     TextElement.FontWeight="Medium"
@@ -15,19 +17,40 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d" d:DataContext="{d:DesignInstance profile:ProfileViewModel}">
-    <Grid MaxWidth="500" Margin="25">
+    <UserControl.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BtvConverter" />
+    </UserControl.Resources>
+    <Grid Margin="25">
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto"  />
         </Grid.RowDefinitions>
+        <TabControl>
+            <TabItem Header="Профиль">
+                <StackPanel>
+                    <Grid Margin="0 30 0 0">
+                        <viewProfile:ProfileDetailsView DataContext="{Binding ProfileDetailsViewModel}" />
+                    </Grid>
+                </StackPanel>
+            </TabItem>
+            <TabItem Visibility="{Binding IsUserAdministrator, Converter={StaticResource BtvConverter}}"
+                     Header="Регистрация">
+                <StackPanel>
+                    <Grid Margin="0 30 0 0">
+                        <register:RegisterFormView DataContext="{Binding RegisterFormViewModel}" />
+                    </Grid>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
 
-        <TextBlock
-            Grid.Row="0"
-            FontSize="32"
-            Text="Profile" />
-
-        <Grid Grid.Row="1" Margin="0 30 0 0">
-            <viewProfile:ProfileDetailsView DataContext="{Binding ProfileDetailsViewModel}" />
-        </Grid>
+        <Button Grid.Row="1" HorizontalAlignment="Right"
+                Command="{Binding NavigateHomeCommand}">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="0,0,10,0"> На главную</TextBlock>
+                    <materialDesign:PackIcon Kind="Home" />
+                </StackPanel>
+            </Button.Content>
+        </Button>
     </Grid>
 </UserControl>

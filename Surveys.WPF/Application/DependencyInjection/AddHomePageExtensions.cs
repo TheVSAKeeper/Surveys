@@ -15,8 +15,7 @@ public static class AddHomePageExtensions
         host.ConfigureServices(serviceCollection =>
         {
             serviceCollection.AddTransient<HomeViewModel>(services => HomeViewModel.LoadViewModel(services.GetRequiredService<AuthenticationStore>(),
-
-                   services.GetRequiredService<NavigationService<ProfileViewModel>>(),
+                services.GetRequiredService<NavigationService<ProfileViewModel>>(),
                 services.GetRequiredService<NavigationService<LoginViewModel>>()));
 
             serviceCollection.AddNavigationService<HomeViewModel>();

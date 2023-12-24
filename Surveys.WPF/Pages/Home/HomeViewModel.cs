@@ -1,5 +1,4 @@
 ﻿using System.Windows.Input;
-using System.Windows.Markup;
 using Surveys.WPF.Features.Authentication;
 using Surveys.WPF.Features.Authentication.Logout;
 using Surveys.WPF.Pages.Profile;

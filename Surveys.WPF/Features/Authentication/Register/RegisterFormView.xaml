@@ -17,28 +17,23 @@
 
     <StackPanel>
         <StackPanel Margin="0 10 0 0">
-            <TextBlock Text="Username" />
+            <TextBlock Text="Имя пользователя" />
             <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
 
         <StackPanel Margin="0 10 0 0">
-            <TextBlock Text="Password" />
+            <TextBlock Text="Пароль" />
             <PasswordBox x:Name="PasswordBox" />
         </StackPanel>
 
         <StackPanel Margin="0 10 0 0">
-            <TextBlock Text="Confirm Password" />
-            <PasswordBox x:Name="ConfirmPasswordBox" />
-        </StackPanel>   
-        
-        <StackPanel Margin="0 10 0 0">
             <TextBlock Text="Роль" />
-            <ComboBox ItemsSource="{Binding Roles}" SelectedItem="{Binding Role}"></ComboBox>
+            <ComboBox ItemsSource="{Binding Roles}" SelectedItem="{Binding Role}" />
         </StackPanel>
-        
+
         <Button Margin="0 20 0 0"
                 Command="{Binding SubmitCommand}"
                 CommandParameter="{Binding ElementName=PasswordBox}"
-                Content="Submit" />
+                Content="Зарегистрировать" />
     </StackPanel>
 </UserControl>

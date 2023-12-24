@@ -23,7 +23,7 @@
         <TextBlock
             Grid.Row="0"
             FontSize="32"
-            Text="Login" />
+            Text="Вход" />
 
         <Grid Grid.Row="1" Margin="0 20 0 0">
             <login:LoginFormView DataContext="{Binding LoginFormViewModel}" />

@@ -3,7 +3,6 @@ using Microsoft.Extensions.Hosting;
 using Surveys.WPF.Features.Authentication;
 using Surveys.WPF.Pages.Home;
 using Surveys.WPF.Pages.Login;
-using Surveys.WPF.Pages.Register;
 using Surveys.WPF.Shared.Navigation;
 
 namespace Surveys.WPF.Application.DependencyInjection;
@@ -14,10 +13,8 @@ public static class AddLoginPageExtensions
     {
         host.ConfigureServices(serviceCollection =>
         {
-            serviceCollection.AddTransient<LoginViewModel>(services => new LoginViewModel(services.GetRequiredService<AuthenticationStore>(), 
-                services.GetRequiredService<NavigationService<RegisterViewModel>>(),
-                services.GetRequiredService<NavigationService<HomeViewModel>>()
-            ));
+            serviceCollection.AddTransient<LoginViewModel>(services => new LoginViewModel(services.GetRequiredService<AuthenticationStore>(),
+                services.GetRequiredService<NavigationService<HomeViewModel>>()));
 
             serviceCollection.AddNavigationService<LoginViewModel>();
         });

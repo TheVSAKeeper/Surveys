@@ -29,7 +29,7 @@ public class LoginCommand : AsyncCommandBase
             if (parameter is not PasswordBox passwordBox)
                 return;
 
-            SignInResult result = await _authenticationStore.SignInAsync(_loginViewModel.Email, passwordBox.Password);
+            SignInResult result = await _authenticationStore.SignInAsync(_loginViewModel.Username, passwordBox.Password);
 
             if (result.Succeeded == false)
             {
