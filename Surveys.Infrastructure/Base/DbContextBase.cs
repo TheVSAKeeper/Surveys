@@ -58,15 +58,15 @@ public abstract class DbContextBase(DbContextOptions options) : IdentityDbContex
     private void SaveCreated()
     {
         IEnumerable<EntityEntry> createdEntries = ChangeTracker
-                                                  .Entries()
-                                                  .Where(e => e.State == EntityState.Added);
+            .Entries()
+            .Where(e => e.State == EntityState.Added);
 
         foreach (EntityEntry entry in createdEntries)
         {
             if (entry.Entity is IAuditable)
             {
                 object userName = entry.Property(CreatedBy).CurrentValue ?? DefaultUserName;
-                DateTime creationDate = DateTime.Now.ToUniversalTime();
+                DateTime creationDate = DateTime.UtcNow;
 
                 entry.Property(CreatedAt).CurrentValue ??= creationDate;
                 entry.Property(UpdatedAt).CurrentValue ??= creationDate;
@@ -82,15 +82,15 @@ public abstract class DbContextBase(DbContextOptions options) : IdentityDbContex
     private void SaveUpdated()
     {
         IEnumerable<EntityEntry> updatedEntries = ChangeTracker
-                                                  .Entries()
-                                                  .Where(e => e.State == EntityState.Modified);
+            .Entries()
+            .Where(e => e.State == EntityState.Modified);
 
         foreach (EntityEntry entry in updatedEntries)
         {
             if (entry.Entity is IAuditable)
             {
                 entry.Property(UpdatedBy).CurrentValue ??= DefaultUserName;
-                entry.Property(UpdatedAt).CurrentValue = DateTime.Now.ToUniversalTime();
+                entry.Property(UpdatedAt).CurrentValue = DateTime.UtcNow;
             }
 
             LastSaveChangesResult.AddMessage($"ChangeTracker has modified entities: {entry.Entity.GetType()}");

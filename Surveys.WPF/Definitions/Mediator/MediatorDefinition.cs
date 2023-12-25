@@ -10,9 +10,8 @@ public class MediatorDefinition : AppDefinition
 {
     public override void ConfigureServices(IServiceCollection services, HostBuilderContext context)
     {
-        services.AddTransient(typeof(IPipelineBehavior<,>),
-                              typeof(ValidatorBehavior<,>));
+       // services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidatorBehavior<,>));
 
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
+        services.AddMediatR(configuration => configuration.RegisterServicesFromAssemblyContaining<Program>());
     }
 }

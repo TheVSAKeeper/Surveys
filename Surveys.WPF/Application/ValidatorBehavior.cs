@@ -18,10 +18,10 @@ public class ValidatorBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest
     public Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
         List<ValidationFailure> failures = _validators
-                                           .Select(x => x.Validate(new ValidationContext<TRequest>(request)))
-                                           .SelectMany(x => x.Errors)
-                                           .Where(x => x != null)
-                                           .ToList();
+            .Select(x => x.Validate(new ValidationContext<TRequest>(request)))
+            .SelectMany(x => x.Errors)
+            .Where(x => x != null)
+            .ToList();
 
         if (failures.Count == 0)
             return next();

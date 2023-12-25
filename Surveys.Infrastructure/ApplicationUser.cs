@@ -8,11 +8,13 @@ namespace Surveys.Infrastructure;
 /// </summary>
 public class ApplicationUser : IdentityUser<Guid>
 {
-    public string? FirstName { get; set; }
+    public string FirstName { get; set; } = null!;
 
-    public string? LastName { get; set; }
+    public string LastName { get; set; } = null!;
 
-    public Guid? ApplicationUserProfileId { get; set; }
+    public string? Patronymic { get; set; }
 
-    public virtual ApplicationUserProfile? ApplicationUserProfile { get; set; }
+   public string? DisplayName { get; set; }
+
+    public ICollection<ApplicationRole>? Roles { get; set; }
 }

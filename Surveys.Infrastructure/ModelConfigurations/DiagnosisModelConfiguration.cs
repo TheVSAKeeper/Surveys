@@ -9,8 +9,8 @@ public class DiagnosisModelConfiguration : IdentityModelConfigurationBase<Diagno
     protected override void AddBuilder(EntityTypeBuilder<Diagnosis> builder)
     {
         builder.Property(diagnosis => diagnosis.Name)
-               .HasMaxLength(50)
-               .IsRequired();
+            .HasMaxLength(50)
+            .IsRequired();
 
         builder.Property(diagnosis => diagnosis.Description).HasMaxLength(1024);
 

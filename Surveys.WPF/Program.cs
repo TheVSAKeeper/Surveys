@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
-using Surveys.WPF.Definitions.Base;
 
 namespace Surveys.WPF;
 
@@ -13,18 +12,11 @@ internal class Program
         try
         {
             Log.Logger = new LoggerConfiguration()
-                         .MinimumLevel.Debug()
-                         .MinimumLevel.Override("Microsoft",
-                                                LogEventLevel.Information)
-                         .Enrich.FromLogContext()
-                         .WriteTo.Console()
-                         .CreateLogger();
-
-            IHost host = Host.CreateDefaultBuilder(args)
-                             .UseSerilog()
-                             .ConfigureServices((host, serviceCollection) => serviceCollection.AddDefinitions(host,
-                                                                                                              typeof(Program)))
-                             .Build();
+                .MinimumLevel.Debug()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                .Enrich.FromLogContext()
+                .WriteTo.Console()
+                .CreateLogger();
 
             App app = new();
 
@@ -35,12 +27,10 @@ internal class Program
         {
             string type = ex.GetType().Name;
 
-            if (type.Equals("StopTheHostException",
-                            StringComparison.Ordinal))
+            if (type.Equals("StopTheHostException", StringComparison.Ordinal))
                 throw;
 
-            Log.Fatal(ex,
-                      "Unhandled exception");
+            Log.Fatal(ex, "Unhandled exception");
         }
         finally
         {
@@ -49,6 +39,7 @@ internal class Program
     }
 
     public static IHostBuilder CreateHostBuilder(string[] args) => Host
-                                                                   .CreateDefaultBuilder(args)
-                                                                   .ConfigureServices(App.ConfigureServices);
+        .CreateDefaultBuilder(args)
+        .UseSerilog()
+        .ConfigureServices(App.ConfigureServices);
 }

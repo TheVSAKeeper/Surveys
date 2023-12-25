@@ -21,8 +21,6 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<Patient> Patients { get; set; } = null!;
 
     public DbSet<EventItem> EventItems { get; set; } = null!;
-    public DbSet<ApplicationUserProfile> Profiles { get; set; } = null!;
-    public DbSet<AppPermission> Permissions { get; set; } = null!;
 }
 
 public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
