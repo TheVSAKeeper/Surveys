@@ -34,13 +34,13 @@ public partial class App : System.Windows.Application
         ApplicationInitializer applicationInitializer = Services.GetRequiredService<ApplicationInitializer>();
         await applicationInitializer.Initialize();
 
-        MainWindow = Services.GetRequiredService<MainWindow>();
-        MainWindow.Show();
-
         IsDesignTime = false;
 
         base.OnStartup(e);
         Host.UseDefinitions();
+        
+        MainWindow = Services.GetRequiredService<MainWindow>();
+        MainWindow.Show();
     }
 
     protected override async void OnExit(ExitEventArgs e)

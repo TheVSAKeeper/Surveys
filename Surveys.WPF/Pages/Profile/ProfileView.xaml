@@ -4,11 +4,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewProfile="clr-namespace:Surveys.WPF.Features.Authentication.ViewProfile"
     xmlns:register="clr-namespace:Surveys.WPF.Features.Authentication.Register"
     xmlns:profile="clr-namespace:Surveys.WPF.Pages.Profile"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:converters="clr-namespace:Surveys.WPF.Shared.Converters"
+    xmlns:editProfile="clr-namespace:Surveys.WPF.Features.Authentication.EditProfile"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     Background="{DynamicResource MaterialDesignPaper}"
     TextElement.FontWeight="Medium"
@@ -23,13 +23,13 @@
     <Grid Margin="25">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="auto"  />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <TabControl>
             <TabItem Header="Профиль">
                 <StackPanel>
                     <Grid Margin="0 30 0 0">
-                        <viewProfile:ProfileDetailsView DataContext="{Binding ProfileDetailsViewModel}" />
+                        <editProfile:ProfileDetailsView DataContext="{Binding ProfileDetailsViewModel}" />
                     </Grid>
                 </StackPanel>
             </TabItem>

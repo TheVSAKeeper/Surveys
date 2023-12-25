@@ -1,4 +1,4 @@
-﻿namespace Surveys.WPF.ViewModels.Base;
+﻿namespace Surveys.WPF.Views.ViewModels.Base;
 
 public class TitledViewModel(string title) : BaseViewModel
 {

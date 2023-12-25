@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Surveys.WPF.Endpoints.DiagnosisEndpoints.ViewModels;
 using Surveys.WPF.Features.Authentication;
-using Surveys.WPF.ViewModels.Base;
+using Surveys.WPF.Views.ViewModels.Base;
 
-namespace Surveys.WPF.ViewModels;
+namespace Surveys.WPF.Views.ViewModels;
 
 [MarkupExtensionReturnType(typeof(MainWindowViewModel))]
 public class MainWindowViewModel : TitledViewModel

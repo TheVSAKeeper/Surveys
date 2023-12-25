@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Surveys.WPF.Features.Authentication.ViewProfile;
+namespace Surveys.WPF.Features.Authentication.EditProfile;
 
 /// <summary>
 ///     Interaction logic for ProfileDetailsView.xaml

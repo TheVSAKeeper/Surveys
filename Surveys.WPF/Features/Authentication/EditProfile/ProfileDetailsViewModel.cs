@@ -1,32 +1,27 @@
 ﻿using System.Windows.Input;
-using Calabonga.UnitOfWork;
-using Surveys.Infrastructure;
-using Surveys.WPF.Features.Authentication.EditProfile;
-using Surveys.WPF.Pages.Home;
-using Surveys.WPF.Shared.Commands;
-using Surveys.WPF.Shared.Navigation;
+using AutoMapper;
+using MediatR;
 using Surveys.WPF.Shared.ViewModels;
 
-namespace Surveys.WPF.Features.Authentication.ViewProfile;
+namespace Surveys.WPF.Features.Authentication.EditProfile;
 
 public class ProfileDetailsViewModel : ViewModelBase
 {
     private readonly AuthenticationStore _authenticationStore;
-    private ApplicationUser? _user;
+    private UserUpdateViewModel _user;
 
-    public ProfileDetailsViewModel(AuthenticationStore authenticationStore, IUnitOfWork unitOfWork)
+    public ProfileDetailsViewModel(AuthenticationStore authenticationStore, IMediator mediator, IMapper mapper)
     {
         _authenticationStore = authenticationStore;
-        SubmitCommand = new EditProfileCommand(this, unitOfWork);
-        User = authenticationStore.User;
+        SubmitCommand = new EditProfileCommand(this, mediator);
+        _user = mapper.Map<UserUpdateViewModel>(authenticationStore.User);
     }
 
-    public ApplicationUser? User
+    public UserUpdateViewModel User
     {
         get => _user;
         set => Set(ref _user, value);
     }
 
     public ICommand SubmitCommand { get; }
-
 }

@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
-namespace Surveys.WPF.ViewModels.Base;
+namespace Surveys.WPF.Views.ViewModels.Base;
 
 public abstract class BaseViewModel : INotifyPropertyChanged
 {
