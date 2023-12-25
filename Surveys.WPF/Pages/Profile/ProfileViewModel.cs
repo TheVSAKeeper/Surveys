@@ -4,8 +4,8 @@ using MediatR;
 using Surveys.Domain.Base;
 using Surveys.Infrastructure;
 using Surveys.WPF.Features.Authentication;
-using Surveys.WPF.Features.Authentication.EditProfile;
 using Surveys.WPF.Features.Authentication.Register;
+using Surveys.WPF.Features.Authentication.Update;
 using Surveys.WPF.Pages.Home;
 using Surveys.WPF.Shared.Commands;
 using Surveys.WPF.Shared.Navigation;
@@ -21,7 +21,7 @@ public class ProfileViewModel(
     IMapper mapper)
     : ViewModelBase
 {
-    public ProfileDetailsViewModel ProfileDetailsViewModel { get; } = new(authenticationStore, mediator, mapper);
+    public ApplicationUserUpdateViewModel ApplicationUserUpdateViewModel { get; } = new(authenticationStore, mediator, mapper);
     public RegisterFormViewModel RegisterFormViewModel { get; } = new(authenticationStore, roleStore);
 
     public bool IsUserAdministrator => authenticationStore.IsInRole(AppData.SystemAdministratorRoleName);

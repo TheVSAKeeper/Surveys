@@ -102,17 +102,13 @@ public class AuthenticationStore(UserManager<ApplicationUser> userManager, RoleM
             }
         };
 
-        //   ApplicationRole? role = await roleStore.FindByNameAsync(roleName.ToUpper());
         IdentityResult createResult = await userManager.CreateAsync(user, password);
 
         return createResult;
     }
 
-    public async Task<IdentityResult> UpdateUserAsync(ApplicationUser? user)
+    public async Task UpdateUserAsync(Guid id)
     {
-        if (user == null)
-            return IdentityResult.Failed();
-        
-        return await userManager.UpdateAsync(user);
+        User = await userManager.FindByIdAsync(id.ToString()); 
     }
 }

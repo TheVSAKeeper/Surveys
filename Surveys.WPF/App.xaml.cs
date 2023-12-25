@@ -24,7 +24,6 @@ public partial class App : System.Windows.Application
     public static IServiceProvider Services => Host.Services;
 
     internal static void ConfigureServices(HostBuilderContext host, IServiceCollection services) => services
-        .AddSingleton<AuthenticationStore>()
         .AddDefinitions(host, typeof(Program));
 
     protected override async void OnStartup(StartupEventArgs e)

@@ -8,7 +8,7 @@
     xmlns:profile="clr-namespace:Surveys.WPF.Pages.Profile"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:converters="clr-namespace:Surveys.WPF.Shared.Converters"
-    xmlns:editProfile="clr-namespace:Surveys.WPF.Features.Authentication.EditProfile"
+    xmlns:update="clr-namespace:Surveys.WPF.Features.Authentication.Update"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     Background="{DynamicResource MaterialDesignPaper}"
     TextElement.FontWeight="Medium"
@@ -22,16 +22,28 @@
     </UserControl.Resources>
     <Grid Margin="25">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
+            <!--
             <RowDefinition Height="auto" />
+            -->
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TabControl>
-            <TabItem Header="Профиль">
-                <StackPanel>
-                    <Grid Margin="0 30 0 0">
-                        <editProfile:ProfileDetailsView DataContext="{Binding ProfileDetailsViewModel}" />
-                    </Grid>
+        <!--<Button Grid.Row="0" HorizontalAlignment="Right"
+                Command="{Binding NavigateHomeCommand}">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="0,0,10,0"> На главную</TextBlock>
+                    <materialDesign:PackIcon Kind="Home" />
                 </StackPanel>
+            </Button.Content>
+        </Button>-->
+
+        <TabControl Grid.Row="0">
+            <TabItem Header="Профиль">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid Margin="0 30 0 0">
+                        <update:ApplicationUserUpdateView DataContext="{Binding ApplicationUserUpdateViewModel}" />
+                    </Grid>
+                </ScrollViewer>
             </TabItem>
             <TabItem Visibility="{Binding IsUserAdministrator, Converter={StaticResource BtvConverter}}"
                      Header="Регистрация">
@@ -43,14 +55,5 @@
             </TabItem>
         </TabControl>
 
-        <Button Grid.Row="1" HorizontalAlignment="Right"
-                Command="{Binding NavigateHomeCommand}">
-            <Button.Content>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="0,0,10,0"> На главную</TextBlock>
-                    <materialDesign:PackIcon Kind="Home" />
-                </StackPanel>
-            </Button.Content>
-        </Button>
     </Grid>
 </UserControl>

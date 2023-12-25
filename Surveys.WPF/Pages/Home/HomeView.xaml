@@ -28,20 +28,22 @@
             </Grid.ColumnDefinitions>
 
             <Button
+                Style="{DynamicResource MaterialDesignToolButton}"
                 Grid.Column="1"
                 VerticalAlignment="Center"
                 Command="{Binding NavigateProfileCommand}">
                 <TextBlock>
-                    <Run Text="Hello, " /><Run FontWeight="Bold" Text="{Binding Username, Mode=OneWay}" />
+                    <Run Text="Привет, " /><Run FontWeight="Bold" Text="{Binding Username, Mode=OneWay}" />
                     <Run Text="!" />
                 </TextBlock>
             </Button>
 
             <Button
+                Style="{DynamicResource MaterialDesignFloatingActionButton}"
                 Grid.Column="2"
                 Margin="10 0 0 0"
                 Command="{Binding LogoutCommand}"
-                Content="Logout" />
+                Content="{materialDesign:PackIcon Logout}" Width="30" Height="30" />
         </Grid>
     </Grid>
 </UserControl>
