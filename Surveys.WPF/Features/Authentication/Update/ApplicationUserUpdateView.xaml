@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:update="clr-namespace:Surveys.WPF.Features.Authentication.Update"
+    xmlns:converters="clr-namespace:Surveys.WPF.Shared.Converters"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     Background="{DynamicResource MaterialDesignPaper}"
     TextElement.FontWeight="Medium"
@@ -14,33 +15,50 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d" d:DataContext="{d:DesignInstance update:ApplicationUserUpdateViewModel}">
+    <UserControl.Resources>
+        <converters:InvertedBooleanConverter x:Key="InvertedBooleanConverter" />
+    </UserControl.Resources>
     <StackPanel>
         <StackPanel DataContext="{Binding ApplicationUser}">
             <StackPanel Margin="0, 0, 0, 10">
                 <TextBlock Text="Отображаемое имя" />
-                <TextBox Text="{Binding DisplayName}" />
+                <TextBox
+                    IsReadOnly="{Binding ElementName=EditEnabled,Path=IsChecked, Converter={StaticResource InvertedBooleanConverter}}"
+                    Text="{Binding DisplayName}" />
             </StackPanel>
 
             <StackPanel Margin="0, 0, 0, 10">
                 <TextBlock Text="Имя пользователя" />
-                <TextBox Text="{Binding UserName}" />
+                <TextBox
+                    IsReadOnly="{Binding ElementName=EditEnabled,Path=IsChecked, Converter={StaticResource InvertedBooleanConverter}}"
+                    Text="{Binding UserName}" />
             </StackPanel>
 
             <StackPanel Margin="0, 0, 0, 10">
                 <TextBlock Text="Фамилия" />
-                <TextBox Text="{Binding LastName}" />
+                <TextBox
+                    IsReadOnly="{Binding ElementName=EditEnabled,Path=IsChecked, Converter={StaticResource InvertedBooleanConverter}}"
+                    Text="{Binding LastName}" />
             </StackPanel>
 
             <StackPanel Margin="0, 0, 0, 10">
                 <TextBlock Text="Имя" />
-                <TextBox Text="{Binding FirstName}" />
+                <TextBox
+                    IsReadOnly="{Binding ElementName=EditEnabled,Path=IsChecked, Converter={StaticResource InvertedBooleanConverter}}"
+                    Text="{Binding FirstName}" />
             </StackPanel>
 
             <StackPanel Margin="0, 0, 0, 10">
                 <TextBlock Text="Отчество" />
-                <TextBox Text="{Binding Patronymic}" />
+                <TextBox
+                    IsReadOnly="{Binding ElementName=EditEnabled, Path=IsChecked, Converter={StaticResource InvertedBooleanConverter}}"
+                    Text="{Binding Patronymic}" />
             </StackPanel>
         </StackPanel>
-        <Button HorizontalAlignment="Right" Command="{Binding SubmitCommand}" Content="Изменить" />
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+            <CheckBox Margin="0,0,10,0" x:Name="EditEnabled" Content="Редактирование" />
+            <Button HorizontalAlignment="Right" IsEnabled="{Binding ElementName=EditEnabled, Path=IsChecked}"
+                    Command="{Binding SubmitCommand}" Content="Сохранить" />
+        </StackPanel>
     </StackPanel>
 </UserControl>

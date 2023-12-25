@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using MaterialDesignThemes.Wpf;
 using Surveys.WPF.Pages.Home;
 using Surveys.WPF.Pages.Login;
 using Surveys.WPF.Shared.Commands;
@@ -22,6 +23,7 @@ public class MainViewModel : ViewModelBase
         NavigateHomeCommand = new NavigateCommand(homeNavigationService);
         _modalNavigationStore.CurrentViewModelChanged += OnCurrentModalViewModalChanged;
         _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+
     }
 
     public ICommand NavigateHomeCommand { get; }
@@ -30,7 +32,7 @@ public class MainViewModel : ViewModelBase
     public ViewModelBase? CurrentModalViewModel => _modalNavigationStore.CurrentViewModel;
     public bool IsOpen => _modalNavigationStore.IsOpen;
     public bool IsEnabledBar => CurrentViewModel is not LoginViewModel;
-    
+
     private void OnCurrentViewModelChanged()
     {
         OnPropertyChanged(nameof(CurrentViewModel));
