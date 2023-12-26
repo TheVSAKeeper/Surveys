@@ -7,6 +7,7 @@ using Surveys.Domain.Base;
 
 namespace Surveys.Infrastructure.DatabaseInitialization;
 
+// TODO Refactor to non-static class
 public static class DatabaseInitialization
 {
     public static async void SeedUsers(IServiceProvider serviceProvider)
@@ -96,12 +97,14 @@ public static class DatabaseInitialization
         await context.SaveChangesAsync();
     }
 
-    public static async void SeedEvents(IServiceProvider serviceProvider)
+    public static async void SeedDiagnoses(IServiceProvider services)
     {
-        using IServiceScope scope = serviceProvider.CreateScope();
+        using IServiceScope scope = services.CreateScope();
 
-        await using ApplicationDbContext context = scope.ServiceProvider.GetService<ApplicationDbContext>()
-                                                   ?? throw new InvalidOperationException($"{typeof(ApplicationDbContext)} dont registered");
+        ILogger<Diagnosis> logger = services.GetRequiredService<ILogger<Diagnosis>>();
+
+        ApplicationDbContext context = scope.ServiceProvider.GetService<ApplicationDbContext>()
+                                       ?? throw new InvalidOperationException($"{typeof(ApplicationDbContext)} dont registered");
 
         await context.Database.EnsureCreatedAsync();
 
@@ -110,30 +113,10 @@ public static class DatabaseInitialization
         if (pending.Any())
             await context.Database.MigrateAsync();
 
-        if (context.EventItems.Any())
-            return;
-
-        await context.EventItems.AddAsync(new EventItem
-        {
-            CreatedAt = DateTime.UtcNow,
-            Id = Guid.Parse("1467a5b9-e61f-82b0-425b-7ec75f5c5029"),
-            Level = "Information",
-            Logger = "SEED",
-            Message = "Seed method some entities successfully save to ApplicationDbContext"
-        });
-    }
-
-    public static async void SeedDiagnoses(IServiceProvider services)
-    {
-        using IServiceScope scope = services.CreateScope();
-
-        ILogger<Diagnosis> logger = services.GetRequiredService<ILogger<Diagnosis>>();
-        ApplicationDbContext context = await GetApplicationDbContext(scope);
-
         if (context.Diagnoses.Any())
             return;
 
-        const string DiagnosesPath = "diagnoses.txt";
+        const string DiagnosesPath = "Surveys.WPF/Definitions/DataSeedingDefinition/diagnoses.txt";
 
         if (File.Exists(DiagnosesPath) == false)
         {
@@ -159,20 +142,5 @@ public static class DatabaseInitialization
 
         await context.Diagnoses.AddRangeAsync(diagnosis);
         await context.SaveChangesAsync();
-    }
-
-    private static async Task<ApplicationDbContext> GetApplicationDbContext(IServiceScope scope)
-    {
-        ApplicationDbContext context = scope.ServiceProvider.GetService<ApplicationDbContext>()
-                                       ?? throw new InvalidOperationException($"{typeof(ApplicationDbContext)} dont registered");
-
-        await context.Database.EnsureCreatedAsync();
-
-        IEnumerable<string> pending = await context.Database.GetPendingMigrationsAsync();
-
-        if (pending.Any())
-            await context.Database.MigrateAsync();
-
-        return context;
     }
 }
