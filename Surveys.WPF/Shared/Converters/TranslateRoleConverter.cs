@@ -15,11 +15,11 @@ public class TranslateRoleConverter : IValueConverter
 
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        return value == null ? string.Empty : _roles.FirstOrDefault(pair => pair.Key == (string)value);
+        return value == null ? string.Empty : _roles.FirstOrDefault(pair => pair.Key == (string)value).Value;
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        return value == null ? string.Empty : _roles.FirstOrDefault(pair => pair.Value == (string)value);
+        return value == null ? string.Empty : _roles.FirstOrDefault(pair => pair.Value == (string)value).Key;
     }
 }

@@ -5,12 +5,17 @@ using Surveys.WPF.Shared.Commands;
 
 namespace Surveys.WPF.Features.Authentication.Update;
 
-public class ApplicationUserUpdateCommand(ApplicationUserUpdateViewModel applicationUserUpdateViewModel, IMediator mediator, AuthenticationStore authenticationStore)
+public class ApplicationUserUpdateCommand(ApplicationUserUpdateViewModel viewModel, IMediator mediator, AuthenticationStore authenticationStore)
     : AsyncCommandBase
 {
     protected override async Task ExecuteAsync(object? parameter)
     {
-        OperationResult<Guid> result = await mediator.Send(new ApplicationUserUpdateRequest(applicationUserUpdateViewModel.ApplicationUser));
+        viewModel.Validate();
+
+        if (viewModel.HasErrors)
+            return;
+
+        OperationResult<Guid> result = await mediator.Send(new ApplicationUserUpdateRequest(viewModel.ApplicationUser));
         await authenticationStore.UpdateUserAsync(result.Result);
 
         if (result.Ok)

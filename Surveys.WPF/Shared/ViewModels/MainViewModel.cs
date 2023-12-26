@@ -23,7 +23,6 @@ public class MainViewModel : ViewModelBase
         NavigateHomeCommand = new NavigateCommand(homeNavigationService);
         _modalNavigationStore.CurrentViewModelChanged += OnCurrentModalViewModalChanged;
         _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
-
     }
 
     public ICommand NavigateHomeCommand { get; }
