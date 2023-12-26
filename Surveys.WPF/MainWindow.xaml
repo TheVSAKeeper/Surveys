@@ -14,23 +14,24 @@
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="Surveys" Height="450" Width="800" d:DataContext="{d:DesignInstance viewModels:MainViewModel}">
+        Title="Опросы" Height="450" Width="800" d:DataContext="{d:DesignInstance viewModels:MainViewModel}">
     <Grid>
         <Grid.ColumnDefinitions>
-            <!--
-            <RowDefinition Height="auto" />
-            -->
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <StackPanel >
+        
+        <StackPanel Background="{DynamicResource MaterialDesignToolBarBackground}">
             <Button IsEnabled="{Binding IsEnabledBar}"
-                HorizontalAlignment="Right"
+                    HorizontalAlignment="Right"
                     Style="{DynamicResource MaterialDesignToolButton}"
                     Command="{Binding NavigateHomeCommand}"
-                    Content="{materialDesign:PackIcon Home}" Width="30" Height="30">
-                </Button>
+                    Content="{materialDesign:PackIcon Home}" Width="30" Height="30" />
+            <ToggleButton
+                Style="{DynamicResource MaterialDesignFlatToggleButton}"
+                Width="30" Height="30" Content="{materialDesign:PackIcon ThemeLightDark}" Click="OnThemeToggleClicked" />
         </StackPanel>
+        
         <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
             <ContentControl Content="{Binding CurrentViewModel}">
                 <ContentControl.Resources>
