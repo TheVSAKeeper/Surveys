@@ -19,8 +19,6 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
     public DbSet<Survey> Surveys { get; set; } = null!;
     public DbSet<Patient> Patients { get; set; } = null!;
-
-    public DbSet<EventItem> EventItems { get; set; } = null!;
 }
 
 public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
