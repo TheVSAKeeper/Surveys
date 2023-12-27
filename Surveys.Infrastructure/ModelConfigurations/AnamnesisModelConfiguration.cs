@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Surveys.Domain;
 using Surveys.Infrastructure.ModelConfigurations.Base;
 
@@ -8,6 +9,10 @@ public class AnamnesisModelConfiguration : IdentityModelConfigurationBase<Anamne
 {
     protected override void AddBuilder(EntityTypeBuilder<Anamnesis> builder)
     {
+        builder.Property(survey => survey.IsComplete)
+            .HasDefaultValue(false)
+            .IsRequired();
+
         builder.HasOne(anamnesis => anamnesis.AnamnesisTemplate);
         builder.HasMany(anamnesis => anamnesis.Answers);
         builder.HasOne(anamnesis => anamnesis.Survey);

@@ -12,11 +12,12 @@ public class AutomapperDefinition : AppDefinition
         services.AddAutoMapper(typeof(Program));
     }
 
-    public override void ConfigureApplication(IHost host)
+    public override Task ConfigureApplication(IHost host)
     {
         IConfigurationProvider mapper = host.Services.GetRequiredService<IConfigurationProvider>();
 
         mapper.AssertConfigurationIsValid();
+        return Task.CompletedTask;
         //mapper.CompileMappings();
     }
 }
