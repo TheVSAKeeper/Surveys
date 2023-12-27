@@ -16,8 +16,7 @@ public class ApplicationUserUpdateRequestHandler(IUnitOfWork unitOfWork, IMapper
         OperationResult<Guid> operation = OperationResult.CreateResult<Guid>();
         IRepository<ApplicationUser> repository = unitOfWork.GetRepository<ApplicationUser>();
 
-        ApplicationUser? entity = await repository.GetFirstOrDefaultAsync(
-            predicate: x => x.Id == request.Model.Id,
+        ApplicationUser? entity = await repository.GetFirstOrDefaultAsync(predicate: x => x.Id == request.Model.Id,
             disableTracking: false);
 
         if (entity is null)
@@ -40,7 +39,7 @@ public class ApplicationUserUpdateRequestHandler(IUnitOfWork unitOfWork, IMapper
             operation.AddError(exception);
             return operation;
         }
-        
+
         operation.Result = entity.Id;
 
         return operation;

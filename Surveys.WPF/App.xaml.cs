@@ -1,25 +1,17 @@
 ﻿using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Surveys.WPF.Application.DependencyInjection;
-using Surveys.WPF.Application.Initialization;
 using Surveys.WPF.Definitions.Base;
-using Surveys.WPF.Features.Authentication;
+using Surveys.WPF.Definitions.Initialization;
 
 namespace Surveys.WPF;
 
-public partial class App : System.Windows.Application
+public partial class App : Application
 {
     private static IHost? _host;
     public static bool IsDesignTime { get; private set; } = true;
 
-    public static IHost Host => _host ??= Program.CreateHostBuilder(Environment.GetCommandLineArgs())
-        .AddNavigation()
-        .AddMainWindow()
-        .AddHomePage()
-        .AddLoginPage()
-        .AddProfilePage()
-        .Build();
+    public static IHost Host => _host ??= Program.CreateHostBuilder(Environment.GetCommandLineArgs()).Build();
 
     public static IServiceProvider Services => Host.Services;
 
@@ -37,7 +29,7 @@ public partial class App : System.Windows.Application
 
         base.OnStartup(e);
         Host.UseDefinitions();
-        
+
         MainWindow = Services.GetRequiredService<MainWindow>();
         MainWindow.Show();
     }

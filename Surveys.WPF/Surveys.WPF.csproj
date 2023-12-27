@@ -15,6 +15,11 @@
             <XamlRuntime>Wpf</XamlRuntime>
             <SubType>Designer</SubType>
         </Page>
+        <Page Update="Shared\Navigation\Bar\NavigationBarView.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
     </ItemGroup>
 
     <ItemGroup>
@@ -44,10 +49,10 @@
             <LastGenOutput>Settings.Designer.cs</LastGenOutput>
         </None>
         <None Update="Definitions\DataSeedingDefinition\diagnoses.txt">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
         <None Update="appsettings.json">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 
@@ -61,6 +66,10 @@
             <AutoGen>True</AutoGen>
             <DependentUpon>Settings.settings</DependentUpon>
         </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Definitions\Navigation\"/>
     </ItemGroup>
 
 </Project>

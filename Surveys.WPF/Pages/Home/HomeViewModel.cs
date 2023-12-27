@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using Surveys.WPF.Features.Authentication;
 using Surveys.WPF.Features.Authentication.Logout;
+using Surveys.WPF.Pages.Login;
 using Surveys.WPF.Pages.Profile;
 using Surveys.WPF.Shared.Commands;
 using Surveys.WPF.Shared.Navigation;
@@ -14,8 +15,8 @@ public class HomeViewModel : ViewModelBase
 
     public HomeViewModel(
         AuthenticationStore authenticationStore,
-        INavigationService profileNavigationService,
-        INavigationService loginNavigationService)
+        NavigationService<ProfileViewModel> profileNavigationService,
+        NavigationService<LoginViewModel> loginNavigationService)
     {
         _authenticationStore = authenticationStore;
 
@@ -31,7 +32,7 @@ public class HomeViewModel : ViewModelBase
     public static HomeViewModel LoadViewModel(
         AuthenticationStore authenticationStore,
         NavigationService<ProfileViewModel> profileNavigationService,
-        INavigationService loginNavigationService
+        NavigationService<LoginViewModel> loginNavigationService
     )
     {
         HomeViewModel homeViewModel = new(authenticationStore, profileNavigationService, loginNavigationService);

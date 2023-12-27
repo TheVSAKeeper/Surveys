@@ -14,8 +14,8 @@ public class ApplicationUserUpdateDtoValidator : AbstractValidator<ApplicationUs
         RuleFor(user => user.UserName)
             .NotEmpty()
             .MinimumLength(6)
-            .MaximumLength(20);    
-        
+            .MaximumLength(20);
+
         RuleFor(user => user.FirstName)
             .NotEmpty()
             .MinimumLength(6)
