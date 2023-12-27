@@ -14,7 +14,7 @@
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="Опросы" Height="450" Width="800" d:DataContext="{d:DesignInstance viewModels:MainViewModel}">
+        Title="Опросы" Height="600" Width="800" d:DataContext="{d:DesignInstance viewModels:MainViewModel}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />

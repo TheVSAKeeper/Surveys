@@ -1,13 +1,33 @@
 ﻿using FluentValidation;
 
-namespace Surveys.WPF.Features.Authentication.Update
+namespace Surveys.WPF.Features.Authentication.Update;
+
+public class ApplicationUserUpdateDtoValidator : AbstractValidator<ApplicationUserUpdateDto>
 {
-    public class ApplicationUserUpdateDtoValidator : AbstractValidator<ApplicationUserUpdateDto>
+    public ApplicationUserUpdateDtoValidator()
     {
-        public ApplicationUserUpdateDtoValidator()
-        {
-            RuleFor(a => a.DisplayName)
-                .NotEmpty().MinimumLength(10).MaximumLength(30);
-        }
+        RuleFor(user => user.DisplayName)
+            .NotEmpty()
+            .MinimumLength(6)
+            .MaximumLength(30);
+
+        RuleFor(user => user.UserName)
+            .NotEmpty()
+            .MinimumLength(6)
+            .MaximumLength(20);    
+        
+        RuleFor(user => user.FirstName)
+            .NotEmpty()
+            .MinimumLength(6)
+            .MaximumLength(30);
+
+        RuleFor(user => user.LastName)
+            .NotEmpty()
+            .MinimumLength(6)
+            .MaximumLength(30);
+
+        RuleFor(user => user.Patronymic)
+            .MinimumLength(6)
+            .MaximumLength(30);
     }
 }

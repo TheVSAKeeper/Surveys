@@ -43,10 +43,10 @@
             <Generator>SettingsSingleFileGenerator</Generator>
             <LastGenOutput>Settings.Designer.cs</LastGenOutput>
         </None>
-        <None Update="Properties\appsettings.json">
+        <None Update="Definitions\DataSeedingDefinition\diagnoses.txt">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Update="Definitions\DataSeedingDefinition\diagnoses.txt">
+        <None Update="appsettings.json">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
