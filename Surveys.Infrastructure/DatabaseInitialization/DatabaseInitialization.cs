@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Surveys.Domain;
@@ -16,13 +15,6 @@ public static class DatabaseInitialization
 
         await using ApplicationDbContext context = scope.ServiceProvider.GetService<ApplicationDbContext>()
                                                    ?? throw new InvalidOperationException($"{typeof(ApplicationDbContext)} dont registered");
-
-        await context.Database.EnsureCreatedAsync();
-
-        IEnumerable<string> pendingMigrations = await context.Database.GetPendingMigrationsAsync();
-
-        if (pendingMigrations.Any())
-            await context.Database.MigrateAsync();
 
         if (context.Users.Any())
             return;
@@ -105,13 +97,6 @@ public static class DatabaseInitialization
 
         ApplicationDbContext context = scope.ServiceProvider.GetService<ApplicationDbContext>()
                                        ?? throw new InvalidOperationException($"{typeof(ApplicationDbContext)} dont registered");
-
-        await context.Database.EnsureCreatedAsync();
-
-        IEnumerable<string> pending = await context.Database.GetPendingMigrationsAsync();
-
-        if (pending.Any())
-            await context.Database.MigrateAsync();
 
         if (context.Diagnoses.Any())
             return;

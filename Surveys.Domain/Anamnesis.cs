@@ -9,6 +9,8 @@ public class Anamnesis : Identity
 
     public virtual ICollection<AnamnesisAnswer>? Answers { get; set; }
 
+    public bool IsComplete { get; set; }
+
     public Guid SurveyId { get; set; }
     public virtual Survey Survey { get; set; } = null!;
 }

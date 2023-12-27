@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:login="clr-namespace:Surveys.WPF.Features.Authentication.Login"
+    xmlns:login1="clr-namespace:Surveys.WPF.Pages.Login"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     Background="{DynamicResource MaterialDesignPaper}"
     TextElement.FontWeight="Medium"
@@ -13,7 +14,7 @@
     FontFamily="{materialDesign:MaterialDesignFont}"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    mc:Ignorable="d">
+    mc:Ignorable="d" d:DataContext="{d:DesignInstance login1:LoginViewModel}">
     <Grid MaxWidth="500" Margin="25">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
