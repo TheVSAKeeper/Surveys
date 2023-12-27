@@ -109,6 +109,6 @@ public class AuthenticationStore(UserManager<ApplicationUser> userManager, RoleM
 
     public async Task UpdateUserAsync(Guid id)
     {
-        User = await userManager.FindByIdAsync(id.ToString()); 
+        User = await userManager.FindByIdAsync(id.ToString());
     }
 }

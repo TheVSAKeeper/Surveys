@@ -8,6 +8,11 @@ public static class AppDefinitionExtensions
 {
     private static bool Predicate(Type type) => type is { IsAbstract: false, IsInterface: false } && typeof(AppDefinition).IsAssignableFrom(type);
 
+    public static IHostBuilder AddDefinitions(this IHostBuilder builder, params Type[] entryPointsAssembly)
+    {
+        return builder.ConfigureServices((context, collection) => collection.AddDefinitions(context, typeof(Program)));
+    }
+
     public static void AddDefinitions(this IServiceCollection services, HostBuilderContext context, params Type[] entryPointsAssembly)
     {
         ILogger<AppDefinition> logger = services.BuildServiceProvider().GetRequiredService<ILogger<AppDefinition>>();

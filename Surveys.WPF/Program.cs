@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
+using Surveys.WPF.Definitions.Base;
 
 namespace Surveys.WPF;
 
@@ -23,14 +24,14 @@ internal class Program
             app.InitializeComponent();
             app.Run();
         }
-        catch (Exception ex)
+        catch (Exception exception)
         {
-            string type = ex.GetType().Name;
+            string type = exception.GetType().Name;
 
             if (type.Equals("StopTheHostException", StringComparison.Ordinal))
                 throw;
 
-            Log.Fatal(ex, "Unhandled exception");
+            Log.Fatal(exception, "Unhandled exception");
         }
         finally
         {
@@ -41,5 +42,5 @@ internal class Program
     public static IHostBuilder CreateHostBuilder(string[] args) => Host
         .CreateDefaultBuilder(args)
         .UseSerilog()
-        .ConfigureServices(App.ConfigureServices);
+        .AddDefinitions(typeof(Program));
 }

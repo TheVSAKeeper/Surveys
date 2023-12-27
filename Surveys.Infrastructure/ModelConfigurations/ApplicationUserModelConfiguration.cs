@@ -10,11 +10,11 @@ public class ApplicationUserModelConfiguration : IEntityTypeConfiguration<Applic
         builder.Property(user => user.FirstName)
             .HasMaxLength(50)
             .IsRequired();
-        
+
         builder.Property(user => user.LastName)
             .HasMaxLength(50)
             .IsRequired();
-        
+
         builder.Property(user => user.Patronymic).HasMaxLength(50);
         builder.Property(user => user.DisplayName).HasMaxLength(50);
 

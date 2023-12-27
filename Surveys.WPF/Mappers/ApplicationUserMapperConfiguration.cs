@@ -9,6 +9,7 @@ public class ApplicationUserMapperConfiguration : Profile
     public ApplicationUserMapperConfiguration()
     {
         CreateMap<ApplicationUser, ApplicationUserUpdateDto>();
+
         CreateMap<ApplicationUserUpdateDto, ApplicationUser>()
             .ForMember(user => user.Roles, expression => expression.Ignore())
             .ForMember(user => user.NormalizedUserName, expression => expression.Ignore())

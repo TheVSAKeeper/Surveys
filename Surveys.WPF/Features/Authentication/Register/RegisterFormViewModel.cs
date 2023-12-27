@@ -1,7 +1,5 @@
 ﻿using System.Windows.Input;
 using Surveys.Infrastructure;
-using Surveys.WPF.Shared.Commands;
-using Surveys.WPF.Shared.Navigation;
 using Surveys.WPF.Shared.ViewModels;
 
 namespace Surveys.WPF.Features.Authentication.Register;
@@ -24,7 +22,6 @@ public class RegisterFormViewModel : ViewModelBase
         get => _username;
         set => Set(ref _username, value);
     }
-    
 
     public string? Role
     {

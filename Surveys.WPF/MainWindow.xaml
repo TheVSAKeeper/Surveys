@@ -8,30 +8,24 @@
         xmlns:login="clr-namespace:Surveys.WPF.Pages.Login"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewModels="clr-namespace:Surveys.WPF.Shared.ViewModels"
+        xmlns:bar="clr-namespace:Surveys.WPF.Shared.Navigation.Bar"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="Опросы" Height="450" Width="800" d:DataContext="{d:DesignInstance viewModels:MainViewModel}">
+        Title="Опросы" Height="600" Width="800" d:DataContext="{d:DesignInstance viewModels:MainViewModel}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        
-        <StackPanel Background="{DynamicResource MaterialDesignToolBarBackground}">
-            <Button IsEnabled="{Binding IsEnabledBar}"
-                    HorizontalAlignment="Right"
-                    Style="{DynamicResource MaterialDesignToolButton}"
-                    Command="{Binding NavigateHomeCommand}"
-                    Content="{materialDesign:PackIcon Home}" Width="30" Height="30" />
-            <ToggleButton
-                Style="{DynamicResource MaterialDesignFlatToggleButton}"
-                Width="30" Height="30" Content="{materialDesign:PackIcon ThemeLightDark}" Click="OnThemeToggleClicked" />
+
+        <StackPanel Grid.Column="0" Background="{DynamicResource MaterialDesignToolBarBackground}">
+            <bar:NavigationBarView DataContext="{Binding NavigationBarViewModel}" />
         </StackPanel>
-        
+
         <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
             <ContentControl Content="{Binding CurrentViewModel}">
                 <ContentControl.Resources>
