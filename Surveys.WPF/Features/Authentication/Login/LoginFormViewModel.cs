@@ -1,5 +1,4 @@
 ﻿using System.Windows.Input;
-using System.Windows.Markup;
 using Surveys.WPF.Shared.Navigation;
 using Surveys.WPF.Shared.ViewModels;
 

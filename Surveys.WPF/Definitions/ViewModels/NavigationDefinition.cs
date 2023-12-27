@@ -1,14 +1,15 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Surveys.WPF.Definitions.Base;
-using Surveys.WPF.Features.Authentication;
+using Surveys.WPF.Shared.Navigation;
 
-namespace Surveys.WPF.Application.DependencyInjection;
+namespace Surveys.WPF.Definitions.ViewModels;
 
-public class AuthenticationStoreDefinition : AppDefinition
+public class NavigationDefinition : AppDefinition
 {
     public override void ConfigureServices(IServiceCollection services, HostBuilderContext context)
     {
-        services.AddSingleton<AuthenticationStore>();
+        services.AddSingleton<NavigationStore>();
+        services.AddSingleton<ModalNavigationStore>();
     }
 }

@@ -3,7 +3,7 @@
 namespace Surveys.WPF.Features.Authentication.Login;
 
 /// <summary>
-///     Interaction logic for LoginFormView.xaml
+///     Interaction logic for NavigationBarView.xaml
 /// </summary>
 public partial class LoginFormView : UserControl
 {

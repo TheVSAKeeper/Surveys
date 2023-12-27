@@ -2,12 +2,12 @@
 using Microsoft.Extensions.Hosting;
 using Surveys.WPF.Definitions.Base;
 
-namespace Surveys.WPF.Definitions.Mediator;
+namespace Surveys.WPF.Definitions.AuthenticationStore;
 
-public class MediatorDefinition : AppDefinition
+public class AuthenticationStoreDefinition : AppDefinition
 {
     public override void ConfigureServices(IServiceCollection services, HostBuilderContext context)
     {
-        services.AddMediatR(configuration => configuration.RegisterServicesFromAssemblyContaining<Program>());
+        services.AddSingleton<Features.Authentication.AuthenticationStore>();
     }
 }

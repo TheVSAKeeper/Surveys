@@ -1,13 +1,12 @@
 ﻿using System.Windows;
-using Surveys.WPF.Features.Authentication;
 using Surveys.WPF.Pages.Home;
 using Surveys.WPF.Pages.Login;
 using Surveys.WPF.Shared.Navigation;
 
-namespace Surveys.WPF.Application.Initialization;
+namespace Surveys.WPF.Definitions.Initialization;
 
 public class ApplicationInitializer(
-    AuthenticationStore authenticationStore,
+    Features.Authentication.AuthenticationStore authenticationStore,
     NavigationService<HomeViewModel> homeNavigationService,
     NavigationService<LoginViewModel> loginNavigationService)
 {

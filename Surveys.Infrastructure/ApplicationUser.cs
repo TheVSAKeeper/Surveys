@@ -14,7 +14,7 @@ public class ApplicationUser : IdentityUser<Guid>
 
     public string? Patronymic { get; set; }
 
-   public string? DisplayName { get; set; }
+    public string? DisplayName { get; set; }
 
     public ICollection<ApplicationRole>? Roles { get; set; }
 }

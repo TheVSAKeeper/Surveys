@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using Microsoft.AspNetCore.Identity;
 using Surveys.WPF.Shared.Commands;
-using Surveys.WPF.Shared.Navigation;
 
 namespace Surveys.WPF.Features.Authentication.Register;
 
