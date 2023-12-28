@@ -13,7 +13,7 @@ public static class AppDefinitionExtensions
         return builder.ConfigureServices((context, collection) => collection.AddDefinitions(context, entryPointsAssembly));
     }
 
-    public static void AddDefinitions(this IServiceCollection services, HostBuilderContext context, params Type[] entryPointsAssembly)
+    private static void AddDefinitions(this IServiceCollection services, HostBuilderContext context, params Type[] entryPointsAssembly)
     {
         ILogger<AppDefinition> logger = services.BuildServiceProvider().GetRequiredService<ILogger<AppDefinition>>();
         List<IAppDefinition> addedDefinitions = [];

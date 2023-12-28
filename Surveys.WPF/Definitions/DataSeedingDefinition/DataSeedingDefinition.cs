@@ -8,11 +8,11 @@ public class DataSeedingDefinition : AppDefinition
 {
     public override int OrderIndex => 1;
 
-    public override Task ConfigureApplication(IHost host)
+    public override async Task ConfigureApplication(IHost host)
     {
-        DatabaseInitialization.SeedUsers(host.Services);
-        DatabaseInitialization.SeedDiagnoses(host.Services);
-
-        return Task.CompletedTask;
+        DatabaseInitializer initializer = new(host.Services);
+        
+      await  initializer.SeedUsers();
+      await   initializer.SeedDiagnoses();
     }
 }

@@ -69,4 +69,8 @@
         </Compile>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Features\Surveys\" />
+    </ItemGroup>
+
 </Project>
