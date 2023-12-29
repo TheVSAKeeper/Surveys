@@ -1,6 +1,5 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
 using Surveys.Infrastructure;
 using Surveys.WPF.Properties;
 
@@ -29,12 +28,6 @@ public class AuthenticationStore(UserManager<ApplicationUser> userManager, RoleM
         if (userId == null)
             return;
 
-        /*using (IServiceScope scope = App.Host.Services.CreateScope())
-        {
-            UserManager<ApplicationUser> temp = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            User = await temp.FindByIdAsync(userId.ToString()!);
-        }*/
-        
         User = await userManager.FindByIdAsync(userId.ToString()!);
 
         SaveAuthenticationState();

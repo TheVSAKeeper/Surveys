@@ -8,9 +8,11 @@ namespace Surveys.Infrastructure.DatabaseInitialization;
 
 public class DatabaseInitializer
 {
+    private const string DataPath = @"Definitions\DataSeedingDefinition\";
+    
     private readonly ApplicationDbContext _context;
-    private readonly IServiceScope _scope;
     private readonly ILogger<DatabaseInitializer> _logger;
+    private readonly IServiceScope _scope;
 
     public DatabaseInitializer(IServiceProvider serviceProvider)
     {
@@ -22,7 +24,7 @@ public class DatabaseInitializer
     public async Task SeedUsers()
     {
         _logger.LogDebug("[DatabaseInitializer] SeedUsers start");
-        
+
         if (_context.Users.Any())
             return;
 
@@ -94,7 +96,7 @@ public class DatabaseInitializer
         #endregion
 
         await _context.SaveChangesAsync();
-        
+
         _logger.LogDebug("[DatabaseInitializer] SeedUsers end");
     }
 
@@ -107,7 +109,7 @@ public class DatabaseInitializer
         if (_context.Diagnoses.Any())
             return;
 
-        const string DiagnosesPath = @"Definitions\DataSeedingDefinition\diagnoses.txt";
+        const string DiagnosesPath = DataPath + "diagnoses.txt";
 
         if (File.Exists(DiagnosesPath) == false)
         {
@@ -133,10 +135,10 @@ public class DatabaseInitializer
 
         await _context.Diagnoses.AddRangeAsync(diagnosis);
         await _context.SaveChangesAsync();
-        
+
         _logger.LogDebug("[DatabaseInitializer] SeedDiagnoses end");
     }
-    
+
     public async Task SeedAnamnesisTemplates()
     {
         _logger.LogDebug("[DatabaseInitializer] SeedAnamnesisTemplates start");
@@ -146,7 +148,7 @@ public class DatabaseInitializer
         if (_context.AnamnesisTemplates.Any())
             return;
 
-        const string AnamnesisTemplatesPath = @"Definitions\DataSeedingDefinition\AnamnesisTemplates.txt";
+        const string AnamnesisTemplatesPath = DataPath + "AnamnesisTemplates.txt";
 
         if (File.Exists(AnamnesisTemplatesPath) == false)
         {
@@ -154,25 +156,38 @@ public class DatabaseInitializer
             return;
         }
 
-        string[] lines = await File.ReadAllLinesAsync(AnamnesisTemplatesPath);
+        string lines = await File.ReadAllTextAsync(AnamnesisTemplatesPath);
 
-        Diagnosis[] diagnosis = lines
-            .Select(line => line.Split('-', StringSplitOptions.RemoveEmptyEntries))
-            .Select(parts => new Diagnosis
+        AnamnesisTemplate[] anamnesisTemplates = lines.Split('/', StringSplitOptions.RemoveEmptyEntries)
+            .Select(template =>
             {
-                Id = Guid.NewGuid(),
-                Name = parts[0].Trim(),
-                Description = parts[1].Trim()
+                string[] parts = template.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+                List<Question> questions = parts
+                    .Skip(1)
+                    .Select(question => new Question
+                    {
+                        Id = Guid.NewGuid(),
+                        Content = question.Trim(['-']).Trim()
+                    })
+                    .ToList();
+
+                return new AnamnesisTemplate
+                {
+                    Id = Guid.NewGuid(),
+                    Name = parts[0].Trim(),
+                    Questions = questions
+                };
             })
             .ToArray();
 
-        logger.LogDebug("[DatabaseInitializer] Founded diagnosis: {FoundedDiagnosisCount}. Added: {AddedDiagnosisCount}",
+        logger.LogDebug("[DatabaseInitializer] Founded AnamnesisTemplates: {FoundedAnamnesisTemplatesCount}. Added: {AddedAnamnesisTemplatesCount}",
             lines.Length,
-            diagnosis.Length);
+            anamnesisTemplates.Length);
 
-        await _context.Diagnoses.AddRangeAsync(diagnosis);
+        await _context.AnamnesisTemplates.AddRangeAsync(anamnesisTemplates);
         await _context.SaveChangesAsync();
-        
+
         _logger.LogDebug("[DatabaseInitializer] SeedAnamnesisTemplates end");
     }
 }

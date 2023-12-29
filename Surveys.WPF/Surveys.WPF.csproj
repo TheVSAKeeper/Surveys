@@ -26,7 +26,7 @@
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1"/>
         <PackageReference Include="Calabonga.UnitOfWork" Version="3.1.0"/>
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0"/>
-        <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
+        <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9"/>
         <PackageReference Include="MaterialDesignThemes" Version="4.9.0"/>
         <PackageReference Include="MediatR" Version="12.2.0"/>
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0"/>
@@ -55,6 +55,9 @@
         <None Update="appsettings.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Update="Definitions\DataSeedingDefinition\AnamnesisTemplates.txt">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
@@ -70,7 +73,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\Surveys\" />
+        <Folder Include="Features\AnamnesisTemplate\" />
+        <Folder Include="Features\Surveys\"/>
     </ItemGroup>
 
 </Project>

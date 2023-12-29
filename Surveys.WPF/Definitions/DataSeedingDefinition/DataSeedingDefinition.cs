@@ -11,8 +11,9 @@ public class DataSeedingDefinition : AppDefinition
     public override async Task ConfigureApplication(IHost host)
     {
         DatabaseInitializer initializer = new(host.Services);
-        
-      await  initializer.SeedUsers();
-      await   initializer.SeedDiagnoses();
+
+        await initializer.SeedUsers();
+        await initializer.SeedDiagnoses();
+        await initializer.SeedAnamnesisTemplates();
     }
 }
