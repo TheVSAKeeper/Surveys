@@ -20,6 +20,11 @@
             <XamlRuntime>Wpf</XamlRuntime>
             <SubType>Designer</SubType>
         </Page>
+        <Page Update="Features\AnamnesisTemplate\Show\LoginFormView.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
     </ItemGroup>
 
     <ItemGroup>
@@ -56,7 +61,7 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
         <None Update="Definitions\DataSeedingDefinition\AnamnesisTemplates.txt">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 
@@ -73,7 +78,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Features\AnamnesisTemplate\" />
         <Folder Include="Features\Surveys\"/>
     </ItemGroup>
 
