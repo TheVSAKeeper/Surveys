@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:home="clr-namespace:Surveys.WPF.Pages.Home"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:create="clr-namespace:Surveys.WPF.Features.Anamnesis.Create"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     Background="{DynamicResource MaterialDesignPaper}"
     TextElement.FontWeight="Medium"
@@ -44,6 +45,9 @@
                 Margin="10 0 0 0"
                 Command="{Binding LogoutCommand}"
                 Content="{materialDesign:PackIcon Logout}" Width="30" Height="30" />
+        </Grid>
+        <Grid Grid.Row="1">
+            <create:CreateAnamnesisFormView DataContext="{Binding CreateAnamnesisFormViewModel}" />
         </Grid>
     </Grid>
 </UserControl>
