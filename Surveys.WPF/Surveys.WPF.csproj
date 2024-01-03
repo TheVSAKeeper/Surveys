@@ -77,7 +77,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Features\AnamnesisTemplate\Select\"/>
+        <Folder Include="Features\AnamnesisTemplate\" />
         <Folder Include="Features\Surveys\"/>
     </ItemGroup>
 
