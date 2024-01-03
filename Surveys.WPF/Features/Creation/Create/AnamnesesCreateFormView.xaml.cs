@@ -5,9 +5,9 @@ namespace Surveys.WPF.Features.Anamnesis.Create;
 /// <summary>
 ///     Interaction logic for NavigationBarView.xaml
 /// </summary>
-public partial class CreateAnamnesisFormView : UserControl
+public partial class AnamnesesCreateFormView : UserControl
 {
-    public CreateAnamnesisFormView()
+    public AnamnesesCreateFormView()
     {
         InitializeComponent();
     }

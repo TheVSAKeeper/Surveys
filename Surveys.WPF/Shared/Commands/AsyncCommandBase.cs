@@ -2,17 +2,7 @@
 
 public abstract class AsyncCommandBase(Action<Exception>? onException = null) : CommandBase
 {
-    private bool _isExecuting;
-
-    public bool IsExecuting
-    {
-        get => _isExecuting;
-        private set
-        {
-            _isExecuting = value;
-            OnCanExecuteChanged();
-        }
-    }
+    public bool IsExecuting { get; private set; }
 
     public override bool CanExecute(object? parameter) => IsExecuting == false && base.CanExecute(parameter);
 

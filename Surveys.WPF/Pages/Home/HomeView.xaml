@@ -47,7 +47,7 @@
                 Content="{materialDesign:PackIcon Logout}" Width="30" Height="30" />
         </Grid>
         <Grid Grid.Row="1">
-            <create:CreateAnamnesisFormView DataContext="{Binding CreateAnamnesisFormViewModel}" />
+            <create:AnamnesesCreateFormView DataContext="{Binding AnamnesesCreateFormViewModel}" />
         </Grid>
     </Grid>
 </UserControl>

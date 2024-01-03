@@ -4,14 +4,13 @@ namespace Surveys.WPF.Shared.Commands;
 
 public abstract class CommandBase : ICommand
 {
-    public event EventHandler? CanExecuteChanged;
-
     public virtual bool CanExecute(object? parameter) => true;
 
     public abstract void Execute(object? parameter);
 
-    protected void OnCanExecuteChanged()
+    public event EventHandler? CanExecuteChanged
     {
-        CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        add => CommandManager.RequerySuggested += value;
+        remove => CommandManager.RequerySuggested -= value;
     }
 }
