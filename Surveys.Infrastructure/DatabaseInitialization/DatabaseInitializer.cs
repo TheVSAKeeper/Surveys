@@ -9,7 +9,7 @@ namespace Surveys.Infrastructure.DatabaseInitialization;
 public class DatabaseInitializer
 {
     private const string DataPath = @"Definitions\DataSeedingDefinition\";
-    
+
     private readonly ApplicationDbContext _context;
     private readonly ILogger<DatabaseInitializer> _logger;
     private readonly IServiceScope _scope;
@@ -189,5 +189,55 @@ public class DatabaseInitializer
         await _context.SaveChangesAsync();
 
         _logger.LogDebug("[DatabaseInitializer] SeedAnamnesisTemplates end");
+    }
+
+    public async Task SeedPatients()
+    {
+        _logger.LogDebug("[DatabaseInitializer] SeedPatients start");
+
+        ILogger<Patient> logger = _scope.ServiceProvider.GetRequiredService<ILogger<Patient>>();
+
+        if (_context.Patients.Any())
+            return;
+
+        const string Path = DataPath + "Patients.txt";
+
+        if (File.Exists(Path) == false)
+        {
+            logger.LogError("[DatabaseInitializer] Not found {File}", Path);
+            return;
+        }
+
+        string lines = await File.ReadAllTextAsync(Path);
+
+        Patient[] patients = lines.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+            .Select(s =>
+            {
+                string[] parts = s.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+                return new Patient
+                {
+                    LastName = parts[0],
+                    FirstName = parts[1],
+                    Patronymic = parts[2],
+                    Gender = parts[3] switch
+                    {
+                        "М" => Gender.Male,
+                        "Ж" => Gender.Female,
+                        var _ => Gender.Unspecified
+                    },
+                    BirthDate = DateOnly.Parse(parts[4])
+                };
+            })
+            .ToArray();
+
+        logger.LogDebug("[DatabaseInitializer] Founded AnamnesisTemplates: {FoundedPatientsCount}. Added: {AddedPatientsCount}",
+            lines.Length,
+            patients.Length);
+
+        await _context.Patients.AddRangeAsync(patients);
+        await _context.SaveChangesAsync();
+
+        _logger.LogDebug("[DatabaseInitializer] SeedPatients end");
     }
 }

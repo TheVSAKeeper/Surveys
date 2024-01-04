@@ -2,7 +2,7 @@
 
 namespace Surveys.Domain;
 
-public class Anamnesis : Identity
+public class Anamnesis : Auditable
 {
     public Guid AnamnesisTemplateId { get; set; }
     public virtual AnamnesisTemplate AnamnesisTemplate { get; set; } = null!;

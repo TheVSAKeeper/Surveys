@@ -15,5 +15,6 @@ public class DataSeedingDefinition : AppDefinition
         await initializer.SeedUsers();
         await initializer.SeedDiagnoses();
         await initializer.SeedAnamnesisTemplates();
+        await initializer.SeedPatients();
     }
 }

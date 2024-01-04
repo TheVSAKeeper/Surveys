@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using Calabonga.OperationResults;
+﻿using Calabonga.OperationResults;
 using MediatR;
 using Surveys.WPF.Shared.Commands;
 
@@ -10,13 +9,14 @@ public class AnamnesesCreateCommand(AnamnesesCreateFormViewModel viewModel, IMed
 {
     protected override async Task ExecuteAsync(object? parameter)
     {
-        OperationResult<Domain.Anamnesis> result = await mediator.Send(new AnamnesesCreateRequest());
-
-        if (result.Ok)
-            MessageBox.Show("Пользователь обновлен.", "Успех", MessageBoxButton.OK, MessageBoxImage.None);
-        else
-            MessageBox.Show("Ошибка обновления пользователя.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        if (viewModel.AnamnesisTemplates != null)
+        {
+            OperationResult<List<Domain.Anamnesis>> result = await mediator.Send(new AnamnesesCreateRequest(viewModel.AnamnesisTemplates.ToList()));
+            viewModel.CreatedAnamneses = result.Result;
+        }
     }
 
-    public override bool CanExecute(object? parameter) => IsExecuting == false && viewModel.AnamnesisTemplate is not null;
+    public override bool CanExecute(object? parameter) => IsExecuting == false
+                                                          && viewModel.AnamnesisTemplates != null
+                                                          && viewModel.AnamnesisTemplates.Any(dto => dto.IsSelected);
 }

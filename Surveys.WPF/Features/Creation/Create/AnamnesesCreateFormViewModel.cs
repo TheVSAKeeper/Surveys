@@ -1,50 +1,17 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using AutoMapper;
-using Calabonga.OperationResults;
-using Calabonga.UnitOfWork;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Surveys.Domain;
-using Surveys.WPF.Shared.Commands;
 using Surveys.WPF.Shared.ViewModels;
 
 namespace Surveys.WPF.Features.Creation.Create;
 
-public class GetAllAnamnesisTemplatesCommand(AnamnesesCreateFormViewModel viewModel, IMediator mediator)
-    : AsyncCommandBase
-{
-    protected override async Task ExecuteAsync(object? parameter)
-    {
-        OperationResult<List<AnamnesisTemplate>> result = await mediator.Send(new GetAllAnamnesisTemplatesRequest());
-
-        if (result.Ok)
-            viewModel.AnamnesisTemplates = new ObservableCollection<AnamnesisTemplate>(result.Result!);
-    }
-}
-
-public record GetAllAnamnesisTemplatesRequest : IRequest<OperationResult<List<AnamnesisTemplate>>>;
-
-public class GetAllAnamnesisTemplatesRequestHandler(IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<GetAllAnamnesisTemplatesRequest, OperationResult<List<AnamnesisTemplate>>>
-{
-    public async Task<OperationResult<List<AnamnesisTemplate>>> Handle(GetAllAnamnesisTemplatesRequest request, CancellationToken cancellationToken)
-    {
-        OperationResult<List<AnamnesisTemplate>> operation = OperationResult.CreateResult<List<AnamnesisTemplate>>();
-
-        IList<AnamnesisTemplate> templates = await unitOfWork.GetRepository<AnamnesisTemplate>()
-            .GetAllAsync(disableTracking: true,
-                include: i => i.Include(template => template.Questions));
-
-        return OperationResult.CreateResult(templates.ToList());
-    }
-}
-
 public class AnamnesesCreateFormViewModel : ViewModelBase
 {
-    private AnamnesisTemplate? _template;
-
-    private ObservableCollection<AnamnesisAnswer>? _answers;
-    private ObservableCollection<AnamnesisTemplate>? _anamnesisTemplates;
+    private AnamnesisTemplateDto? _selectedTemplate;
+    private List<Domain.Anamnesis>? _createdAnamneses;
+    private ObservableCollection<AnamnesisTemplateDto>? _anamnesisTemplates;
 
     public AnamnesesCreateFormViewModel()
     {
@@ -54,14 +21,14 @@ public class AnamnesesCreateFormViewModel : ViewModelBase
                 Content = $"Question {x}"
             });
 
-        IEnumerable<AnamnesisTemplate> anamnesisTemplates = Enumerable.Range(0, 10)
-            .Select(x => new AnamnesisTemplate
+        IEnumerable<AnamnesisTemplateDto> anamnesisTemplates = Enumerable.Range(0, 10)
+            .Select(x => new AnamnesisTemplateDto
             {
                 Name = $"Template {x}",
                 Questions = new ObservableCollection<Question>(questions)
             });
 
-        AnamnesisTemplates = new ObservableCollection<AnamnesisTemplate>(anamnesisTemplates);
+        AnamnesisTemplates = new ObservableCollection<AnamnesisTemplateDto>(anamnesisTemplates);
     }
 
     public AnamnesesCreateFormViewModel(IMediator mediator, IMapper mapper)
@@ -71,24 +38,24 @@ public class AnamnesesCreateFormViewModel : ViewModelBase
     }
 
     public ICommand SubmitCommand { get; }
+
     public ICommand RefreshCommand { get; }
 
-    public AnamnesisTemplate? AnamnesisTemplate
+    public List<Domain.Anamnesis>? CreatedAnamneses
     {
-        get => _template;
-        set { Set(ref _template, value); }
+        get => _createdAnamneses;
+        set => Set(ref _createdAnamneses, value);
     }
 
-    public ObservableCollection<AnamnesisAnswer>? Answers
+    public AnamnesisTemplateDto? SelectedTemplate
     {
-        get => _answers;
-        set => Set(ref _answers, value);
+        get => _selectedTemplate;
+        set => Set(ref _selectedTemplate, value);
     }
 
-    public ObservableCollection<AnamnesisTemplate>? AnamnesisTemplates
+    public ObservableCollection<AnamnesisTemplateDto>? AnamnesisTemplates
     {
         get => _anamnesisTemplates;
         set => Set(ref _anamnesisTemplates, value);
     }
-
 }

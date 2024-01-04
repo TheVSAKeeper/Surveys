@@ -5,7 +5,7 @@ using Surveys.Infrastructure.ModelConfigurations.Base;
 
 namespace Surveys.Infrastructure.ModelConfigurations;
 
-public class AnamnesisModelConfiguration : IdentityModelConfigurationBase<Anamnesis>
+public class AnamnesisModelConfiguration : AuditableModelConfigurationBase<Anamnesis>
 {
     protected override void AddBuilder(EntityTypeBuilder<Anamnesis> builder)
     {

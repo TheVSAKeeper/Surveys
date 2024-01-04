@@ -10,8 +10,17 @@ public class Patient : Identity
 
     public string? Patronymic { get; set; }
 
+    public Gender Gender { get; set; }
+
     public DateOnly BirthDate { get; set; }
 
     public virtual ICollection<Survey>? Surveys { get; set; }
     public virtual ICollection<SurveyDiagnosis>? SurveyDiagnoses { get; set; }
+}
+
+public enum Gender
+{
+    Male = 1,
+    Female = 2,
+    Unspecified = 3
 }

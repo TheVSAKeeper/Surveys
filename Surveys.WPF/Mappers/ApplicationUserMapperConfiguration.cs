@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Surveys.Domain;
 using Surveys.Infrastructure;
 using Surveys.WPF.Features.Authentication.Update;
+using Surveys.WPF.Features.Creation.Create;
 
 namespace Surveys.WPF.Mappers;
 
@@ -27,3 +29,21 @@ public class ApplicationUserMapperConfiguration : Profile
             .ForMember(user => user.AccessFailedCount, expression => expression.Ignore());
     }
 }
+
+/*public class AnamnesisTemplateMapperConfiguration : Profile
+{
+    public AnamnesisTemplateMapperConfiguration()
+    {
+        CreateMap<AnamnesisTemplate, AnamnesisTemplateDto>();
+
+        CreateMap<AnamnesisTemplateDto, AnamnesisTemplate>();
+    }
+}
+
+public class AnamnesisMapperConfiguration : Profile
+{
+    public AnamnesisMapperConfiguration()
+    {
+        CreateMap<AnamnesisTemplateDto, Anamnesis>();
+    }
+}*/
