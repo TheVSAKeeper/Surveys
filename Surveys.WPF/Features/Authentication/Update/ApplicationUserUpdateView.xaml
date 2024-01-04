@@ -18,8 +18,8 @@
     <UserControl.Resources>
         <converters:InvertedBooleanConverter x:Key="InvertedBooleanConverter" />
         <converters:BoolToVisibilityConverter x:Key="BtvConverter" />
-
     </UserControl.Resources>
+
     <StackPanel>
         <ListView Foreground="DarkRed"
                   Visibility="{Binding HasErrors, Converter={StaticResource BtvConverter}}"

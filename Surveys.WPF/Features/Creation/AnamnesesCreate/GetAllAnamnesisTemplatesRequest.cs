@@ -6,7 +6,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Surveys.Domain;
 
-namespace Surveys.WPF.Features.Creation.Create;
+namespace Surveys.WPF.Features.Creation.AnamnesesCreate;
 
 public record GetAllAnamnesisTemplatesRequest : IRequest<OperationResult<List<AnamnesisTemplateDto>>>;
 

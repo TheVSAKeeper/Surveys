@@ -1,8 +1,9 @@
 ﻿using Calabonga.OperationResults;
 using MediatR;
+using Surveys.Domain;
 using Surveys.WPF.Shared.Commands;
 
-namespace Surveys.WPF.Features.Creation.Create;
+namespace Surveys.WPF.Features.Creation.AnamnesesCreate;
 
 public class AnamnesesCreateCommand(AnamnesesCreateFormViewModel viewModel, IMediator mediator)
     : AsyncCommandBase
@@ -11,7 +12,7 @@ public class AnamnesesCreateCommand(AnamnesesCreateFormViewModel viewModel, IMed
     {
         if (viewModel.AnamnesisTemplates != null)
         {
-            OperationResult<List<Domain.Anamnesis>> result = await mediator.Send(new AnamnesesCreateRequest(viewModel.AnamnesisTemplates.ToList()));
+            OperationResult<List<Anamnesis>> result = await mediator.Send(new AnamnesesCreateRequest(viewModel.AnamnesisTemplates.ToList()));
             viewModel.CreatedAnamneses = result.Result;
         }
     }

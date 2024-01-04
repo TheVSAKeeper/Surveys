@@ -5,12 +5,12 @@ using MediatR;
 using Surveys.Domain;
 using Surveys.WPF.Shared.ViewModels;
 
-namespace Surveys.WPF.Features.Creation.Create;
+namespace Surveys.WPF.Features.Creation.AnamnesesCreate;
 
 public class AnamnesesCreateFormViewModel : ViewModelBase
 {
     private AnamnesisTemplateDto? _selectedTemplate;
-    private List<Domain.Anamnesis>? _createdAnamneses;
+    private List<Anamnesis>? _createdAnamneses;
     private ObservableCollection<AnamnesisTemplateDto>? _anamnesisTemplates;
 
     public AnamnesesCreateFormViewModel()
@@ -41,7 +41,7 @@ public class AnamnesesCreateFormViewModel : ViewModelBase
 
     public ICommand RefreshCommand { get; }
 
-    public List<Domain.Anamnesis>? CreatedAnamneses
+    public List<Anamnesis>? CreatedAnamneses
     {
         get => _createdAnamneses;
         set => Set(ref _createdAnamneses, value);

@@ -3,7 +3,7 @@ using Calabonga.OperationResults;
 using MediatR;
 using Surveys.WPF.Shared.Commands;
 
-namespace Surveys.WPF.Features.Creation.Create;
+namespace Surveys.WPF.Features.Creation.AnamnesesCreate;
 
 public class GetAllAnamnesisTemplatesCommand(AnamnesesCreateFormViewModel viewModel, IMediator mediator)
     : AsyncCommandBase
