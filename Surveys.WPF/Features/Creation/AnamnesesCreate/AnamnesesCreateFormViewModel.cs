@@ -37,6 +37,7 @@ public class AnamnesesCreateFormViewModel : ViewModelBase
         RefreshCommand = new GetAllAnamnesisTemplatesCommand(this, mediator);
     }
 
+    public Survey? Survey { get; set; }
     public ICommand SubmitCommand { get; }
 
     public ICommand RefreshCommand { get; }

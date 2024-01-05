@@ -4,22 +4,40 @@ using MediatR;
 using Surveys.Domain;
 using Surveys.WPF.Exceptions;
 using Surveys.WPF.Features.Authentication;
+using SurveysArgumentNullException = Surveys.Domain.Exceptions.SurveysArgumentNullException;
 
 namespace Surveys.WPF.Features.Creation.AnamnesesCreate;
 
-public record AnamnesesCreateRequest(List<AnamnesisTemplateDto> Template) : IRequest<OperationResult<List<Anamnesis>>>;
+public record AnamnesesCreateRequest(Survey? SurveyToAdd, List<AnamnesisTemplateDto> Template) : IRequest<OperationResult<List<Anamnesis>>>;
 
 public class AnamnesesCreateRequestHandler(IUnitOfWork unitOfWork, AuthenticationStore authenticationStore) : IRequestHandler<AnamnesesCreateRequest, OperationResult<List<Anamnesis>>>
 {
     public async Task<OperationResult<List<Anamnesis>>> Handle(AnamnesesCreateRequest request, CancellationToken cancellationToken)
     {
-        OperationResult<List<Anamnesis>> operation = OperationResult.CreateResult<List<Anamnesis>>();
+        OperationResult<List<Anamnesis>> result = OperationResult.CreateResult<List<Anamnesis>>();
+
+        if (request.SurveyToAdd is null)
+        {
+            result.AddError(new SurveysArgumentNullException(nameof(request.SurveyToAdd)));
+            return result;
+        }
+
         IRepository<Anamnesis> repository = unitOfWork.GetRepository<Anamnesis>();
+
+        Survey? survey = await unitOfWork.GetRepository<Survey>()
+            .GetFirstOrDefaultAsync(predicate: p => p.Id == request.SurveyToAdd.Id);
+        
+        if (survey is null)
+        {
+            result.AddError(new SurveysArgumentNullException(nameof(survey)));
+            return result;
+        }
 
         List<Anamnesis> anamnesis = request.Template
             .Where(x => x.IsSelected)
             .Select(x => new Anamnesis
             {
+                Survey = survey,
                 AnamnesisTemplateId = x.Id,
                 AnamnesisAnswers = x.Questions.Select(question => new AnamnesisAnswer
                     {
@@ -36,14 +54,14 @@ public class AnamnesesCreateRequestHandler(IUnitOfWork unitOfWork, Authenticatio
 
         if (unitOfWork.LastSaveChangesResult.IsOk == false)
         {
-            operation.AddError(unitOfWork.LastSaveChangesResult.Exception
-                               ?? new SurveysDatabaseSaveException(nameof(Anamnesis)));
+            result.AddError(unitOfWork.LastSaveChangesResult.Exception
+                            ?? new SurveysDatabaseSaveException(nameof(Anamnesis)));
 
-            return operation;
+            return result;
         }
 
-        operation.Result = anamnesis;
+        result.Result = anamnesis;
 
-        return operation;
+        return result;
     }
 }

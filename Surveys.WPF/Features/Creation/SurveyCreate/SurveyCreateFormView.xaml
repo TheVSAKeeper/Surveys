@@ -8,6 +8,7 @@
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:surveyCreate="clr-namespace:Surveys.WPF.Features.Creation.SurveyCreate"
              xmlns:converters="clr-namespace:Surveys.WPF.Shared.Converters"
+             xmlns:anamnesesCreate="clr-namespace:Surveys.WPF.Features.Creation.AnamnesesCreate"
              d:DataContext="{d:DesignInstance surveyCreate:SurveyCreateFormViewModel, d:IsDesignTimeCreatable=True}"
              d:DesignHeight="450"
              d:DesignWidth="800"
@@ -51,6 +52,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -83,7 +85,14 @@
                     Visibility="{Binding Patient}"
                     Content="Добавить"
                     HorizontalAlignment="Left"
+                    Command="{Binding SubmitCommand}"
                     Margin="5,5,5,5" />
+
+            <anamnesesCreate:AnamnesesCreateFormView Grid.ColumnSpan="2"
+                                                     Grid.Row="2"
+                                                     Grid.Column="0"
+                                                     DataContext="{Binding AnamnesesCreateFormViewModel}" />
+
         </Grid>
 
         <ItemsControl Grid.Row="2"
@@ -118,7 +127,6 @@
 
         <Button Grid.Row="3"
                 Content="Сохранить"
-                Command="{Binding SubmitCommand}"
                 Margin="5,5,5,5" />
 
     </Grid>

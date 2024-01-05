@@ -1,14 +1,29 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Surveys.Domain;
+using Surveys.WPF.Features.Creation.AnamnesesCreate;
+using Surveys.WPF.Shared.Commands;
 using Surveys.WPF.Shared.ViewModels;
 
 namespace Surveys.WPF.Features.Creation.SurveyCreate;
 
+public class AddAnamnesesCommand(SurveyCreateFormViewModel viewModel)
+    : CommandBase
+{
+    public override void Execute(object? parameter)
+    {
+    }
+
+    public override bool CanExecute(object? parameter) => true;
+}
+
 public class SurveyCreateFormViewModel : ViewModelBase
 {
+    private bool? _isAddAnamnesesOpen;
     private ObservableCollection<Anamnesis>? _createdAnamneses;
     private Patient? _patient;
     private Survey? _createdSurvey;
@@ -63,6 +78,8 @@ public class SurveyCreateFormViewModel : ViewModelBase
     {
         SubmitCommand = new SurveyCreateCommand(this, mediator);
         RefreshCommand = new GetAllSurveysCommand(this, mediator);
+        AddAnamnesesCommand = new AddAnamnesesCommand(this);
+        AnamnesesCreateFormViewModel = new AnamnesesCreateFormViewModel(mediator, mapper);
     }
 
     public Patient? Patient
@@ -84,5 +101,10 @@ public class SurveyCreateFormViewModel : ViewModelBase
     }
 
     public ICommand SubmitCommand { get; }
+
     public ICommand RefreshCommand { get; }
+
+    public ICommand AddAnamnesesCommand { get; }
+
+    public AnamnesesCreateFormViewModel AnamnesesCreateFormViewModel { get; set; }
 }
