@@ -3,7 +3,6 @@ using AutoMapper;
 using MediatR;
 using Surveys.WPF.Features.Authentication;
 using Surveys.WPF.Features.Authentication.Logout;
-using Surveys.WPF.Features.Creation.AnamnesesCreate;
 using Surveys.WPF.Features.Creation.SurveyCreate;
 using Surveys.WPF.Pages.Login;
 using Surveys.WPF.Pages.Profile;

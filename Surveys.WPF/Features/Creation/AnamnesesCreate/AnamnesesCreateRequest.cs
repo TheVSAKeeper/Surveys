@@ -21,7 +21,7 @@ public class AnamnesesCreateRequestHandler(IUnitOfWork unitOfWork, Authenticatio
             .Select(x => new Anamnesis
             {
                 AnamnesisTemplateId = x.Id,
-                Answers = x.Questions.Select(question => new AnamnesisAnswer
+                AnamnesisAnswers = x.Questions.Select(question => new AnamnesisAnswer
                     {
                         Question = question,
                         Answers = new List<Answer>()

@@ -42,7 +42,7 @@ public class SurveyCreateFormViewModel : ViewModelBase
             .Select(x => new Anamnesis
             {
                 AnamnesisTemplate = anamnesisTemplates[x],
-                Answers = questions.Select(question => new AnamnesisAnswer
+                AnamnesisAnswers = questions.Select(question => new AnamnesisAnswer
                     {
                         Question = question,
                         Answers = new List<Answer>()
@@ -51,9 +51,15 @@ public class SurveyCreateFormViewModel : ViewModelBase
             });
 
         CreatedAnamneses = new ObservableCollection<Anamnesis>(anamneses);
+
+        CreatedSurvey = new Survey
+        {
+            Patient = Patient,
+            CreatedAt = DateTime.UtcNow
+        };
     }
 
-    public SurveyCreateFormViewModel(IMediator mediator, IMapper mapper):this()
+    public SurveyCreateFormViewModel(IMediator mediator, IMapper mapper) : this()
     {
         SubmitCommand = new SurveyCreateCommand(this, mediator);
         RefreshCommand = new GetAllSurveysCommand(this, mediator);

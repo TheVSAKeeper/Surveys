@@ -25,8 +25,8 @@ public class ApplicationInitializer : AppDefinition
         {
             await using ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>()
                                                        ?? throw new InvalidOperationException($"{typeof(ApplicationDbContext)} dont registered");
-            
-           // await context.Database.EnsureDeletedAsync();
+
+            // await context.Database.EnsureDeletedAsync();
             await context.Database.EnsureCreatedAsync();
 
             IEnumerable<string> pendingMigrations = await context.Database.GetPendingMigrationsAsync();
