@@ -10,14 +10,17 @@ public class AnamnesesCreateCommand(AnamnesesCreateFormViewModel viewModel, IMed
 {
     protected override async Task ExecuteAsync(object? parameter)
     {
-        if (viewModel is { AnamnesisTemplates: not null, Survey: not null })
-        {
-            OperationResult<List<Anamnesis>> result = await mediator.Send(new AnamnesesCreateRequest(viewModel.Survey,viewModel.AnamnesisTemplates.ToList()));
-            viewModel.CreatedAnamneses = result.Result;
-        }
+        OperationResult<List<Anamnesis>> result =
+            await mediator.Send(new AnamnesesCreateRequest(viewModel.Survey, viewModel.AnamnesisTemplates!.ToList()));
+
+        viewModel.CreatedAnamneses = result.Result;
     }
 
     public override bool CanExecute(object? parameter) => IsExecuting == false
-                                                          && viewModel.AnamnesisTemplates != null
+                                                          && viewModel is
+                                                          {
+                                                              AnamnesisTemplates: not null
+                                                              // Survey: not null
+                                                          }
                                                           && viewModel.AnamnesisTemplates.Any(dto => dto.IsSelected);
 }

@@ -1,9 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using AutoMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Surveys.Domain;
 using Surveys.WPF.Features.Creation.AnamnesesCreate;
 using Surveys.WPF.Shared.Commands;
@@ -23,8 +21,6 @@ public class AddAnamnesesCommand(SurveyCreateFormViewModel viewModel)
 
 public class SurveyCreateFormViewModel : ViewModelBase
 {
-    private bool? _isAddAnamnesesOpen;
-    private ObservableCollection<Anamnesis>? _createdAnamneses;
     private Patient? _patient;
     private Survey? _createdSurvey;
 
@@ -65,7 +61,7 @@ public class SurveyCreateFormViewModel : ViewModelBase
                     .ToList()
             });
 
-        CreatedAnamneses = new ObservableCollection<Anamnesis>(anamneses);
+        //CreatedAnamneses = new ObservableCollection<Anamnesis>(anamneses);
 
         CreatedSurvey = new Survey
         {
@@ -74,10 +70,9 @@ public class SurveyCreateFormViewModel : ViewModelBase
         };
     }
 
-    public SurveyCreateFormViewModel(IMediator mediator, IMapper mapper) : this()
+    public SurveyCreateFormViewModel(IMediator mediator, IMapper mapper)
     {
         SubmitCommand = new SurveyCreateCommand(this, mediator);
-        RefreshCommand = new GetAllSurveysCommand(this, mediator);
         AddAnamnesesCommand = new AddAnamnesesCommand(this);
         AnamnesesCreateFormViewModel = new AnamnesesCreateFormViewModel(mediator, mapper);
     }
@@ -88,12 +83,6 @@ public class SurveyCreateFormViewModel : ViewModelBase
         set => Set(ref _patient, value);
     }
 
-    public ObservableCollection<Anamnesis>? CreatedAnamneses
-    {
-        get => _createdAnamneses;
-        set => Set(ref _createdAnamneses, value);
-    }
-
     public Survey? CreatedSurvey
     {
         get => _createdSurvey;
@@ -101,8 +90,6 @@ public class SurveyCreateFormViewModel : ViewModelBase
     }
 
     public ICommand SubmitCommand { get; }
-
-    public ICommand RefreshCommand { get; }
 
     public ICommand AddAnamnesesCommand { get; }
 

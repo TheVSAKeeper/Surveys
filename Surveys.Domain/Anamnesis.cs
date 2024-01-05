@@ -11,6 +11,6 @@ public class Anamnesis : Auditable
 
     public bool IsComplete { get; set; }
 
-    public Guid SurveyId { get; set; }
-    public virtual Survey Survey { get; set; } = null!;
+    public Guid? SurveyId { get; set; }
+    public virtual Survey? Survey { get; set; }
 }

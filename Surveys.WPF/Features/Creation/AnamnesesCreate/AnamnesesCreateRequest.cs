@@ -4,7 +4,6 @@ using MediatR;
 using Surveys.Domain;
 using Surveys.WPF.Exceptions;
 using Surveys.WPF.Features.Authentication;
-using SurveysArgumentNullException = Surveys.Domain.Exceptions.SurveysArgumentNullException;
 
 namespace Surveys.WPF.Features.Creation.AnamnesesCreate;
 
@@ -16,36 +15,37 @@ public class AnamnesesCreateRequestHandler(IUnitOfWork unitOfWork, Authenticatio
     {
         OperationResult<List<Anamnesis>> result = OperationResult.CreateResult<List<Anamnesis>>();
 
-        if (request.SurveyToAdd is null)
+        /*if (request.SurveyToAdd is null)
         {
             result.AddError(new SurveysArgumentNullException(nameof(request.SurveyToAdd)));
             return result;
         }
 
-        IRepository<Anamnesis> repository = unitOfWork.GetRepository<Anamnesis>();
 
         Survey? survey = await unitOfWork.GetRepository<Survey>()
             .GetFirstOrDefaultAsync(predicate: p => p.Id == request.SurveyToAdd.Id);
-        
-        if (survey is null)
+
+             if (survey is null)
         {
             result.AddError(new SurveysArgumentNullException(nameof(survey)));
             return result;
         }
+            */
+
+        IRepository<Anamnesis> repository = unitOfWork.GetRepository<Anamnesis>();
 
         List<Anamnesis> anamnesis = request.Template
             .Where(x => x.IsSelected)
             .Select(x => new Anamnesis
             {
-                Survey = survey,
                 AnamnesisTemplateId = x.Id,
                 AnamnesisAnswers = x.Questions.Select(question => new AnamnesisAnswer
                     {
-                        Question = question,
+                        QuestionId = question.Id,
                         Answers = new List<Answer>()
                     })
                     .ToList(),
-                CreatedBy = authenticationStore.User?.DisplayName ?? "Unknown"
+                CreatedBy = authenticationStore.Username
             })
             .ToList();
 

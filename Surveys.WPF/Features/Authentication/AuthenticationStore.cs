@@ -11,6 +11,8 @@ public class AuthenticationStore(UserManager<ApplicationUser> userManager, RoleM
 
     public bool IsLoggedIn => User != null;
 
+    public string Username => User?.DisplayName ?? "Unknown";
+
     public bool IsInRole(string roleName)
     {
         return User != null && Task.Run(async () => await userManager.IsInRoleAsync(User, roleName)).Result;
@@ -18,7 +20,7 @@ public class AuthenticationStore(UserManager<ApplicationUser> userManager, RoleM
 
     public async Task Initialize()
     {
-        string userIdJson = Settings.Default.User;
+        /*string userIdJson = Settings.Default.User;
 
         if (string.IsNullOrEmpty(userIdJson))
             return;
@@ -28,7 +30,9 @@ public class AuthenticationStore(UserManager<ApplicationUser> userManager, RoleM
         if (userId == null)
             return;
 
-        User = await userManager.FindByIdAsync(userId.ToString()!);
+        User = await userManager.FindByIdAsync(userId.ToString()!);*/
+
+        User = await userManager.FindByNameAsync("Superuser");
 
         SaveAuthenticationState();
     }

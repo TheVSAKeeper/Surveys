@@ -5,7 +5,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:surveyCreate="clr-namespace:Surveys.WPF.Features.Creation.SurveyCreate"
              xmlns:converters="clr-namespace:Surveys.WPF.Shared.Converters"
              xmlns:anamnesesCreate="clr-namespace:Surveys.WPF.Features.Creation.AnamnesesCreate"
@@ -20,17 +19,12 @@
     <UserControl.Resources>
         <converters:PatientInfoConverter x:Key="PatientInfoConverter" />
     </UserControl.Resources>
-    <b:Interaction.Triggers>
-        <b:EventTrigger EventName="Loaded">
-            <b:InvokeCommandAction Command="{Binding RefreshCommand}" />
-        </b:EventTrigger>
-    </b:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
         <TextBlock FontSize="18"
@@ -87,14 +81,11 @@
                     HorizontalAlignment="Left"
                     Command="{Binding SubmitCommand}"
                     Margin="5,5,5,5" />
-
-            <anamnesesCreate:AnamnesesCreateFormView Grid.ColumnSpan="2"
-                                                     Grid.Row="2"
-                                                     Grid.Column="0"
-                                                     DataContext="{Binding AnamnesesCreateFormViewModel}" />
-
         </Grid>
 
+        <anamnesesCreate:AnamnesesCreateFormView Grid.Row="3"
+                                                 DataContext="{Binding AnamnesesCreateFormViewModel}" />
+        <!--
         <ItemsControl Grid.Row="2"
                       ItemsSource="{Binding CreatedAnamneses}">
             <ItemsControl.ItemTemplate>
@@ -124,10 +115,12 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+        -->
 
-        <Button Grid.Row="3"
+        <!--<Button Grid.Row="3"
                 Content="Сохранить"
                 Margin="5,5,5,5" />
+                -->
 
     </Grid>
 </UserControl>

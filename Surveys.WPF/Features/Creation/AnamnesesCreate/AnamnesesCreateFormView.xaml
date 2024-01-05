@@ -43,7 +43,7 @@
                                         Binding="{Binding Path=IsSelected}" />
             </DataGrid.Columns>
         </DataGrid>
-        <GroupBox Grid.Row="1"
+        <Expander Grid.Row="1"
                   Header="Вопросы"
                   Margin="0,5,0,5">
             <ListView DataContext="{Binding SelectedTemplate}"
@@ -54,7 +54,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </GroupBox>
+        </Expander>
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>

@@ -20,6 +20,7 @@ public class SurveyModelConfiguration : AuditableModelConfigurationBase<Survey>
         builder.HasOne(survey => survey.Patient);
 
         builder.HasMany(survey => survey.SurveyDiagnoses);
+
         builder.HasMany(survey => survey.Anamneses);
     }
 

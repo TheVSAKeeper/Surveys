@@ -52,6 +52,7 @@ public class DatabaseInitializer
 
         ApplicationUser developer = new()
         {
+            Id = Guid.Parse("35a9b0d1-1206-4b9f-9e9e-0dbaf280d3e8"),
             UserName = "Superuser",
             DisplayName = "Superuser",
             FirstName = "Survey",
