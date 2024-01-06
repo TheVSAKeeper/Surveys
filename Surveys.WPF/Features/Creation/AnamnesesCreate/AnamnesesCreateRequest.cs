@@ -1,6 +1,7 @@
 ﻿using Calabonga.OperationResults;
 using Calabonga.UnitOfWork;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Surveys.Domain;
 using Surveys.Domain.Exceptions;
 using Surveys.WPF.Features.Authentication;
@@ -16,7 +17,7 @@ public class AnamnesesCreateRequestHandler(IUnitOfWork unitOfWork, Authenticatio
         OperationResult<List<Anamnesis>> result = OperationResult.CreateResult<List<Anamnesis>>();
         IRepository<Anamnesis> repository = unitOfWork.GetRepository<Anamnesis>();
 
-        List<Anamnesis> anamnesis = request.Template
+        List<Anamnesis> anamneses = request.Template
             .Where(x => x.IsSelected)
             .Select(x => new Anamnesis
             {
@@ -31,7 +32,7 @@ public class AnamnesesCreateRequestHandler(IUnitOfWork unitOfWork, Authenticatio
             })
             .ToList();
 
-        await repository.InsertAsync(anamnesis, cancellationToken);
+        await repository.InsertAsync(anamneses, cancellationToken);
         await unitOfWork.SaveChangesAsync();
 
         if (unitOfWork.LastSaveChangesResult.IsOk == false)
@@ -42,7 +43,7 @@ public class AnamnesesCreateRequestHandler(IUnitOfWork unitOfWork, Authenticatio
             return result;
         }
 
-        result.Result = anamnesis;
+        result.Result = anamneses;
 
         return result;
     }

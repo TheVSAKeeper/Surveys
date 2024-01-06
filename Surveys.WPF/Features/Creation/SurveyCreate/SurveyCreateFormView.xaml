@@ -25,6 +25,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <TextBlock FontSize="18"
@@ -88,9 +89,8 @@
                                                  Grid.Row="2"
                                                  DataContext="{Binding AnamnesesCreateFormViewModel}"
                                                  Margin="5,5,5,5" />
-        <!--
-        <ItemsControl Grid.Row="2"
-                      ItemsSource="{Binding CreatedAnamneses}">
+        <!--<ItemsControl Grid.Row="4"
+                      ItemsSource="{Binding Anamneses}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Expander Header="{Binding AnamnesisTemplate.Name}">
@@ -117,8 +117,7 @@
                     </Expander>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-        </ItemsControl>
-        -->
+        </ItemsControl>-->
 
         <Button Grid.Row="3"
                 Content="Сохранить"

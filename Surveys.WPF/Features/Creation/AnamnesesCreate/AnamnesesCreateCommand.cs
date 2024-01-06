@@ -20,8 +20,8 @@ public class AnamnesesCreateCommand(AnamnesesCreateFormViewModel viewModel, IMed
             viewModel.CreatedAnamneses = result.Result;
         }
 
-            foreach (AnamnesisTemplateDto template in viewModel.AnamnesisTemplates!)
-                template.IsSelected = false;
+        foreach (AnamnesisTemplateDto template in viewModel.AnamnesisTemplates!)
+            template.IsSelected = false;
     }
 
     public override bool CanExecute(object? parameter) => IsExecuting == false
