@@ -10,12 +10,16 @@ public class SurveyCreateCommand(SurveyCreateFormViewModel viewModel, IMediator 
 {
     protected override async Task ExecuteAsync(object? parameter)
     {
-        if (CanExecute(parameter))
-        {
-            OperationResult<Survey> result = await mediator.Send(new SurveyCreateRequest());
-            viewModel.CreatedSurvey = result.Result;
-        }
+        OperationResult<Survey> result = await mediator.Send(new SurveyCreateRequest(viewModel.Patient!,
+            viewModel.AnamnesesCreateFormViewModel.CreatedAnamneses!));
+
+        viewModel.CreatedSurvey = result.Result;
     }
 
-    public override bool CanExecute(object? parameter) => IsExecuting == false && viewModel.Patient != null;
+    public override bool CanExecute(object? parameter) => IsExecuting == false
+                                                          && viewModel is
+                                                          {
+                                                              Patient: not null,
+                                                              AnamnesesCreateFormViewModel.CreatedAnamneses: not null
+                                                          };
 }

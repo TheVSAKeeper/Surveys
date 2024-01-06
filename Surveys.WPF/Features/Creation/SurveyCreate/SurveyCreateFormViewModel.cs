@@ -4,23 +4,13 @@ using AutoMapper;
 using MediatR;
 using Surveys.Domain;
 using Surveys.WPF.Features.Creation.AnamnesesCreate;
-using Surveys.WPF.Shared.Commands;
 using Surveys.WPF.Shared.ViewModels;
 
 namespace Surveys.WPF.Features.Creation.SurveyCreate;
 
-public class AddAnamnesesCommand(SurveyCreateFormViewModel viewModel)
-    : CommandBase
-{
-    public override void Execute(object? parameter)
-    {
-    }
-
-    public override bool CanExecute(object? parameter) => true;
-}
-
 public class SurveyCreateFormViewModel : ViewModelBase
 {
+    private ObservableCollection<Anamnesis>? _anamneses;
     private Patient? _patient;
     private Survey? _createdSurvey;
 
@@ -73,8 +63,9 @@ public class SurveyCreateFormViewModel : ViewModelBase
     public SurveyCreateFormViewModel(IMediator mediator, IMapper mapper)
     {
         SubmitCommand = new SurveyCreateCommand(this, mediator);
-        AddAnamnesesCommand = new AddAnamnesesCommand(this);
         AnamnesesCreateFormViewModel = new AnamnesesCreateFormViewModel(mediator, mapper);
+
+        AnamnesesCreateFormViewModel.AnamnesesCreated += OnAnamnesesCreated;
     }
 
     public Patient? Patient
@@ -89,9 +80,33 @@ public class SurveyCreateFormViewModel : ViewModelBase
         set => Set(ref _createdSurvey, value);
     }
 
+    public ObservableCollection<Anamnesis>? Anamneses
+    {
+        get => _anamneses;
+        set => Set(ref _anamneses, value);
+    }
+
     public ICommand SubmitCommand { get; }
 
-    public ICommand AddAnamnesesCommand { get; }
-
     public AnamnesesCreateFormViewModel AnamnesesCreateFormViewModel { get; set; }
+
+    private void OnAnamnesesCreated(List<Anamnesis> list)
+    {
+        List<Anamnesis> old;
+
+        if (Anamneses == null) { old = list; }
+        else
+        {
+            old = Anamneses.ToList();
+            old.AddRange(list);
+        }
+
+        Anamneses = new ObservableCollection<Anamnesis>(old);
+    }
+
+    public override void Dispose()
+    {
+        base.Dispose();
+        AnamnesesCreateFormViewModel.AnamnesesCreated -= OnAnamnesesCreated;
+    }
 }

@@ -1,4 +1,4 @@
-﻿namespace Surveys.WPF.Exceptions;
+﻿namespace Surveys.Domain.Exceptions;
 
 public class SurveysInvalidOperationException : InvalidOperationException
 {

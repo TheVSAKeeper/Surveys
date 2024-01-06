@@ -45,7 +45,11 @@ public class AnamnesesCreateFormViewModel : ViewModelBase
     public List<Anamnesis>? CreatedAnamneses
     {
         get => _createdAnamneses;
-        set => Set(ref _createdAnamneses, value);
+        set
+        {
+            Set(ref _createdAnamneses, value);
+            AnamnesesCreated?.Invoke(_createdAnamneses!);
+        }
     }
 
     public AnamnesisTemplateDto? SelectedTemplate
@@ -59,4 +63,6 @@ public class AnamnesesCreateFormViewModel : ViewModelBase
         get => _anamnesisTemplates;
         set => Set(ref _anamnesisTemplates, value);
     }
+
+    public event Action<List<Anamnesis>>? AnamnesesCreated;
 }

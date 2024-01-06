@@ -24,15 +24,16 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <TextBlock FontSize="18"
-                   Visibility="{Binding CreatedSurvey, Converter={StaticResource NullableToVisibilityConverter}}"
+                   Visibility="{Binding CreatedSurvey,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullableToVisibilityConverter}}"
                    Margin="0,0,0,10"
                    HorizontalAlignment="Center">
             <Run Text="Опрос от " />
-            <Run Text="{Binding CreatedSurvey.CreatedAt, Converter={StaticResource DateTimeToLongDateConverter}}" />
+            <Run
+                Text="{Binding CreatedSurvey.CreatedAt,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateTimeToLongDateConverter}}" />
         </TextBlock>
 
         <TextBlock Grid.Row="0"
@@ -74,17 +75,19 @@
                        VerticalAlignment="Center"
                        Margin="0,0,10,0" />
 
-            <Button Grid.Row="1"
-                    Grid.Column="1"
-                    Visibility="{Binding Patient}"
-                    Content="Добавить"
-                    HorizontalAlignment="Left"
-                    Command="{Binding SubmitCommand}"
-                    Margin="5,5,5,5" />
+            <TextBlock Grid.Row="1"
+                       Grid.Column="1"
+                       Visibility="{Binding Patient}"
+                       HorizontalAlignment="Left"
+                       Text="{Binding AnamnesesCreateFormViewModel.CreatedAnamneses.Count, TargetNullValue=Не добавлено, FallbackValue=Не добавлено}"
+                       Margin="5,10,5,10" />
         </Grid>
 
-        <anamnesesCreate:AnamnesesCreateFormView Grid.Row="3"
-                                                 DataContext="{Binding AnamnesesCreateFormViewModel}" />
+        <anamnesesCreate:AnamnesesCreateFormView BorderBrush="Black"
+                                                 BorderThickness="1"
+                                                 Grid.Row="2"
+                                                 DataContext="{Binding AnamnesesCreateFormViewModel}"
+                                                 Margin="5,5,5,5" />
         <!--
         <ItemsControl Grid.Row="2"
                       ItemsSource="{Binding CreatedAnamneses}">
@@ -117,10 +120,10 @@
         </ItemsControl>
         -->
 
-        <!--<Button Grid.Row="3"
+        <Button Grid.Row="3"
                 Content="Сохранить"
-                Margin="5,5,5,5" />
-                -->
+                Margin="5,5,5,5"
+                Command="{Binding SubmitCommand}" />
 
     </Grid>
 </UserControl>
