@@ -13,24 +13,6 @@ public class AnamnesesCreateFormViewModel : ViewModelBase
     private List<Anamnesis>? _createdAnamneses;
     private ObservableCollection<AnamnesisTemplateDto>? _anamnesisTemplates;
 
-    public AnamnesesCreateFormViewModel()
-    {
-        IEnumerable<Question> questions = Enumerable.Range(0, 10)
-            .Select(x => new Question
-            {
-                Content = $"Question {x}"
-            });
-
-        IEnumerable<AnamnesisTemplateDto> anamnesisTemplates = Enumerable.Range(0, 10)
-            .Select(x => new AnamnesisTemplateDto
-            {
-                Name = $"Template {x}",
-                Questions = new ObservableCollection<Question>(questions)
-            });
-
-        AnamnesisTemplates = new ObservableCollection<AnamnesisTemplateDto>(anamnesisTemplates);
-    }
-
     public AnamnesesCreateFormViewModel(IMediator mediator, IMapper mapper)
     {
         SubmitCommand = new AnamnesesCreateCommand(this, mediator);
@@ -45,7 +27,11 @@ public class AnamnesesCreateFormViewModel : ViewModelBase
     public List<Anamnesis>? CreatedAnamneses
     {
         get => _createdAnamneses;
-        set => Set(ref _createdAnamneses, value);
+        set
+        {
+            Set(ref _createdAnamneses, value);
+            AnamnesesCreated?.Invoke(_createdAnamneses!);
+        }
     }
 
     public AnamnesisTemplateDto? SelectedTemplate
@@ -59,4 +45,6 @@ public class AnamnesesCreateFormViewModel : ViewModelBase
         get => _anamnesisTemplates;
         set => Set(ref _anamnesisTemplates, value);
     }
+
+    public event Action<List<Anamnesis>>? AnamnesesCreated;
 }

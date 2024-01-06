@@ -2,8 +2,8 @@
 using Calabonga.OperationResults;
 using Calabonga.UnitOfWork;
 using MediatR;
+using Surveys.Domain.Exceptions;
 using Surveys.Infrastructure;
-using Surveys.WPF.Exceptions;
 
 namespace Surveys.WPF.Features.Authentication.Update;
 

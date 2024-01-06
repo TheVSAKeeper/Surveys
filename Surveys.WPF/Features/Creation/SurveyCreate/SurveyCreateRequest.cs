@@ -2,12 +2,12 @@
 using Calabonga.UnitOfWork;
 using MediatR;
 using Surveys.Domain;
-using Surveys.WPF.Exceptions;
+using Surveys.Domain.Exceptions;
 using Surveys.WPF.Features.Authentication;
 
 namespace Surveys.WPF.Features.Creation.SurveyCreate;
 
-public record SurveyCreateRequest : IRequest<OperationResult<Survey>>;
+public record SurveyCreateRequest(Patient Patient, List<Anamnesis> CreatedAnamneses) : IRequest<OperationResult<Survey>>;
 
 public class SurveyCreateRequestHandler(IUnitOfWork unitOfWork, AuthenticationStore authenticationStore) : IRequestHandler<SurveyCreateRequest, OperationResult<Survey>>
 {
@@ -17,7 +17,9 @@ public class SurveyCreateRequestHandler(IUnitOfWork unitOfWork, AuthenticationSt
 
         Survey survey = new()
         {
-            CreatedBy = authenticationStore.Username
+            CreatedBy = authenticationStore.Username,
+            Anamneses = request.CreatedAnamneses.Select(x => new Anamnesis { Id = x.Id }).ToList(),
+            PatientId = request.Patient.Id
         };
 
         await unitOfWork.GetRepository<Survey>().InsertAsync(survey, cancellationToken);
