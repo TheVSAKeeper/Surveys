@@ -2,7 +2,6 @@
 using Calabonga.OperationResults;
 using MediatR;
 using Surveys.Domain;
-using Surveys.WPF.Features.Creation.AnamnesesCreate;
 using Surveys.WPF.Shared.Commands;
 
 namespace Surveys.WPF.Features.Search.PatientSearch;

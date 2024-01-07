@@ -4,6 +4,7 @@ using AutoMapper;
 using MediatR;
 using Surveys.Domain;
 using Surveys.WPF.Features.Creation.AnamnesesCreate;
+using Surveys.WPF.Features.Search.PatientSearch;
 using Surveys.WPF.Shared.ViewModels;
 
 namespace Surveys.WPF.Features.Creation.SurveyCreate;
@@ -17,9 +18,12 @@ public class SurveyCreateFormViewModel : ViewModelBase
     public SurveyCreateFormViewModel(IMediator mediator, IMapper mapper)
     {
         SubmitCommand = new SurveyCreateCommand(this, mediator);
+        
         AnamnesesCreateFormViewModel = new AnamnesesCreateFormViewModel(mediator, mapper);
+        PatientSearchFormViewModel = new PatientSearchFormViewModel(mediator, mapper);
 
         AnamnesesCreateFormViewModel.AnamnesesCreated += OnAnamnesesCreated;
+        PatientSearchFormViewModel.PatientSelected += OnPatientSelected;
     }
 
     public Patient? Patient
@@ -42,13 +46,22 @@ public class SurveyCreateFormViewModel : ViewModelBase
 
     public ICommand SubmitCommand { get; }
 
-    public AnamnesesCreateFormViewModel AnamnesesCreateFormViewModel { get; set; }
+    public AnamnesesCreateFormViewModel AnamnesesCreateFormViewModel { get; }
+    public PatientSearchFormViewModel PatientSearchFormViewModel { get; }
+
+    private void OnPatientSelected(Patient patient)
+    {
+        Patient = patient;
+    }
 
     private void OnAnamnesesCreated(List<Anamnesis> list)
     {
         List<Anamnesis> old;
 
-        if (Anamneses == null) { old = list; }
+        if (Anamneses == null)
+        {
+            old = list;
+        }
         else
         {
             old = Anamneses.ToList();
@@ -61,6 +74,8 @@ public class SurveyCreateFormViewModel : ViewModelBase
     public override void Dispose()
     {
         base.Dispose();
+
         AnamnesesCreateFormViewModel.AnamnesesCreated -= OnAnamnesesCreated;
+        PatientSearchFormViewModel.PatientSelected -= OnPatientSelected;
     }
 }

@@ -11,6 +11,8 @@ public class PatientSearchFormViewModel : ViewModelBase
 {
     private ObservableCollection<Patient>? _patients;
 
+    private Patient? _selectedPatient;
+
     public PatientSearchFormViewModel()
     {
         Patients = new ObservableCollection<Patient>(Enumerable.Range(0, 20)
@@ -38,5 +40,15 @@ public class PatientSearchFormViewModel : ViewModelBase
         set => Set(ref _patients, value);
     }
 
-    // public event Action<List<Anamnesis>>? AnamnesesCreated;
+    public Patient? SelectedPatient
+    {
+        get => _selectedPatient;
+        set
+        {
+            Set(ref _selectedPatient, value); 
+            PatientSelected?.Invoke(_selectedPatient!);
+        }
+    }
+
+    public event Action<Patient>? PatientSelected;
 }

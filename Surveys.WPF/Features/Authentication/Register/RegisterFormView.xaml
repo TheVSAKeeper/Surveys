@@ -16,7 +16,7 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance register:RegisterFormViewModel}">
     <UserControl.Resources>
-        <converters:TranslateRoleConverter x:Key="TranslateRoleConverter" />
+        <converters:RussificationConverter x:Key="TranslateRoleConverter" />
     </UserControl.Resources>
 
     <StackPanel>

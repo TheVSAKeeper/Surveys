@@ -1,11 +1,8 @@
-﻿using System.Collections.ObjectModel;
-using AutoMapper;
+﻿using AutoMapper;
 using Calabonga.OperationResults;
 using Calabonga.UnitOfWork;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Surveys.Domain;
-using Surveys.WPF.Features.Creation.AnamnesesCreate;
 
 namespace Surveys.WPF.Features.Search.PatientSearch;
 
@@ -15,8 +12,8 @@ public class GetAllPatientsRequestHandler(IUnitOfWork unitOfWork, IMapper mapper
 {
     public async Task<OperationResult<List<Patient>>> Handle(GetAllPatientsRequest request, CancellationToken cancellationToken)
     {
-        IList<Patient> templates = await unitOfWork.GetRepository<Patient>().GetAllAsync(disableTracking: true);
-        
-        return OperationResult.CreateResult(templates.ToList());
+        IList<Patient> patients = await unitOfWork.GetRepository<Patient>().GetAllAsync(disableTracking: true);
+
+        return OperationResult.CreateResult(patients.ToList());
     }
 }

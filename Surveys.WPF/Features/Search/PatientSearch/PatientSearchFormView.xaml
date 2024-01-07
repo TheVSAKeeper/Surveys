@@ -6,6 +6,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:anamnesesCreate="clr-namespace:Surveys.WPF.Features.Search.PatientSearch"
+             xmlns:converters="clr-namespace:Surveys.WPF.Shared.Converters"
              d:DataContext="{d:DesignInstance  anamnesesCreate:PatientSearchFormViewModel, d:IsDesignTimeCreatable=True}"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              Background="{DynamicResource MaterialDesignPaper}"
@@ -15,41 +16,91 @@
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:DateToAgeConverter x:Key="DateToAgeConverter" />
+    </UserControl.Resources>
     <b:Interaction.Triggers>
         <b:EventTrigger EventName="Loaded">
             <b:InvokeCommandAction Command="{Binding RefreshCommand}" />
         </b:EventTrigger>
     </b:Interaction.Triggers>
     <Grid>
+        <Grid.Resources>
+            <CollectionViewSource x:Key="PatientsCollection"
+                                  Source="{Binding Patients}"
+                                  Filter="OnPatientsCollectionOnFilter">
+
+                <!--<CollectionViewSource.GroupDescriptions>
+                                        <PropertyGroupDescription PropertyName="Name" />
+                                    </CollectionViewSource.GroupDescriptions>-->
+            </CollectionViewSource>
+        </Grid.Resources>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
-        <DataGrid SelectedItem="{Binding SelectedTemplate}"
-                  ItemsSource="{Binding Patients}"
+        <Grid Margin="5,5,5,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <materialDesign:PackIcon Grid.Column="0"
+                                     Kind="Search"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center"
+                                     Margin="0,0,5,0" />
+
+            <TextBox Grid.Column="1"
+                     x:Name="PatientsFilterText"
+                     TextChanged="OnPatientsFilterTextChanged" />
+
+            <Button Grid.Column="2"
+                    DockPanel.Dock="Right"
+                    Style="{DynamicResource MaterialDesignToolButton}"
+                    Command="{Binding RefreshCommand}"
+                    Content="{materialDesign:PackIcon Refresh}"
+                    Margin="0,0,5,0" />
+        </Grid>
+
+        <DataGrid Grid.Row="1"
+                  SelectedItem="{Binding SelectedPatient}"
+                  ItemsSource="{Binding Source={StaticResource PatientsCollection}}"
                   AutoGenerateColumns="False"
-                  CanUserResizeColumns="False"
+                  CanUserResizeColumns="True"
                   CanUserAddRows="False"
                   CanUserDeleteRows="False"
-                  IsReadOnly="True">
+                  IsReadOnly="True"
+                  VirtualizingPanel.IsContainerVirtualizable="True"
+                  VirtualizingPanel.IsVirtualizing="True"
+                  VirtualizingPanel.VirtualizationMode="Recycling">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="1*"
+                <DataGridTextColumn Width="Auto"
                                     Header="Фамилия"
                                     Binding="{Binding Path=LastName}" />
-                <DataGridTextColumn Width="1*"
+                <DataGridTextColumn Width="Auto"
                                     Header="Имя"
                                     Binding="{Binding Path=FirstName}" />
-                <DataGridTextColumn Width="1*"
+                <DataGridTextColumn Width="Auto"
                                     Header="Отчество"
                                     Binding="{Binding Path=Patronymic}" />
-                <DataGridTextColumn Width="1*"
+                <DataGridTextColumn Width="Auto"
                                     Header="Пол"
-                                    Binding="{Binding Path=Gender}" />
-                <DataGridTextColumn Width="1*"
+                                    Binding="{Binding Path=Gender, Converter={StaticResource RussificationConverter}}" />
+                <DataGridTextColumn Width="Auto"
                                     Header="Дата рождения"
-                                    Binding="{Binding Path=BirthDate}" />
-
+                                    Binding="{Binding Path=BirthDate, Converter={StaticResource DateTimeToLongDateConverter}}" />
+                <DataGridTextColumn Width="Auto"
+                                    Header="Возраст"
+                                    Binding="{Binding Path=BirthDate , Converter={StaticResource DateToAgeConverter}}" />
             </DataGrid.Columns>
+            <DataGrid.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </DataGrid.ItemsPanel>
         </DataGrid>
     </Grid>
 </UserControl>

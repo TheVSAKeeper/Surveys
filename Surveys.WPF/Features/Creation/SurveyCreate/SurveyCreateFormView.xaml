@@ -8,6 +8,7 @@
              xmlns:surveyCreate="clr-namespace:Surveys.WPF.Features.Creation.SurveyCreate"
              xmlns:converters="clr-namespace:Surveys.WPF.Shared.Converters"
              xmlns:anamnesesCreate="clr-namespace:Surveys.WPF.Features.Creation.AnamnesesCreate"
+             xmlns:patientSearch="clr-namespace:Surveys.WPF.Features.Search.PatientSearch"
              d:DataContext="{d:DesignInstance surveyCreate:SurveyCreateFormViewModel, d:IsDesignTimeCreatable=True}"
              d:DesignHeight="450"
              d:DesignWidth="800"
@@ -24,21 +25,21 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <TextBlock FontSize="18"
-                   Visibility="{Binding CreatedSurvey,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullableToVisibilityConverter}}"
+                   Visibility="{Binding CreatedSurvey, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullableToVisibilityConverter}}"
                    Margin="0,0,0,10"
                    HorizontalAlignment="Center">
             <Run Text="Опрос от " />
             <Run
-                Text="{Binding CreatedSurvey.CreatedAt,UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateTimeToLongDateConverter}}" />
+                Text="{Binding CreatedSurvey.CreatedAt, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateTimeToLongDateConverter}}" />
         </TextBlock>
 
         <TextBlock Grid.Row="0"
-                   Visibility="{Binding CreatedSurvey, Converter={StaticResource InvertedNullVisibilityConverter}}">
+                   Visibility="{Binding CreatedSurvey, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InvertedNullVisibilityConverter}}">
             <Run Text="Опрос не создан" />
         </TextBlock>
 
@@ -80,7 +81,7 @@
                        Grid.Column="1"
                        Visibility="{Binding Patient}"
                        HorizontalAlignment="Left"
-                       Text="{Binding AnamnesesCreateFormViewModel.CreatedAnamneses.Count, TargetNullValue=Не добавлено, FallbackValue=Не добавлено}"
+                       Text="{Binding Anamneses.Count, TargetNullValue=Не добавлено, FallbackValue=Не добавлено}"
                        Margin="5,10,5,10" />
         </Grid>
 
@@ -89,6 +90,12 @@
                                                  Grid.Row="2"
                                                  DataContext="{Binding AnamnesesCreateFormViewModel}"
                                                  Margin="5,5,5,5" />
+
+        <patientSearch:PatientSearchFormView BorderBrush="Black"
+                                             BorderThickness="1"
+                                             Grid.Row="3"
+                                             DataContext="{Binding PatientSearchFormViewModel}"
+                                             Margin="5,5,5,5" />
         <!--<ItemsControl Grid.Row="4"
                       ItemsSource="{Binding Anamneses}">
             <ItemsControl.ItemTemplate>
@@ -119,7 +126,7 @@
             </ItemsControl.ItemTemplate>
         </ItemsControl>-->
 
-        <Button Grid.Row="3"
+        <Button Grid.Row="4"
                 Content="Сохранить"
                 Margin="5,5,5,5"
                 Command="{Binding SubmitCommand}" />

@@ -1,7 +1,6 @@
 ﻿using Calabonga.OperationResults;
 using Calabonga.UnitOfWork;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Surveys.Domain;
 using Surveys.Domain.Exceptions;
 using Surveys.WPF.Features.Authentication;
@@ -42,7 +41,7 @@ public class AnamnesesCreateRequestHandler(IUnitOfWork unitOfWork, Authenticatio
 
             return result;
         }
-
+        
         result.Result = anamneses;
 
         return result;

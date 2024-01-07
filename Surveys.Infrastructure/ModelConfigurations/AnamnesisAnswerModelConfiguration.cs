@@ -10,10 +10,10 @@ public class AnamnesisAnswerModelConfiguration : IdentityModelConfigurationBase<
     {
         builder.HasOne(anamnesisAnswer => anamnesisAnswer.Question);
         builder.Navigation(anamnesisAnswer => anamnesisAnswer.Question).AutoInclude();
-        
+
         builder.HasMany(anamnesisAnswer => anamnesisAnswer.Answers);
         builder.Navigation(anamnesisAnswer => anamnesisAnswer.Answers).AutoInclude();
-        
+
         builder.HasOne(anamnesisAnswer => anamnesisAnswer.Anamnesis);
     }
 

@@ -17,8 +17,8 @@ public class SurveyCreateRequestHandler(IUnitOfWork unitOfWork, AuthenticationSt
 
         Survey survey = new()
         {
+            Complaint = "Не указана",
             CreatedBy = authenticationStore.Username,
-            Anamneses = request.CreatedAnamneses.Select(x => new Anamnesis { Id = x.Id }).ToList(),
             PatientId = request.Patient.Id
         };
 
@@ -34,6 +34,20 @@ public class SurveyCreateRequestHandler(IUnitOfWork unitOfWork, AuthenticationSt
         }
 
         result.Result = survey;
+
+        foreach (Anamnesis anamnesis in request.CreatedAnamneses)
+            anamnesis.SurveyId = survey.Id;
+
+        unitOfWork.GetRepository<Anamnesis>().Update(request.CreatedAnamneses);
+        await unitOfWork.SaveChangesAsync();
+
+        if (unitOfWork.LastSaveChangesResult.IsOk == false)
+        {
+            result.AddError(unitOfWork.LastSaveChangesResult.Exception
+                            ?? new SurveysDatabaseSaveException(nameof(Anamnesis)));
+
+            return result;
+        }
 
         return result;
     }
