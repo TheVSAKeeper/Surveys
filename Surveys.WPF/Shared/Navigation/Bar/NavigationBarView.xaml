@@ -1,26 +1,30 @@
-﻿<UserControl
-    x:Class="Surveys.WPF.Shared.Navigation.Bar.NavigationBarView"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    xmlns:bar="clr-namespace:Surveys.WPF.Shared.Navigation.Bar"
-    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-    Background="{DynamicResource MaterialDesignPaper}"
-    TextElement.FontWeight="Medium"
-    TextElement.FontSize="14"
-    FontFamily="{materialDesign:MaterialDesignFont}"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    mc:Ignorable="d" d:DataContext="{d:DesignInstance bar:NavigationBarViewModel}">
+﻿<UserControl x:Class="Surveys.WPF.Shared.Navigation.Bar.NavigationBarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:bar="clr-namespace:Surveys.WPF.Shared.Navigation.Bar"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             Background="{DynamicResource MaterialDesignPaper}"
+             TextElement.FontWeight="Medium"
+             TextElement.FontSize="14"
+             FontFamily="{materialDesign:MaterialDesignFont}"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance bar:NavigationBarViewModel}">
     <StackPanel Orientation="Vertical">
         <Button IsEnabled="{Binding IsEnabledHomeButton}"
                 Style="{DynamicResource MaterialDesignToolButton}"
                 Command="{Binding NavigateHomeCommand}"
-                Content="{materialDesign:PackIcon Home}" Width="30" Height="30" />
-        <ToggleButton
-            Style="{DynamicResource MaterialDesignFlatToggleButton}"
-            Width="30" Height="30" Content="{materialDesign:PackIcon ThemeLightDark}" Click="OnThemeToggleClicked" />
+                Content="{materialDesign:PackIcon Home}"
+                Width="30"
+                Height="30" />
+        <ToggleButton Style="{DynamicResource MaterialDesignFlatToggleButton}"
+                      Width="30"
+                      Height="30"
+                      Content="{materialDesign:PackIcon ThemeLightDark}"
+                      Click="OnThemeToggleClicked" />
     </StackPanel>
 </UserControl>

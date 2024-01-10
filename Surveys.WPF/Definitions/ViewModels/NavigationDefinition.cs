@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Surveys.WPF.Definitions.Base;
 using Surveys.WPF.Shared.Navigation;
+using Surveys.WPF.Shared.Navigation.Modal;
 
 namespace Surveys.WPF.Definitions.ViewModels;
 
@@ -11,5 +12,6 @@ public class NavigationDefinition : AppDefinition
     {
         services.AddSingleton<NavigationStore>();
         services.AddSingleton<ModalNavigationStore>();
+        services.AddSingleton<CloseModalNavigationService>();
     }
 }

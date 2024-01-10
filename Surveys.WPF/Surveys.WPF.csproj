@@ -20,6 +20,30 @@
             <XamlRuntime>Wpf</XamlRuntime>
             <SubType>Designer</SubType>
         </Page>
+        <Page Update="Features\AnamnesisTemplate\Show\LoginFormView.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Features\Creation\SurveyCreate\SurveyCreateFormView.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Features\Search\PatientSearch\PatientSearchFormView.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Endpoints\AnamnesesEndpoints\AnamnesesCreate\AnamnesesCreateFormView.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Update="Endpoints\SurveysEndpoints\SurveyCreate\SurveyCreateFormView.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Update="Endpoints\PatientsEndpoints\PatientSearch\PatientSearchFormView.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
     </ItemGroup>
 
     <ItemGroup>
@@ -54,6 +78,12 @@
         <None Update="appsettings.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Update="Definitions\DataSeedingDefinition\AnamnesisTemplates.txt">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Definitions\DataSeedingDefinition\Patients.txt">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
@@ -69,7 +99,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Definitions\Navigation\"/>
+        <Folder Include="Endpoints\AnamnesesEndpoints\"/>
+        <Folder Include="Endpoints\PatientsEndpoints\"/>
+        <Folder Include="Endpoints\SurveysEndpoints\"/>
     </ItemGroup>
 
 </Project>

@@ -6,9 +6,15 @@ namespace Surveys.WPF.Definitions.DataSeedingDefinition;
 
 public class DataSeedingDefinition : AppDefinition
 {
-    public override void ConfigureApplication(IHost host)
+    public override int OrderIndex => 1;
+
+    public override async Task ConfigureApplication(IHost host)
     {
-        DatabaseInitialization.SeedUsers(host.Services);
-        DatabaseInitialization.SeedDiagnoses(host.Services);
+        DatabaseInitializer initializer = new(host.Services);
+
+        await initializer.SeedUsers();
+        await initializer.SeedDiagnoses();
+        await initializer.SeedAnamnesisTemplates();
+        await initializer.SeedPatients();
     }
 }

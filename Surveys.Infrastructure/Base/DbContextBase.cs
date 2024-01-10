@@ -68,8 +68,11 @@ public abstract class DbContextBase(DbContextOptions options) : IdentityDbContex
                 object userName = entry.Property(CreatedBy).CurrentValue ?? DefaultUserName;
                 DateTime creationDate = DateTime.UtcNow;
 
-                entry.Property(CreatedAt).CurrentValue ??= creationDate;
-                entry.Property(UpdatedAt).CurrentValue ??= creationDate;
+                if (entry.Property(CreatedAt).CurrentValue == null || ((DateTime)entry.Property(CreatedAt).CurrentValue!).Year < 1950)
+                    entry.Property(CreatedAt).CurrentValue = creationDate;
+
+                if (entry.Property(UpdatedAt).CurrentValue == null || ((DateTime)entry.Property(UpdatedAt).CurrentValue!).Year < 1950)
+                    entry.Property(UpdatedAt).CurrentValue = creationDate;
 
                 entry.Property(CreatedBy).CurrentValue = userName;
                 entry.Property(UpdatedBy).CurrentValue = userName;

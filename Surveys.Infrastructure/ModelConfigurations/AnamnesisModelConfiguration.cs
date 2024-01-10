@@ -1,15 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Surveys.Domain;
 using Surveys.Infrastructure.ModelConfigurations.Base;
 
 namespace Surveys.Infrastructure.ModelConfigurations;
 
-public class AnamnesisModelConfiguration : IdentityModelConfigurationBase<Anamnesis>
+public class AnamnesisModelConfiguration : AuditableModelConfigurationBase<Anamnesis>
 {
     protected override void AddBuilder(EntityTypeBuilder<Anamnesis> builder)
     {
+        builder.Property(survey => survey.IsComplete)
+            .HasDefaultValue(false)
+            .IsRequired();
+
         builder.HasOne(anamnesis => anamnesis.AnamnesisTemplate);
-        builder.HasMany(anamnesis => anamnesis.Answers);
+        builder.HasMany(anamnesis => anamnesis.AnamnesisAnswers);
         builder.HasOne(anamnesis => anamnesis.Survey);
     }
 

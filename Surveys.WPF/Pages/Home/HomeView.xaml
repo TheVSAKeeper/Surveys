@@ -1,19 +1,20 @@
-﻿<UserControl
-    x:Class="Surveys.WPF.Pages.Home.HomeView"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:home="clr-namespace:Surveys.WPF.Pages.Home"
-    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-    Background="{DynamicResource MaterialDesignPaper}"
-    TextElement.FontWeight="Medium"
-    TextElement.FontSize="14"
-    FontFamily="{materialDesign:MaterialDesignFont}"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    mc:Ignorable="d" d:DataContext="{d:DesignInstance home:HomeViewModel}">
+﻿<UserControl x:Class="Surveys.WPF.Pages.Home.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:home="clr-namespace:Surveys.WPF.Pages.Home"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:create="clr-namespace:Surveys.WPF.Endpoints.SurveysEndpoints.Create"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             Background="{DynamicResource MaterialDesignPaper}"
+             TextElement.FontWeight="Medium"
+             TextElement.FontSize="14"
+             FontFamily="{materialDesign:MaterialDesignFont}"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance home:HomeViewModel}">
     <Grid Margin="25">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -27,23 +28,28 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
 
-            <Button
-                Style="{DynamicResource MaterialDesignToolButton}"
-                Grid.Column="1"
-                VerticalAlignment="Center"
-                Command="{Binding NavigateProfileCommand}">
+            <Button Style="{DynamicResource MaterialDesignToolButton}"
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    Command="{Binding NavigateProfileCommand}">
                 <TextBlock>
-                    <Run Text="Привет, " /><Run FontWeight="Bold" Text="{Binding Username, Mode=OneWay}" />
+                    <Run Text="Привет, " />
+                    <Run FontWeight="Bold"
+                         Text="{Binding Username, Mode=OneWay}" />
                     <Run Text="!" />
                 </TextBlock>
             </Button>
 
-            <Button
-                Style="{DynamicResource MaterialDesignFloatingActionButton}"
-                Grid.Column="2"
-                Margin="10 0 0 0"
-                Command="{Binding LogoutCommand}"
-                Content="{materialDesign:PackIcon Logout}" Width="30" Height="30" />
+            <Button Style="{DynamicResource MaterialDesignFloatingActionButton}"
+                    Grid.Column="2"
+                    Margin="10 0 0 0"
+                    Command="{Binding LogoutCommand}"
+                    Content="{materialDesign:PackIcon Logout}"
+                    Width="30"
+                    Height="30" />
+        </Grid>
+        <Grid Grid.Row="1">
+            <create:SurveyCreateFormView DataContext="{Binding AnamnesesCreateFormViewModel}" />
         </Grid>
     </Grid>
 </UserControl>

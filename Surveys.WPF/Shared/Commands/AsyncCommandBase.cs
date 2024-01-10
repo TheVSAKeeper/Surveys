@@ -4,19 +4,17 @@ public abstract class AsyncCommandBase(Action<Exception>? onException = null) : 
 {
     private bool _isExecuting;
 
-    public bool IsExecuting
+    private bool IsExecuting
     {
         get => _isExecuting;
-        private set
+        set
         {
             _isExecuting = value;
             OnCanExecuteChanged();
         }
     }
 
-    public override bool CanExecute(object? parameter) => IsExecuting == false && base.CanExecute(parameter);
-
-    public override async void Execute(object? parameter)
+    protected sealed override async void Execute(object? parameter)
     {
         IsExecuting = true;
 
@@ -24,13 +22,17 @@ public abstract class AsyncCommandBase(Action<Exception>? onException = null) : 
         {
             await ExecuteAsync(parameter);
         }
-        catch (Exception exception)
+        catch (Exception ex)
         {
-            onException?.Invoke(exception);
+            onException?.Invoke(ex);
         }
 
         IsExecuting = false;
     }
 
+    protected sealed override bool CanExecute(object? parameter) => IsExecuting == false && CanExecuteAsync(parameter);
+
     protected abstract Task ExecuteAsync(object? parameter);
+
+    protected virtual bool CanExecuteAsync(object? parameter) => true;
 }

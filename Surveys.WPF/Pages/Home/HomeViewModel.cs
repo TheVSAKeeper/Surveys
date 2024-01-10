@@ -1,10 +1,15 @@
 ﻿using System.Windows.Input;
-using Surveys.WPF.Features.Authentication;
-using Surveys.WPF.Features.Authentication.Logout;
+using AutoMapper;
+using MediatR;
+using Surveys.Domain;
+using Surveys.WPF.Endpoints.AuthenticationEndpoints;
+using Surveys.WPF.Endpoints.AuthenticationEndpoints.Logout;
+using Surveys.WPF.Endpoints.SurveysEndpoints.Create;
 using Surveys.WPF.Pages.Login;
 using Surveys.WPF.Pages.Profile;
 using Surveys.WPF.Shared.Commands;
 using Surveys.WPF.Shared.Navigation;
+using Surveys.WPF.Shared.Navigation.Modal;
 using Surveys.WPF.Shared.ViewModels;
 
 namespace Surveys.WPF.Pages.Home;
@@ -16,9 +21,14 @@ public class HomeViewModel : ViewModelBase
     public HomeViewModel(
         AuthenticationStore authenticationStore,
         NavigationService<ProfileViewModel> profileNavigationService,
-        NavigationService<LoginViewModel> loginNavigationService)
+        NavigationService<LoginViewModel> loginNavigationService,
+        ICallbackNavigationService<List<Anamnesis>> anamnesesModalNavigationService,
+        ICallbackNavigationService<Patient> patientsModalNavigationService,
+        IMediator mediator,
+        IMapper mapper)
     {
         _authenticationStore = authenticationStore;
+        AnamnesesCreateFormViewModel = new SurveyCreateFormViewModel(mediator, mapper, patientsModalNavigationService, anamnesesModalNavigationService);
 
         NavigateProfileCommand = new NavigateCommand(profileNavigationService);
         LogoutCommand = new LogoutCommand(authenticationStore, loginNavigationService);
@@ -29,14 +39,5 @@ public class HomeViewModel : ViewModelBase
 
     public string Username => _authenticationStore.User?.DisplayName ?? "Unknown";
 
-    public static HomeViewModel LoadViewModel(
-        AuthenticationStore authenticationStore,
-        NavigationService<ProfileViewModel> profileNavigationService,
-        NavigationService<LoginViewModel> loginNavigationService
-    )
-    {
-        HomeViewModel homeViewModel = new(authenticationStore, profileNavigationService, loginNavigationService);
-
-        return homeViewModel;
-    }
+    public SurveyCreateFormViewModel AnamnesesCreateFormViewModel { get; }
 }

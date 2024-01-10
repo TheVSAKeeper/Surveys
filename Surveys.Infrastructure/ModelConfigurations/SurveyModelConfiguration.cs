@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Surveys.Domain;
 using Surveys.Infrastructure.ModelConfigurations.Base;
 
@@ -12,9 +13,14 @@ public class SurveyModelConfiguration : AuditableModelConfigurationBase<Survey>
             .HasMaxLength(1024)
             .IsRequired();
 
+        builder.Property(survey => survey.IsComplete)
+            .HasDefaultValue(false)
+            .IsRequired();
+
         builder.HasOne(survey => survey.Patient);
 
         builder.HasMany(survey => survey.SurveyDiagnoses);
+
         builder.HasMany(survey => survey.Anamneses);
     }
 

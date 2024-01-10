@@ -5,7 +5,8 @@ namespace Surveys.WPF.Definitions.Base;
 
 public interface IAppDefinition
 {
+    int OrderIndex { get; }
     bool Enabled { get; }
     void ConfigureServices(IServiceCollection services, HostBuilderContext context);
-    void ConfigureApplication(IHost host);
+    Task ConfigureApplication(IHost host);
 }

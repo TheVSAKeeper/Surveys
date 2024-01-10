@@ -3,43 +3,59 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:vms="clr-namespace:Surveys.WPF.Pages.Home"
-        xmlns:profile="clr-namespace:Surveys.WPF.Pages.Profile"
-        xmlns:login="clr-namespace:Surveys.WPF.Pages.Login"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewModels="clr-namespace:Surveys.WPF.Shared.ViewModels"
         xmlns:bar="clr-namespace:Surveys.WPF.Shared.Navigation.Bar"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        xmlns:profile="clr-namespace:Surveys.WPF.Pages.Profile"
+        xmlns:home="clr-namespace:Surveys.WPF.Pages.Home"
+        xmlns:login="clr-namespace:Surveys.WPF.Pages.Login"
+        xmlns:patientSearch="clr-namespace:Surveys.WPF.Endpoints.PatientsEndpoints.Search"
+        xmlns:anamnesesCreate="clr-namespace:Surveys.WPF.Endpoints.AnamnesesEndpoints.Create"
         Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="Опросы" Height="600" Width="800" d:DataContext="{d:DesignInstance viewModels:MainViewModel}">
+        Title="Опросы"
+        Height="600"
+        Width="800"
+        d:DataContext="{d:DesignInstance viewModels:MainViewModel}">
     <Grid>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type login:LoginViewModel}">
+                <login:LoginView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type home:HomeViewModel}">
+                <home:HomeView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type profile:ProfileViewModel}">
+                <profile:ProfileView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type patientSearch:PatientSearchFormViewModel}">
+                <patientSearch:PatientSearchFormView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type anamnesesCreate:AnamnesesCreateFormViewModel}">
+                <anamnesesCreate:AnamnesesCreateFormView />
+            </DataTemplate>
+        </Grid.Resources>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="0" Background="{DynamicResource MaterialDesignToolBarBackground}">
+        <StackPanel Grid.Column="0"
+                    Background="{DynamicResource MaterialDesignToolBarBackground}">
             <bar:NavigationBarView DataContext="{Binding NavigationBarViewModel}" />
         </StackPanel>
 
-        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
-            <ContentControl Content="{Binding CurrentViewModel}">
-                <ContentControl.Resources>
-                    <DataTemplate DataType="{x:Type login:LoginViewModel}">
-                        <login:LoginView />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type vms:HomeViewModel}">
-                        <vms:HomeView />
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type profile:ProfileViewModel}">
-                        <profile:ProfileView />
-                    </DataTemplate>
-                </ContentControl.Resources>
-            </ContentControl>
-        </ScrollViewer>
+        <ContentControl Grid.Column="1"
+                        Panel.ZIndex="1"
+                        IsEnabled="{Binding IsOpen, Mode=OneWay}"
+                        Content="{Binding CurrentModalViewModel}" />
+
+        <ContentControl Grid.Column="1"
+                        Content="{Binding CurrentViewModel}" />
     </Grid>
 </Window>
