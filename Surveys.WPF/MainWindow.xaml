@@ -52,6 +52,7 @@
 
         <ContentControl Grid.Column="1"
                         Panel.ZIndex="1"
+                        IsEnabled="{Binding IsOpen, Mode=OneWay}"
                         Content="{Binding CurrentModalViewModel}" />
 
         <ContentControl Grid.Column="1"

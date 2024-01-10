@@ -11,22 +11,11 @@ namespace Surveys.WPF.Features.Search.PatientSearch;
 
 public class PatientSearchFormViewModel : ViewModelBase, ICallbackViewModel<Patient>
 {
+    private Action<Patient>? _callback;
+    private ICommand? _confirmCommand;
     private ObservableCollection<Patient>? _patients;
+    private Patient? _confirmedPatient;
     private Patient? _selectedPatient;
-
-    /*public PatientSearchFormViewModel()
-    {
-        Patients = new ObservableCollection<Patient>(Enumerable.Range(0, 20)
-            .Select(x => new Patient
-            {
-                LastName = $"LastName {x}",
-                FirstName = $"FirstName {x}",
-                Patronymic = $"Patronymic {x}",
-                Gender = Gender.Male,
-                BirthDate = new DateOnly()
-            })
-            .ToList());
-    }*/
 
     public PatientSearchFormViewModel(IMediator mediator, IMapper mapper, CloseModalNavigationService closeNavigationService)
     {
@@ -37,6 +26,13 @@ public class PatientSearchFormViewModel : ViewModelBase, ICallbackViewModel<Pati
     public ICommand RefreshCommand { get; }
     public ICommand CancelCommand { get; }
 
+    public ICommand ConfirmCommand => _confirmCommand ??= new LambdaCommand(() =>
+        {
+            ConfirmedPatient = SelectedPatient;
+            CancelCommand.Execute(null);
+        },
+        () => ConfirmedPatient != SelectedPatient);
+
     public ObservableCollection<Patient>? Patients
     {
         get => _patients;
@@ -46,15 +42,21 @@ public class PatientSearchFormViewModel : ViewModelBase, ICallbackViewModel<Pati
     public Patient? SelectedPatient
     {
         get => _selectedPatient;
+        set => Set(ref _selectedPatient, value);
+    }
+
+    public Patient? ConfirmedPatient
+    {
+        get => _confirmedPatient;
         set
         {
-            if (Set(ref _selectedPatient, value) == false)
+            if (Set(ref _confirmedPatient, value) == false)
                 return;
 
-            if (_selectedPatient != null)
-                Callback?.Invoke(_selectedPatient);
+            if (_confirmedPatient != null)
+                _callback?.Invoke(_confirmedPatient);
         }
     }
 
-    public event Action<Patient>? Callback;
+    public void SetCallback(Action<Patient> callback) => _callback ??= callback;
 }

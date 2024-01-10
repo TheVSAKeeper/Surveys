@@ -1,0 +1,74 @@
+@startuml
+class Anamnesis {
+    + AnamnesisTemplateId : int <<get>> <<set>>
+    + AnamnesisAnswers : List<AnamnesisAnswer>?
+    + IsComplete : bool <<get>> <<set>>
+}
+class AnamnesisAnswer {
+    + QuestionId : int <<get>> <<set>>
+    + Answers : List<Answer>?
+}
+class AnamnesisTemplate {
+    + Name : string <<get>> <<set>>
+    + Questions : List<Question>?
+}
+class Answer {
+    + Content : string <<get>> <<set>>
+}
+class Diagnosis {
+    + Name : string <<get>> <<set>>
+    + Description : string? <<get>> <<set>>
+}
+class Patient {
+    + LastName : string <<get>> <<set>>
+    + FirstName : string <<get>> <<set>>
+    + Patronymic : string? <<get>> <<set>>
+    + BirthDate : int <<get>> <<set>>
+}
+enum Gender {
+    Male,
+    Female,
+    Unspecified,
+}
+class Question {
+    + Content : string <<get>> <<set>>
+}
+class Survey {
+    + Complaint : string <<get>> <<set>>
+    + PatientId : int <<get>> <<set>>
+    + IsComplete : bool <<get>> <<set>>
+    + SurveyDiagnoses : List<SurveyDiagnosis>?
+    + Anamneses : List<Anamnesis>?
+}
+class SurveyDiagnosis {
+    + Reason : string <<get>> <<set>>
+    + DiagnosisId : int <<get>> <<set>>
+    + PatientId : int <<get>> <<set>>
+}
+abstract class Auditable {
+    + CreatedBy : string <<get>> <<set>>
+    + CreatedAt : DateTime <<get>> <<set>>
+    + UpdatedBy : string? <<get>> <<set>>
+    + UpdatedAt : DateTime? <<get>> <<set>>
+}
+abstract class Identity {
+    + Id : Guid <<get>> <<set>>
+}
+Auditable <|-- Anamnesis
+Anamnesis o-> "AnamnesisTemplate" AnamnesisTemplate
+Identity <|-- AnamnesisAnswer
+AnamnesisAnswer o-> "Question" Question
+Identity <|-- AnamnesisTemplate
+Identity <|-- Answer
+Identity <|-- Diagnosis
+Identity <|-- Patient
+Patient --> "Gender" Gender
+Identity <|-- Question
+Question o-> "AnamnesisTemplate" AnamnesisTemplate
+Auditable <|-- Survey
+Survey o-> "Patient" Patient
+Auditable <|-- SurveyDiagnosis
+SurveyDiagnosis --> "Diagnosis" Diagnosis
+SurveyDiagnosis o-> "Patient" Patient
+Identity <|-- Auditable
+@enduml

@@ -27,7 +27,7 @@ public static class AddNavigationServiceExtensions
             new CallbackModalNavigationService<TParameter, TViewModel>(provider.GetRequiredService<ModalNavigationStore>(), parameter =>
             {
                 TViewModel viewModel = provider.GetRequiredService<TViewModel>();
-                viewModel.Callback += parameter;
+                viewModel.SetCallback(parameter);
                 return viewModel;
             }));
     }

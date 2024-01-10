@@ -22,6 +22,8 @@ public class AnamnesesCreateCommand(AnamnesesCreateFormViewModel viewModel, IMed
 
         foreach (AnamnesisTemplateDto template in viewModel.AnamnesisTemplates!)
             template.IsSelected = false;
+        
+        viewModel.CancelCommand.Execute(null);
     }
 
     protected override bool CanExecuteAsync(object? parameter) => viewModel.AnamnesisTemplates != null

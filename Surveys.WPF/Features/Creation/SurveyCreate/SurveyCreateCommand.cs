@@ -19,6 +19,7 @@ public class SurveyCreateCommand(SurveyCreateFormViewModel viewModel, IMediator 
     protected override bool CanExecuteAsync(object? parameter) => viewModel is
     {
         Patient: not null,
-        Anamneses: not null
+        Anamneses: not null,
+        CreatedSurvey: null
     };
 }

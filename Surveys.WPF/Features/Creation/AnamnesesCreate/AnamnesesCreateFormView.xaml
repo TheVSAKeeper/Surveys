@@ -23,24 +23,21 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <GridSplitter Height="3"
-                      HorizontalAlignment="Stretch"
-                      VerticalAlignment="Center"
-                      ResizeDirection="Rows" />
-
-        <DataGrid Margin="5"
+        <DataGrid Grid.Row="0"
+                  Margin="5"
                   SelectedItem="{Binding SelectedTemplate}"
                   ItemsSource="{Binding AnamnesisTemplates}"
                   AutoGenerateColumns="False"
-                  CanUserResizeColumns="False"
+                  CanUserResizeColumns="True"
                   CanUserAddRows="False"
                   CanUserDeleteRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="1*"
+                <DataGridTextColumn Width="Auto"
                                     Header="Название"
                                     Binding="{Binding Path=Name, Mode=OneWay}"
                                     IsReadOnly="True" />
@@ -49,7 +46,14 @@
                                         Binding="{Binding Path=IsSelected, UpdateSourceTrigger=PropertyChanged}" />
             </DataGrid.Columns>
         </DataGrid>
-        <Expander Grid.Row="1"
+
+        <GridSplitter Grid.Row="1"
+                      Height="3"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Center"
+                      ResizeDirection="Rows" />
+
+        <Expander Grid.Row="2"
                   Header="Вопросы"
                   Margin="5">
             <ListView DataContext="{Binding SelectedTemplate, UpdateSourceTrigger=PropertyChanged}"
@@ -61,22 +65,32 @@
                 </ListView.ItemTemplate>
             </ListView>
         </Expander>
-
-        <Grid Grid.Row="2">
+        
+        <Grid Grid.Row="3"
+              Margin="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Button Content="Добавить"
-                    Margin="5"
-                    Style="{DynamicResource MaterialDesignFlatButton}"
-                    Command="{Binding SubmitCommand}" />
+            <TextBlock
+                Text="{Binding SelectedTemplate.Questions.Count, FallbackValue=Шаблон не выбран ,StringFormat=Количество {0}}"
+                VerticalAlignment="Center"
+                Margin="5,0,5,0" />
             <Button Grid.Column="1"
-                    Margin="5"
-                    HorizontalAlignment="Right"
-                    Command="{Binding RefreshCommand}"
                     Style="{DynamicResource MaterialDesignToolButton}"
+                    Command="{Binding RefreshCommand}"
                     Content="{materialDesign:PackIcon Refresh}" />
+            <Button Grid.Column="2"
+                    Margin="10,0,0,0" 
+                    Style="{DynamicResource MaterialDesignToolButton}"
+                    Command="{Binding CancelCommand}"
+                    Content="{materialDesign:PackIcon Close}" />
+            <Button Grid.Column="3"
+                    Style="{DynamicResource MaterialDesignFlatButton}"
+                    Command="{Binding SubmitCommand}"
+                    Content="Добавить" />
         </Grid>
     </Grid>
 </UserControl>

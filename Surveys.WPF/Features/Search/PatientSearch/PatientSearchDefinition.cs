@@ -14,13 +14,8 @@ public class PatientSearchDefinition : AppDefinition
         services.AddTransient<PatientSearchFormViewModel>();
 
         services.AddModalNavigationService<PatientSearchFormViewModel>();
+        
+        services.AddCallbackNavigationService<Patient, PatientSearchFormViewModel>();
 
-        services.AddSingleton<ICallbackNavigationService<Patient>, CallbackModalNavigationService<Patient, PatientSearchFormViewModel>>(provider =>
-            new CallbackModalNavigationService<Patient, PatientSearchFormViewModel>(provider.GetRequiredService<ModalNavigationStore>(), parameter =>
-            {
-                PatientSearchFormViewModel viewModel = provider.GetRequiredService<PatientSearchFormViewModel>();
-                viewModel.Callback += parameter;
-                return viewModel;
-            }));
     }
 }

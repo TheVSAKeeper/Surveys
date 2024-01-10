@@ -3,6 +3,8 @@ using System.Windows.Input;
 using AutoMapper;
 using MediatR;
 using Surveys.Domain;
+using Surveys.WPF.Shared.Commands;
+using Surveys.WPF.Shared.Navigation.Modal;
 using Surveys.WPF.Shared.ViewModels;
 
 namespace Surveys.WPF.Features.Creation.AnamnesesCreate;
@@ -13,23 +15,26 @@ public class AnamnesesCreateFormViewModel : ViewModelBase, ICallbackViewModel<Li
     private List<Anamnesis>? _createdAnamneses;
     private ObservableCollection<AnamnesisTemplateDto>? _anamnesisTemplates;
 
-    public AnamnesesCreateFormViewModel(IMediator mediator, IMapper mapper)
+    public AnamnesesCreateFormViewModel(IMediator mediator, IMapper mapper, CloseModalNavigationService closeNavigationService)
     {
         SubmitCommand = new AnamnesesCreateCommand(this, mediator);
         RefreshCommand = new GetAllAnamnesisTemplatesCommand(this, mediator);
+        CancelCommand = new NavigateCommand(closeNavigationService);
     }
 
     public ICommand SubmitCommand { get; }
 
     public ICommand RefreshCommand { get; }
-
+    
+    public ICommand CancelCommand { get; }
+    
     public List<Anamnesis>? CreatedAnamneses
     {
         get => _createdAnamneses;
         set
         {
             Set(ref _createdAnamneses, value);
-            Callback?.Invoke(_createdAnamneses!);
+            _callback?.Invoke(_createdAnamneses!);
         }
     }
 
@@ -45,5 +50,7 @@ public class AnamnesesCreateFormViewModel : ViewModelBase, ICallbackViewModel<Li
         set => Set(ref _anamnesisTemplates, value);
     }
 
-    public event Action<List<Anamnesis>>? Callback;
+
+    private Action<List<Anamnesis>>? _callback;
+    public void SetCallback(Action<List<Anamnesis>> callback) => _callback ??= callback;
 }

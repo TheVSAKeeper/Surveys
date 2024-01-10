@@ -14,8 +14,7 @@
              FontFamily="{materialDesign:MaterialDesignFont}"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Medium"
-             TextElement.FontSize="14"
-             Cursor="Hand">
+             TextElement.FontSize="14">
     <UserControl.Resources>
         <converters:PatientInfoConverter x:Key="PatientInfoConverter" />
     </UserControl.Resources>
