@@ -11,7 +11,7 @@ public class SurveyCreateCommand(SurveyCreateFormViewModel viewModel, IMediator 
     protected override async Task ExecuteAsync(object? parameter)
     {
         OperationResult<Survey> result = await mediator.Send(new SurveyCreateRequest(viewModel.Patient!,
-            viewModel.AnamnesesCreateFormViewModel.CreatedAnamneses!));
+            viewModel.Anamneses!.ToList()));
 
         viewModel.CreatedSurvey = result.Result;
     }
@@ -19,6 +19,6 @@ public class SurveyCreateCommand(SurveyCreateFormViewModel viewModel, IMediator 
     protected override bool CanExecuteAsync(object? parameter) => viewModel is
     {
         Patient: not null,
-        AnamnesesCreateFormViewModel.CreatedAnamneses: not null
+        Anamneses: not null
     };
 }

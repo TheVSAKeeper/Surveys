@@ -6,7 +6,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:anamnesesCreate="clr-namespace:Surveys.WPF.Features.Creation.AnamnesesCreate"
-             d:DataContext="{d:DesignInstance  anamnesesCreate:AnamnesesCreateFormViewModel, d:IsDesignTimeCreatable=True}"
+             d:DataContext="{d:DesignInstance  anamnesesCreate:AnamnesesCreateFormViewModel}"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              Background="{DynamicResource MaterialDesignPaper}"
              TextElement.FontWeight="Medium"
@@ -27,7 +27,13 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <DataGrid SelectedItem="{Binding SelectedTemplate}"
+        <GridSplitter Height="3"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Center"
+                      ResizeDirection="Rows" />
+
+        <DataGrid Margin="5"
+                  SelectedItem="{Binding SelectedTemplate}"
                   ItemsSource="{Binding AnamnesisTemplates}"
                   AutoGenerateColumns="False"
                   CanUserResizeColumns="False"
@@ -36,17 +42,17 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Width="1*"
                                     Header="Название"
-                                    Binding="{Binding Path=Name}"
+                                    Binding="{Binding Path=Name, Mode=OneWay}"
                                     IsReadOnly="True" />
                 <DataGridCheckBoxColumn Width="Auto"
                                         Header="Включить"
-                                        Binding="{Binding Path=IsSelected}" />
+                                        Binding="{Binding Path=IsSelected, UpdateSourceTrigger=PropertyChanged}" />
             </DataGrid.Columns>
         </DataGrid>
         <Expander Grid.Row="1"
                   Header="Вопросы"
-                  Margin="0,5,0,5">
-            <ListView DataContext="{Binding SelectedTemplate}"
+                  Margin="5">
+            <ListView DataContext="{Binding SelectedTemplate, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{Binding Questions}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -62,11 +68,14 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Button Content="Добавить"
+                    Margin="5"
+                    Style="{DynamicResource MaterialDesignFlatButton}"
                     Command="{Binding SubmitCommand}" />
             <Button Grid.Column="1"
-                    Margin="10,0,0,0"
+                    Margin="5"
                     HorizontalAlignment="Right"
                     Command="{Binding RefreshCommand}"
+                    Style="{DynamicResource MaterialDesignToolButton}"
                     Content="{materialDesign:PackIcon Refresh}" />
         </Grid>
     </Grid>

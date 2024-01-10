@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using AutoMapper;
 using MediatR;
+using Surveys.Domain;
 using Surveys.WPF.Features.Authentication;
 using Surveys.WPF.Features.Authentication.Logout;
 using Surveys.WPF.Features.Creation.SurveyCreate;
@@ -8,6 +9,7 @@ using Surveys.WPF.Pages.Login;
 using Surveys.WPF.Pages.Profile;
 using Surveys.WPF.Shared.Commands;
 using Surveys.WPF.Shared.Navigation;
+using Surveys.WPF.Shared.Navigation.Modal;
 using Surveys.WPF.Shared.ViewModels;
 
 namespace Surveys.WPF.Pages.Home;
@@ -20,11 +22,13 @@ public class HomeViewModel : ViewModelBase
         AuthenticationStore authenticationStore,
         NavigationService<ProfileViewModel> profileNavigationService,
         NavigationService<LoginViewModel> loginNavigationService,
+        ICallbackNavigationService<List<Anamnesis>> anamnesesModalNavigationService,
+        ICallbackNavigationService<Patient> patientsModalNavigationService,
         IMediator mediator,
         IMapper mapper)
     {
         _authenticationStore = authenticationStore;
-        AnamnesesCreateFormViewModel = new SurveyCreateFormViewModel(mediator, mapper);
+        AnamnesesCreateFormViewModel = new SurveyCreateFormViewModel(mediator, mapper, patientsModalNavigationService, anamnesesModalNavigationService);
 
         NavigateProfileCommand = new NavigateCommand(profileNavigationService);
         LogoutCommand = new LogoutCommand(authenticationStore, loginNavigationService);

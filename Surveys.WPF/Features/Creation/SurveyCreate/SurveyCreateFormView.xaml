@@ -7,16 +7,15 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:surveyCreate="clr-namespace:Surveys.WPF.Features.Creation.SurveyCreate"
              xmlns:converters="clr-namespace:Surveys.WPF.Shared.Converters"
-             xmlns:anamnesesCreate="clr-namespace:Surveys.WPF.Features.Creation.AnamnesesCreate"
-             xmlns:patientSearch="clr-namespace:Surveys.WPF.Features.Search.PatientSearch"
-             d:DataContext="{d:DesignInstance surveyCreate:SurveyCreateFormViewModel, d:IsDesignTimeCreatable=True}"
+             d:DataContext="{d:DesignInstance surveyCreate:SurveyCreateFormViewModel}"
              d:DesignHeight="450"
              d:DesignWidth="800"
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="{materialDesign:MaterialDesignFont}"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              TextElement.FontWeight="Medium"
-             TextElement.FontSize="14">
+             TextElement.FontSize="14"
+             Cursor="Hand">
     <UserControl.Resources>
         <converters:PatientInfoConverter x:Key="PatientInfoConverter" />
     </UserControl.Resources>
@@ -30,16 +29,15 @@
         </Grid.RowDefinitions>
 
         <TextBlock FontSize="18"
-                   Visibility="{Binding CreatedSurvey, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NullableToVisibilityConverter}}"
+                   Visibility="{Binding CreatedSurvey, Converter={StaticResource NullableToVisibilityConverter}}"
                    Margin="0,0,0,10"
                    HorizontalAlignment="Center">
             <Run Text="Опрос от " />
-            <Run
-                Text="{Binding CreatedSurvey.CreatedAt, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DateTimeToLongDateConverter}}" />
+            <Run Text="{Binding CreatedSurvey.CreatedAt, Converter={StaticResource DateTimeToLongDateConverter}}" />
         </TextBlock>
 
         <TextBlock Grid.Row="0"
-                   Visibility="{Binding CreatedSurvey, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InvertedNullVisibilityConverter}}">
+                   Visibility="{Binding CreatedSurvey, Converter={StaticResource InvertedNullVisibilityConverter}}">
             <Run Text="Опрос не создан" />
         </TextBlock>
 
@@ -54,22 +52,29 @@
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
 
             <TextBlock Text="Пациент"
                        VerticalAlignment="Center" />
 
-            <StackPanel Orientation="Horizontal"
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Margin="5,5,5,5">
+            <Grid Grid.Row="0"
+                  Grid.Column="1"
+                  Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
                 <TextBlock Text="{Binding Path=Patient, Converter={StaticResource PatientInfoConverter}}"
                            Visibility="{Binding Patient, Converter={StaticResource NullableToVisibilityConverter}}"
                            VerticalAlignment="Center" />
-                <Button Visibility="{Binding Patient, Converter={StaticResource InvertedNullVisibilityConverter}}"
+
+                <Button Grid.Column="1"
+                        Style="{DynamicResource MaterialDesignFlatButton}"
+                        Visibility="{Binding Patient, Converter={StaticResource InvertedNullVisibilityConverter}}"
+                        Command="{Binding SearchPatientCommand}"
                         Content="Выбрать" />
-            </StackPanel>
+            </Grid>
 
             <TextBlock Text="Анамнезы"
                        Grid.Row="1"
@@ -77,25 +82,25 @@
                        VerticalAlignment="Center"
                        Margin="0,0,10,0" />
 
-            <TextBlock Grid.Row="1"
-                       Grid.Column="1"
-                       Visibility="{Binding Patient}"
-                       HorizontalAlignment="Left"
-                       Text="{Binding Anamneses.Count, TargetNullValue=Не добавлено, FallbackValue=Не добавлено}"
-                       Margin="5,10,5,10" />
+            <Grid Grid.Row="1"
+                  Grid.Column="1"
+                  Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Visibility="{Binding Patient}"
+                           VerticalAlignment="Center"
+                           Text="{Binding Anamneses.Count, TargetNullValue=Не добавлено, FallbackValue=Не добавлено}" />
+
+                <Button Grid.Column="1"
+                        Style="{DynamicResource MaterialDesignFlatButton}"
+                        Command="{Binding AddAnamnesesCommand}"
+                        Content="Выбрать" />
+            </Grid>
+
         </Grid>
 
-        <anamnesesCreate:AnamnesesCreateFormView BorderBrush="Black"
-                                                 BorderThickness="1"
-                                                 Grid.Row="2"
-                                                 DataContext="{Binding AnamnesesCreateFormViewModel}"
-                                                 Margin="5,5,5,5" />
-
-        <patientSearch:PatientSearchFormView BorderBrush="Black"
-                                             BorderThickness="1"
-                                             Grid.Row="3"
-                                             DataContext="{Binding PatientSearchFormViewModel}"
-                                             Margin="5,5,5,5" />
         <!--<ItemsControl Grid.Row="4"
                       ItemsSource="{Binding Anamneses}">
             <ItemsControl.ItemTemplate>
@@ -128,7 +133,7 @@
 
         <Button Grid.Row="4"
                 Content="Сохранить"
-                Margin="5,5,5,5"
+                Margin="5"
                 Command="{Binding SubmitCommand}" />
 
     </Grid>

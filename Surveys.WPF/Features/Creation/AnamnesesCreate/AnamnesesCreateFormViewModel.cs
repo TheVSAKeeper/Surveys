@@ -7,7 +7,7 @@ using Surveys.WPF.Shared.ViewModels;
 
 namespace Surveys.WPF.Features.Creation.AnamnesesCreate;
 
-public class AnamnesesCreateFormViewModel : ViewModelBase
+public class AnamnesesCreateFormViewModel : ViewModelBase, ICallbackViewModel<List<Anamnesis>>
 {
     private AnamnesisTemplateDto? _selectedTemplate;
     private List<Anamnesis>? _createdAnamneses;
@@ -29,7 +29,7 @@ public class AnamnesesCreateFormViewModel : ViewModelBase
         set
         {
             Set(ref _createdAnamneses, value);
-            AnamnesesCreated?.Invoke(_createdAnamneses!);
+            Callback?.Invoke(_createdAnamneses!);
         }
     }
 
@@ -45,5 +45,5 @@ public class AnamnesesCreateFormViewModel : ViewModelBase
         set => Set(ref _anamnesisTemplates, value);
     }
 
-    public event Action<List<Anamnesis>>? AnamnesesCreated;
+    public event Action<List<Anamnesis>>? Callback;
 }

@@ -3,17 +3,18 @@ using System.Windows.Input;
 using AutoMapper;
 using MediatR;
 using Surveys.Domain;
+using Surveys.WPF.Shared.Commands;
+using Surveys.WPF.Shared.Navigation.Modal;
 using Surveys.WPF.Shared.ViewModels;
 
 namespace Surveys.WPF.Features.Search.PatientSearch;
 
-public class PatientSearchFormViewModel : ViewModelBase
+public class PatientSearchFormViewModel : ViewModelBase, ICallbackViewModel<Patient>
 {
     private ObservableCollection<Patient>? _patients;
-
     private Patient? _selectedPatient;
 
-    public PatientSearchFormViewModel()
+    /*public PatientSearchFormViewModel()
     {
         Patients = new ObservableCollection<Patient>(Enumerable.Range(0, 20)
             .Select(x => new Patient
@@ -25,14 +26,16 @@ public class PatientSearchFormViewModel : ViewModelBase
                 BirthDate = new DateOnly()
             })
             .ToList());
-    }
+    }*/
 
-    public PatientSearchFormViewModel(IMediator mediator, IMapper mapper)
+    public PatientSearchFormViewModel(IMediator mediator, IMapper mapper, CloseModalNavigationService closeNavigationService)
     {
         RefreshCommand = new GetAllPatientsCommand(this, mediator);
+        CancelCommand = new NavigateCommand(closeNavigationService);
     }
 
     public ICommand RefreshCommand { get; }
+    public ICommand CancelCommand { get; }
 
     public ObservableCollection<Patient>? Patients
     {
@@ -45,10 +48,13 @@ public class PatientSearchFormViewModel : ViewModelBase
         get => _selectedPatient;
         set
         {
-            Set(ref _selectedPatient, value); 
-            PatientSelected?.Invoke(_selectedPatient!);
+            if (Set(ref _selectedPatient, value) == false)
+                return;
+
+            if (_selectedPatient != null)
+                Callback?.Invoke(_selectedPatient);
         }
     }
 
-    public event Action<Patient>? PatientSelected;
+    public event Action<Patient>? Callback;
 }

@@ -41,7 +41,7 @@ public class AnamnesesCreateRequestHandler(IUnitOfWork unitOfWork, Authenticatio
 
             return result;
         }
-        
+
         result.Result = anamneses;
 
         return result;

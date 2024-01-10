@@ -3,8 +3,8 @@ using System.Windows.Input;
 using AutoMapper;
 using MediatR;
 using Surveys.Domain;
-using Surveys.WPF.Features.Creation.AnamnesesCreate;
-using Surveys.WPF.Features.Search.PatientSearch;
+using Surveys.WPF.Shared.Commands;
+using Surveys.WPF.Shared.Navigation.Modal;
 using Surveys.WPF.Shared.ViewModels;
 
 namespace Surveys.WPF.Features.Creation.SurveyCreate;
@@ -15,15 +15,16 @@ public class SurveyCreateFormViewModel : ViewModelBase
     private Patient? _patient;
     private Survey? _createdSurvey;
 
-    public SurveyCreateFormViewModel(IMediator mediator, IMapper mapper)
+    public SurveyCreateFormViewModel(
+        IMediator mediator,
+        IMapper mapper,
+        ICallbackNavigationService<Patient> patientsModalNavigationService,
+        ICallbackNavigationService<List<Anamnesis>> anamnesesModalNavigationService
+    )
     {
         SubmitCommand = new SurveyCreateCommand(this, mediator);
-        
-        AnamnesesCreateFormViewModel = new AnamnesesCreateFormViewModel(mediator, mapper);
-        PatientSearchFormViewModel = new PatientSearchFormViewModel(mediator, mapper);
-
-        AnamnesesCreateFormViewModel.AnamnesesCreated += OnAnamnesesCreated;
-        PatientSearchFormViewModel.PatientSelected += OnPatientSelected;
+        SearchPatientCommand = new CallbackNavigateCommand<Patient>(patientsModalNavigationService, OnPatientSelected);
+        AddAnamnesesCommand = new CallbackNavigateCommand<List<Anamnesis>>(anamnesesModalNavigationService, OnAnamnesesCreated);
     }
 
     public Patient? Patient
@@ -45,9 +46,9 @@ public class SurveyCreateFormViewModel : ViewModelBase
     }
 
     public ICommand SubmitCommand { get; }
+    public ICommand SearchPatientCommand { get; }
 
-    public AnamnesesCreateFormViewModel AnamnesesCreateFormViewModel { get; }
-    public PatientSearchFormViewModel PatientSearchFormViewModel { get; }
+    public ICommand AddAnamnesesCommand { get; }
 
     private void OnPatientSelected(Patient patient)
     {
@@ -69,13 +70,5 @@ public class SurveyCreateFormViewModel : ViewModelBase
         }
 
         Anamneses = new ObservableCollection<Anamnesis>(old);
-    }
-
-    public override void Dispose()
-    {
-        base.Dispose();
-
-        AnamnesesCreateFormViewModel.AnamnesesCreated -= OnAnamnesesCreated;
-        PatientSearchFormViewModel.PatientSelected -= OnPatientSelected;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Surveys.WPF.Shared.Navigation;
 using Surveys.WPF.Shared.Navigation.Bar;
+using Surveys.WPF.Shared.Navigation.Modal;
 
 namespace Surveys.WPF.Shared.ViewModels;
 

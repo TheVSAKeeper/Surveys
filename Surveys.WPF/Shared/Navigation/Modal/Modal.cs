@@ -2,7 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace Surveys.WPF.Shared.Navigation;
+namespace Surveys.WPF.Shared.Navigation.Modal;
 
 public class Modal : ContentControl
 {

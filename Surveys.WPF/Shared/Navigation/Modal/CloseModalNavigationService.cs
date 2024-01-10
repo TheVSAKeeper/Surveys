@@ -1,4 +1,4 @@
-﻿namespace Surveys.WPF.Shared.Navigation;
+﻿namespace Surveys.WPF.Shared.Navigation.Modal;
 
 public class CloseModalNavigationService(ModalNavigationStore navigationStore) : INavigationService
 {

@@ -1,6 +1,6 @@
 ﻿using Surveys.WPF.Shared.ViewModels;
 
-namespace Surveys.WPF.Shared.Navigation;
+namespace Surveys.WPF.Shared.Navigation.Modal;
 
 public class ModalNavigationStore : INavigationStore
 {

@@ -9,7 +9,8 @@
         xmlns:profile="clr-namespace:Surveys.WPF.Pages.Profile"
         xmlns:home="clr-namespace:Surveys.WPF.Pages.Home"
         xmlns:login="clr-namespace:Surveys.WPF.Pages.Login"
-        xmlns:navigation="clr-namespace:Surveys.WPF.Shared.Navigation"
+        xmlns:patientSearch="clr-namespace:Surveys.WPF.Features.Search.PatientSearch"
+        xmlns:anamnesesCreate="clr-namespace:Surveys.WPF.Features.Creation.AnamnesesCreate"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.FontWeight="Medium"
@@ -31,6 +32,12 @@
             <DataTemplate DataType="{x:Type profile:ProfileViewModel}">
                 <profile:ProfileView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type patientSearch:PatientSearchFormViewModel}">
+                <patientSearch:PatientSearchFormView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type anamnesesCreate:AnamnesesCreateFormViewModel}">
+                <anamnesesCreate:AnamnesesCreateFormView />
+            </DataTemplate>
         </Grid.Resources>
 
         <Grid.ColumnDefinitions>
@@ -43,11 +50,9 @@
             <bar:NavigationBarView DataContext="{Binding NavigationBarViewModel}" />
         </StackPanel>
 
-        <navigation:Modal Grid.Column="1"
-                          Panel.ZIndex="1"
-                          IsOpen="{Binding IsOpen}">
-            <ContentControl Content="{Binding CurrentModalViewModel}" />
-        </navigation:Modal>
+        <ContentControl Grid.Column="1"
+                        Panel.ZIndex="1"
+                        Content="{Binding CurrentModalViewModel}" />
 
         <ContentControl Grid.Column="1"
                         Content="{Binding CurrentViewModel}" />
