@@ -6,7 +6,7 @@ namespace Surveys.WPF.Features.Authentication.Logout;
 public class LogoutCommand(AuthenticationStore authenticationStore, INavigationService loginNavigationService)
     : CommandBase
 {
-    public override void Execute(object? parameter)
+    protected override void Execute(object? parameter)
     {
         authenticationStore.SignOut();
 

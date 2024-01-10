@@ -16,10 +16,9 @@ public class SurveyCreateCommand(SurveyCreateFormViewModel viewModel, IMediator 
         viewModel.CreatedSurvey = result.Result;
     }
 
-    public override bool CanExecute(object? parameter) => IsExecuting == false
-                                                          && viewModel is
-                                                          {
-                                                              Patient: not null,
-                                                              AnamnesesCreateFormViewModel.CreatedAnamneses: not null
-                                                          };
+    protected override bool CanExecuteAsync(object? parameter) => viewModel is
+    {
+        Patient: not null,
+        AnamnesesCreateFormViewModel.CreatedAnamneses: not null
+    };
 }

@@ -24,7 +24,6 @@ public class AnamnesesCreateCommand(AnamnesesCreateFormViewModel viewModel, IMed
             template.IsSelected = false;
     }
 
-    public override bool CanExecute(object? parameter) => IsExecuting == false
-                                                          && viewModel.AnamnesisTemplates != null
-                                                          && viewModel.AnamnesisTemplates.Any(template => template.IsSelected);
+    protected override bool CanExecuteAsync(object? parameter) => viewModel.AnamnesisTemplates != null
+                                                                  && viewModel.AnamnesisTemplates.Any(template => template.IsSelected);
 }
