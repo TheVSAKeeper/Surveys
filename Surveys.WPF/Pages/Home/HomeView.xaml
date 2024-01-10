@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:home="clr-namespace:Surveys.WPF.Pages.Home"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:surveyCreate="clr-namespace:Surveys.WPF.Features.Creation.SurveyCreate"
+             xmlns:create="clr-namespace:Surveys.WPF.Endpoints.SurveysEndpoints.Create"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              Background="{DynamicResource MaterialDesignPaper}"
              TextElement.FontWeight="Medium"
@@ -49,7 +49,7 @@
                     Height="30" />
         </Grid>
         <Grid Grid.Row="1">
-            <surveyCreate:SurveyCreateFormView DataContext="{Binding AnamnesesCreateFormViewModel}" />
+            <create:SurveyCreateFormView DataContext="{Binding AnamnesesCreateFormViewModel}" />
         </Grid>
     </Grid>
 </UserControl>

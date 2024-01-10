@@ -35,6 +35,15 @@
             <XamlRuntime>Wpf</XamlRuntime>
             <SubType>Designer</SubType>
         </Page>
+        <Page Update="Endpoints\AnamnesesEndpoints\AnamnesesCreate\AnamnesesCreateFormView.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Update="Endpoints\SurveysEndpoints\SurveyCreate\SurveyCreateFormView.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
+        <Page Update="Endpoints\PatientsEndpoints\PatientSearch\PatientSearchFormView.xaml">
+            <Generator>MSBuild:Compile</Generator>
+        </Page>
     </ItemGroup>
 
     <ItemGroup>
@@ -90,7 +99,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Features\Surveys\"/>
+        <Folder Include="Endpoints\AnamnesesEndpoints\"/>
+        <Folder Include="Endpoints\PatientsEndpoints\"/>
+        <Folder Include="Endpoints\SurveysEndpoints\"/>
     </ItemGroup>
 
 </Project>

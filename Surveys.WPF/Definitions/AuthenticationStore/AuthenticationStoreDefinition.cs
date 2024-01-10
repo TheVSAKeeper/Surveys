@@ -8,6 +8,6 @@ public class AuthenticationStoreDefinition : AppDefinition
 {
     public override void ConfigureServices(IServiceCollection services, HostBuilderContext context)
     {
-        services.AddSingleton<Features.Authentication.AuthenticationStore>();
+        services.AddSingleton<Endpoints.AuthenticationEndpoints.AuthenticationStore>();
     }
 }

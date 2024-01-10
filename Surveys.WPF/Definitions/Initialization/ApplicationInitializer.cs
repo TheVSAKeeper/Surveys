@@ -34,7 +34,7 @@ public class ApplicationInitializer : AppDefinition
             if (pendingMigrations.Any())
                 await context.Database.MigrateAsync();
 
-            Features.Authentication.AuthenticationStore authenticationStore = scope.ServiceProvider.GetRequiredService<Features.Authentication.AuthenticationStore>();
+            Endpoints.AuthenticationEndpoints.AuthenticationStore authenticationStore = scope.ServiceProvider.GetRequiredService<Endpoints.AuthenticationEndpoints.AuthenticationStore>();
             await authenticationStore.Initialize();
 
             if (authenticationStore.IsLoggedIn)

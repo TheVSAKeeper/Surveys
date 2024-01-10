@@ -2,9 +2,9 @@
 using AutoMapper;
 using MediatR;
 using Surveys.Domain;
-using Surveys.WPF.Features.Authentication;
-using Surveys.WPF.Features.Authentication.Logout;
-using Surveys.WPF.Features.Creation.SurveyCreate;
+using Surveys.WPF.Endpoints.AuthenticationEndpoints;
+using Surveys.WPF.Endpoints.AuthenticationEndpoints.Logout;
+using Surveys.WPF.Endpoints.SurveysEndpoints.Create;
 using Surveys.WPF.Pages.Login;
 using Surveys.WPF.Pages.Profile;
 using Surveys.WPF.Shared.Commands;

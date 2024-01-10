@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Surveys.Infrastructure;
-using Surveys.WPF.Features.Authentication.Update;
+using Surveys.WPF.Endpoints.AuthenticationEndpoints.Update;
 
 namespace Surveys.WPF.Mappers;
 

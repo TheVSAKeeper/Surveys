@@ -9,16 +9,15 @@ public partial class App
 {
     private static IHost? _host;
 
-    public static IHost Host => _host ??= Program.CreateHostBuilder(Environment.GetCommandLineArgs()).Build();
+    private static IHost Host => _host ??= Program.CreateHostBuilder(Environment.GetCommandLineArgs()).Build();
 
-    public static IServiceProvider Services => Host.Services;
+    private static IServiceProvider Services => Host.Services;
 
     protected override async void OnStartup(StartupEventArgs e)
     {
-        await Host.StartAsync();
-
         base.OnStartup(e);
-
+        
+        await Host.StartAsync();
         await Host.UseDefinitions();
 
         MainWindow = Services.GetRequiredService<MainWindow>();

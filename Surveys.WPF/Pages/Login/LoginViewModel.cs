@@ -1,5 +1,5 @@
-﻿using Surveys.WPF.Features.Authentication;
-using Surveys.WPF.Features.Authentication.Login;
+﻿using Surveys.WPF.Endpoints.AuthenticationEndpoints;
+using Surveys.WPF.Endpoints.AuthenticationEndpoints.Login;
 using Surveys.WPF.Pages.Home;
 using Surveys.WPF.Shared.Navigation;
 using Surveys.WPF.Shared.ViewModels;

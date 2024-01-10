@@ -9,14 +9,14 @@ public class BoolToVisibilityConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        bool bValue = (bool)value;
+        bool bValue = (bool)(value ?? throw new ArgumentNullException(nameof(value)));
 
         return bValue ? Visibility.Visible : Visibility.Collapsed;
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        Visibility vValue = (Visibility)value;
+        Visibility vValue = (Visibility)(value ?? throw new ArgumentNullException(nameof(value)));
 
         return vValue == Visibility.Visible;
     }
