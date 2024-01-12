@@ -10,8 +10,8 @@ public class NavigationDefinition : AppDefinition
 {
     public override void ConfigureServices(IServiceCollection services, HostBuilderContext context)
     {
-        services.AddSingleton<NavigationStore>();
-        services.AddSingleton<ModalNavigationStore>();
+        services.AddSingleton<NavigationMediator>();
+        services.AddSingleton<ModalNavigationMediator>();
         services.AddSingleton<CloseModalNavigationService>();
     }
 }

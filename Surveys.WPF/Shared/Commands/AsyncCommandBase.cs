@@ -22,9 +22,9 @@ public abstract class AsyncCommandBase(Action<Exception>? onException = null) : 
         {
             await ExecuteAsync(parameter);
         }
-        catch (Exception ex)
+        catch (Exception exception)
         {
-            onException?.Invoke(ex);
+            onException?.Invoke(exception);
         }
 
         IsExecuting = false;

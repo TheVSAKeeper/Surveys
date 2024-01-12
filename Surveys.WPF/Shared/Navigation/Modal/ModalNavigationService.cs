@@ -2,11 +2,11 @@
 
 namespace Surveys.WPF.Shared.Navigation.Modal;
 
-public class ModalNavigationService<TViewModel>(ModalNavigationStore navigationStore, CreateViewModel<TViewModel> createViewModel)
+public class ModalNavigationService<TViewModel>(ModalNavigationMediator navigationMediator, CreateViewModel<TViewModel> createViewModel)
     : INavigationService where TViewModel : ViewModelBase
 {
     public void Navigate()
     {
-        navigationStore.CurrentViewModel = createViewModel();
+        navigationMediator.CurrentViewModel = createViewModel();
     }
 }

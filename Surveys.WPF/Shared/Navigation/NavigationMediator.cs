@@ -2,7 +2,7 @@
 
 namespace Surveys.WPF.Shared.Navigation;
 
-public class NavigationStore : INavigationStore
+public class NavigationMediator : INavigationMediator
 {
     private ViewModelBase? _currentViewModel;
 
