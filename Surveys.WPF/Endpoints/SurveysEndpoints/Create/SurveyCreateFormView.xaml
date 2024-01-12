@@ -101,6 +101,16 @@
 
         </Grid>
 
+        <ListView Grid.Row="2"
+                  DataContext="{Binding Path=Anamneses, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding AnamnesisAnswers}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Question.Content}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
         <!--<ItemsControl Grid.Row="4"
                       ItemsSource="{Binding Anamneses}">
             <ItemsControl.ItemTemplate>

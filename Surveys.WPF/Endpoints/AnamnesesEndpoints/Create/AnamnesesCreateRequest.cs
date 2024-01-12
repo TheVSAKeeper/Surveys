@@ -1,6 +1,7 @@
 ﻿using Calabonga.OperationResults;
 using Calabonga.UnitOfWork;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Surveys.Domain;
 using Surveys.Domain.Exceptions;
 using Surveys.WPF.Endpoints.AuthenticationEndpoints;
@@ -42,7 +43,11 @@ public class AnamnesesCreateRequestHandler(IUnitOfWork unitOfWork, Authenticatio
             return result;
         }
 
-        result.Result = anamneses;
+        List<Guid> keys = anamneses.Select(x => x.Id).ToList();
+
+        result.Result = (await repository.GetAllAsync(predicate: anamnesis => keys.Contains(anamnesis.Id),
+            include: i => i.Include(a => a.AnamnesisAnswers)!    
+            )).ToList();
 
         return result;
     }

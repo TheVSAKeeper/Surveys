@@ -28,7 +28,7 @@ public class HomeViewModel : ViewModelBase
         IMapper mapper)
     {
         _authenticationStore = authenticationStore;
-        AnamnesesCreateFormViewModel = new SurveyCreateFormViewModel(mediator, mapper, patientsModalNavigationService, anamnesesModalNavigationService);
+        AnamnesesCreateFormViewModel = new SurveyCreateFormViewModel(mediator, patientsModalNavigationService, anamnesesModalNavigationService);
 
         NavigateProfileCommand = new NavigateCommand(profileNavigationService);
         LogoutCommand = new LogoutCommand(authenticationStore, loginNavigationService);
