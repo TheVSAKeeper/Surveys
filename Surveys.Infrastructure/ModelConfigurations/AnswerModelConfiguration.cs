@@ -6,7 +6,7 @@ namespace Surveys.Infrastructure.ModelConfigurations;
 
 public class AnswerModelConfiguration : IdentityModelConfigurationBase<Answer>
 {
-    protected override void AddBuilder(EntityTypeBuilder<Answer> builder)
+    protected override void AddConfiguration(EntityTypeBuilder<Answer> builder)
     {
         builder.Property(answer => answer.Content)
             .HasMaxLength(1024)

@@ -25,7 +25,6 @@ public class PatientSearchFormViewModel : ViewModelBase, ICallbackViewModel<Pati
 
     public ICommand RefreshCommand { get; }
     public ICommand CancelCommand { get; }
-
     public ICommand ConfirmCommand => _confirmCommand ??= new LambdaCommand(() =>
         {
             ConfirmedPatient = SelectedPatient;
@@ -45,7 +44,7 @@ public class PatientSearchFormViewModel : ViewModelBase, ICallbackViewModel<Pati
         set => Set(ref _selectedPatient, value);
     }
 
-    public Patient? ConfirmedPatient
+    private Patient? ConfirmedPatient
     {
         get => _confirmedPatient;
         set

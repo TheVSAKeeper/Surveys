@@ -5,9 +5,7 @@ namespace Surveys.Domain;
 public class Patient : Identity
 {
     public string LastName { get; set; } = null!;
-
     public string FirstName { get; set; } = null!;
-
     public string? Patronymic { get; set; }
 
     public Gender Gender { get; set; }

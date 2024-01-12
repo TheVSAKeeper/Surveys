@@ -7,7 +7,7 @@ namespace Surveys.Infrastructure.ModelConfigurations;
 
 public class SurveyModelConfiguration : AuditableModelConfigurationBase<Survey>
 {
-    protected override void AddBuilder(EntityTypeBuilder<Survey> builder)
+    protected override void AddConfiguration(EntityTypeBuilder<Survey> builder)
     {
         builder.Property(survey => survey.Complaint)
             .HasMaxLength(1024)

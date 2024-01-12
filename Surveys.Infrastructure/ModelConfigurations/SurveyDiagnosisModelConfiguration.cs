@@ -6,7 +6,7 @@ namespace Surveys.Infrastructure.ModelConfigurations;
 
 public class SurveyDiagnosisModelConfiguration : AuditableModelConfigurationBase<SurveyDiagnosis>
 {
-    protected override void AddBuilder(EntityTypeBuilder<SurveyDiagnosis> builder)
+    protected override void AddConfiguration(EntityTypeBuilder<SurveyDiagnosis> builder)
     {
         builder.Property(surveyDiagnosis => surveyDiagnosis.Reason)
             .HasMaxLength(1024)

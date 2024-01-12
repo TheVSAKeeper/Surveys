@@ -47,7 +47,6 @@ public class SurveyCreateFormViewModel : ViewModelBase
 
     public ICommand SubmitCommand { get; }
     public ICommand SearchPatientCommand { get; }
-
     public ICommand AddAnamnesesCommand { get; }
 
     private void OnPatientSelected(Patient patient)

@@ -6,7 +6,7 @@ namespace Surveys.Infrastructure.ModelConfigurations;
 
 public class QuestionModelConfiguration : IdentityModelConfigurationBase<Question>
 {
-    protected override void AddBuilder(EntityTypeBuilder<Question> builder)
+    protected override void AddConfiguration(EntityTypeBuilder<Question> builder)
     {
         builder.Property(question => question.Content)
             .HasMaxLength(1024)
