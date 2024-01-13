@@ -46,8 +46,7 @@ public class AnamnesesCreateRequestHandler(IUnitOfWork unitOfWork, Authenticatio
         List<Guid> keys = anamneses.Select(x => x.Id).ToList();
 
         result.Result = (await repository.GetAllAsync(predicate: anamnesis => keys.Contains(anamnesis.Id),
-            include: i => i.Include(a => a.AnamnesisAnswers)!    
-            )).ToList();
+            include: i => i.Include(a => a.AnamnesisAnswers)!)).ToList();
 
         return result;
     }

@@ -28,8 +28,8 @@ public abstract class AuditableModelConfigurationBase<T> : IEntityTypeConfigurat
 
         AddConfiguration(builder);
     }
-    
+
     protected abstract void AddConfiguration(EntityTypeBuilder<T> builder);
-    
+
     protected abstract string GetTableName();
 }

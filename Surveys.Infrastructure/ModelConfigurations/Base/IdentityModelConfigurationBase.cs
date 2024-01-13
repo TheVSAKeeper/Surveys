@@ -15,8 +15,8 @@ public abstract class IdentityModelConfigurationBase<T> : IEntityTypeConfigurati
 
         AddConfiguration(builder);
     }
-    
+
     protected abstract void AddConfiguration(EntityTypeBuilder<T> builder);
-    
+
     protected abstract string GetTableName();
 }

@@ -25,6 +25,7 @@ public class PatientSearchFormViewModel : ViewModelBase, ICallbackViewModel<Pati
 
     public ICommand RefreshCommand { get; }
     public ICommand CancelCommand { get; }
+
     public ICommand ConfirmCommand => _confirmCommand ??= new LambdaCommand(() =>
         {
             ConfirmedPatient = SelectedPatient;

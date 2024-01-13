@@ -8,10 +8,10 @@ namespace Surveys.Infrastructure.DatabaseInitialization;
 
 public class DatabaseInitializer
 {
-    private readonly string _dataPath;
     private readonly ApplicationDbContext _context;
     private readonly ILogger<DatabaseInitializer> _logger;
     private readonly IServiceScope _scope;
+    private readonly string _dataPath;
 
     public DatabaseInitializer(IServiceProvider serviceProvider, string dataPath)
     {
