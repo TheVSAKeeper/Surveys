@@ -2,9 +2,8 @@
 using Microsoft.Extensions.Hosting;
 using Surveys.WPF.Definitions.Base;
 using Surveys.WPF.Definitions.Initialization;
-using Surveys.WPF.Shared.ViewModels;
 
-namespace Surveys.WPF.Definitions.ViewModels;
+namespace Surveys.WPF.Shared.ViewModels;
 
 public class MainWindowDefinition : AppDefinition
 {

@@ -22,7 +22,7 @@ public abstract class AuditableModelConfigurationBase<T> : IEntityTypeConfigurat
             .IsRequired();
 
         builder.Property(x => x.UpdatedAt)
-            .HasConversion(v => v.Value, v => DateTime.SpecifyKind(v, DateTimeKind.Utc));
+            .HasConversion(v => v!.Value, v => DateTime.SpecifyKind(v, DateTimeKind.Utc));
 
         builder.Property(x => x.UpdatedBy).HasMaxLength(256);
 

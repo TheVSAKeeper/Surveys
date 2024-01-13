@@ -1,10 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Surveys.WPF.Definitions.Base;
-using Surveys.WPF.Pages.Profile;
 using Surveys.WPF.Shared.Navigation;
 
-namespace Surveys.WPF.Definitions.ViewModels;
+namespace Surveys.WPF.Pages.Profile;
 
 public class ProfileDefinition : AppDefinition
 {

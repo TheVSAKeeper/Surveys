@@ -1,10 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Surveys.WPF.Definitions.Base;
-using Surveys.WPF.Shared.Navigation;
 using Surveys.WPF.Shared.Navigation.Modal;
 
-namespace Surveys.WPF.Definitions.ViewModels;
+namespace Surveys.WPF.Shared.Navigation;
 
 public class NavigationDefinition : AppDefinition
 {

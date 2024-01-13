@@ -1,14 +1,16 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Surveys.WPF.Definitions.Base;
-using Surveys.WPF.Shared.Navigation.Bar;
+using Surveys.WPF.Shared.Navigation;
 
-namespace Surveys.WPF.Definitions.ViewModels;
+namespace Surveys.WPF.Pages.Login;
 
-public class NavigationBarDefinition : AppDefinition
+public class LoginDefinition : AppDefinition
 {
     public override void ConfigureServices(IServiceCollection services, HostBuilderContext context)
     {
-        services.AddSingleton<NavigationBarViewModel>();
+        services.AddTransient<LoginViewModel>();
+
+        services.AddNavigationService<LoginViewModel>();
     }
 }
