@@ -5,7 +5,7 @@ using Surveys.WPF.Properties;
 
 namespace Surveys.WPF.Endpoints.AuthenticationEndpoints;
 
-public class AuthenticationStore(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
+public class AuthenticationStore(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, ApplicationUserStore userStore)
 {
     public ApplicationUser? User { get; private set; }
 
@@ -80,11 +80,10 @@ public class AuthenticationStore(UserManager<ApplicationUser> userManager, RoleM
         ApplicationRole? role = await roleManager.FindByNameAsync(roleName);
 
         if (role == null)
-            return IdentityResult.Failed();
+            return IdentityResult.Failed(new IdentityError { Description = $"Role {roleName} dont found" });
 
         ApplicationUser user = new()
         {
-            Id = Guid.NewGuid(),
             UserName = username,
             NormalizedUserName = username.ToUpper(),
             FirstName = string.Empty,
@@ -92,7 +91,6 @@ public class AuthenticationStore(UserManager<ApplicationUser> userManager, RoleM
             Patronymic = string.Empty,
             EmailConfirmed = true,
             PhoneNumberConfirmed = true,
-            SecurityStamp = Guid.NewGuid().ToString("D"),
             Roles = new List<ApplicationRole>
             {
                 role
@@ -101,7 +99,11 @@ public class AuthenticationStore(UserManager<ApplicationUser> userManager, RoleM
 
         IdentityResult createResult = await userManager.CreateAsync(user, password);
 
-        return createResult;
+        if (createResult.Succeeded == false)
+            return createResult;
+
+        IdentityResult addToRoleResult = await userManager.AddToRoleAsync(user, roleName);
+        return addToRoleResult;
     }
 
     public async Task UpdateUserAsync(Guid id)

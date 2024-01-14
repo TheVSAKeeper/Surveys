@@ -4,6 +4,7 @@ using Surveys.WPF.Definitions.Base;
 using Surveys.WPF.Pages.Home;
 using Surveys.WPF.Pages.Login;
 using Surveys.WPF.Pages.Profile;
+using Surveys.WPF.Pages.Survey;
 
 namespace Surveys.WPF.Pages;
 
@@ -14,5 +15,6 @@ public class PagesDefinition : AppDefinition
         services.AddPage<HomeViewModel>();
         services.AddPage<LoginViewModel>();
         services.AddPage<ProfileViewModel>();
+        services.AddPage<SurveyViewModel>();
     }
 }

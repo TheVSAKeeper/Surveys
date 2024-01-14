@@ -21,7 +21,9 @@ public class PatientInfoConverter : IValueConverter
             var wrongGender => throw new SurveysInvalidOperationException(nameof(PatientInfoConverter), $"Not supported gender {wrongGender}")
         };
 
-        return $"{patient.LastName} {patient.FirstName} {patient.Patronymic} {gender} {patient.BirthDate.ToLongDateString()}";
+        return parameter is not null
+            ? $"{patient.LastName} {patient.FirstName} {patient.Patronymic}"
+            : $"{patient.LastName} {patient.FirstName} {patient.Patronymic} {gender} {patient.BirthDate.ToLongDateString()}";
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>

@@ -32,6 +32,7 @@ public class MainViewModel : ViewModelBase
     private void OnCurrentViewModelChanged()
     {
         OnPropertyChanged(nameof(CurrentViewModel));
+        _modalNavigationMediator.Close();
     }
 
     private void OnCurrentModalViewModalChanged()

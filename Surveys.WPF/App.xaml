@@ -15,6 +15,7 @@
             <converters:InvertedNullVisibilityConverter x:Key="InvertedNullVisibilityConverter" />
             <converters:DateTimeToLongDateConverter x:Key="DateTimeToLongDateConverter" />
             <converters:RussificationConverter x:Key="RussificationConverter" />
+            <converters:DateToAgeConverter x:Key="DateToAgeConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

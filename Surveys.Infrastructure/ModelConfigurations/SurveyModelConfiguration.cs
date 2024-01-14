@@ -18,9 +18,7 @@ public class SurveyModelConfiguration : AuditableModelConfigurationBase<Survey>
             .IsRequired();
 
         builder.HasOne(survey => survey.Patient);
-
         builder.HasMany(survey => survey.SurveyDiagnoses);
-
         builder.HasMany(survey => survey.Anamneses);
     }
 

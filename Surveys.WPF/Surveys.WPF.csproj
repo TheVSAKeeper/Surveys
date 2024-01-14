@@ -44,6 +44,16 @@
         <Page Update="Endpoints\PatientsEndpoints\PatientSearch\PatientSearchFormView.xaml">
             <Generator>MSBuild:Compile</Generator>
         </Page>
+        <Page Update="Pages\Survey\SurveyView.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Endpoints\SurveysEndpoints\ShowAll\SurveyShowAllFormView.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
     </ItemGroup>
 
     <ItemGroup>
@@ -101,7 +111,6 @@
     <ItemGroup>
         <Folder Include="Endpoints\AnamnesesEndpoints\"/>
         <Folder Include="Endpoints\PatientsEndpoints\"/>
-        <Folder Include="Endpoints\SurveysEndpoints\"/>
     </ItemGroup>
 
 </Project>

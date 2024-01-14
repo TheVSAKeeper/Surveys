@@ -9,25 +9,25 @@ public class ApplicationUserUpdateDtoValidator : AbstractValidator<ApplicationUs
         RuleFor(user => user.DisplayName)
             .NotEmpty()
             .MinimumLength(6)
-            .MaximumLength(30);
+            .MaximumLength(40);
 
         RuleFor(user => user.UserName)
             .NotEmpty()
-            .MinimumLength(6)
+            .MinimumLength(4)
             .MaximumLength(20);
 
         RuleFor(user => user.FirstName)
             .NotEmpty()
-            .MinimumLength(6)
+            .MinimumLength(3)
             .MaximumLength(30);
 
         RuleFor(user => user.LastName)
             .NotEmpty()
-            .MinimumLength(6)
+            .MinimumLength(3)
             .MaximumLength(30);
 
         RuleFor(user => user.Patronymic)
-            .MinimumLength(6)
+            .MinimumLength(3)
             .MaximumLength(30);
     }
 }
