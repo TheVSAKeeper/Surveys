@@ -78,7 +78,7 @@
                 <DataGridTextColumn Header="Жалоба"
                                     Binding="{Binding Path=Complaint}" />
                 <DataGridTextColumn Header="Дата создания"
-                                    Binding="{Binding Path=CreatedAt, ConverterCulture=ru-RU}" />
+                                    Binding="{Binding Path=CreatedAt, Converter={StaticResource DateTimeToLongDateConverter}}" />
             </DataGrid.Columns>
 
             <DataGrid.ItemsPanel>
