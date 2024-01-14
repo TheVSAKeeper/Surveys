@@ -15,7 +15,7 @@ public partial class SurveyShowAllFormView : UserControl
 
     private void OnSurveysCollectionOnFilter(object sender, FilterEventArgs e)
     {
-        if (e.Item is not SurveyDto survey)
+        if (e.Item is not SurveyShowDto survey)
         {
             e.Accepted = false;
             return;

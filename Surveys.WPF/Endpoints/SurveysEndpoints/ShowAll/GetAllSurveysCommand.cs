@@ -10,9 +10,9 @@ public class GetAllSurveysCommand(SurveyShowAllFormViewModel viewModel, IMediato
 {
     protected override async Task ExecuteAsync(object? parameter)
     {
-        OperationResult<List<SurveyDto>> result = await mediator.Send(new GetAllSurveysRequest());
+        OperationResult<List<SurveyShowDto>> result = await mediator.Send(new GetAllSurveysRequest());
 
         if (result.Ok)
-            viewModel.Surveys = new ObservableCollection<SurveyDto>(result.Result!);
+            viewModel.Surveys = new ObservableCollection<SurveyShowDto>(result.Result!);
     }
 }

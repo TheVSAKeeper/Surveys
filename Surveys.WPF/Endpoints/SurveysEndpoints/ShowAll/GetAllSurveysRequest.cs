@@ -6,14 +6,14 @@ using Surveys.Domain;
 
 namespace Surveys.WPF.Endpoints.SurveysEndpoints.ShowAll;
 
-public record GetAllSurveysRequest : IRequest<OperationResult<List<SurveyDto>>>;
+public record GetAllSurveysRequest : IRequest<OperationResult<List<SurveyShowDto>>>;
 
-public class GetAllSurveysRequestHandler(IUnitOfWork unitOfWork) : IRequestHandler<GetAllSurveysRequest, OperationResult<List<SurveyDto>>>
+public class GetAllSurveysRequestHandler(IUnitOfWork unitOfWork) : IRequestHandler<GetAllSurveysRequest, OperationResult<List<SurveyShowDto>>>
 {
-    public async Task<OperationResult<List<SurveyDto>>> Handle(GetAllSurveysRequest request, CancellationToken cancellationToken)
+    public async Task<OperationResult<List<SurveyShowDto>>> Handle(GetAllSurveysRequest request, CancellationToken cancellationToken)
     {
-        IList<SurveyDto> surveys = await unitOfWork.GetRepository<Survey>()
-            .GetAllAsync(survey => new SurveyDto
+        IList<SurveyShowDto> surveys = await unitOfWork.GetRepository<Survey>()
+            .GetAllAsync(survey => new SurveyShowDto
                 {
                     Complaint = survey.Complaint,
                     Patient = survey.Patient,

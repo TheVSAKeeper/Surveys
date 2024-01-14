@@ -5,7 +5,7 @@ using Surveys.WPF.Properties;
 
 namespace Surveys.WPF.Endpoints.AuthenticationEndpoints;
 
-public class AuthenticationStore(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager, ApplicationUserStore userStore)
+public class AuthenticationStore(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
 {
     public ApplicationUser? User { get; private set; }
 

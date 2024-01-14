@@ -2,7 +2,7 @@ using Surveys.Domain;
 
 namespace Surveys.WPF.Endpoints.SurveysEndpoints.ShowAll;
 
-public class SurveyDto
+public class SurveyShowDto
 {
     public required Guid Id { get; init; }
 

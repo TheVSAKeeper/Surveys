@@ -10,8 +10,8 @@ namespace Surveys.WPF.Endpoints.SurveysEndpoints.ShowAll;
 
 public class SurveyShowAllFormViewModel : ViewModelBase
 {
-    private ObservableCollection<SurveyDto>? _surveys;
-    private SurveyDto? _selectedSurvey;
+    private ObservableCollection<SurveyShowDto>? _surveys;
+    private SurveyShowDto? _selectedSurvey;
 
     public SurveyShowAllFormViewModel(IMediator mediator, NavigationService<SurveyCreateFormViewModel> surveyCreateNavigationService)
     {
@@ -22,13 +22,13 @@ public class SurveyShowAllFormViewModel : ViewModelBase
     public ICommand RefreshCommand { get; }
     public ICommand CreateSurveyCommand { get; }
 
-    public ObservableCollection<SurveyDto>? Surveys
+    public ObservableCollection<SurveyShowDto>? Surveys
     {
         get => _surveys;
         set => Set(ref _surveys, value);
     }
 
-    public SurveyDto? SelectedSurvey
+    public SurveyShowDto? SelectedSurvey
     {
         get => _selectedSurvey;
         set => Set(ref _selectedSurvey, value);
