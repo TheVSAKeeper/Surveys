@@ -17,14 +17,20 @@
              d:DataContext="{d:DesignInstance survey:SurveyViewModel}">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+
         <TextBlock HorizontalAlignment="Center"
                    Text="Незавершенные опросы"
                    Margin="10" />
         <showAll:SurveyShowAllFormView Grid.Row="1"
+                                       Grid.Column="0"
                                        DataContext="{Binding SurveyShowAllFormViewModel}" />
     </Grid>
 </UserControl>

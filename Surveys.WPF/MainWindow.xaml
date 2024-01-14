@@ -13,6 +13,7 @@
         xmlns:anamnesesCreate="clr-namespace:Surveys.WPF.Endpoints.AnamnesesEndpoints.Create"
         xmlns:survey="clr-namespace:Surveys.WPF.Pages.Survey"
         xmlns:showAll="clr-namespace:Surveys.WPF.Endpoints.SurveysEndpoints.ShowAll"
+        xmlns:create="clr-namespace:Surveys.WPF.Endpoints.SurveysEndpoints.Create"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Medium"
@@ -45,6 +46,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type anamnesesCreate:AnamnesesCreateFormViewModel}">
                 <anamnesesCreate:AnamnesesCreateFormView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type create:SurveyCreateFormViewModel}">
+                <create:SurveyCreateFormView />
             </DataTemplate>
         </Grid.Resources>
 

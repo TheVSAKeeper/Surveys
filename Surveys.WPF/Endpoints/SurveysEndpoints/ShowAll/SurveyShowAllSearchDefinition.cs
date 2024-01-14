@@ -11,6 +11,7 @@ public class SurveyShowAllSearchDefinition : AppDefinition
     {
         services.AddTransient<SurveyShowAllFormViewModel>();
 
+        services.AddNavigationService<SurveyShowAllFormViewModel>();
         services.AddModalNavigationService<SurveyShowAllFormViewModel>();
     }
 }

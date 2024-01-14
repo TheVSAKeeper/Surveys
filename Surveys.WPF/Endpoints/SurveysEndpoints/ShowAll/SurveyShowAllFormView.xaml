@@ -33,12 +33,14 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+
         </Grid.RowDefinitions>
 
         <Grid Margin="5,5,5,5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
@@ -73,8 +75,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Пациент"
                                     Binding="{Binding Path=Patient, Converter={StaticResource PatientInfoConverter}, ConverterParameter=True}" />
-                <DataGridTextColumn Width="1*"
-                                    Header="Жалоба"
+                <DataGridTextColumn Header="Жалоба"
                                     Binding="{Binding Path=Complaint}" />
                 <DataGridTextColumn Header="Дата создания"
                                     Binding="{Binding Path=CreatedAt, ConverterCulture=ru-RU}" />
@@ -89,7 +90,8 @@
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate DataType="{x:Type showAll:SurveyDto}">
                     <Grid>
-                        <Button HorizontalAlignment="Right"
+                        <Button Panel.ZIndex="1"
+                                HorizontalAlignment="Right"
                                 VerticalAlignment="Top"
                                 Style="{DynamicResource MaterialDesignFloatingActionButton}"
                                 Command="{Binding EditCommand}"
@@ -101,7 +103,7 @@
 
                         <StackPanel Margin="15,5">
                             <TextBlock Margin="0,5"
-                                       Text="{Binding Patient.Gender, StringFormat=Пол: {0}}" />
+                                       Text="{Binding Patient.Gender,Converter={StaticResource RussificationConverter} ,StringFormat=Пол: {0}}" />
                             <TextBlock Margin="0,5"
                                        Text="{Binding Patient.BirthDate, StringFormat=Дата рождения: {0:d}, ConverterCulture=ru-RU}" />
                             <TextBlock Margin="0,5"
@@ -116,5 +118,11 @@
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>
         </DataGrid>
+        <Button Grid.Row="2"
+                Style="{DynamicResource MaterialDesignRaisedButton}"
+                Command="{Binding CreateSurveyCommand}"
+                Content="Создать новый опрос"
+                Margin="5,5,5,5"
+                HorizontalAlignment="Right" />
     </Grid>
 </UserControl>

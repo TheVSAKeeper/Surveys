@@ -38,7 +38,7 @@ public class SurveyCreateRequestHandler(IUnitOfWork unitOfWork, AuthenticationSt
         foreach (Anamnesis anamnesis in request.CreatedAnamneses)
             anamnesis.SurveyId = survey.Id;
 
-        unitOfWork.GetRepository<Anamnesis>().Update(request.CreatedAnamneses);
+        await unitOfWork.GetRepository<Anamnesis>().InsertAsync(request.CreatedAnamneses, cancellationToken);
         await unitOfWork.SaveChangesAsync();
 
         if (unitOfWork.LastSaveChangesResult.IsOk == false)
