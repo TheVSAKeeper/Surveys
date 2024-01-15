@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using Calabonga.OperationResults;
+﻿using Calabonga.OperationResults;
 using MediatR;
 using Surveys.Domain;
 using Surveys.WPF.Shared.Commands;
@@ -14,11 +13,11 @@ public class AnamnesesCreateCommand(AnamnesesCreateFormViewModel viewModel, IMed
         OperationResult<List<Anamnesis>> result =
             await mediator.Send(new AnamnesesCreateRequest(viewModel.AnamnesisTemplates!.ToList()));
 
-        if (result.Ok)
-        {
-            MessageBox.Show($"Создано {result.Result!.Count} анамнезов", "Успех", MessageBoxButton.OK, MessageBoxImage.None);
-            viewModel.CreatedAnamneses = result.Result;
-        }
+        if (result.Ok == false)
+            return;
+
+        // MessageBox.Show($"Создано {result.Result!.Count} анамнезов", "Успех", MessageBoxButton.OK, MessageBoxImage.None);
+        viewModel.CreatedAnamneses = result.Result;
 
         foreach (AnamnesisTemplateDto template in viewModel.AnamnesisTemplates!)
             template.IsSelected = false;

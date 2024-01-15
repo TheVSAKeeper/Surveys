@@ -30,8 +30,8 @@
 
         <DataGrid Grid.Row="0"
                   Margin="5"
-                  SelectedItem="{Binding SelectedTemplate}"
-                  ItemsSource="{Binding AnamnesisTemplates}"
+                  SelectedItem="{Binding SelectedTemplate, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding AnamnesisTemplates, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False"
                   CanUserResizeColumns="True"
                   CanUserAddRows="False"
@@ -39,7 +39,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Width="Auto"
                                     Header="Название"
-                                    Binding="{Binding Path=Name, Mode=OneWay}"
+                                    Binding="{Binding Path=Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                     IsReadOnly="True" />
                 <DataGridCheckBoxColumn Width="Auto"
                                         Header="Включить"
@@ -73,6 +73,8 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TextBlock
                 Text="{Binding SelectedTemplate.Questions.Count, FallbackValue=Шаблон не выбран ,StringFormat=Количество {0}}"
@@ -80,14 +82,22 @@
                 Margin="5,0,5,0" />
             <Button Grid.Column="1"
                     Style="{DynamicResource MaterialDesignToolButton}"
+                    Command="{Binding SelectAllCommand}"
+                    Content="{materialDesign:PackIcon CheckBox}" />
+            <Button Grid.Column="2"
+                    Style="{DynamicResource MaterialDesignToolButton}"
+                    Command="{Binding UnselectAllCommand}"
+                    Content="{materialDesign:PackIcon ClearBox}" />
+            <Button Grid.Column="3"
+                    Style="{DynamicResource MaterialDesignToolButton}"
                     Command="{Binding RefreshCommand}"
                     Content="{materialDesign:PackIcon Refresh}" />
-            <Button Grid.Column="2"
+            <Button Grid.Column="4"
                     Margin="10,0,0,0"
                     Style="{DynamicResource MaterialDesignToolButton}"
                     Command="{Binding CancelCommand}"
                     Content="{materialDesign:PackIcon Close}" />
-            <Button Grid.Column="3"
+            <Button Grid.Column="5"
                     Style="{DynamicResource MaterialDesignFlatButton}"
                     Command="{Binding SubmitCommand}"
                     Content="Добавить" />

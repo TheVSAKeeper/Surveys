@@ -8,14 +8,14 @@ namespace Surveys.Infrastructure.DatabaseInitialization;
 
 public class DatabaseInitializer
 {
-    private const string DataPath = @"Definitions\DataSeedingDefinition\";
-
     private readonly ApplicationDbContext _context;
     private readonly ILogger<DatabaseInitializer> _logger;
     private readonly IServiceScope _scope;
+    private readonly string _dataPath;
 
-    public DatabaseInitializer(IServiceProvider serviceProvider)
+    public DatabaseInitializer(IServiceProvider serviceProvider, string dataPath)
     {
+        _dataPath = dataPath;
         _scope = serviceProvider.CreateScope();
         _context = _scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         _logger = _scope.ServiceProvider.GetRequiredService<ILogger<DatabaseInitializer>>();
@@ -110,15 +110,15 @@ public class DatabaseInitializer
         if (_context.Diagnoses.Any())
             return;
 
-        const string DiagnosesPath = DataPath + "diagnoses.txt";
+        string diagnosesPath = _dataPath + "diagnoses.txt";
 
-        if (File.Exists(DiagnosesPath) == false)
+        if (File.Exists(diagnosesPath) == false)
         {
-            logger.LogError("[DatabaseInitializer] Not found {File}", DiagnosesPath);
+            logger.LogError("[DatabaseInitializer] Not found {File}", diagnosesPath);
             return;
         }
 
-        string[] lines = await File.ReadAllLinesAsync(DiagnosesPath);
+        string[] lines = await File.ReadAllLinesAsync(diagnosesPath);
 
         Diagnosis[] diagnosis = lines
             .Select(line => line.Split('-', StringSplitOptions.RemoveEmptyEntries))
@@ -149,15 +149,15 @@ public class DatabaseInitializer
         if (_context.AnamnesisTemplates.Any())
             return;
 
-        const string AnamnesisTemplatesPath = DataPath + "AnamnesisTemplates.txt";
+        string anamnesisTemplatesPath = _dataPath + "AnamnesisTemplates.txt";
 
-        if (File.Exists(AnamnesisTemplatesPath) == false)
+        if (File.Exists(anamnesisTemplatesPath) == false)
         {
-            logger.LogError("[DatabaseInitializer] Not found {File}", AnamnesisTemplatesPath);
+            logger.LogError("[DatabaseInitializer] Not found {File}", anamnesisTemplatesPath);
             return;
         }
 
-        string lines = await File.ReadAllTextAsync(AnamnesisTemplatesPath);
+        string lines = await File.ReadAllTextAsync(anamnesisTemplatesPath);
 
         AnamnesisTemplate[] anamnesisTemplates = lines.Split('/', StringSplitOptions.RemoveEmptyEntries)
             .Select(template =>
@@ -169,7 +169,7 @@ public class DatabaseInitializer
                     .Select(question => new Question
                     {
                         Id = Guid.NewGuid(),
-                        Content = question.Trim(['-']).Trim()
+                        Content = question.Trim(['-', '?', ',', '.']).Trim().ToLower() + "?"
                     })
                     .ToList();
 
@@ -201,15 +201,15 @@ public class DatabaseInitializer
         if (_context.Patients.Any())
             return;
 
-        const string Path = DataPath + "Patients.txt";
+        string path = _dataPath + "Patients.txt";
 
-        if (File.Exists(Path) == false)
+        if (File.Exists(path) == false)
         {
-            logger.LogError("[DatabaseInitializer] Not found {File}", Path);
+            logger.LogError("[DatabaseInitializer] Not found {File}", path);
             return;
         }
 
-        string lines = await File.ReadAllTextAsync(Path);
+        string lines = await File.ReadAllTextAsync(path);
 
         Patient[] patients = lines.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
             .Select(s =>

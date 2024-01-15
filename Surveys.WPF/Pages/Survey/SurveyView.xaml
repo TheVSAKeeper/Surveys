@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="Surveys.WPF.Pages.Survey.SurveyView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:survey="clr-namespace:Surveys.WPF.Pages.Survey"
+             xmlns:showAll="clr-namespace:Surveys.WPF.Endpoints.SurveysEndpoints.ShowAll"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             Background="{DynamicResource MaterialDesignPaper}"
+             TextElement.FontWeight="Medium"
+             TextElement.FontSize="14"
+             FontFamily="{materialDesign:MaterialDesignFont}"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance survey:SurveyViewModel}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock HorizontalAlignment="Center"
+                   Text="Незавершенные опросы"
+                   Margin="10" />
+        <showAll:SurveyShowAllFormView Grid.Row="1"
+                                       Grid.Column="0"
+                                       DataContext="{Binding SurveyShowAllFormViewModel}" />
+    </Grid>
+</UserControl>

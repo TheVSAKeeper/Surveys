@@ -18,11 +18,10 @@
     <UserControl.Resources>
         <converters:PatientInfoConverter x:Key="PatientInfoConverter" />
     </UserControl.Resources>
-    <Grid>
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="1*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -36,7 +35,10 @@
                 Text="{Binding CreatedSurvey.CreatedAt, FallbackValue=?,Converter={StaticResource DateTimeToLongDateConverter}}" />
         </TextBlock>
 
-        <TextBlock Grid.Row="0"
+        <TextBlock FontSize="18"
+                   Margin="0,0,0,10"
+                   HorizontalAlignment="Center"
+                   Grid.Row="0"
                    Visibility="{Binding CreatedSurvey, Converter={StaticResource InvertedNullVisibilityConverter}}">
             <Run Text="Опрос не создан" />
         </TextBlock>
@@ -91,50 +93,33 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Visibility="{Binding Patient}"
                            VerticalAlignment="Center"
-                           Text="{Binding Anamneses.Count, TargetNullValue=Не добавлено, FallbackValue=Не добавлено}" />
+                           Text="{Binding Anamneses.Count,StringFormat=количество {0} ,TargetNullValue=не добавлено, FallbackValue=не добавлено}" />
 
                 <Button Grid.Column="1"
                         Style="{DynamicResource MaterialDesignFlatButton}"
                         Command="{Binding AddAnamnesesCommand}"
                         Content="Выбрать" />
             </Grid>
-
         </Grid>
 
-        <!--<ItemsControl Grid.Row="4"
-                      ItemsSource="{Binding Anamneses}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Expander Header="{Binding AnamnesisTemplate.Name}">
-                        <ItemsControl ItemsSource="{Binding AnamnesisAnswers}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <DataGrid AutoGenerateColumns="False"
-                                              ItemsSource="{Binding Answers}">
-                                        <DataGrid.Columns>
-                                            <DataGridTextColumn Width="1*"
-                                                                Binding="{Binding Path=Content}">
-                                                <DataGridTextColumn.HeaderTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock
-                                                            Text="{Binding DataContext.Question.Content, RelativeSource={RelativeSource AncestorType=DataGrid}}" />
-                                                    </DataTemplate>
-                                                </DataGridTextColumn.HeaderTemplate>
-                                            </DataGridTextColumn>
-                                        </DataGrid.Columns>
-                                    </DataGrid>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </Expander>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>-->
+        <GroupBox Grid.Row="2"
+                  Header="Список анамнезов"
+                  Margin="0,5,0,5">
+            <ListView materialDesign:ListViewAssist.ListViewItemPadding="5"
+                      ItemsSource="{Binding Anamneses, UpdateSourceTrigger=PropertyChanged}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding AnamnesisTemplate.Name}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </GroupBox>
 
-        <Button Grid.Row="4"
+        <Button Grid.Row="3"
                 Content="Сохранить"
                 Margin="5"
-                Command="{Binding SubmitCommand}" />
+                Command="{Binding SubmitCommand}"
+                HorizontalAlignment="Right" />
 
     </Grid>
 </UserControl>

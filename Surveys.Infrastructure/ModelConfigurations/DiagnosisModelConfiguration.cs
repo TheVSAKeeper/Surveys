@@ -6,7 +6,7 @@ namespace Surveys.Infrastructure.ModelConfigurations;
 
 public class DiagnosisModelConfiguration : IdentityModelConfigurationBase<Diagnosis>
 {
-    protected override void AddBuilder(EntityTypeBuilder<Diagnosis> builder)
+    protected override void AddConfiguration(EntityTypeBuilder<Diagnosis> builder)
     {
         builder.Property(diagnosis => diagnosis.Name)
             .HasMaxLength(50)

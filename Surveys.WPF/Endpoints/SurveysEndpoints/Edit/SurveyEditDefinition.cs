@@ -1,17 +1,16 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Surveys.WPF.Definitions.Base;
-using Surveys.WPF.Pages.Profile;
 using Surveys.WPF.Shared.Navigation;
 
-namespace Surveys.WPF.Definitions.ViewModels;
+namespace Surveys.WPF.Endpoints.SurveysEndpoints.Edit;
 
-public class ProfileDefinition : AppDefinition
+public class SurveyEditDefinition : AppDefinition
 {
     public override void ConfigureServices(IServiceCollection services, HostBuilderContext context)
     {
-        services.AddTransient<ProfileViewModel>();
+        services.AddTransient<SurveyEditFormViewModel>();
 
-        services.AddNavigationService<ProfileViewModel>();
+        services.AddParameterNavigationService<Guid, SurveyEditFormViewModel>();
     }
 }

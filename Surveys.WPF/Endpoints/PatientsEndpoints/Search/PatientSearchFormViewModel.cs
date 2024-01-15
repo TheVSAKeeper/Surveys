@@ -45,7 +45,7 @@ public class PatientSearchFormViewModel : ViewModelBase, ICallbackViewModel<Pati
         set => Set(ref _selectedPatient, value);
     }
 
-    public Patient? ConfirmedPatient
+    private Patient? ConfirmedPatient
     {
         get => _confirmedPatient;
         set

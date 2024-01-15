@@ -44,6 +44,21 @@
         <Page Update="Endpoints\PatientsEndpoints\PatientSearch\PatientSearchFormView.xaml">
             <Generator>MSBuild:Compile</Generator>
         </Page>
+        <Page Update="Pages\Survey\SurveyView.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Endpoints\SurveysEndpoints\ShowAll\SurveyShowAllFormView.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+        <Page Update="Endpoints\SurveysEndpoints\Edit\SurveyEditFormView.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
     </ItemGroup>
 
     <ItemGroup>
@@ -72,16 +87,16 @@
             <Generator>SettingsSingleFileGenerator</Generator>
             <LastGenOutput>Settings.Designer.cs</LastGenOutput>
         </None>
-        <None Update="Definitions\DataSeedingDefinition\diagnoses.txt">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
         <None Update="appsettings.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Update="Definitions\DataSeedingDefinition\AnamnesisTemplates.txt">
+        <None Update="Definitions\DataSeedingDefinition\data\AnamnesisTemplates.txt">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-        <None Update="Definitions\DataSeedingDefinition\Patients.txt">
+        <None Update="Definitions\DataSeedingDefinition\data\diagnoses.txt">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Definitions\DataSeedingDefinition\data\Patients.txt">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>
@@ -101,7 +116,6 @@
     <ItemGroup>
         <Folder Include="Endpoints\AnamnesesEndpoints\"/>
         <Folder Include="Endpoints\PatientsEndpoints\"/>
-        <Folder Include="Endpoints\SurveysEndpoints\"/>
     </ItemGroup>
 
 </Project>

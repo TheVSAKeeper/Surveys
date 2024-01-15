@@ -54,6 +54,5 @@
                 </StackPanel>
             </TabItem>
         </TabControl>
-
     </Grid>
 </UserControl>

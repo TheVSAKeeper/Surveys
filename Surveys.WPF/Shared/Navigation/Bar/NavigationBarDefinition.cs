@@ -1,9 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Surveys.WPF.Definitions.Base;
-using Surveys.WPF.Shared.Navigation.Bar;
 
-namespace Surveys.WPF.Definitions.ViewModels;
+namespace Surveys.WPF.Shared.Navigation.Bar;
 
 public class NavigationBarDefinition : AppDefinition
 {

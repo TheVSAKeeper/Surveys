@@ -6,7 +6,7 @@ namespace Surveys.Infrastructure.ModelConfigurations;
 
 public class AnamnesisAnswerModelConfiguration : IdentityModelConfigurationBase<AnamnesisAnswer>
 {
-    protected override void AddBuilder(EntityTypeBuilder<AnamnesisAnswer> builder)
+    protected override void AddConfiguration(EntityTypeBuilder<AnamnesisAnswer> builder)
     {
         builder.HasOne(anamnesisAnswer => anamnesisAnswer.Question);
         builder.Navigation(anamnesisAnswer => anamnesisAnswer.Question).AutoInclude();

@@ -6,7 +6,7 @@ namespace Surveys.Infrastructure.ModelConfigurations;
 
 public class AnamnesisTemplateModelConfiguration : IdentityModelConfigurationBase<AnamnesisTemplate>
 {
-    protected override void AddBuilder(EntityTypeBuilder<AnamnesisTemplate> builder)
+    protected override void AddConfiguration(EntityTypeBuilder<AnamnesisTemplate> builder)
     {
         builder.Property(anamnesisTemplate => anamnesisTemplate.Name)
             .HasMaxLength(50)

@@ -20,7 +20,7 @@ public class AuthenticationStore(UserManager<ApplicationUser> userManager, RoleM
 
     public async Task Initialize()
     {
-        /*string userIdJson = Settings.Default.User;
+        string userIdJson = Settings.Default.User;
 
         if (string.IsNullOrEmpty(userIdJson))
             return;
@@ -30,9 +30,7 @@ public class AuthenticationStore(UserManager<ApplicationUser> userManager, RoleM
         if (userId == null)
             return;
 
-        User = await userManager.FindByIdAsync(userId.ToString()!);*/
-
-        User = await userManager.FindByNameAsync("Superuser");
+        User = await userManager.FindByIdAsync(userId.ToString()!);
 
         SaveAuthenticationState();
     }
@@ -71,7 +69,7 @@ public class AuthenticationStore(UserManager<ApplicationUser> userManager, RoleM
         Settings.Default.Save();
     }
 
-    private void ClearAuthenticationState()
+    private static void ClearAuthenticationState()
     {
         Settings.Default.User = null;
         Settings.Default.Save();
@@ -82,11 +80,10 @@ public class AuthenticationStore(UserManager<ApplicationUser> userManager, RoleM
         ApplicationRole? role = await roleManager.FindByNameAsync(roleName);
 
         if (role == null)
-            return IdentityResult.Failed();
+            return IdentityResult.Failed(new IdentityError { Description = $"Role {roleName} dont found" });
 
         ApplicationUser user = new()
         {
-            Id = Guid.NewGuid(),
             UserName = username,
             NormalizedUserName = username.ToUpper(),
             FirstName = string.Empty,
@@ -94,7 +91,6 @@ public class AuthenticationStore(UserManager<ApplicationUser> userManager, RoleM
             Patronymic = string.Empty,
             EmailConfirmed = true,
             PhoneNumberConfirmed = true,
-            SecurityStamp = Guid.NewGuid().ToString("D"),
             Roles = new List<ApplicationRole>
             {
                 role
@@ -103,7 +99,11 @@ public class AuthenticationStore(UserManager<ApplicationUser> userManager, RoleM
 
         IdentityResult createResult = await userManager.CreateAsync(user, password);
 
-        return createResult;
+        if (createResult.Succeeded == false)
+            return createResult;
+
+        IdentityResult addToRoleResult = await userManager.AddToRoleAsync(user, roleName);
+        return addToRoleResult;
     }
 
     public async Task UpdateUserAsync(Guid id)

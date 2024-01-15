@@ -2,7 +2,7 @@
 using Surveys.Infrastructure.DatabaseInitialization;
 using Surveys.WPF.Definitions.Base;
 
-namespace Surveys.WPF.Definitions.DataSeedingDefinition;
+namespace Surveys.WPF.Definitions.DataSeeding;
 
 public class DataSeedingDefinition : AppDefinition
 {
@@ -10,7 +10,9 @@ public class DataSeedingDefinition : AppDefinition
 
     public override async Task ConfigureApplication(IHost host)
     {
-        DatabaseInitializer initializer = new(host.Services);
+        const string DataPath = @"Definitions\DataSeeding\data";
+
+        DatabaseInitializer initializer = new(host.Services, DataPath);
 
         await initializer.SeedUsers();
         await initializer.SeedDiagnoses();

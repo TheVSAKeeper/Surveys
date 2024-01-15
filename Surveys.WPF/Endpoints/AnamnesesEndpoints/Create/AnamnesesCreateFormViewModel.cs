@@ -13,6 +13,9 @@ public class AnamnesesCreateFormViewModel : ViewModelBase, ICallbackViewModel<Li
 {
     private Action<List<Anamnesis>>? _callback;
     private AnamnesisTemplateDto? _selectedTemplate;
+
+    private ICommand? _selectAllCommand;
+    private ICommand? _unselectAllCommand;
     private List<Anamnesis>? _createdAnamneses;
     private ObservableCollection<AnamnesisTemplateDto>? _anamnesisTemplates;
 
@@ -28,6 +31,22 @@ public class AnamnesesCreateFormViewModel : ViewModelBase, ICallbackViewModel<Li
     public ICommand RefreshCommand { get; }
 
     public ICommand CancelCommand { get; }
+
+    public ICommand SelectAllCommand => _selectAllCommand ??= new LambdaCommand(() =>
+    {
+        foreach (AnamnesisTemplateDto template in AnamnesisTemplates!)
+            template.IsSelected = true;
+
+        AnamnesisTemplates = new ObservableCollection<AnamnesisTemplateDto>(_anamnesisTemplates!.ToList());
+    });
+
+    public ICommand UnselectAllCommand => _unselectAllCommand ??= new LambdaCommand(() =>
+    {
+        foreach (AnamnesisTemplateDto template in AnamnesisTemplates!)
+            template.IsSelected = false;
+
+        AnamnesisTemplates = new ObservableCollection<AnamnesisTemplateDto>(_anamnesisTemplates!.ToList());
+    });
 
     public List<Anamnesis>? CreatedAnamneses
     {

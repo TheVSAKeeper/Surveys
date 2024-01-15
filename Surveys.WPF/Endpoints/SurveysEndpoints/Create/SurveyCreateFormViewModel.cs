@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using AutoMapper;
 using MediatR;
 using Surveys.Domain;
 using Surveys.WPF.Shared.Commands;
@@ -17,7 +16,6 @@ public class SurveyCreateFormViewModel : ViewModelBase
 
     public SurveyCreateFormViewModel(
         IMediator mediator,
-        IMapper mapper,
         ICallbackNavigationService<Patient> patientsModalNavigationService,
         ICallbackNavigationService<List<Anamnesis>> anamnesesModalNavigationService
     )
@@ -47,7 +45,6 @@ public class SurveyCreateFormViewModel : ViewModelBase
 
     public ICommand SubmitCommand { get; }
     public ICommand SearchPatientCommand { get; }
-
     public ICommand AddAnamnesesCommand { get; }
 
     private void OnPatientSelected(Patient patient)

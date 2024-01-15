@@ -18,6 +18,8 @@ public class ApplicationUserModelConfiguration : IEntityTypeConfiguration<Applic
         builder.Property(user => user.Patronymic).HasMaxLength(50);
         builder.Property(user => user.DisplayName).HasMaxLength(50);
 
+        builder.Navigation(user => user.Roles).AutoInclude();
+
         builder.HasMany(user => user.Roles);
     }
 }

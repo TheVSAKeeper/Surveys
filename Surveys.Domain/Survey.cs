@@ -11,6 +11,6 @@ public class Survey : Auditable
 
     public bool IsComplete { get; set; }
 
-    public virtual ICollection<SurveyDiagnosis>? SurveyDiagnoses { get; set; }
-    public virtual ICollection<Anamnesis>? Anamneses { get; set; }
+    public virtual IList<SurveyDiagnosis>? SurveyDiagnoses { get; set; }
+    public virtual IList<Anamnesis>? Anamneses { get; set; }
 }

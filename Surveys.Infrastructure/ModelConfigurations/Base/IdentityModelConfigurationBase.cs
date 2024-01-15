@@ -4,10 +4,6 @@ using Surveys.Domain.Base;
 
 namespace Surveys.Infrastructure.ModelConfigurations.Base;
 
-/// <summary>
-///     Базовая конфигурация для модели с возможностью аудита
-/// </summary>
-/// <typeparam name="T"></typeparam>
 public abstract class IdentityModelConfigurationBase<T> : IEntityTypeConfiguration<T> where T : Identity
 {
     public void Configure(EntityTypeBuilder<T> builder)
@@ -17,18 +13,10 @@ public abstract class IdentityModelConfigurationBase<T> : IEntityTypeConfigurati
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).IsRequired();
 
-        AddBuilder(builder);
+        AddConfiguration(builder);
     }
 
-    /// <summary>
-    ///     Добавьте настраиваемые свойства для вашего объекта
-    /// </summary>
-    /// <param name="builder"></param>
-    protected abstract void AddBuilder(EntityTypeBuilder<T> builder);
+    protected abstract void AddConfiguration(EntityTypeBuilder<T> builder);
 
-    /// <summary>
-    ///     Название таблицы
-    /// </summary>
-    /// <returns></returns>
     protected abstract string GetTableName();
 }

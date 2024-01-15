@@ -11,6 +11,10 @@
         xmlns:login="clr-namespace:Surveys.WPF.Pages.Login"
         xmlns:patientSearch="clr-namespace:Surveys.WPF.Endpoints.PatientsEndpoints.Search"
         xmlns:anamnesesCreate="clr-namespace:Surveys.WPF.Endpoints.AnamnesesEndpoints.Create"
+        xmlns:survey="clr-namespace:Surveys.WPF.Pages.Survey"
+        xmlns:showAll="clr-namespace:Surveys.WPF.Endpoints.SurveysEndpoints.ShowAll"
+        xmlns:create="clr-namespace:Surveys.WPF.Endpoints.SurveysEndpoints.Create"
+        xmlns:edit="clr-namespace:Surveys.WPF.Endpoints.SurveysEndpoints.Edit"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Medium"
@@ -32,11 +36,23 @@
             <DataTemplate DataType="{x:Type profile:ProfileViewModel}">
                 <profile:ProfileView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type survey:SurveyViewModel}">
+                <survey:SurveyView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type patientSearch:PatientSearchFormViewModel}">
                 <patientSearch:PatientSearchFormView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type showAll:SurveyShowAllFormViewModel}">
+                <showAll:SurveyShowAllFormView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type anamnesesCreate:AnamnesesCreateFormViewModel}">
                 <anamnesesCreate:AnamnesesCreateFormView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type create:SurveyCreateFormViewModel}">
+                <create:SurveyCreateFormView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type edit:SurveyEditFormViewModel}">
+                <edit:SurveyEditFormView />
             </DataTemplate>
         </Grid.Resources>
 

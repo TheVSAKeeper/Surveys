@@ -1,0 +1,145 @@
+﻿<UserControl x:Class="Surveys.WPF.Endpoints.SurveysEndpoints.Edit.SurveyEditFormView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:edit="clr-namespace:Surveys.WPF.Endpoints.SurveysEndpoints.Edit"
+             xmlns:converters="clr-namespace:Surveys.WPF.Shared.Converters"
+             d:DataContext="{d:DesignInstance edit:SurveyEditFormViewModel,  IsDesignTimeCreatable=True}"
+             d:DesignHeight="685"
+             d:DesignWidth="800"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="{materialDesign:MaterialDesignFont}"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             TextElement.FontWeight="Medium"
+             TextElement.FontSize="14">
+    <UserControl.Resources>
+        <converters:PatientInfoConverter x:Key="PatientInfoConverter" />
+    </UserControl.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock FontSize="18"
+                   Visibility="{Binding Survey, Converter={StaticResource NullableToVisibilityConverter}}"
+                   Margin="0,0,0,10"
+                   HorizontalAlignment="Center">
+            <Run Text="Опрос от " />
+            <Run
+                Text="{Binding Survey.CreatedAt, FallbackValue=?, Converter={StaticResource DateTimeToLongDateConverter}}" />
+        </TextBlock>
+
+        <GroupBox Grid.Row="1"
+                  Header="Информация"
+                  Margin="0,5,0,5">
+            <StackPanel Margin="15,5"
+                        DataContext="{Binding Survey}">
+                <TextBlock Margin="0,5"
+                           Text="{Binding Path=Patient, StringFormat=Пациент: {0}, Converter={StaticResource PatientInfoConverter}, ConverterParameter=True}" />
+                <TextBlock Margin="0,5"
+                           Text="{Binding Patient.Gender,Converter={StaticResource RussificationConverter}, StringFormat=Пол: {0}}" />
+                <TextBlock Margin="0,5"
+                           Text="{Binding Patient.BirthDate, StringFormat=Дата рождения: {0:d}, Converter={StaticResource DateTimeToLongDateConverter}}" />
+                <TextBlock Margin="0,5"
+                           Text="{Binding Patient.BirthDate, Converter={StaticResource DateToAgeConverter}, StringFormat=Возраст: {0}}" />
+                <TextBlock Margin="0,5"
+                           Text="{Binding Complaint,  StringFormat=Жалоба: {0}}" />
+                <TextBlock Margin="0,5"
+                           Text="{Binding CreatedBy,  StringFormat=Опрос создан: {0}}" />
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Left"
+                               Margin="0,5"
+                               Text="Жалоба: " />
+                    <TextBox Text="{Binding Complaint}" />
+                </DockPanel>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Row="2"
+                  Header="Анамнезы">
+            <ScrollViewer>
+                <ItemsControl ItemsSource="{Binding Anamneses}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Expander>
+                                <Expander.Header>
+                                    <DockPanel>
+                                        <TextBlock Text="Завершен: "
+                                                   VerticalAlignment="Center" />
+                                        <CheckBox IsChecked="{Binding IsComplete}"
+                                                  ToolTip="Анамнез завершен" />
+                                        <TextBlock FontSize="18"
+                                                   TextAlignment="Center"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Text="{Binding Path=AnamnesisTemplate.Name}" />
+                                    </DockPanel>
+                                </Expander.Header>
+                                <ItemsControl ItemsSource="{Binding AnamnesisAnswers}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <DataGrid materialDesign:DataGridAssist.EnableEditBoxAssist="True"
+                                                      AutoGenerateColumns="False"
+                                                      CanUserSortColumns="False"
+                                                      CanUserAddRows="True"
+                                                      Margin="0,10"
+                                                      ItemsSource="{Binding Answers}">
+                                                <DataGrid.RowStyle>
+                                                    <Style TargetType="DataGridRow"
+                                                           BasedOn="{StaticResource MaterialDesignDataGridRow}">
+                                                        <Setter Property="BorderBrush"
+                                                                Value="{DynamicResource MaterialDesignShadowBrush}" />
+                                                        <Setter Property="BorderThickness"
+                                                                Value="0,0.5,0,0.5" />
+                                                    </Style>
+                                                </DataGrid.RowStyle>
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Width="1*"
+                                                                        Binding="{Binding Path=Content}">
+                                                        <DataGridTextColumn.HeaderTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock TextWrapping="Wrap"
+                                                                           TextAlignment="Justify"
+                                                                           FontSize="16"
+                                                                           FontWeight="Bold"
+                                                                           Text="{Binding DataContext.Question.Content,StringFormat=Вопрос: {0} ,RelativeSource={RelativeSource AncestorType=DataGrid}}" />
+                                                            </DataTemplate>
+                                                        </DataGridTextColumn.HeaderTemplate>
+                                                    </DataGridTextColumn>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Expander>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </GroupBox>
+
+        <Grid Grid.Row="3"
+              Margin="5"
+              HorizontalAlignment="Right">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                    Style="{DynamicResource MaterialDesignToolButton}"
+                    Command="{Binding LoadCommand}"
+                    Content="{materialDesign:PackIcon Refresh}"
+                    Margin="0,0,10,0" />
+
+            <Button Grid.Column="1"
+                    Command="{Binding SubmitCommand}"
+                    Content="Сохранить" />
+        </Grid>
+    </Grid>
+</UserControl>

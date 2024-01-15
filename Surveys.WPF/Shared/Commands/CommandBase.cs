@@ -20,7 +20,7 @@ public abstract class CommandBase : ICommand
 
     protected virtual bool CanExecute(object? parameter) => true;
 
-    protected void OnCanExecuteChanged()
+    protected static void OnCanExecuteChanged()
     {
         CommandManager.InvalidateRequerySuggested();
     }

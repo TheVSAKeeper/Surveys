@@ -4,10 +4,6 @@ using Surveys.Domain.Base;
 
 namespace Surveys.Infrastructure.ModelConfigurations.Base;
 
-/// <summary>
-///     Базовая конфигурация модели с возможностью аудита
-/// </summary>
-/// <typeparam name="T"></typeparam>
 public abstract class AuditableModelConfigurationBase<T> : IEntityTypeConfiguration<T> where T : Auditable
 {
     public void Configure(EntityTypeBuilder<T> builder)
@@ -26,22 +22,14 @@ public abstract class AuditableModelConfigurationBase<T> : IEntityTypeConfigurat
             .IsRequired();
 
         builder.Property(x => x.UpdatedAt)
-            .HasConversion(v => v.Value, v => DateTime.SpecifyKind(v, DateTimeKind.Utc));
+            .HasConversion(v => v!.Value, v => DateTime.SpecifyKind(v, DateTimeKind.Utc));
 
         builder.Property(x => x.UpdatedBy).HasMaxLength(256);
 
-        AddBuilder(builder);
+        AddConfiguration(builder);
     }
 
-    /// <summary>
-    ///     Добавить пользовательские свойства для вашей сущности
-    /// </summary>
-    /// <param name="builder"></param>
-    protected abstract void AddBuilder(EntityTypeBuilder<T> builder);
+    protected abstract void AddConfiguration(EntityTypeBuilder<T> builder);
 
-    /// <summary>
-    ///     Имя таблицы
-    /// </summary>
-    /// <returns></returns>
     protected abstract string GetTableName();
 }

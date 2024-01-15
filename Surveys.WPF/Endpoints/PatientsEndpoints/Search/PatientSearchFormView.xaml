@@ -29,8 +29,7 @@
         <Grid.Resources>
             <CollectionViewSource x:Key="PatientsCollection"
                                   Source="{Binding Patients}"
-                                  Filter="OnPatientsCollectionOnFilter">
-            </CollectionViewSource>
+                                  Filter="OnPatientsCollectionOnFilter" />
         </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

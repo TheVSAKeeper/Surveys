@@ -6,7 +6,7 @@ namespace Surveys.Infrastructure.ModelConfigurations;
 
 public class PatientModelConfiguration : IdentityModelConfigurationBase<Patient>
 {
-    protected override void AddBuilder(EntityTypeBuilder<Patient> builder)
+    protected override void AddConfiguration(EntityTypeBuilder<Patient> builder)
     {
         builder.Property(patient => patient.FirstName)
             .HasMaxLength(50)

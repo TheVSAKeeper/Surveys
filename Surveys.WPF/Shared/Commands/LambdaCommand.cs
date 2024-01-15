@@ -5,8 +5,7 @@ public class LambdaCommand(Action<object?> execute, Func<object?, bool>? canExec
     private readonly Action<object?> _execute = execute ?? throw new ArgumentNullException(nameof(execute));
 
     public LambdaCommand(Action execute, Func<bool>? canExecute = null)
-        : this(p => execute(),
-            canExecute is null ? null : p => canExecute())
+        : this(p => execute(), canExecute is null ? null : _ => canExecute())
     {
     }
 

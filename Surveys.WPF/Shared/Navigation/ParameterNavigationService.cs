@@ -2,11 +2,11 @@
 
 namespace Surveys.WPF.Shared.Navigation;
 
-public class ParameterNavigationService<TParameter, TViewModel>(INavigationStore navigationStore, Func<TParameter, TViewModel> createViewModel)
-    where TViewModel : ViewModelBase
+public class ParameterNavigationService<TParameter, TViewModel>(INavigationMediator navigationMediator, Func<TParameter, TViewModel> createViewModel)
+    : IParameterNavigationService<TParameter> where TViewModel : ViewModelBase
 {
     public void Navigate(TParameter parameter)
     {
-        navigationStore.CurrentViewModel = createViewModel(parameter);
+        navigationMediator.CurrentViewModel = createViewModel(parameter);
     }
 }

@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Surveys.Domain.Base;
 using Surveys.Infrastructure;
 using Surveys.WPF.Definitions.Base;
 using Surveys.WPF.Pages.Home;
 using Surveys.WPF.Pages.Login;
+using Surveys.WPF.Pages.Survey;
 using Surveys.WPF.Shared.Navigation;
 
 namespace Surveys.WPF.Definitions.Initialization;
@@ -39,6 +41,13 @@ public class ApplicationInitializer : AppDefinition
 
             if (authenticationStore.IsLoggedIn)
             {
+                if (authenticationStore.IsInRole(AppData.NurseRoleName))
+                {
+                    NavigationService<SurveyViewModel> surveyNavigationService = scope.ServiceProvider.GetRequiredService<NavigationService<SurveyViewModel>>();
+                    surveyNavigationService.Navigate();
+                    return;
+                }
+
                 NavigationService<HomeViewModel> homeNavigationService = scope.ServiceProvider.GetRequiredService<NavigationService<HomeViewModel>>();
                 homeNavigationService.Navigate();
             }
