@@ -45,10 +45,13 @@ public class AnamnesesCreateRequestHandler(IUnitOfWork unitOfWork, Authenticatio
 
         List<Guid> keys = anamneses.Select(x => x.Id).ToList();
 
-        result.Result = (await repository.GetAllAsync(predicate: anamnesis => keys.Contains(anamnesis.Id),
-            include: i => i.Include(anamnesis => anamnesis.AnamnesisAnswers)
+        IList<Anamnesis> entities = await repository.GetAllAsync(predicate: anamnesis => keys.Contains(anamnesis.Id),
+            include: i => i
+                .Include(anamnesis => anamnesis.AnamnesisAnswers)
                 .AsSplitQuery()
-                .Include(anamnesis => anamnesis.AnamnesisTemplate))).ToList();
+                .Include(anamnesis => anamnesis.AnamnesisTemplate));
+
+        result.Result = entities.ToList();
 
         return result;
     }

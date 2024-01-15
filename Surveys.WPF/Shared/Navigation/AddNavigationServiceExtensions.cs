@@ -31,4 +31,16 @@ public static class AddNavigationServiceExtensions
                 return viewModel;
             }));
     }
+
+    public static IServiceCollection AddParameterNavigationService<TParameter, TViewModel>(this IServiceCollection serviceCollection)
+        where TViewModel : ViewModelBase, IParameterViewModel<TParameter>
+    {
+        return serviceCollection.AddSingleton<ParameterNavigationService<TParameter, TViewModel>>(provider =>
+            new ParameterNavigationService<TParameter, TViewModel>(provider.GetRequiredService<ModalNavigationMediator>(), parameter =>
+            {
+                TViewModel viewModel = provider.GetRequiredService<TViewModel>();
+                viewModel.SetParameter(parameter);
+                return viewModel;
+            }));
+    }
 }

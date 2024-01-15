@@ -11,6 +11,6 @@ public class SurveyEditDefinition : AppDefinition
     {
         services.AddTransient<SurveyEditFormViewModel>();
 
-        services.AddNavigationService<SurveyEditFormViewModel>();
+        services.AddParameterNavigationService<Guid, SurveyEditFormViewModel>();
     }
 }

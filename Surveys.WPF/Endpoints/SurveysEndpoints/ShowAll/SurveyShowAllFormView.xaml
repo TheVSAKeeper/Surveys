@@ -94,7 +94,7 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Top"
                                 Style="{DynamicResource MaterialDesignFloatingActionButton}"
-                                Command="{Binding EditCommand}"
+                                Command="{Binding DataContext.EditSurveyCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                 CommandParameter="{Binding Id}"
                                 Content="{materialDesign:PackIcon Edit}"
                                 Margin="10,5"

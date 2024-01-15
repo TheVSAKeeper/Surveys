@@ -14,5 +14,5 @@ public class SurveyEditDto
     public required DateTime CreatedAt { get; set; }
     public required string CreatedBy { get; set; }
 
-    public required ICollection<Anamnesis>? Anamneses { get; set; }
+    public required IList<Anamnesis>? Anamneses { get; set; }
 }

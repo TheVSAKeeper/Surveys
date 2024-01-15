@@ -6,8 +6,10 @@ using Surveys.WPF.Shared.ViewModels;
 
 namespace Surveys.WPF.Endpoints.SurveysEndpoints.Edit;
 
-public class SurveyEditFormViewModel : ViewModelBase
+public class SurveyEditFormViewModel : ViewModelBase, IParameterViewModel<Guid>
 {
+    private Guid _loadedId;
+    private List<Anamnesis>? _anamneses;
     private SurveyEditDto? _survey;
 
     public SurveyEditFormViewModel()
@@ -49,6 +51,8 @@ public class SurveyEditFormViewModel : ViewModelBase
 
         //CreatedAnamneses = new ObservableCollection<Anamnesis>(anamneses);
 
+        IEnumerable<Anamnesis> enumerable = anamneses.ToList();
+
         Survey = new SurveyEditDto
         {
             Patient = patient,
@@ -57,16 +61,15 @@ public class SurveyEditFormViewModel : ViewModelBase
             Complaint = "null",
             IsComplete = false,
             CreatedBy = "null",
-            Anamneses = anamneses.ToList()
+            Anamneses = enumerable.ToList()
         };
+
+        Anamneses = enumerable.ToList();
     }
 
-    public SurveyEditFormViewModel(
-        IMediator mediator,
-        Guid surveyId
-    )
+    public SurveyEditFormViewModel(IMediator mediator)
     {
-        LoadCommand = new SurveyLoadCommand(this, mediator, surveyId);
+        LoadCommand = new SurveyLoadCommand(this, mediator);
         SubmitCommand = new SurveyUpdateCommand(this, mediator);
     }
 
@@ -76,6 +79,24 @@ public class SurveyEditFormViewModel : ViewModelBase
         set => Set(ref _survey, value);
     }
 
+    public Guid LoadedId
+    {
+        get => _loadedId;
+        private set => Set(ref _loadedId, value);
+    }
+
+    public List<Anamnesis>? Anamneses
+    {
+        get => _anamneses;
+        set => Set(ref _anamneses, value);
+    }
+
     public ICommand SubmitCommand { get; }
     public ICommand LoadCommand { get; }
+
+    public void SetParameter(Guid parameter)
+    {
+        LoadedId = parameter;
+        LoadCommand.Execute(parameter);
+    }
 }

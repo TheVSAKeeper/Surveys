@@ -27,8 +27,8 @@ public class SurveyGetForEditRequestHandler(IUnitOfWork unitOfWork) : IRequestHa
                     Anamneses = x.Anamneses
                 },
                 p => p.Id == request.Id,
-                include: i => i.Include(survey => survey.Anamneses)
-                    .AsSplitQuery()
+                include: i => i
+                    .Include(survey => survey.Anamneses)
                     .Include(survey => survey.Patient));
 
         if (surveyDto is null)

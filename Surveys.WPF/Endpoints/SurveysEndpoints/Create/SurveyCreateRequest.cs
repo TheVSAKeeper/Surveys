@@ -35,10 +35,25 @@ public class SurveyCreateRequestHandler(IUnitOfWork unitOfWork, AuthenticationSt
 
         result.Result = survey;
 
-        foreach (Anamnesis anamnesis in request.CreatedAnamneses)
-            anamnesis.SurveyId = survey.Id;
+        List<Guid> anamnesesId = request.CreatedAnamneses.Select(x => x.Id).ToList();
 
-        await unitOfWork.GetRepository<Anamnesis>().InsertAsync(request.CreatedAnamneses, cancellationToken);
+        IRepository<Anamnesis> repository = unitOfWork.GetRepository<Anamnesis>();
+
+        IList<Anamnesis> entities = await repository.GetAllAsync(predicate: p => anamnesesId.Contains(p.Id),
+            disableTracking: false);
+
+        if (entities is [])
+        {
+            result.AddError(new SurveysNotFoundException(nameof(Anamnesis), Guid.Empty.ToString()));
+            return result;
+        }
+
+        foreach (Anamnesis anamnesis in entities)
+        {
+            anamnesis.SurveyId = survey.Id;
+            repository.Update(anamnesis);
+        }
+
         await unitOfWork.SaveChangesAsync();
 
         if (unitOfWork.LastSaveChangesResult.IsOk == false)

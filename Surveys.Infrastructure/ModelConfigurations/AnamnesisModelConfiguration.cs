@@ -14,7 +14,11 @@ public class AnamnesisModelConfiguration : AuditableModelConfigurationBase<Anamn
             .IsRequired();
 
         builder.HasOne(anamnesis => anamnesis.AnamnesisTemplate);
+        builder.Navigation(anamnesis => anamnesis.AnamnesisTemplate).AutoInclude();
+
         builder.HasMany(anamnesis => anamnesis.AnamnesisAnswers);
+        builder.Navigation(anamnesis => anamnesis.AnamnesisAnswers).AutoInclude();
+
         builder.HasOne(anamnesis => anamnesis.Survey);
     }
 

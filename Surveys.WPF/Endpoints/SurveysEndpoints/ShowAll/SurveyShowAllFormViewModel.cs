@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using MediatR;
 using Surveys.WPF.Endpoints.SurveysEndpoints.Create;
+using Surveys.WPF.Endpoints.SurveysEndpoints.Edit;
 using Surveys.WPF.Shared.Commands;
 using Surveys.WPF.Shared.Navigation;
 using Surveys.WPF.Shared.ViewModels;
@@ -10,17 +11,23 @@ namespace Surveys.WPF.Endpoints.SurveysEndpoints.ShowAll;
 
 public class SurveyShowAllFormViewModel : ViewModelBase
 {
+    private ICommand? _EditSurveyCommand;
     private ObservableCollection<SurveyShowDto>? _surveys;
     private SurveyShowDto? _selectedSurvey;
 
-    public SurveyShowAllFormViewModel(IMediator mediator, NavigationService<SurveyCreateFormViewModel> surveyCreateNavigationService)
+    public SurveyShowAllFormViewModel(
+        IMediator mediator,
+        NavigationService<SurveyCreateFormViewModel> surveyCreateNavigationService,
+        ParameterNavigationService<Guid, SurveyEditFormViewModel> SurveyEditNavigationService)
     {
         RefreshCommand = new GetAllSurveysCommand(this, mediator);
         CreateSurveyCommand = new NavigateCommand(surveyCreateNavigationService);
+        EditSurveyNavigateCommand = new ParameterNavigateCommand<Guid>(SurveyEditNavigationService);
     }
 
     public ICommand RefreshCommand { get; }
     public ICommand CreateSurveyCommand { get; }
+    public ICommand EditSurveyNavigateCommand { get; }
 
     public ObservableCollection<SurveyShowDto>? Surveys
     {
@@ -33,4 +40,9 @@ public class SurveyShowAllFormViewModel : ViewModelBase
         get => _selectedSurvey;
         set => Set(ref _selectedSurvey, value);
     }
+
+    public ICommand EditSurveyCommand => _EditSurveyCommand ??= new LambdaCommand(id =>
+    {
+        EditSurveyNavigateCommand.Execute(id);
+    });
 }
