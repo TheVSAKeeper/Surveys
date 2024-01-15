@@ -15,6 +15,7 @@ public class SurveyEditFormViewModel : ViewModelBase, IParameterViewModel<Guid>
     {
         LoadCommand = new SurveyLoadCommand(this, mediator);
         SubmitCommand = new SurveyUpdateCommand(this, mediator);
+        LoadLastCommand = new SurveyLoadLastCommand(this, mediator);
     }
 
     public SurveyEditDto? Survey
@@ -37,6 +38,7 @@ public class SurveyEditFormViewModel : ViewModelBase, IParameterViewModel<Guid>
 
     public ICommand SubmitCommand { get; }
     public ICommand LoadCommand { get; }
+    public ICommand LoadLastCommand { get; }
 
     public void SetParameter(Guid parameter)
     {

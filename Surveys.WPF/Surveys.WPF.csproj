@@ -99,6 +99,15 @@
         <None Update="Definitions\DataSeedingDefinition\data\Patients.txt">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
+        <None Update="Definitions\DataSeeding\data\AnamnesisTemplates.txt">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Definitions\DataSeeding\data\diagnoses.txt">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Definitions\DataSeeding\data\Patients.txt">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>

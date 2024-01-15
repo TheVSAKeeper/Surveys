@@ -130,7 +130,9 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
+
             <Button Grid.Column="0"
                     Style="{DynamicResource MaterialDesignToolButton}"
                     Command="{Binding LoadCommand}"
@@ -138,6 +140,11 @@
                     Margin="0,0,10,0" />
 
             <Button Grid.Column="1"
+                    Command="{Binding LoadLastCommand}"
+                    Content="Загрузить последний"
+                    Margin="0,0,10,0" />
+
+            <Button Grid.Column="2"
                     Command="{Binding SubmitCommand}"
                     Content="Сохранить" />
         </Grid>
