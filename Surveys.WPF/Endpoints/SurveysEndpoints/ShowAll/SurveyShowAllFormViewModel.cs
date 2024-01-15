@@ -11,18 +11,18 @@ namespace Surveys.WPF.Endpoints.SurveysEndpoints.ShowAll;
 
 public class SurveyShowAllFormViewModel : ViewModelBase
 {
-    private ICommand? _EditSurveyCommand;
+    private ICommand? _editSurveyCommand;
     private ObservableCollection<SurveyShowDto>? _surveys;
     private SurveyShowDto? _selectedSurvey;
 
     public SurveyShowAllFormViewModel(
         IMediator mediator,
         NavigationService<SurveyCreateFormViewModel> surveyCreateNavigationService,
-        ParameterNavigationService<Guid, SurveyEditFormViewModel> SurveyEditNavigationService)
+        ParameterNavigationService<Guid, SurveyEditFormViewModel> surveyEditNavigationService)
     {
         RefreshCommand = new GetAllSurveysCommand(this, mediator);
         CreateSurveyCommand = new NavigateCommand(surveyCreateNavigationService);
-        EditSurveyNavigateCommand = new ParameterNavigateCommand<Guid>(SurveyEditNavigationService);
+        EditSurveyNavigateCommand = new ParameterNavigateCommand<Guid>(surveyEditNavigationService);
     }
 
     public ICommand RefreshCommand { get; }
@@ -41,7 +41,7 @@ public class SurveyShowAllFormViewModel : ViewModelBase
         set => Set(ref _selectedSurvey, value);
     }
 
-    public ICommand EditSurveyCommand => _EditSurveyCommand ??= new LambdaCommand(id =>
+    public ICommand EditSurveyCommand => _editSurveyCommand ??= new LambdaCommand(id =>
     {
         EditSurveyNavigateCommand.Execute(id);
     });

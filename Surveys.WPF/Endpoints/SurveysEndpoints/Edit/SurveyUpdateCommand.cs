@@ -18,8 +18,11 @@ public class SurveyUpdateCommand(SurveyEditFormViewModel viewModel, IMediator me
 
         OperationResult<Guid> result = await mediator.Send(new SurveyUpdateRequest(viewModel.Survey!));
 
-        if (result.Ok == false)
+        if (result.Ok) { }
+        else
+        {
             MessageBox.Show("Ошибка обновления опроса.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     protected override bool CanExecuteAsync(object? parameter) => viewModel is

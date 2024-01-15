@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using MediatR;
 using Surveys.Domain;
 using Surveys.WPF.Shared.ViewModels;
@@ -11,61 +10,6 @@ public class SurveyEditFormViewModel : ViewModelBase, IParameterViewModel<Guid>
     private Guid _loadedId;
     private List<Anamnesis>? _anamneses;
     private SurveyEditDto? _survey;
-
-    public SurveyEditFormViewModel()
-    {
-        Patient patient = new()
-        {
-            LastName = "LastName",
-            FirstName = "FirstName",
-            Patronymic = "Patronymic",
-            Gender = Gender.Male,
-            BirthDate = new DateOnly()
-        };
-
-        IEnumerable<Question> questions = Enumerable.Range(0, 10)
-            .Select(x => new Question
-            {
-                Content = $"Question {x}"
-            });
-
-        AnamnesisTemplate[] anamnesisTemplates = Enumerable.Range(0, 5)
-            .Select(x => new AnamnesisTemplate
-            {
-                Name = $"Template {x}",
-                Questions = new ObservableCollection<Question>(questions)
-            })
-            .ToArray();
-
-        IEnumerable<Anamnesis> anamneses = Enumerable.Range(0, 5)
-            .Select(x => new Anamnesis
-            {
-                AnamnesisTemplate = anamnesisTemplates[x],
-                AnamnesisAnswers = questions.Select(question => new AnamnesisAnswer
-                    {
-                        Question = question,
-                        Answers = new List<Answer> { new() { Content = "Answer" } }
-                    })
-                    .ToList()
-            });
-
-        //CreatedAnamneses = new ObservableCollection<Anamnesis>(anamneses);
-
-        IEnumerable<Anamnesis> enumerable = anamneses.ToList();
-
-        Survey = new SurveyEditDto
-        {
-            Patient = patient,
-            CreatedAt = DateTime.UtcNow,
-            Id = default,
-            Complaint = "null",
-            IsComplete = false,
-            CreatedBy = "null",
-            Anamneses = enumerable.ToList()
-        };
-
-        Anamneses = enumerable.ToList();
-    }
 
     public SurveyEditFormViewModel(IMediator mediator)
     {

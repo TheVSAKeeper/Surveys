@@ -169,7 +169,7 @@ public class DatabaseInitializer
                     .Select(question => new Question
                     {
                         Id = Guid.NewGuid(),
-                        Content = question.Trim(['-']).Trim()
+                        Content = question.Trim(['-', '?', ',', '.']).Trim().ToLower() + "?"
                     })
                     .ToList();
 

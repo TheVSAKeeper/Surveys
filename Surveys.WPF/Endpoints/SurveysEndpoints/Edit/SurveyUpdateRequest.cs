@@ -18,8 +18,7 @@ public class SurveyUpdateRequestHandler(IUnitOfWork unitOfWork, IMapper mapper, 
         OperationResult<Guid> operation = OperationResult.CreateResult<Guid>();
         IRepository<Survey> repository = unitOfWork.GetRepository<Survey>();
 
-        Survey? entity = await repository.GetFirstOrDefaultAsync(
-            predicate: x => x.Id == request.Model.Id,
+        Survey? entity = await repository.GetFirstOrDefaultAsync(predicate: x => x.Id == request.Model.Id,
             disableTracking: false);
 
         if (entity is null)
@@ -30,7 +29,7 @@ public class SurveyUpdateRequestHandler(IUnitOfWork unitOfWork, IMapper mapper, 
 
         mapper.Map(request.Model, entity, options => options.Items[nameof(ApplicationUser)] = authenticationStore.Username);
 
-        if (request.Model.Anamneses!.All(x=>x.IsComplete))
+        if (request.Model.Anamneses!.All(x => x.IsComplete))
             entity.IsComplete = true;
 
         repository.Update(entity);

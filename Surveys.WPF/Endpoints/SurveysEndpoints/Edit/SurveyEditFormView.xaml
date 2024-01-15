@@ -69,8 +69,17 @@
                         <DataTemplate>
                             <Expander>
                                 <Expander.Header>
-                                    <TextBlock                                                                            FontSize="18"
-                                        TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=AnamnesisTemplate.Name}"></TextBlock>
+                                    <DockPanel>
+                                        <TextBlock Text="Завершен: "
+                                                   VerticalAlignment="Center" />
+                                        <CheckBox IsChecked="{Binding IsComplete}"
+                                                  ToolTip="Анамнез завершен" />
+                                        <TextBlock FontSize="18"
+                                                   TextAlignment="Center"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Text="{Binding Path=AnamnesisTemplate.Name}" />
+                                    </DockPanel>
                                 </Expander.Header>
                                 <ItemsControl ItemsSource="{Binding AnamnesisAnswers}">
                                     <ItemsControl.ItemTemplate>
