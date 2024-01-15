@@ -115,11 +115,18 @@
             </ListView>
         </GroupBox>
 
-        <Button Grid.Row="3"
-                Content="Сохранить"
-                Margin="5"
-                Command="{Binding SubmitCommand}"
-                HorizontalAlignment="Right" />
+        <UniformGrid Grid.Row="3"
+                     HorizontalAlignment="Right"
+                     Rows="1">
+            <Button Visibility="{Binding CreatedSurvey, Converter={StaticResource NullableToVisibilityConverter}}"
+                    Content="Заполнить"
+                    Margin="5"
+                    Command="{Binding EditSurveyNavigateCommand}"
+                    CommandParameter="{Binding CreatedSurvey.Id}" />
+            <Button Content="Сохранить"
+                    Margin="5"
+                    Command="{Binding SubmitCommand}" />
 
+        </UniformGrid>
     </Grid>
 </UserControl>

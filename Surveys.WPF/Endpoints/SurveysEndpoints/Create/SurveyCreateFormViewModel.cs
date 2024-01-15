@@ -2,7 +2,9 @@
 using System.Windows.Input;
 using MediatR;
 using Surveys.Domain;
+using Surveys.WPF.Endpoints.SurveysEndpoints.Edit;
 using Surveys.WPF.Shared.Commands;
+using Surveys.WPF.Shared.Navigation;
 using Surveys.WPF.Shared.Navigation.Modal;
 using Surveys.WPF.Shared.ViewModels;
 
@@ -17,13 +19,17 @@ public class SurveyCreateFormViewModel : ViewModelBase
     public SurveyCreateFormViewModel(
         IMediator mediator,
         ICallbackNavigationService<Patient> patientsModalNavigationService,
-        ICallbackNavigationService<List<Anamnesis>> anamnesesModalNavigationService
+        ICallbackNavigationService<List<Anamnesis>> anamnesesModalNavigationService,
+        ParameterNavigationService<Guid, SurveyEditFormViewModel> surveyEditNavigationService
     )
     {
         SubmitCommand = new SurveyCreateCommand(this, mediator);
         SearchPatientCommand = new CallbackNavigateCommand<Patient>(patientsModalNavigationService, OnPatientSelected);
         AddAnamnesesCommand = new CallbackNavigateCommand<List<Anamnesis>>(anamnesesModalNavigationService, OnAnamnesesCreated);
+        EditSurveyNavigateCommand = new ParameterNavigateCommand<Guid>(surveyEditNavigationService);
     }
+
+    public ICommand EditSurveyNavigateCommand { get; }
 
     public Patient? Patient
     {
