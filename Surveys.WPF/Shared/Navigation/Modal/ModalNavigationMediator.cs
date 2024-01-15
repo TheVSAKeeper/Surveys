@@ -23,6 +23,7 @@ public class ModalNavigationMediator : INavigationMediator
 
     public void Close()
     {
+        CurrentViewModel?.Dispose();
         CurrentViewModel = null;
     }
 

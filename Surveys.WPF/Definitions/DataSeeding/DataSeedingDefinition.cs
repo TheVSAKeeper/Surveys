@@ -10,7 +10,7 @@ public class DataSeedingDefinition : AppDefinition
 
     public override async Task ConfigureApplication(IHost host)
     {
-        const string DataPath = @"Definitions\DataSeeding\data";
+        const string DataPath = @"Definitions\DataSeeding\data\";
 
         DatabaseInitializer initializer = new(host.Services, DataPath);
 
