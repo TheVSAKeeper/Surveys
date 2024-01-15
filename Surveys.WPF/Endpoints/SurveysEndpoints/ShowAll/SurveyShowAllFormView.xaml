@@ -77,7 +77,8 @@
                                     Binding="{Binding Path=Patient, Converter={StaticResource PatientInfoConverter}, ConverterParameter=True}" />
                 <DataGridTextColumn Header="Жалоба"
                                     Binding="{Binding Path=Complaint}" />
-                <DataGridTextColumn Header="Дата изменения"
+                <DataGridTextColumn SortDirection="Ascending"
+                                    Header="Дата изменения"
                                     Binding="{Binding Path=UpdatedAt,FallbackValue=-, Converter={StaticResource DateTimeToLongDateConverter}}" />
                 <DataGridTextColumn Header="Дата создания"
                                     Binding="{Binding Path=CreatedAt, Converter={StaticResource DateTimeToLongDateConverter}}" />

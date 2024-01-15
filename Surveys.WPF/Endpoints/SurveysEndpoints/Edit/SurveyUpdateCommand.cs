@@ -11,18 +11,14 @@ public class SurveyUpdateCommand(SurveyEditFormViewModel viewModel, IMediator me
 {
     protected override async Task ExecuteAsync(object? parameter)
     {
-        foreach (AnamnesisAnswer anamnesisAnswer in viewModel.Anamneses!.SelectMany(anamnesis => anamnesis.AnamnesisAnswers!))
-            anamnesisAnswer.Answers = anamnesisAnswer.Answers!.Where(answer => string.IsNullOrWhiteSpace(answer.Content) == false).ToList();
-
-        viewModel.Survey!.Anamneses = viewModel.Anamneses;
+        viewModel.Survey!.Anamneses = new List<Anamnesis>(viewModel.Anamneses!);
 
         OperationResult<Guid> result = await mediator.Send(new SurveyUpdateRequest(viewModel.Survey!));
 
-        if (result.Ok) { }
+        if (result.Ok)
+            MessageBox.Show("Опрос успешно обновлен.", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
         else
-        {
             MessageBox.Show("Ошибка обновления опроса.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
     }
 
     protected override bool CanExecuteAsync(object? parameter) => viewModel is
