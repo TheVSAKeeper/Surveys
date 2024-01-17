@@ -4,12 +4,12 @@ namespace Surveys.Domain;
 
 public class Survey : Auditable
 {
-    public string Complaint { get; set; } = null!;
+    public required string Complaint { get; set; }
 
-    public Guid PatientId { get; set; }
-    public virtual Patient Patient { get; set; } = null!;
+    public required Guid PatientId { get; set; }
+    public virtual Patient? Patient { get; set; }
 
-    public bool IsComplete { get; set; }
+    public  bool IsComplete { get; set; }
 
     public virtual IList<SurveyDiagnosis>? SurveyDiagnoses { get; set; }
     public virtual IList<Anamnesis>? Anamneses { get; set; }

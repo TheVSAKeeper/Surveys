@@ -4,13 +4,13 @@ namespace Surveys.Domain;
 
 public class Patient : Identity
 {
-    public string LastName { get; set; } = null!;
-    public string FirstName { get; set; } = null!;
+    public required string LastName { get; set; }
+    public required string FirstName { get; set; }
     public string? Patronymic { get; set; }
 
-    public Gender Gender { get; set; }
+    public required Gender Gender { get; set; }
 
-    public DateOnly BirthDate { get; set; }
+    public required DateOnly BirthDate { get; set; }
 
     public virtual ICollection<Survey>? Surveys { get; set; }
     public virtual ICollection<SurveyDiagnosis>? SurveyDiagnoses { get; set; }

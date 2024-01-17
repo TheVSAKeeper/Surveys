@@ -11,6 +11,8 @@ public class QuestionModelConfiguration : IdentityModelConfigurationBase<Questio
         builder.Property(question => question.Content)
             .HasMaxLength(1024)
             .IsRequired();
+        
+        builder.Property(question => question.SortIndex).IsRequired();
 
         builder.HasOne(question => question.AnamnesisTemplate);
 

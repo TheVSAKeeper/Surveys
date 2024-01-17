@@ -4,8 +4,10 @@ namespace Surveys.Domain;
 
 public class AnamnesisTemplate : Identity
 {
-    public string Name { get; set; } = null!;
+    public required string Name { get; set; }
+    
+    public required int SortIndex { get; set; }
 
-    public virtual ICollection<Question> Questions { get; set; } = null!;
+    public required virtual ICollection<Question> Questions { get; set; }
     public virtual ICollection<Anamnesis>? Anamneses { get; set; }
 }

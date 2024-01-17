@@ -4,8 +4,8 @@ namespace Surveys.Domain;
 
 public class Answer : Identity
 {
-    public string Content { get; set; } = null!;
+    public required string Content { get; set; }
 
-    public Guid QuestionAnswersId { get; set; }
-    public virtual AnamnesisAnswer QuestionAnswers { get; set; } = null!;
+    public Guid AnamnesisAnswersId { get; set; }
+    public virtual AnamnesisAnswer AnamnesisAnswers { get; set; } = null!;
 }

@@ -9,4 +9,6 @@ public class AnamnesisTemplateDto
     public required string Name { get; set; }
     public required ObservableCollection<Question> Questions { get; set; }
     public bool IsSelected { get; set; }
+    
+    public required int SortIndex { get; set; }
 }
