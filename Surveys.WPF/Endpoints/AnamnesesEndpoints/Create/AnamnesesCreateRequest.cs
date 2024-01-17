@@ -18,18 +18,20 @@ public class AnamnesesCreateRequestHandler(IUnitOfWork unitOfWork, Authenticatio
         IRepository<Anamnesis> repository = unitOfWork.GetRepository<Anamnesis>();
 
         List<Anamnesis> anamneses = request.Template
-            .Where(x => x.IsSelected)
-            .Select(x => new Anamnesis
+            .Where(templateDto => templateDto.IsSelected)
+            .OrderBy(templateDto => templateDto.SortIndex)
+            .Select(templateDto => new Anamnesis
             {
-                AnamnesisTemplateId = x.Id,
-                AnamnesisAnswers = x.Questions.Select(question => new AnamnesisAnswer
+                AnamnesisTemplateId = templateDto.Id,
+                AnamnesisAnswers = templateDto.Questions.OrderBy(question => question.SortIndex)
+                    .Select(question => new AnamnesisAnswer
                     {
                         QuestionId = question.Id,
                         Answers = new List<Answer>()
                     })
                     .ToList(),
                 CreatedBy = authenticationStore.Username,
-                SortIndex = x.SortIndex
+                SortIndex = templateDto.SortIndex
             })
             .ToList();
 
@@ -46,8 +48,9 @@ public class AnamnesesCreateRequestHandler(IUnitOfWork unitOfWork, Authenticatio
 
         List<Guid> keys = anamneses.Select(x => x.Id).ToList();
 
-        IList<Anamnesis> entities = await repository.GetAllAsync(predicate: anamnesis => keys.Contains(anamnesis.Id),
-            include: i => i
+        IList<Anamnesis> entities = await repository.GetAllAsync(anamnesis => keys.Contains(anamnesis.Id),
+            o => o.OrderBy(anamnesis => anamnesis.SortIndex),
+            i => i
                 .Include(anamnesis => anamnesis.AnamnesisAnswers)
                 .AsSplitQuery()
                 .Include(anamnesis => anamnesis.AnamnesisTemplate)!);

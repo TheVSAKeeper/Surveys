@@ -8,6 +8,6 @@ public class AnamnesisTemplate : Identity
 
     public required int SortIndex { get; set; }
 
-    public virtual required ICollection<Question> Questions { get; set; }
-    public virtual ICollection<Anamnesis>? Anamneses { get; set; }
+    public virtual required IList<Question> Questions { get; set; }
+    public virtual IList<Anamnesis>? Anamneses { get; set; }
 }

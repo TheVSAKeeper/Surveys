@@ -10,5 +10,5 @@ public class Question : Identity
 
     public AnamnesisTemplate? AnamnesisTemplate { get; set; }
 
-    public virtual ICollection<AnamnesisAnswer>? AnamnesisAnswers { get; set; }
+    public virtual IList<AnamnesisAnswer>? AnamnesisAnswers { get; set; }
 }

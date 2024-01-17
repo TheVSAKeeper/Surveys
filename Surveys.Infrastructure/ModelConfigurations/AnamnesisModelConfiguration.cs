@@ -12,7 +12,7 @@ public class AnamnesisModelConfiguration : AuditableModelConfigurationBase<Anamn
         builder.Property(anamnesis => anamnesis.IsComplete)
             .HasDefaultValue(false)
             .IsRequired();
-        
+
         builder.Property(anamnesis => anamnesis.SortIndex).IsRequired();
 
         builder.Property(anamnesis => anamnesis.SortIndex).IsRequired();

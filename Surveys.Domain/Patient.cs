@@ -12,8 +12,8 @@ public class Patient : Identity
 
     public required DateOnly BirthDate { get; set; }
 
-    public virtual ICollection<Survey>? Surveys { get; set; }
-    public virtual ICollection<SurveyDiagnosis>? SurveyDiagnoses { get; set; }
+    public virtual IList<Survey>? Surveys { get; set; }
+    public virtual IList<SurveyDiagnosis>? SurveyDiagnoses { get; set; }
 }
 
 public enum Gender
