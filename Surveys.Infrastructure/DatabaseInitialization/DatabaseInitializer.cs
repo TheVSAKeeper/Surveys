@@ -160,24 +160,27 @@ public class DatabaseInitializer
         string lines = await File.ReadAllTextAsync(anamnesisTemplatesPath);
 
         AnamnesisTemplate[] anamnesisTemplates = lines.Split('/', StringSplitOptions.RemoveEmptyEntries)
-            .Select(template =>
+            .Select((template, i) =>
             {
                 string[] parts = template.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 
                 List<Question> questions = parts
                     .Skip(1)
-                    .Select(question => new Question
+                    .Select((question, j) => new Question
                     {
                         Id = Guid.NewGuid(),
-                        Content = question.Trim(['-', '?', ',', '.']).Trim().ToLower() + "?"
+                        Content = question.Trim(['-', '?', ',', '.']).Trim().ToLower() + "?",
+                        SortIndex = j - 1
                     })
                     .ToList();
 
                 return new AnamnesisTemplate
                 {
                     Id = Guid.NewGuid(),
-                    Name = parts[0].Trim(),
-                    Questions = questions
+                    Name = parts[0]
+                        .Trim(),
+                    Questions = questions,
+                    SortIndex = i
                 };
             })
             .ToArray();

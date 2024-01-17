@@ -12,7 +12,7 @@ public class AnswerModelConfiguration : IdentityModelConfigurationBase<Answer>
             .HasMaxLength(1024)
             .IsRequired();
 
-        builder.HasOne(answer => answer.QuestionAnswers);
+        builder.HasOne(answer => answer.AnamnesisAnswers);
     }
 
     protected override string GetTableName() => nameof(Answer);

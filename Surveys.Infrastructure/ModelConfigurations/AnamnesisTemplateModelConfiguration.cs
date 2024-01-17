@@ -12,6 +12,8 @@ public class AnamnesisTemplateModelConfiguration : IdentityModelConfigurationBas
             .HasMaxLength(50)
             .IsRequired();
 
+        builder.Property(anamnesisTemplate => anamnesisTemplate.SortIndex).IsRequired();
+
         builder.HasMany(anamnesisTemplate => anamnesisTemplate.Anamneses);
         builder.HasMany(anamnesisTemplate => anamnesisTemplate.Questions);
     }

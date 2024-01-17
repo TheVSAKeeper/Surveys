@@ -7,7 +7,7 @@ public class SurveyEditDto
     public required Guid Id { get; init; }
 
     public required string Complaint { get; set; }
-    public required Patient Patient { get; set; }
+    public required Patient? Patient { get; set; }
 
     public required bool IsComplete { get; set; }
 

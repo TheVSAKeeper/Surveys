@@ -20,7 +20,8 @@ public class GetAllAnamnesisTemplatesRequestHandler(IUnitOfWork unitOfWork) : IR
                     Id = s.Id,
                     Name = s.Name,
                     Questions = new ObservableCollection<Question>(s.Questions),
-                    IsSelected = false
+                    IsSelected = false,
+                    SortIndex = s.SortIndex
                 },
                 include: i => i.Include(template => template.Questions));
 

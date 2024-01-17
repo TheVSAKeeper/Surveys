@@ -19,7 +19,7 @@ public class SurveyLoadLastCommand(SurveyEditFormViewModel viewModel, IMediator 
         {
             foreach (Anamnesis oldAnamnesis in result.Result!)
             {
-                if (anamnesis.AnamnesisTemplateId == oldAnamnesis.AnamnesisTemplateId && oldAnamnesis.AnamnesisAnswers!.Count !=0)
+                if (anamnesis.AnamnesisTemplateId == oldAnamnesis.AnamnesisTemplateId && oldAnamnesis.AnamnesisAnswers!.Count != 0)
                     anamnesis.AnamnesisAnswers = new List<AnamnesisAnswer>(oldAnamnesis.AnamnesisAnswers!);
             }
         }

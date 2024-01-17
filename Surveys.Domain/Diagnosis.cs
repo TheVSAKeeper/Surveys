@@ -4,7 +4,7 @@ namespace Surveys.Domain;
 
 public class Diagnosis : Identity
 {
-    public string Name { get; set; } = null!;
+    public required string Name { get; set; }
     public string? Description { get; set; }
 
     public virtual ICollection<SurveyDiagnosis>? SurveyDiagnoses { get; set; }

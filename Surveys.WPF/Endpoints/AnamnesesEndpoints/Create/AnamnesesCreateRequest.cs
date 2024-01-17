@@ -28,7 +28,8 @@ public class AnamnesesCreateRequestHandler(IUnitOfWork unitOfWork, Authenticatio
                         Answers = new List<Answer>()
                     })
                     .ToList(),
-                CreatedBy = authenticationStore.Username
+                CreatedBy = authenticationStore.Username,
+                SortIndex = x.SortIndex
             })
             .ToList();
 
@@ -49,7 +50,7 @@ public class AnamnesesCreateRequestHandler(IUnitOfWork unitOfWork, Authenticatio
             include: i => i
                 .Include(anamnesis => anamnesis.AnamnesisAnswers)
                 .AsSplitQuery()
-                .Include(anamnesis => anamnesis.AnamnesisTemplate));
+                .Include(anamnesis => anamnesis.AnamnesisTemplate)!);
 
         result.Result = entities.ToList();
 

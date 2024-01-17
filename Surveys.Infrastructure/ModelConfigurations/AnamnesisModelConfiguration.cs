@@ -9,9 +9,11 @@ public class AnamnesisModelConfiguration : AuditableModelConfigurationBase<Anamn
 {
     protected override void AddConfiguration(EntityTypeBuilder<Anamnesis> builder)
     {
-        builder.Property(survey => survey.IsComplete)
+        builder.Property(anamnesis => anamnesis.IsComplete)
             .HasDefaultValue(false)
             .IsRequired();
+
+        builder.Property(anamnesis => anamnesis.SortIndex).IsRequired();
 
         builder.HasOne(anamnesis => anamnesis.AnamnesisTemplate);
         builder.Navigation(anamnesis => anamnesis.AnamnesisTemplate).AutoInclude();
