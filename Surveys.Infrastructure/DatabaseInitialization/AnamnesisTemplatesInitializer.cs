@@ -35,8 +35,12 @@ public partial class DatabaseInitializer
                     .Select((question, j) => new Question
                     {
                         Id = Guid.NewGuid(),
-                        Content = question.Trim(['-', '?', ',', '.', ';']).Trim().ToLower() + "?",
-                        SortIndex = j + 1
+                        Content = question.Trim(['-', '?', ',', '.', ';'])
+                                      .Trim()
+                                      .ToLower()
+                                  + "?",
+                        SortIndex = j + 1,
+                        Type = ContentType.Text
                     })
                     .ToList();
 

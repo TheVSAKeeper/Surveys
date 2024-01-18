@@ -4,6 +4,7 @@ namespace Surveys.Domain;
 
 public class Answer : Identity
 {
+    public required ContentType Type { get; set; }
     public required string Content { get; set; }
 
     public Guid AnamnesisAnswersId { get; set; }

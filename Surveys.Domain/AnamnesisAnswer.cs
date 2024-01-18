@@ -4,10 +4,12 @@ namespace Surveys.Domain;
 
 public class AnamnesisAnswer : Identity
 {
-    public required Guid QuestionId { get; set; }
-    public virtual Question? Question { get; set; }
+    public ContentType Type => Question.Type;
 
-    public virtual IList<Answer>? Answers { get; set; }
+    public required Guid QuestionId { get; set; }
+    public virtual Question Question { get; set; } = null!;
+
+    public virtual IList<Answer> Answers { get; set; } = null!;
 
     public Guid? AnamnesisId { get; set; }
     public virtual Anamnesis? Anamnesis { get; set; }
