@@ -22,9 +22,9 @@
     </b:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="7*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="3*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
@@ -37,7 +37,7 @@
                   CanUserAddRows="False"
                   CanUserDeleteRows="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="Auto"
+                <DataGridTextColumn Width="1*"
                                     Header="Название"
                                     Binding="{Binding Path=Name, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                     IsReadOnly="True" />
@@ -53,14 +53,18 @@
                       VerticalAlignment="Center"
                       ResizeDirection="Rows" />
 
-        <Expander Grid.Row="2"
+        <Expander IsExpanded="True"
+                  Grid.Row="2"
                   Header="Вопросы"
                   Margin="5">
-            <ListView DataContext="{Binding SelectedTemplate, UpdateSourceTrigger=PropertyChanged}"
+            <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      HorizontalContentAlignment="Stretch"
+                      DataContext="{Binding SelectedTemplate, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{Binding Questions}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Content}" />
+                        <TextBlock TextWrapping="WrapWithOverflow"
+                                   Text="{Binding Content}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
@@ -77,7 +81,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <TextBlock
-                Text="{Binding SelectedTemplate.Questions.Count, FallbackValue=Шаблон не выбран ,StringFormat=Количество {0}}"
+                Text="{Binding SelectedTemplate.Questions.Count, FallbackValue=Шаблон не выбран, StringFormat=Количество {0}}"
                 VerticalAlignment="Center"
                 Margin="5,0,5,0" />
             <Button Grid.Column="1"

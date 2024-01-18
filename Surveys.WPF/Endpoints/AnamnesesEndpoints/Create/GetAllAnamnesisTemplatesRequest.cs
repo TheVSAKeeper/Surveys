@@ -13,7 +13,6 @@ public class GetAllAnamnesisTemplatesRequestHandler(IUnitOfWork unitOfWork) : IR
 {
     public async Task<OperationResult<List<AnamnesisTemplateDto>>> Handle(GetAllAnamnesisTemplatesRequest request, CancellationToken cancellationToken)
     {
-        // TODO: add questions sorting
         IList<AnamnesisTemplateDto> templates = await unitOfWork.GetRepository<AnamnesisTemplate>()
             .GetAllAsync(s => new AnamnesisTemplateDto
                 {
@@ -27,7 +26,9 @@ public class GetAllAnamnesisTemplatesRequestHandler(IUnitOfWork unitOfWork) : IR
                 include: i => i.Include(template => template.Questions),
                 disableTracking: true);
 
-       
+        foreach (AnamnesisTemplateDto templateDto in templates)
+            templateDto.Questions = new ObservableCollection<Question>(templateDto.Questions.OrderBy(question => question.SortIndex));
+
         return OperationResult.CreateResult(templates.ToList());
     }
 }

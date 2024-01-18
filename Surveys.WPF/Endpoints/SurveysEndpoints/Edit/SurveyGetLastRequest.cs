@@ -16,16 +16,16 @@ public class SurveyGetLastRequestHandler(IUnitOfWork unitOfWork) : IRequestHandl
         OperationResult<List<Anamnesis>> result = OperationResult.CreateResult<List<Anamnesis>>();
 
         Survey? latestSurvey = await unitOfWork.GetRepository<Survey>()
-            .GetFirstOrDefaultAsync(p => p.PatientId == request.Dto.Patient.Id && p.Id != request.Dto.Id,
+            .GetFirstOrDefaultAsync(p => p.PatientId == request.Dto.Patient!.Id && p.Id != request.Dto.Id,
                 o => o.OrderByDescending(survey => survey.CreatedAt),
                 i => i
                     .Include(survey => survey.Anamneses)
                     .AsSplitQuery()
-                    .Include(survey => survey.Patient));
+                    .Include(survey => survey.Patient)!);
 
         if (latestSurvey is null)
         {
-            result.AddError(new SurveysNotFoundException(nameof(Patient), request.Dto.Patient.Id.ToString()));
+            result.AddError(new SurveysNotFoundException(nameof(Patient), request.Dto.Patient!.Id.ToString()));
             return result;
         }
 

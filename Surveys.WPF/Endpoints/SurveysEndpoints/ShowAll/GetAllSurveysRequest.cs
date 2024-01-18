@@ -25,7 +25,7 @@ public class GetAllSurveysRequestHandler(IUnitOfWork unitOfWork) : IRequestHandl
                     Id = survey.Id
                 },
                 survey => survey.IsComplete == false,
-                include: i => i.Include(survey => survey.Patient),
+                include: i => i.Include(survey => survey.Patient)!,
                 disableTracking: true);
 
         return OperationResult.CreateResult(surveys.ToList());

@@ -18,7 +18,7 @@
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -52,15 +52,9 @@
         <GroupBox Header="Опросы"
                   Margin="0,10,0,0"
                   Grid.Row="1">
-            <Grid VerticalAlignment="Top"
-                  Grid.IsSharedSizeScope="True">
-
-                <Grid.RowDefinitions>
-
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-
-                <Expander IsExpanded="True">
+            <Grid Grid.IsSharedSizeScope="True">
+                <Expander VerticalContentAlignment="Stretch"
+                          IsExpanded="True">
                     <Expander.Header>
                         <StackPanel HorizontalAlignment="Center"
                                     Orientation="Horizontal">
@@ -75,9 +69,7 @@
                     </Expander.Header>
 
                     <showAll:SurveyShowAllFormView DataContext="{Binding SurveyShowAllFormViewModel}" />
-
                 </Expander>
-
             </Grid>
         </GroupBox>
     </Grid>

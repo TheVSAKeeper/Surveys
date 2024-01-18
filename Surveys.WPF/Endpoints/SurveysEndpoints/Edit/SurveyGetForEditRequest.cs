@@ -24,12 +24,12 @@ public class SurveyGetForEditRequestHandler(IUnitOfWork unitOfWork) : IRequestHa
                     IsComplete = x.IsComplete,
                     CreatedAt = x.CreatedAt,
                     CreatedBy = x.CreatedBy,
-                    Anamneses = x.Anamneses
+                    Anamneses = x.Anamneses!.OrderBy(anamnesis => anamnesis.SortIndex).ToList()
                 },
                 p => p.Id == request.Id,
                 include: i => i
                     .Include(survey => survey.Anamneses)
-                    .Include(survey => survey.Patient));
+                    .Include(survey => survey.Patient)!);
 
         if (surveyDto is null)
         {

@@ -26,7 +26,7 @@ public partial class SurveyShowAllFormView : UserControl
         if (string.IsNullOrWhiteSpace(filterText))
             return;
 
-        if (survey.Patient.FirstName.Contains(filterText, StringComparison.OrdinalIgnoreCase))
+        if (survey.Patient!.FirstName.Contains(filterText, StringComparison.OrdinalIgnoreCase))
             return;
 
         if (survey.Patient.LastName.Contains(filterText, StringComparison.OrdinalIgnoreCase))
