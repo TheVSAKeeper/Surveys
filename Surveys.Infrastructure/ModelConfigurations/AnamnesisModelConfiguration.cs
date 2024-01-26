@@ -7,7 +7,7 @@ namespace Surveys.Infrastructure.ModelConfigurations;
 
 public class AnamnesisModelConfiguration : AuditableModelConfigurationBase<Anamnesis>
 {
-    protected override void AddConfiguration(EntityTypeBuilder<Anamnesis> builder)
+    protected override void AddAuditableConfiguration(EntityTypeBuilder<Anamnesis> builder)
     {
         builder.Property(anamnesis => anamnesis.IsComplete)
             .HasDefaultValue(false)
@@ -25,6 +25,4 @@ public class AnamnesisModelConfiguration : AuditableModelConfigurationBase<Anamn
 
         builder.HasOne(anamnesis => anamnesis.Survey);
     }
-
-    protected override string GetTableName() => nameof(Anamnesis);
 }

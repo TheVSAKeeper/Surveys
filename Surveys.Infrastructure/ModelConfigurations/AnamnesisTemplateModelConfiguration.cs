@@ -6,7 +6,7 @@ namespace Surveys.Infrastructure.ModelConfigurations;
 
 public class AnamnesisTemplateModelConfiguration : IdentityModelConfigurationBase<AnamnesisTemplate>
 {
-    protected override void AddConfiguration(EntityTypeBuilder<AnamnesisTemplate> builder)
+    protected override void AddIdentityConfiguration(EntityTypeBuilder<AnamnesisTemplate> builder)
     {
         builder.Property(anamnesisTemplate => anamnesisTemplate.Name)
             .HasMaxLength(50)
@@ -19,6 +19,4 @@ public class AnamnesisTemplateModelConfiguration : IdentityModelConfigurationBas
         builder.HasMany(anamnesisTemplate => anamnesisTemplate.Anamneses);
         builder.HasMany(anamnesisTemplate => anamnesisTemplate.Questions);
     }
-
-    protected override string GetTableName() => nameof(AnamnesisTemplate);
 }

@@ -6,7 +6,7 @@ namespace Surveys.Infrastructure.ModelConfigurations;
 
 public class AnamnesisAnswerModelConfiguration : IdentityModelConfigurationBase<AnamnesisAnswer>
 {
-    protected override void AddConfiguration(EntityTypeBuilder<AnamnesisAnswer> builder)
+    protected override void AddIdentityConfiguration(EntityTypeBuilder<AnamnesisAnswer> builder)
     {
         builder.HasOne(anamnesisAnswer => anamnesisAnswer.Question);
         builder.Navigation(anamnesisAnswer => anamnesisAnswer.Question).AutoInclude();
@@ -16,6 +16,4 @@ public class AnamnesisAnswerModelConfiguration : IdentityModelConfigurationBase<
 
         builder.HasOne(anamnesisAnswer => anamnesisAnswer.Anamnesis);
     }
-
-    protected override string GetTableName() => nameof(AnamnesisAnswer);
 }

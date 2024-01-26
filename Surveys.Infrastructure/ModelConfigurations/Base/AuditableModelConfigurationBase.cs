@@ -4,17 +4,15 @@ using Surveys.Domain.Base;
 
 namespace Surveys.Infrastructure.ModelConfigurations.Base;
 
-public abstract class AuditableModelConfigurationBase<T> : IEntityTypeConfiguration<T> where T : Auditable
+public abstract class AuditableModelConfigurationBase<T> : ModelConfigurationBase<T> where T : Auditable
 {
-    public void Configure(EntityTypeBuilder<T> builder)
+    protected override void AddBaseConfiguration(EntityTypeBuilder<T> builder)
     {
-        builder.ToTable(GetTableName());
-
-        builder.HasKey(x => x.Id);
+      builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).IsRequired();
 
         builder.Property(x => x.CreatedAt)
-            .HasConversion(v => v, v => DateTime.SpecifyKind(v, DateTimeKind.Utc))
+            .HasConversion(time => time, value => DateTime.SpecifyKind(value, DateTimeKind.Utc))
             .IsRequired();
 
         builder.Property(x => x.CreatedBy)
@@ -22,14 +20,12 @@ public abstract class AuditableModelConfigurationBase<T> : IEntityTypeConfigurat
             .IsRequired();
 
         builder.Property(x => x.UpdatedAt)
-            .HasConversion(v => v!.Value, v => DateTime.SpecifyKind(v, DateTimeKind.Utc));
+            .HasConversion(time => time!.Value, value => DateTime.SpecifyKind(value, DateTimeKind.Utc));
 
         builder.Property(x => x.UpdatedBy).HasMaxLength(256);
 
-        AddConfiguration(builder);
+        AddAuditableConfiguration(builder);
     }
 
-    protected abstract void AddConfiguration(EntityTypeBuilder<T> builder);
-
-    protected abstract string GetTableName();
+    protected abstract void AddAuditableConfiguration(EntityTypeBuilder<T> builder);
 }
