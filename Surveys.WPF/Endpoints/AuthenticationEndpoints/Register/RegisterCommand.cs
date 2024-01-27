@@ -7,7 +7,7 @@ namespace Surveys.WPF.Endpoints.AuthenticationEndpoints.Register;
 
 public class RegisterCommand(
     RegisterFormViewModel registerViewModel,
-    AuthenticationStore authenticationStore)
+    AuthenticationManager authenticationManager)
     : AsyncCommandBase
 {
     protected override async Task ExecuteAsync(object? parameter)
@@ -17,7 +17,7 @@ public class RegisterCommand(
             if (parameter is not PasswordBox passwordBox)
                 return;
 
-            IdentityResult result = await authenticationStore.CreateUserAsync(registerViewModel.Username!, passwordBox.Password, registerViewModel.Role!);
+            IdentityResult result = await authenticationManager.CreateUserAsync(registerViewModel.Username!, passwordBox.Password, registerViewModel.Role!);
 
             if (result.Succeeded == false)
             {

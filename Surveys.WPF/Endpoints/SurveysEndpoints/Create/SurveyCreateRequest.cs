@@ -9,7 +9,7 @@ namespace Surveys.WPF.Endpoints.SurveysEndpoints.Create;
 
 public record SurveyCreateRequest(Patient Patient, List<Anamnesis> CreatedAnamneses) : IRequest<OperationResult<Survey>>;
 
-public class SurveyCreateRequestHandler(IUnitOfWork unitOfWork, AuthenticationStore authenticationStore) : IRequestHandler<SurveyCreateRequest, OperationResult<Survey>>
+public class SurveyCreateRequestHandler(IUnitOfWork unitOfWork, AuthenticationManager authenticationManager) : IRequestHandler<SurveyCreateRequest, OperationResult<Survey>>
 {
     public async Task<OperationResult<Survey>> Handle(SurveyCreateRequest request, CancellationToken cancellationToken)
     {
@@ -18,7 +18,7 @@ public class SurveyCreateRequestHandler(IUnitOfWork unitOfWork, AuthenticationSt
         Survey survey = new()
         {
             Complaint = "Не указана",
-            CreatedBy = authenticationStore.Username,
+            CreatedBy = authenticationManager.Username,
             PatientId = request.Patient.Id
         };
 

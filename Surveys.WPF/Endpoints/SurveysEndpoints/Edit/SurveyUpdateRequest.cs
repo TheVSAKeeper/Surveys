@@ -11,7 +11,7 @@ namespace Surveys.WPF.Endpoints.SurveysEndpoints.Edit;
 
 public record SurveyUpdateRequest(SurveyEditDto Model) : IRequest<OperationResult<Guid>>;
 
-public class SurveyUpdateRequestHandler(IUnitOfWork unitOfWork, IMapper mapper, AuthenticationStore authenticationStore) : IRequestHandler<SurveyUpdateRequest, OperationResult<Guid>>
+public class SurveyUpdateRequestHandler(IUnitOfWork unitOfWork, IMapper mapper, AuthenticationManager authenticationManager) : IRequestHandler<SurveyUpdateRequest, OperationResult<Guid>>
 {
     public async Task<OperationResult<Guid>> Handle(SurveyUpdateRequest request, CancellationToken cancellationToken)
     {
@@ -27,7 +27,7 @@ public class SurveyUpdateRequestHandler(IUnitOfWork unitOfWork, IMapper mapper, 
             return operation;
         }
 
-        mapper.Map(request.Model, entity, options => options.Items[nameof(ApplicationUser)] = authenticationStore.Username);
+        mapper.Map(request.Model, entity, options => options.Items[nameof(ApplicationUser)] = authenticationManager.Username);
 
         if (request.Model.Anamneses!.All(x => x.IsComplete))
             entity.IsComplete = true;

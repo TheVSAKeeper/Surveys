@@ -5,7 +5,7 @@ using Surveys.WPF.Properties;
 
 namespace Surveys.WPF.Endpoints.AuthenticationEndpoints;
 
-public class AuthenticationStore(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
+public class AuthenticationManager(UserManager<ApplicationUser> userManager, RoleManager<ApplicationRole> roleManager)
 {
     public ApplicationUser? User { get; private set; }
 
@@ -91,10 +91,7 @@ public class AuthenticationStore(UserManager<ApplicationUser> userManager, RoleM
             Patronymic = string.Empty,
             EmailConfirmed = true,
             PhoneNumberConfirmed = true,
-            Roles = new List<ApplicationRole>
-            {
-                role
-            }
+            Roles = new List<ApplicationRole> { role }
         };
 
         IdentityResult createResult = await userManager.CreateAsync(user, password);

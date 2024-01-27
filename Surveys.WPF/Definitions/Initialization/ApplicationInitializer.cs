@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Surveys.Domain.Base;
 using Surveys.Infrastructure;
 using Surveys.WPF.Definitions.Base;
+using Surveys.WPF.Endpoints.AuthenticationEndpoints;
 using Surveys.WPF.Pages.Home;
 using Surveys.WPF.Pages.Login;
 using Surveys.WPF.Pages.Survey;
@@ -35,12 +36,12 @@ public class ApplicationInitializer : AppDefinition
             if (pendingMigrations.Any())
                 await context.Database.MigrateAsync();
 
-            Endpoints.AuthenticationEndpoints.AuthenticationStore authenticationStore = scope.ServiceProvider.GetRequiredService<Endpoints.AuthenticationEndpoints.AuthenticationStore>();
-            await authenticationStore.Initialize();
+            AuthenticationManager authenticationManager = scope.ServiceProvider.GetRequiredService<AuthenticationManager>();
+            await authenticationManager.Initialize();
 
-            if (authenticationStore.IsLoggedIn)
+            if (authenticationManager.IsLoggedIn)
             {
-                if (authenticationStore.IsInRole(AppData.NurseRoleName))
+                if (authenticationManager.IsInRole(AppData.NurseRoleName))
                 {
                     NavigationService<SurveyViewModel> surveyNavigationService = scope.ServiceProvider.GetRequiredService<NavigationService<SurveyViewModel>>();
                     surveyNavigationService.Navigate();

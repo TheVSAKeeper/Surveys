@@ -9,10 +9,10 @@ public class RegisterFormViewModel : ViewModelBase
     private string? _role;
     private string? _username;
 
-    public RegisterFormViewModel(AuthenticationStore authenticationStore, ApplicationRoleStore roleStore)
+    public RegisterFormViewModel(AuthenticationManager authenticationManager, ApplicationRoleStore roleStore)
     {
         Roles = roleStore.Roles.Select(role => role.Name).ToList();
-        SubmitCommand = new RegisterCommand(this, authenticationStore);
+        SubmitCommand = new RegisterCommand(this, authenticationManager);
     }
 
     public List<string?> Roles { get; }

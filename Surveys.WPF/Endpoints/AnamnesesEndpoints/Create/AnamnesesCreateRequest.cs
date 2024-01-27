@@ -10,7 +10,7 @@ namespace Surveys.WPF.Endpoints.AnamnesesEndpoints.Create;
 
 public record AnamnesesCreateRequest(List<AnamnesisTemplateDto> Template) : IRequest<OperationResult<List<Anamnesis>>>;
 
-public class AnamnesesCreateRequestHandler(IUnitOfWork unitOfWork, AuthenticationStore authenticationStore) : IRequestHandler<AnamnesesCreateRequest, OperationResult<List<Anamnesis>>>
+public class AnamnesesCreateRequestHandler(IUnitOfWork unitOfWork, AuthenticationManager authenticationManager) : IRequestHandler<AnamnesesCreateRequest, OperationResult<List<Anamnesis>>>
 {
     public async Task<OperationResult<List<Anamnesis>>> Handle(AnamnesesCreateRequest request, CancellationToken cancellationToken)
     {
@@ -30,7 +30,7 @@ public class AnamnesesCreateRequestHandler(IUnitOfWork unitOfWork, Authenticatio
                         Answers = new List<Answer>()
                     })
                     .ToList(),
-                CreatedBy = authenticationStore.Username,
+                CreatedBy = authenticationManager.Username,
                 SortIndex = templateDto.SortIndex
             })
             .ToList();

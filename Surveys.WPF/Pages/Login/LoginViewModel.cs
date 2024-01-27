@@ -6,8 +6,8 @@ using Surveys.WPF.Shared.ViewModels;
 
 namespace Surveys.WPF.Pages.Login;
 
-public class LoginViewModel(AuthenticationStore authenticationStore, NavigationService<HomeViewModel> homeNavigationService)
+public class LoginViewModel(AuthenticationManager authenticationManager, NavigationService<HomeViewModel> homeNavigationService)
     : ViewModelBase
 {
-    public LoginFormViewModel LoginFormViewModel { get; } = new(authenticationStore, homeNavigationService);
+    public LoginFormViewModel LoginFormViewModel { get; } = new(authenticationManager, homeNavigationService);
 }

@@ -13,20 +13,20 @@ namespace Surveys.WPF.Pages.Home;
 
 public class HomeViewModel : ViewModelBase
 {
-    private readonly AuthenticationStore _authenticationStore;
+    private readonly AuthenticationManager _authenticationManager;
 
     public HomeViewModel(
-        AuthenticationStore authenticationStore,
+        AuthenticationManager authenticationManager,
         NavigationService<ProfileViewModel> profileNavigationService,
         NavigationService<LoginViewModel> loginNavigationService,
         NavigationService<SurveyViewModel> surveyNavigationService,
         SurveyShowAllFormViewModel showAllFormViewModel)
     {
-        _authenticationStore = authenticationStore;
+        _authenticationManager = authenticationManager;
 
         NavigateProfileCommand = new NavigateCommand(profileNavigationService);
         OpenSurveysCommand = new NavigateCommand(surveyNavigationService);
-        LogoutCommand = new LogoutCommand(authenticationStore, loginNavigationService);
+        LogoutCommand = new LogoutCommand(authenticationManager, loginNavigationService);
         SurveyShowAllFormViewModel = showAllFormViewModel;
     }
 
@@ -35,5 +35,5 @@ public class HomeViewModel : ViewModelBase
     public ICommand OpenSurveysCommand { get; }
     public ICommand LogoutCommand { get; }
 
-    public string Username => _authenticationStore.User?.DisplayName ?? "Unknown";
+    public string Username => _authenticationManager.User?.DisplayName ?? "Unknown";
 }

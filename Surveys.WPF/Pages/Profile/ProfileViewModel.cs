@@ -14,17 +14,17 @@ using Surveys.WPF.Shared.ViewModels;
 namespace Surveys.WPF.Pages.Profile;
 
 public class ProfileViewModel(
-    AuthenticationStore authenticationStore,
+    AuthenticationManager authenticationManager,
     NavigationService<HomeViewModel> homeNavigationService,
     ApplicationRoleStore roleStore,
     IMediator mediator,
     IMapper mapper)
     : ViewModelBase
 {
-    public ApplicationUserUpdateViewModel ApplicationUserUpdateViewModel { get; } = new(authenticationStore, mediator, mapper);
-    public RegisterFormViewModel RegisterFormViewModel { get; } = new(authenticationStore, roleStore);
+    public ApplicationUserUpdateViewModel ApplicationUserUpdateViewModel { get; } = new(authenticationManager, mediator, mapper);
+    public RegisterFormViewModel RegisterFormViewModel { get; } = new(authenticationManager, roleStore);
 
-    public bool IsUserAdministrator => authenticationStore.IsInRole(AppData.SystemAdministratorRoleName);
+    public bool IsUserAdministrator => authenticationManager.IsInRole(AppData.SystemAdministratorRoleName);
 
     public ICommand NavigateHomeCommand { get; } = new NavigateCommand(homeNavigationService);
 }

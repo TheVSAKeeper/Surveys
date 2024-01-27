@@ -14,10 +14,10 @@ public class ApplicationUserUpdateViewModel : ViewModelBase
 
     private ObservableCollection<string> _errors = [];
 
-    public ApplicationUserUpdateViewModel(AuthenticationStore authenticationStore, IMediator mediator, IMapper mapper)
+    public ApplicationUserUpdateViewModel(AuthenticationManager authenticationManager, IMediator mediator, IMapper mapper)
     {
-        SubmitCommand = new ApplicationUserUpdateCommand(this, mediator, authenticationStore);
-        _applicationUser = mapper.Map<ApplicationUserUpdateDto>(authenticationStore.User);
+        SubmitCommand = new ApplicationUserUpdateCommand(this, mediator, authenticationManager);
+        _applicationUser = mapper.Map<ApplicationUserUpdateDto>(authenticationManager.User);
     }
 
     public ApplicationUserUpdateDto ApplicationUser
