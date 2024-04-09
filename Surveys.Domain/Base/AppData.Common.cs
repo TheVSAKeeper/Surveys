@@ -6,7 +6,15 @@ public static partial class AppData
 
     public const string ServiceDescription = "";
 
-    public const string PolicyName = "CorsPolicy";
+    /// <summary>
+    /// Default policy name for CORS
+    /// </summary>
+    public const string PolicyCorsName = "CorsPolicy";
+
+    /// <summary>
+    /// Default policy name for API
+    /// </summary>
+    public const string PolicyDefaultName = "DefaultPolicy";
 
     public const string SystemAdministratorRoleName = "Administrator";
     public const string DoctorRoleName = "Doctor";

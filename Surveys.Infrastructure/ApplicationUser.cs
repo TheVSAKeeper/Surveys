@@ -17,4 +17,14 @@ public class ApplicationUser : IdentityUser<Guid>
     public string? DisplayName { get; set; }
 
     public ICollection<ApplicationRole>? Roles { get; set; }
+    
+    /// <summary>
+    /// Profile identity
+    /// </summary>
+    public Guid? ApplicationUserProfileId { get; set; }
+
+    /// <summary>
+    /// User Profile
+    /// </summary>
+    public virtual ApplicationUserProfile? ApplicationUserProfile { get; set; }
 }
