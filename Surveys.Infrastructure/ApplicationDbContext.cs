@@ -19,6 +19,12 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
     public DbSet<Survey> Surveys { get; set; } = null!;
     public DbSet<Patient> Patients { get; set; } = null!;
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        builder.UseOpenIddict<Guid>();
+        base.OnModelCreating(builder);
+    }
 }
 
 public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
