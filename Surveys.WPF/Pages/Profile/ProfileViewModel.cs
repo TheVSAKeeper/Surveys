@@ -9,7 +9,7 @@ using Surveys.WPF.Endpoints.AuthenticationEndpoints.Update;
 using Surveys.WPF.Pages.Home;
 using Surveys.WPF.Shared.Commands;
 using Surveys.WPF.Shared.Navigation;
-using Surveys.WPF.Shared.ViewModels;
+using ViewModelBase = Surveys.WPF.Shared.ViewModels.ViewModelBase;
 
 namespace Surveys.WPF.Pages.Profile;
 
