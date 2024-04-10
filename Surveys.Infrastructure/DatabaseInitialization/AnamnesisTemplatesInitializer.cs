@@ -6,7 +6,7 @@ namespace Surveys.Infrastructure.DatabaseInitialization;
 
 public partial class DatabaseInitializer
 {
-    public async Task SeedAnamnesisTemplates()
+    public async void SeedAnamnesisTemplates()
     {
         _logger.LogDebug("[DatabaseInitializer] SeedAnamnesisTemplates start");
 

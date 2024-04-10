@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Globalization;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Surveys.Domain;
 
@@ -6,7 +7,7 @@ namespace Surveys.Infrastructure.DatabaseInitialization;
 
 public partial class DatabaseInitializer
 {
-    public async Task SeedPatients()
+    public async void SeedPatients()
     {
         _logger.LogDebug("[DatabaseInitializer] SeedPatients start");
 
@@ -41,7 +42,7 @@ public partial class DatabaseInitializer
                         "Ж" => Gender.Female,
                         var _ => Gender.Unspecified
                     },
-                    BirthDate = DateOnly.Parse(parts[4])
+                    BirthDate = DateOnly.Parse(parts[4], style: DateTimeStyles.AssumeLocal)
                 };
             })
             .ToArray();

@@ -6,7 +6,7 @@ namespace Surveys.Infrastructure.DatabaseInitialization;
 
 public partial class DatabaseInitializer
 {
-    public async Task SeedDiagnoses()
+    public async void SeedDiagnoses()
     {
         _logger.LogDebug("[DatabaseInitializer] SeedDiagnoses start");
 

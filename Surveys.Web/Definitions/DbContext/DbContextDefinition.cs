@@ -1,19 +1,19 @@
 ﻿using Calabonga.AspNetCore.AppDefinitions;
+using Surveys.Infrastructure;
+using Surveys.Web.Definitions.Authorizations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OpenIddict.Abstractions;
-using Surveys.Infrastructure;
-using Surveys.Web.Definitions.Authorizations;
 
 namespace Surveys.Web.Definitions.DbContext;
 
 /// <summary>
-///     ASP.NET Core services registration and configurations
+/// ASP.NET Core services registration and configurations
 /// </summary>
 public class DbContextDefinition : AppDefinition
 {
     /// <summary>
-    ///     Configure services for current application
+    /// Configure services for current application
     /// </summary>
     /// <param name="builder"></param>
     public override void ConfigureServices(WebApplicationBuilder builder)
@@ -23,10 +23,10 @@ public class DbContextDefinition : AppDefinition
             // UseInMemoryDatabase - This for demo purposes only!
             // Should uninstall package "Microsoft.EntityFrameworkCore.InMemory" and install what you need.
             // For example: "Microsoft.EntityFrameworkCore.SqlServer"
-            //config.UseInMemoryDatabase("DEMO-PURPOSES-ONLY");
+            config.UseInMemoryDatabase("DEMO-PURPOSES-ONLY");
 
             // uncomment line below to use UseNpgsql() or UseSqlServer(). Don't forget setup connection string in appSettings.json
-            config.UseNpgsql(builder.Configuration.GetConnectionString(nameof(ApplicationDbContext)));
+            //config.UseNpgsql(builder.Configuration.GetConnectionString(nameof(ApplicationDbContext)));
 
             // Register the entity sets needed by OpenIddict.
             // Note: use the generic overload if you need to replace the default OpenIddict entities.

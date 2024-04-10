@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Surveys.Infrastructure.ModelConfigurations;
 
-public class ApplicationUserModelConfiguration : IEntityTypeConfiguration<ApplicationUser>
+/*public class ApplicationUserModelConfiguration : IEntityTypeConfiguration<ApplicationUser>
 {
     public void Configure(EntityTypeBuilder<ApplicationUser> builder)
     {
@@ -22,4 +22,4 @@ public class ApplicationUserModelConfiguration : IEntityTypeConfiguration<Applic
 
         builder.HasMany(user => user.Roles);
     }
-}
+}*/

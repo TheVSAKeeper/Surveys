@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Calabonga.PagedListCore;
 using Surveys.Domain;
 using Surveys.Domain.Base;
 using Surveys.Web.Application.Messaging.EventItemMessages.ViewModels;
@@ -8,6 +7,7 @@ using Calabonga.Results;
 using Calabonga.UnitOfWork;
 using MediatR;
 using System.Linq.Expressions;
+using Calabonga.PagedListCore;
 
 namespace Surveys.Web.Application.Messaging.EventItemMessages.Queries;
 

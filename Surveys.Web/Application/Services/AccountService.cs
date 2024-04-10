@@ -80,7 +80,7 @@ public class AccountService : IAccountService
         var user = _mapper.Map<ApplicationUser>(model);
         await using var transaction = await _unitOfWork.BeginTransactionAsync();
         var result = await _userManager.CreateAsync(user!, model.Password);
-        const string role = AppData.NurseRoleName;
+        const string role = AppData.ManagerRoleName;
 
         if (result.Succeeded)
         {

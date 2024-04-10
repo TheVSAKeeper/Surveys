@@ -12,7 +12,7 @@ using Surveys.Infrastructure;
 namespace Surveys.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240409215219_Initial")]
+    [Migration("20240409224106_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -646,9 +646,6 @@ namespace Surveys.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("ApplicationUserId")
-                        .HasColumnType("uuid");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("text");
@@ -662,8 +659,6 @@ namespace Surveys.Infrastructure.Migrations
                         .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
@@ -689,8 +684,7 @@ namespace Surveys.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("DisplayName")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -701,13 +695,11 @@ namespace Surveys.Infrastructure.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("text");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
@@ -727,8 +719,7 @@ namespace Surveys.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Patronymic")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("text");
@@ -963,13 +954,6 @@ namespace Surveys.Infrastructure.Migrations
                     b.Navigation("ApplicationUserProfile");
                 });
 
-            modelBuilder.Entity("Surveys.Infrastructure.ApplicationRole", b =>
-                {
-                    b.HasOne("Surveys.Infrastructure.ApplicationUser", null)
-                        .WithMany("Roles")
-                        .HasForeignKey("ApplicationUserId");
-                });
-
             modelBuilder.Entity("Surveys.Infrastructure.ApplicationUser", b =>
                 {
                     b.HasOne("Surveys.Infrastructure.ApplicationUserProfile", "ApplicationUserProfile")
@@ -1030,11 +1014,6 @@ namespace Surveys.Infrastructure.Migrations
                     b.Navigation("Anamneses");
 
                     b.Navigation("SurveyDiagnoses");
-                });
-
-            modelBuilder.Entity("Surveys.Infrastructure.ApplicationUser", b =>
-                {
-                    b.Navigation("Roles");
                 });
 
             modelBuilder.Entity("Surveys.Infrastructure.ApplicationUserProfile", b =>
