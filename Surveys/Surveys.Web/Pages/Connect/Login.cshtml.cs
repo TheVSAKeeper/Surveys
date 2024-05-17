@@ -18,6 +18,7 @@ public class LoginModel(
     UserManager<ApplicationUser> userManager)
     : PageModel
 {
+    private const string Username = nameof(Input.UserName);
     [BindProperty(SupportsGet = true)] public string ReturnUrl { get; set; } = null!;
 
     [BindProperty] public LoginViewModel? Input { get; set; }
@@ -38,7 +39,7 @@ public class LoginModel(
 
             if (user == null)
             {
-                ModelState.AddModelError("UserName", "User not found");
+                ModelState.AddModelError(Username, "Пользователь не найден");
                 return Page();
             }
 
@@ -56,7 +57,7 @@ public class LoginModel(
             }
         }
 
-        ModelState.AddModelError("UserName", "User not found");
+        ModelState.AddModelError(Username, "Пользователь не найден");
         return Page();
     }
 }

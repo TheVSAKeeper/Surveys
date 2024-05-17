@@ -2,33 +2,26 @@
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model Surveys.Web.Pages.Connect.LoginModel
 
-<div class="row">
+<div class="w3-content w3-padding-16 m6" style="max-width: 400px;">
+    @if (Model.Input != null)
+    {
+        <form method="post" >
+            <input type="hidden" asp-for="@Model.Input.ReturnUrl"/>
 
-    <div class="col-md-4 offset-4">
-        @if (Model.Input != null)
-        {
-            <form method="post">
+            <div asp-validation-summary="All" class="w3-text-red"></div>
 
-                <input type="hidden" asp-for="@Model.Input.ReturnUrl)"/>
+            <div class="w3-section">
+                <label class="w3-label" style="font-weight: bold;" asp-for="@Model.Input.UserName"></label>
+                <input type="email" class="w3-input w3-border w3-margin-bottom" asp-for="@Model.Input.UserName">
+            </div>
 
-                <div asp-validation-summary="All" class="text-danger"></div>
-
-                <div class="mb-3 row">
-                    <label class="form-label" asp-for="@Model.Input.UserName"></label>
-                    <input type="email" class="form-control" asp-for="@Model.Input.UserName">
-
-                </div>
-
-                <div class="mb-3 row">
-                    <label class="form-label" asp-for="@Model.Input.Password"></label>
-                    <input class="form-control" type="password" asp-for="@Model.Input.Password"/>
-
-                </div>
-                <div class="text-center">
-                    <button class="btn btn-primary" type="submit">Вход</button>
-                </div>
-
-            </form>
-        }
-    </div>
+            <div class="w3-section">
+                <label class="w3-label" style="font-weight: bold;" asp-for="@Model.Input.Password"></label>
+                <input class="w3-input w3-border" type="password" asp-for="@Model.Input.Password"/>
+            </div>
+            <div class="w3-section">
+                <button class="w3-button w3-block w3-blue w3-section w3-padding" type="submit">Вход</button>
+            </div>
+        </form>
+    }
 </div>
