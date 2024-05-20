@@ -14,8 +14,48 @@ public sealed class OpenIddictWorker(IServiceProvider serviceProvider) : IHosted
 
         IOpenIddictApplicationManager manager = scope.ServiceProvider.GetRequiredService<IOpenIddictApplicationManager>();
 
+        if (await manager.FindByClientIdAsync("balosar-blazor-client", cancellationToken) is null)
+            await manager.CreateAsync(new OpenIddictApplicationDescriptor
+            {
+                ClientId = "balosar-blazor-client",
+                ConsentType = OpenIddictConstants.ConsentTypes.Implicit,
+                DisplayName = "Blazor client application",
+                ClientType = OpenIddictConstants.ClientTypes.Public,
+                PostLogoutRedirectUris =
+                {
+                    new Uri("https://localhost:5001/authentication/logout-callback")
+                },
+                RedirectUris =
+                {
+                    new Uri("https://localhost:5001/authentication/login-callback")
+                },
+                Permissions =
+                {
+                    OpenIddictConstants.Permissions.Endpoints.Authorization,
+                    OpenIddictConstants.Permissions.Endpoints.Logout,
+                    OpenIddictConstants.Permissions.Endpoints.Token,
+
+                    OpenIddictConstants.Permissions.GrantTypes.AuthorizationCode,
+                    OpenIddictConstants.Permissions.GrantTypes.RefreshToken,
+
+                    OpenIddictConstants.Permissions.ResponseTypes.Code,
+
+                    OpenIddictConstants.Permissions.Prefixes.Scope,
+
+                    OpenIddictConstants.Permissions.Scopes.Email,
+                    OpenIddictConstants.Permissions.Scopes.Profile,
+                    OpenIddictConstants.Permissions.Scopes.Roles,
+
+                    OpenIddictConstants.Permissions.ResponseTypes.IdToken
+                },
+                Requirements =
+                {
+                    OpenIddictConstants.Requirements.Features.ProofKeyForCodeExchange
+                }
+            }, cancellationToken);
+
         // credentials password
-        const string client_id1 = "client-id-sts";
+        const string client_id1 = "client_id1";
 
         if (await manager.FindByClientIdAsync(client_id1, cancellationToken) is null)
             await manager.CreateAsync(new OpenIddictApplicationDescriptor
@@ -53,12 +93,13 @@ public sealed class OpenIddictWorker(IServiceProvider serviceProvider) : IHosted
                     new Uri($"{url}/swagger/oauth2-redirect.html"), // https://swagger.io/
                     new Uri("https://localhost:20001/swagger/oauth2-redirect.html") // https://swagger.io/ for Module as Example
                 },
-
                 Permissions =
                 {
                     // Endpoint permissions
                     OpenIddictConstants.Permissions.Endpoints.Authorization,
+                    OpenIddictConstants.Permissions.Endpoints.Logout,
                     OpenIddictConstants.Permissions.Endpoints.Token,
+                    OpenIddictConstants.Permissions.Endpoints.Revocation,
 
                     // Grant type permissions
                     OpenIddictConstants.Permissions.GrantTypes.AuthorizationCode,

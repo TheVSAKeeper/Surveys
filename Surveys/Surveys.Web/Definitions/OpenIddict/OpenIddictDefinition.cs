@@ -57,7 +57,8 @@ public class OpenIddictDefinition : AppDefinition
                     .SetLogoutEndpointUris("connect/logout")
                     .SetTokenEndpointUris("connect/token")
                     //.SetVerificationEndpointUris("connect/verify"),
-                    .SetUserinfoEndpointUris("connect/userinfo");
+                    .SetUserinfoEndpointUris("connect/userinfo")
+                    .SetConfigurationEndpointUris(".well-known/openid-configuration");
 
                 // Encryption and signing of tokens
                 options
@@ -81,7 +82,8 @@ public class OpenIddictDefinition : AppDefinition
                 options
                     .UseAspNetCore()
                     .EnableTokenEndpointPassthrough()
-                    .EnableAuthorizationEndpointPassthrough();
+                    .EnableAuthorizationEndpointPassthrough()
+                    .EnableLogoutEndpointPassthrough();
 
                 //JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
                 //JwtSecurityTokenHandler.DefaultOutboundClaimTypeMap.Clear();

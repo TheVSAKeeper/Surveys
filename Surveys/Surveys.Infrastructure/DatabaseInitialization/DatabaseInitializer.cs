@@ -102,6 +102,58 @@ public static class DatabaseInitializer
 
         #endregion
 
+        #region developer
+
+        ApplicationUser admin = new()
+        {
+            Email = "admin@yopmail.com",
+            NormalizedEmail = "ADMIN@YOPMAIL.COM",
+            UserName = "admin@yopmail.com",
+            FirstName = "Microservice",
+            LastName = "Admin",
+            NormalizedUserName = "Admin",
+            PhoneNumber = "+79000000000",
+            EmailConfirmed = true,
+            PhoneNumberConfirmed = true,
+            SecurityStamp = Guid.NewGuid().ToString("D"),
+            ApplicationUserProfile = new ApplicationUserProfile
+            {
+                CreatedAt = DateTime.UtcNow,
+                CreatedBy = "SEED",
+                Permissions = new List<AppPermission>
+                {
+                    new()
+                    {
+                        CreatedAt = DateTime.UtcNow,
+                        CreatedBy = "SEED",
+                        PolicyName = "Profiles:Roles:Get",
+                        Description = "Access policy for view Roles in user Profiles"
+                    }
+                }
+            }
+        };
+
+        if (!context.Users.Any(u => u.UserName == admin.UserName))
+        {
+            PasswordHasher<ApplicationUser> password = new();
+            string hashed = password.HashPassword(admin, "123qwe!@#");
+            admin.PasswordHash = hashed;
+            ApplicationUserStore userStore = scope.ServiceProvider.GetRequiredService<ApplicationUserStore>();
+            IdentityResult result = await userStore.CreateAsync(admin);
+
+            if (!result.Succeeded)
+                throw new InvalidOperationException("Cannot create account");
+
+            UserManager<ApplicationUser>? userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
+
+            IdentityResult roleAdded = await userManager!.AddToRoleAsync(admin, AppData.SystemAdministratorRoleName);
+
+            if (roleAdded.Succeeded)
+                await context.SaveChangesAsync();
+        }
+
+        #endregion
+
         await context.SaveChangesAsync();
     }
 

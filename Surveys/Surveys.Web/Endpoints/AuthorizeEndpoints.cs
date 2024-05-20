@@ -19,8 +19,9 @@ public sealed class AuthorizeEndpoints : AppDefinition
 {
     public override void ConfigureApplication(WebApplication app)
     {
-        app.MapGet("~/connect/authorize", AuthorizeAsync).ExcludeFromDescription().AllowAnonymous();
-        app.MapPost("~/connect/authorize", AuthorizeAsync).ExcludeFromDescription().AllowAnonymous();
+        app.MapGet("~/connect/authorize", AuthorizeAsync).ExcludeFromDescription().DisableAntiforgery().AllowAnonymous();
+        app.MapPost("~/connect/authorize", AuthorizeAsync).ExcludeFromDescription().DisableAntiforgery().AllowAnonymous();
+        app.MapGet("~/connect/logout", LogoutAsync).ExcludeFromDescription().AllowAnonymous();
     }
 
     private async Task<IResult> AuthorizeAsync(
@@ -49,9 +50,12 @@ public sealed class AuthorizeEndpoints : AppDefinition
                 new List<string> { CookieAuthenticationDefaults.AuthenticationScheme });
 
         // ATTENTION:  If you use are "IN-Memory" mode, then system cannot track user that recreated every time on start. You should clear cookies (site data) in browser.
-        ApplicationUser user = await userManager.GetUserAsync(result.Principal) ?? throw new InvalidOperationException("The user details cannot be retrieved.");
+        ApplicationUser user = await userManager.GetUserAsync(result.Principal)
+                               ?? throw new InvalidOperationException("The user details cannot be retrieved.");
 
-        object application = await applicationManager.FindByClientIdAsync(iddictRequest.ClientId!) ?? throw new InvalidOperationException("Details concerning the calling client application cannot be found.");
+        object application = await applicationManager.FindByClientIdAsync(iddictRequest.ClientId!)
+                             ?? throw new InvalidOperationException("Details concerning the calling client application cannot be found.");
+
         string? applicationId = await applicationManager.GetIdAsync(application);
         string userId = await userManager.GetUserIdAsync(user);
 
@@ -87,6 +91,14 @@ public sealed class AuthorizeEndpoints : AppDefinition
                 // but you may want to allow the user to uncheck specific scopes.
                 // For that, simply restrict the list of scopes before calling SetScopes.
 
+                // Add the claims that will be persisted in the tokens.
+                principal.SetClaim(OpenIddictConstants.Claims.Subject, await userManager.GetUserIdAsync(user))
+                    .SetClaim(OpenIddictConstants.Claims.Email, await userManager.GetEmailAsync(user))
+                    .SetClaim(OpenIddictConstants.Claims.Name, await userManager.GetUserNameAsync(user))
+                    .SetClaim(OpenIddictConstants.Claims.PreferredUsername, await userManager.GetUserNameAsync(user))
+                    .SetClaims(OpenIddictConstants.Claims.Role, [.. await userManager.GetRolesAsync(user)])
+                    ;
+
                 principal.SetScopes(iddictRequest.GetScopes());
                 principal.SetResources(await scopeManager.ListResourcesAsync(principal.GetScopes()).ToListAsync());
 
@@ -110,6 +122,11 @@ public sealed class AuthorizeEndpoints : AppDefinition
                         OpenIddictConstants.Destinations.AccessToken, OpenIddictConstants.Destinations.IdentityToken
                     },
 
+                    OpenIddictConstants.Claims.Role when claim.Subject!.HasScope(OpenIddictConstants.Scopes.Roles) => new[]
+                    {
+                        OpenIddictConstants.Destinations.AccessToken, OpenIddictConstants.Destinations.IdentityToken
+                    },
+
                     // Never add the "secret_value" claim to access or identity tokens.
                     // In this case, it will only be added to authorization codes,
                     // refresh tokens and user/device codes, that are always encrypted.
@@ -118,6 +135,8 @@ public sealed class AuthorizeEndpoints : AppDefinition
                     // Otherwise, add the claim to the access tokens only.
                     var _ => [OpenIddictConstants.Destinations.AccessToken]
                 });
+
+                //   principal.SetDestinations(GetDestinations);
 
                 return Results.SignIn(principal, null, OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
 
@@ -138,5 +157,22 @@ public sealed class AuthorizeEndpoints : AppDefinition
                 return Results.Challenge(authenticationSchemes: new[] { OpenIddictServerAspNetCoreDefaults.AuthenticationScheme },
                     properties: new AuthenticationProperties { RedirectUri = "/" });
         }
+    }
+
+    private async Task<IResult> LogoutAsync(HttpContext httpContext, SignInManager<ApplicationUser> signInManager)
+    {
+        // Ask ASP.NET Core Identity to delete the local and external cookies created
+        // when the user agent is redirected from the external identity provider
+        // after a successful authentication flow (e.g Google or Facebook).
+        await signInManager.SignOutAsync();
+
+        // Returning a SignOutResult will ask OpenIddict to redirect the user agent
+        // to the post_logout_redirect_uri specified by the client application or to
+        // the RedirectUri specified in the authentication properties if none was set.
+        return Results.SignOut(authenticationSchemes: new[] { OpenIddictServerAspNetCoreDefaults.AuthenticationScheme, CookieAuthenticationDefaults.AuthenticationScheme },
+            properties: new AuthenticationProperties
+            {
+                RedirectUri = "/"
+            });
     }
 }
