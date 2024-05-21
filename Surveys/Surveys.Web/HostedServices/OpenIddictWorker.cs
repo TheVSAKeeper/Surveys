@@ -23,11 +23,14 @@ public sealed class OpenIddictWorker(IServiceProvider serviceProvider) : IHosted
                 ClientType = OpenIddictConstants.ClientTypes.Public,
                 PostLogoutRedirectUris =
                 {
-                    new Uri("https://localhost:5001/authentication/logout-callback")
+                    new Uri("https://localhost:5001/authentication/logout-callback"),
+                    new Uri("https://localhost:5001/logout-oidc"),
+                    
                 },
                 RedirectUris =
                 {
-                    new Uri("https://localhost:5001/authentication/login-callback")
+                    new Uri("https://localhost:5001/authentication/login-callback"),
+                    new Uri("https://localhost:5001/signin-oidc"),
                 },
                 Permissions =
                 {

@@ -6,6 +6,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Surveys.Infrastructure", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Surveys.Web", "Surveys\Surveys.Web\Surveys.Web.csproj", "{B8C01AAF-2BCE-4BDA-A2DD-4F0E7012DB65}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Surveys.Blazor", "Surveys.Blazor\Surveys.Blazor.csproj", "{C96741FD-D665-4121-8493-E2C96857E58B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2A7C2F88-484C-4394-B7DE-EB5F4042B4B0}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +31,9 @@ Global
 		{B8C01AAF-2BCE-4BDA-A2DD-4F0E7012DB65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8C01AAF-2BCE-4BDA-A2DD-4F0E7012DB65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8C01AAF-2BCE-4BDA-A2DD-4F0E7012DB65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C96741FD-D665-4121-8493-E2C96857E58B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C96741FD-D665-4121-8493-E2C96857E58B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C96741FD-D665-4121-8493-E2C96857E58B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C96741FD-D665-4121-8493-E2C96857E58B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
