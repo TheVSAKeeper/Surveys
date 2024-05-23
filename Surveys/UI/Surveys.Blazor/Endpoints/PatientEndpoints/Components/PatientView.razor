@@ -1,0 +1,67 @@
+@using Surveys.Blazor.Endpoints.PatientEndpoints.ViewModels
+@if (ViewModel is not null)
+{
+    <Card>
+        <CardBody>
+            <Row>
+                <Column>
+                    <Field>
+                        <FieldLabel>Last Name</FieldLabel>
+                        <TextEdit @bind-Text="@ViewModel.LastName" ReadOnly/>
+                    </Field>
+                </Column>
+                <Column>
+                    <Field>
+                        <FieldLabel>First Name</FieldLabel>
+                        <TextEdit @bind-Text="@ViewModel.FirstName" ReadOnly/>
+                    </Field>
+                </Column>
+                <Column>
+                    <Field>
+                        <FieldLabel>Patronymic</FieldLabel>
+                        <TextEdit @bind-Text="@ViewModel.Patronymic" ReadOnly/>
+                    </Field>
+                </Column>
+                <Column>
+                    <Field>
+                        <FieldLabel>Gender</FieldLabel>
+                        <Select @bind-SelectedValue="ViewModel.Gender" ReadOnly TValue="Gender">
+                            <SelectItem value="@Gender.Male">Male</SelectItem>
+                            <SelectItem value="@Gender.Female">Female</SelectItem>
+                            <SelectItem value="@Gender.Unspecified">Unspecified</SelectItem>
+                        </Select>
+                    </Field>
+                </Column>
+                <Column>
+                    <Field>
+                        <FieldLabel>Birth Date</FieldLabel>
+                        <FieldBody>
+                            <DateEdit @bind-Date="BirthDate" ReadOnly/>
+                        </FieldBody>
+                    </Field>
+                </Column>
+            </Row>
+        </CardBody>
+    </Card>
+}
+else
+{
+    <Alert Color="Color.Danger" Visible>Patient is null</Alert>
+}
+
+@code {
+    [Parameter] public PatientViewModel? ViewModel { get; set; }
+
+    private DateTime? BirthDate
+    {
+        get => ViewModel?.BirthDate.ToDateTime(TimeOnly.MinValue);
+        set
+        {
+            if (ViewModel != null)
+            {
+                ViewModel.BirthDate = DateOnly.FromDateTime(value ?? DateTime.MinValue);
+            }
+        }
+    }
+
+}

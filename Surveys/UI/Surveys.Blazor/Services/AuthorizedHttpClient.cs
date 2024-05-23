@@ -1,27 +1,30 @@
 ﻿using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 
 namespace Surveys.Blazor.Services;
 
-internal class AuthorizedHttpClient
+public class AuthorizedHttpClient(HttpClient httpClient, IAccessTokenProvider accessTokenProvider)
 {
-    private readonly HttpClient _httpClient;
-    private readonly IAccessTokenProvider _accessTokenProvider;
-
-    public AuthorizedHttpClient(HttpClient httpClient, IAccessTokenProvider accessTokenProvider)
-    {
-        _httpClient = httpClient;
-        _accessTokenProvider = accessTokenProvider;
-    }
-
     public async Task<HttpResponseMessage> GetAsync(string requestUri)
     {
         HttpRequestMessage request = new(HttpMethod.Get, requestUri);
-        AccessTokenResult tokenResult = await _accessTokenProvider.RequestAccessToken();
+        AccessTokenResult tokenResult = await accessTokenProvider.RequestAccessToken();
 
         if (tokenResult.TryGetToken(out AccessToken? token))
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
 
-        return await _httpClient.SendAsync(request);
+        return await httpClient.SendAsync(request);
+    }
+
+    public async Task<T?> GetFromJsonAsync<T>(string url)
+    {
+        AccessTokenResult tokenResult = await accessTokenProvider.RequestAccessToken();
+
+        if (tokenResult.TryGetToken(out AccessToken? token))
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Value);
+
+        T? response = await httpClient.GetFromJsonAsync<T>(url);
+        return response;
     }
 }

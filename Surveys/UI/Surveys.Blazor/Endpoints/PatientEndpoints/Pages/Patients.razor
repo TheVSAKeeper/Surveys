@@ -1,0 +1,50 @@
+﻿@page "/patients"
+@using Surveys.Blazor.Endpoints.PatientEndpoints.ViewModels
+<DataGrid Bordered
+          Data="_patients"
+          Editable
+          Groupable
+          Hoverable
+          Narrow
+          ReadData="@OnReadData"
+          Resizable
+          ResizeMode="TableResizeMode.Columns"
+          Responsive
+          ShowGrouping
+          ShowPager
+          ShowPageSizes
+          Sortable
+          SortMode="DataGridSortMode.Single"
+          TItem="PatientViewModel"
+          TotalItems="@_totalPatients">
+    <DataGridColumns>
+        <AuthorizeView Roles="Administrator">
+            <DataGridColumn Caption="ID" Editable Field="@nameof(PatientViewModel.Id)"/>
+        </AuthorizeView>
+        <DataGridColumn Caption="Фамилия" Editable Field="@nameof(PatientViewModel.LastName)"/>
+        <DataGridColumn Caption="Имя" Editable Field="@nameof(PatientViewModel.FirstName)"/>
+        <DataGridColumn Caption="Отчество" Editable Field="@nameof(PatientViewModel.Patronymic)"/>
+        <DataGridColumn Caption="Пол" Editable Field="@nameof(PatientViewModel.Gender)" Groupable/>
+        <DataGridColumn Caption="Дата рождения" Editable Field="@nameof(PatientViewModel.BirthDate)" Groupable/>
+        <DataGridCommandColumn PreventRowClick>
+            <NewCommandTemplate>
+                <Button Clicked="@context.Clicked" Color="Color.Success">@context.LocalizationString</Button>
+            </NewCommandTemplate>
+            <EditCommandTemplate>
+                <Button Clicked="@context.Clicked" Color="Color.Primary">@context.LocalizationString</Button>
+            </EditCommandTemplate>
+            <SaveCommandTemplate>
+                <Button Clicked="@context.Clicked" Color="Color.Primary" PreventDefaultOnSubmit Type="ButtonType.Submit">@context.LocalizationString</Button>
+            </SaveCommandTemplate>
+            <DeleteCommandTemplate>
+                <Button Clicked="@context.Clicked" Color="Color.Danger">@context.LocalizationString</Button>
+            </DeleteCommandTemplate>
+            <CancelCommandTemplate>
+                <Button Clicked="@context.Clicked" Color="Color.Secondary">@context.LocalizationString</Button>
+            </CancelCommandTemplate>
+            <ClearFilterCommandTemplate>
+                <Button Clicked="@context.Clicked" Color="Color.Warning">@context.LocalizationString</Button>
+            </ClearFilterCommandTemplate>
+        </DataGridCommandColumn>
+    </DataGridColumns>
+</DataGrid>

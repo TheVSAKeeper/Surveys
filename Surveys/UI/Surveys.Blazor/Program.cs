@@ -4,12 +4,10 @@ using Blazorise.Icons.Material;
 using Blazorise.Material;
 using FluentValidation;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Serilog;
-using Serilog.Core;
 using Serilog.Events;
-using Serilog.Extensions.Logging;
-
 using Surveys.Blazor;
 using Surveys.Blazor.Services;
 
@@ -17,17 +15,12 @@ WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-var levelSwitch = new LoggingLevelSwitch();
-
 // configure logger (Serilog)
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
     .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
     .Enrich.FromLogContext()
     .WriteTo.Console()
-    /*.MinimumLevel.ControlledBy(levelSwitch)
-    .Enrich.WithProperty("InstanceId", Guid.NewGuid().ToString("n"))
-    .WriteTo.BrowserHttp(endpointUrl: $"{builder.HostEnvironment.BaseAddress}ingest", controlLevelSwitch: levelSwitch)*/
     .CreateLogger();
 
 builder.Services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
@@ -40,8 +33,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 
 builder.Services.AddHttpClient("Surveys.ServerAPI")
     .ConfigureHttpClient(client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
-    // .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>()
-    ;
+    .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
 builder.Services.AddScoped<AuthorizedHttpClient>();
 
