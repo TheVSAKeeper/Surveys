@@ -1,16 +1,40 @@
 ﻿using Blazorise;
+using Blazorise.FluentValidation;
+using Blazorise.Icons.Material;
+using Blazorise.Material;
+using FluentValidation;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Blazorise.Material;
-using Blazorise.Icons.Material;
+using Serilog;
+using Serilog.Core;
+using Serilog.Events;
+using Serilog.Extensions.Logging;
+
 using Surveys.Blazor;
 using Surveys.Blazor.Services;
 
-var builder = WebAssemblyHostBuilder.CreateDefault(args);
+WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
+var levelSwitch = new LoggingLevelSwitch();
+
+// configure logger (Serilog)
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    /*.MinimumLevel.ControlledBy(levelSwitch)
+    .Enrich.WithProperty("InstanceId", Guid.NewGuid().ToString("n"))
+    .WriteTo.BrowserHttp(endpointUrl: $"{builder.HostEnvironment.BaseAddress}ingest", controlLevelSwitch: levelSwitch)*/
+    .CreateLogger();
+
+builder.Services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true));
+
 AddBlazorise(builder.Services);
+
+builder.Services.AddValidatorsFromAssembly(typeof(App).Assembly);
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
@@ -28,26 +52,26 @@ builder.Services.AddScoped(provider =>
     return factory.CreateClient("Surveys.ServerAPI");
 });
 
-
 builder.Services.AddOidcAuthentication(options =>
 {
     options.ProviderOptions.ClientId = "blazor-client";
     options.ProviderOptions.Authority = "https://localhost:10001/";
-    
+
     options.ProviderOptions.ResponseType = "code";
     options.ProviderOptions.ResponseMode = "query";
-  
+
     options.ProviderOptions.DefaultScopes.Add("roles");
     options.UserOptions.RoleClaim = "role";
 });
 
-
 await builder.Build().RunAsync();
+return;
 
 void AddBlazorise(IServiceCollection services)
 {
     services
-        .AddBlazorise();
+        .AddBlazorise()
+        .AddBlazoriseFluentValidation();
 
     services
         .AddMaterialProviders()

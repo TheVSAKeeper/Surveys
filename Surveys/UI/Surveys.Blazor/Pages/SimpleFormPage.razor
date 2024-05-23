@@ -6,7 +6,7 @@
                 <CardTitle>Basic Example</CardTitle>
             </CardHeader>
             <CardBody>
-                <Validations @ref="validationsBasicExampleRef" Mode="ValidationMode.Auto" ValidateOnLoad="false">
+                <Validations Mode="ValidationMode.Auto" @ref="_validationsBasicExampleRef" ValidateOnLoad="false">
                     <Validation Validator="@ValidationRule.IsEmail">
                         <Field>
                             <FieldLabel>Email address</FieldLabel>
@@ -17,14 +17,14 @@
                     <Validation Validator="@ValidatePassword">
                         <Field>
                             <FieldLabel>Password</FieldLabel>
-                            <TextEdit Role="TextRole.Password" Placeholder="Password"/>
+                            <TextEdit Placeholder="Password" Role="TextRole.Password"/>
                         </Field>
                     </Validation>
 
                     <Field>
                         <Check TValue="bool">Remember me?</Check>
                     </Field>
-                    <Button Color="Color.Primary" Clicked="SubmitBasicExample">Submit</Button>
+                    <Button Clicked="SubmitBasicExample" Color="Color.Primary">Submit</Button>
                 </Validations>
             </CardBody>
         </Card>
@@ -35,7 +35,7 @@
                 <CardTitle>Horizontal Form</CardTitle>
             </CardHeader>
             <CardBody>
-                <Validations @ref="validationsHorizontalFormRef" Mode="ValidationMode.Auto" ValidateOnLoad="false">
+                <Validations Mode="ValidationMode.Auto" @ref="_validationsHorizontalFormRef" ValidateOnLoad="false">
                     <Validation Validator="@ValidationRule.IsEmail">
                         <Field Horizontal>
                             <FieldLabel ColumnSize="ColumnSize.IsFull.OnTablet.Is3.OnDesktop">Email address</FieldLabel>
@@ -48,7 +48,7 @@
                         <Field Horizontal>
                             <FieldLabel ColumnSize="ColumnSize.IsFull.OnTablet.Is3.OnDesktop">Password</FieldLabel>
                             <FieldBody ColumnSize="ColumnSize.IsFull.OnTablet.Is9.OnDesktop">
-                                <TextEdit Role="TextRole.Password" Placeholder="Password" @bind-Text="@password"/>
+                                <TextEdit @bind-Text="@_password" Placeholder="Password" Role="TextRole.Password"/>
                             </FieldBody>
                         </Field>
                     </Validation>
@@ -56,7 +56,7 @@
                         <Field Horizontal>
                             <FieldLabel ColumnSize="ColumnSize.IsFull.OnTablet.Is3.OnDesktop">Re Password</FieldLabel>
                             <FieldBody ColumnSize="ColumnSize.IsFull.OnTablet.Is9.OnDesktop">
-                                <TextEdit Role="TextRole.Password" Placeholder="Retype password"/>
+                                <TextEdit Placeholder="Retype password" Role="TextRole.Password"/>
                             </FieldBody>
                         </Field>
                     </Validation>
@@ -67,7 +67,7 @@
                     </Field>
                     <Field Horizontal JustifyContent="JustifyContent.End">
                         <FieldBody ColumnSize="ColumnSize.Is9.Is3.WithOffset">
-                            <Button Color="Color.Primary" Clicked="SubmitHorizontalForm">Submit</Button>
+                            <Button Clicked="SubmitHorizontalForm" Color="Color.Primary">Submit</Button>
                         </FieldBody>
                     </Field>
                 </Validations>
@@ -75,50 +75,3 @@
         </Card>
     </Column>
 </Row>
-
-@code {
-    Validations? validationsBasicExampleRef;
-    Validations? validationsHorizontalFormRef;
-    string? password;
-
-    void ValidatePassword(ValidatorEventArgs e)
-    {
-        e.Status = Convert.ToString(e.Value)?.Length >= 6 ? ValidationStatus.Success : ValidationStatus.Error;
-    }
-
-    void ValidatePassword2(ValidatorEventArgs e)
-    {
-        var password2 = Convert.ToString(e.Value);
-
-        if (password2?.Length < 6)
-        {
-            e.Status = ValidationStatus.Error;
-            e.ErrorText = "Password must be at least 6 characters long!";
-        }
-        else if (password2 != password)
-        {
-            e.Status = ValidationStatus.Error;
-        }
-        else
-        {
-            e.Status = ValidationStatus.Success;
-        }
-    }
-
-    async Task SubmitBasicExample()
-    {
-        if (await validationsBasicExampleRef!.ValidateAll())
-        {
-            await validationsBasicExampleRef.ClearAll();
-        }
-    }
-
-    async Task SubmitHorizontalForm()
-    {
-        if (await validationsHorizontalFormRef!.ValidateAll())
-        {
-            await validationsHorizontalFormRef.ClearAll();
-        }
-    }
-
-}

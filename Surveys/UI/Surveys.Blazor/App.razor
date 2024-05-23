@@ -1,12 +1,10 @@
-﻿@using Surveys.Blazor.Layouts
-
-<CascadingAuthenticationState>
-    <Blazorise.ThemeProvider Theme="@theme">
+﻿<CascadingAuthenticationState>
+    <Blazorise.ThemeProvider Theme="@_theme">
         <Router AppAssembly="@typeof(App).Assembly">
             <Found Context="routeData">
                 <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
                     <NotAuthorized>
-                        @if (context.User.Identity?.IsAuthenticated != true)
+                        @if (context.User.Identity?.IsAuthenticated == false)
                         {
                             <RedirectToLogin/>
                         }
@@ -32,7 +30,7 @@
 
 @code {
 
-    private readonly Theme theme = new()
+    private readonly Theme _theme = new()
     {
         BarOptions = new ThemeBarOptions
         {
@@ -63,7 +61,8 @@
         InputOptions = new ThemeInputOptions
         {
             CheckColor = "#0288D1"
-        }
+        },
+        IsRounded = false
     };
 
 }

@@ -1,10 +1,9 @@
 ﻿@using Blazorise.Localization
-
-<Bar @bind-Visible="@topbarVisible" Breakpoint="Breakpoint.Desktop" Background="Background.Primary" ThemeContrast="ThemeContrast.Light">
+<Bar Background="Background.Primary" @bind-Visible="@_topbarVisible" Breakpoint="Breakpoint.Desktop" ThemeContrast="ThemeContrast.Light">
     <BarBrand>
         <BarItem>
             <BarLink To="">
-                <BarIcon Margin="Margin.Is2.FromEnd" IconName="IconName.Dashboard"/>
+                <BarIcon IconName="IconName.Dashboard" Margin="Margin.Is2.FromEnd"/>
                 Surveys
             </BarLink>
         </BarItem>
@@ -61,33 +60,10 @@
                 </BarDropdown>
             </BarItem>
 
-
         </BarStart>
         <BarEnd>
             <BarItem>
                 <LoginDisplay></LoginDisplay>
-            </BarItem>
-            <BarItem>
-                <BarDropdown RightAligned>
-                    <BarDropdownToggle>
-                        <Icon Name="IconName.Language"/>
-                    </BarDropdownToggle>
-                    <BarDropdownMenu>
-                        @foreach (var cultureInfo in LocalizationService!.AvailableCultures)
-                        {
-                            <BarDropdownItem @key="@cultureInfo.Name" Clicked="@(() => SelectCulture(cultureInfo.Name))">
-                                @if (cultureInfo.IsNeutralCulture)
-                                {
-                                    @cultureInfo.EnglishName
-                                }
-                                else
-                                {
-                                    @cultureInfo.Parent.EnglishName
-                                }
-                            </BarDropdownItem>
-                        }
-                    </BarDropdownMenu>
-                </BarDropdown>
             </BarItem>
             <BarItem>
                 <BarDropdown RightAligned>
@@ -96,17 +72,17 @@
                         <Row>
                             <Column Margin="Margin.Is2.FromBottom">
                                 <Field>
-                                    <Switch TValue="bool" Checked="@(Theme?.Enabled == true)" CheckedChanged="@ThemeEnabledChanged">Theme enabled</Switch>
+                                    <Switch Checked="@(Theme?.Enabled == true)" CheckedChanged="@ThemeEnabledChanged" TValue="bool">Theme enabled</Switch>
                                 </Field>
                             </Column>
                         </Row>
                         <Row>
                             <Column Margin="Margin.Is2.FromBottom">
                                 <Field>
-                                    <Check TValue="bool" Checked="@(Theme?.IsGradient == true)" CheckedChanged="@ThemeGradientChanged">Gradient colors</Check>
+                                    <Check Checked="@(Theme?.IsGradient == true)" CheckedChanged="@ThemeGradientChanged" TValue="bool">Gradient colors</Check>
                                 </Field>
                                 <Field>
-                                    <Check TValue="bool" Checked="@(Theme?.IsRounded == true)" CheckedChanged="@ThemeRoundedChanged">Rounded elements</Check>
+                                    <Check Checked="@(Theme?.IsRounded == true)" CheckedChanged="@ThemeRoundedChanged" TValue="bool">Rounded elements</Check>
                                 </Field>
                             </Column>
                         </Row>
@@ -120,51 +96,44 @@
                     </BarDropdownMenu>
                 </BarDropdown>
             </BarItem>
-            <BarItem>
-                <BarLink To="https://github.com/Megabit/Blazorise">GitHub</BarLink>
-            </BarItem>
         </BarEnd>
     </BarMenu>
 </Bar>
 
 @code {
+    [Parameter] public EventCallback<bool> ThemeEnabledChanged { get; set; }
+    [Parameter] public EventCallback<bool> ThemeGradientChanged { get; set; }
+    [Parameter] public EventCallback<bool> ThemeRoundedChanged { get; set; }
+    [Parameter] public EventCallback<string> ThemeColorChanged { get; set; }
+
+    [Parameter] public string? LayoutType { get; set; }
+    [Parameter] public EventCallback<string> LayoutTypeChanged { get; set; }
+
+    [Inject] protected ITextLocalizerService? LocalizationService { get; set; }
+
+    [CascadingParameter] protected Theme? Theme { get; set; }
+
+    private bool _topbarVisible = false;
 
     protected override async Task OnInitializedAsync()
     {
-        await SelectCulture("en-US");
+        await SelectCulture("ru");
 
         await base.OnInitializedAsync();
     }
 
-    Task SelectCulture(string name)
+    private Task SelectCulture(string name)
     {
         LocalizationService!.ChangeLanguage(name);
 
         return Task.CompletedTask;
     }
 
-    private bool topbarVisible = false;
-
-    Task OnLayoutTypeChecked(string layoutType)
+    private Task OnLayoutTypeChecked(string layoutType)
     {
         LayoutType = layoutType;
 
         return LayoutTypeChanged.InvokeAsync(layoutType);
     }
 
-    [Parameter] public EventCallback<bool> ThemeEnabledChanged { get; set; }
-
-    [Parameter] public EventCallback<bool> ThemeGradientChanged { get; set; }
-
-    [Parameter] public EventCallback<bool> ThemeRoundedChanged { get; set; }
-
-    [Parameter] public EventCallback<string> ThemeColorChanged { get; set; }
-
-    [Parameter] public string? LayoutType { get; set; }
-
-    [Parameter] public EventCallback<string> LayoutTypeChanged { get; set; }
-
-    [Inject] protected ITextLocalizerService? LocalizationService { get; set; }
-
-    [CascadingParameter] protected Theme? Theme { get; set; }
 }
