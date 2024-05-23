@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Surveys.Blazor.WebApp</title>
+
+    <base href="/"/>
+
+    <!-- Material CSS -->
+    <link href="css/material/material.min.css" rel="stylesheet">
+
+    <link href="manifest.webmanifest" rel="manifest"/>
+    <link href="icon-512.png" rel="apple-touch-icon" sizes="512x512"/>
+    <link href="icon-192.png" rel="apple-touch-icon" sizes="192x192"/>
+
+    <!-- Add Material font (Roboto) and Material icon as needed -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i|Roboto+Mono:300,400,700|Roboto+Slab:300,400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link href="_content/Blazorise/blazorise.min.css?v=1.5.0.0" rel="stylesheet"/>
+    <link href="_content/Blazorise.Material/blazorise.material.css" rel="stylesheet"/>
+    <link href="_content/Blazorise.Icons.Material/blazorise.icons.material.css" rel="stylesheet"/>
+    <link href="_content/Blazorise.LoadingIndicator/blazorise.loadingindicator.css" rel="stylesheet"/>
+
+    <link href="Surveys.Blazor.WebApp.Styles.css" rel="stylesheet"/>
+    <link href="css/blazor-ui.css" rel="stylesheet"/>
+
+    <HeadOutlet @rendermode="InteractiveAuto"/>
+</head>
+<body>
+<Routes @rendermode="InteractiveAuto"/>
+<script src="js/material/material.min.js"></script>
+<script src="_framework/blazor.web.js"></script>
+<script>navigator.serviceWorker.register('service-worker.js');</script>
+</body>
+</html>

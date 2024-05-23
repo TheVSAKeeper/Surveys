@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Version>0.1</Version>
+        <Authors>TheVSAKeeper</Authors>
+        <Company>TheVSAKeeper</Company>
+        <Description>
+            Description
+        </Description>
+        <Copyright>Copyright 2022-2024 TheVSAKeeper</Copyright>
+        <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Surveys.Blazor.WebApp.Client\Surveys.Blazor.WebApp.Client.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ServiceWorker Include="wwwroot\service-worker.js"
+                       PublishedContent="wwwroot\service-worker.published.js" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Blazorise.Components" Version="1.5.2" />
+        <PackageReference Include="Blazorise.FluentValidation" Version="1.5.2" />
+        <PackageReference Include="Blazorise.LoadingIndicator" Version="1.5.2" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.*"/>
+        <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Blazorise" Version="1.5.*"/>
+        <PackageReference Include="Blazorise.Material" Version="1.5.*"/>
+        <PackageReference Include="Blazorise.Icons.Material" Version="1.5.*"/>
+        <PackageReference Include="Blazorise.DataGrid" Version="1.5.*"/>
+    </ItemGroup>
+
+</Project>
