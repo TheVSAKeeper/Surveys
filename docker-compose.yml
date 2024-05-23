@@ -1,6 +1,0 @@
-﻿services:
-  surveys.blazor:
-    image: surveys.blazor
-    build:
-      context: .
-      dockerfile: Surveys.Blazor/Dockerfile

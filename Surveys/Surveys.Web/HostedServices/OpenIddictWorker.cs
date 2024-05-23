@@ -14,10 +14,10 @@ public sealed class OpenIddictWorker(IServiceProvider serviceProvider) : IHosted
 
         IOpenIddictApplicationManager manager = scope.ServiceProvider.GetRequiredService<IOpenIddictApplicationManager>();
 
-        if (await manager.FindByClientIdAsync("balosar-blazor-client", cancellationToken) is null)
+        if (await manager.FindByClientIdAsync("blazor-client", cancellationToken) is null)
             await manager.CreateAsync(new OpenIddictApplicationDescriptor
             {
-                ClientId = "balosar-blazor-client",
+                ClientId = "blazor-client",
                 ConsentType = OpenIddictConstants.ConsentTypes.Implicit,
                 DisplayName = "Blazor client application",
                 ClientType = OpenIddictConstants.ClientTypes.Public,
@@ -25,6 +25,7 @@ public sealed class OpenIddictWorker(IServiceProvider serviceProvider) : IHosted
                 {
                     new Uri("https://localhost:5001/authentication/logout-callback"),
                     new Uri("https://localhost:5001/logout-oidc"),
+                    new Uri("https://localhost:5001/signout-callback-oidc"),
                     
                 },
                 RedirectUris =
