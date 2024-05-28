@@ -32,9 +32,14 @@ public static partial class AppData
     public const string SystemAdministratorRoleName = "Administrator";
 
     /// <summary>
-    ///     "BusinessOwner"
+    ///     "Doctor"
     /// </summary>
-    public const string ManagerRoleName = "Manager";
+    public const string DoctorRoleName = "Doctor";
+
+    /// <summary>
+    ///     "Nurse"
+    /// </summary>
+    public const string NurseRoleName = "Nurse";
 
     /// <summary>
     ///     Roles
@@ -44,7 +49,8 @@ public static partial class AppData
         get
         {
             yield return SystemAdministratorRoleName;
-            yield return ManagerRoleName;
+            yield return DoctorRoleName;
+            yield return NurseRoleName;
         }
     }
 }

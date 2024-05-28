@@ -51,12 +51,12 @@ public static class DatabaseInitializer
 
         ApplicationUser developer1 = new()
         {
-            Email = "microservice@yopmail.com",
-            NormalizedEmail = "MICROSERVICE@YOPMAIL.COM",
-            UserName = "microservice@yopmail.com",
+            Email = "microservice@survey.com",
+            NormalizedEmail = "MICROSERVICE@SURVEY.COM",
+            UserName = "microservice@survey.com",
             FirstName = "Microservice",
             LastName = "Administrator",
-            NormalizedUserName = "MICROSERVICE@YOPMAIL.COM",
+            NormalizedUserName = "MICROSERVICE@SURVEY.COM",
             PhoneNumber = "+79000000000",
             EmailConfirmed = true,
             PhoneNumberConfirmed = true,
@@ -102,13 +102,13 @@ public static class DatabaseInitializer
 
         #endregion
 
-        #region developer
+        #region admin
 
         ApplicationUser admin = new()
         {
-            Email = "admin@yopmail.com",
-            NormalizedEmail = "ADMIN@YOPMAIL.COM",
-            UserName = "admin@yopmail.com",
+            Email = "admin@survey.com",
+            NormalizedEmail = "ADMIN@SURVEY.COM",
+            UserName = "admin@survey.com",
             FirstName = "Microservice",
             LastName = "Admin",
             NormalizedUserName = "Admin",
@@ -147,6 +147,110 @@ public static class DatabaseInitializer
             UserManager<ApplicationUser>? userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
 
             IdentityResult roleAdded = await userManager!.AddToRoleAsync(admin, AppData.SystemAdministratorRoleName);
+
+            if (roleAdded.Succeeded)
+                await context.SaveChangesAsync();
+        }
+
+        #endregion
+
+        #region doctor
+
+        ApplicationUser doctor = new()
+        {
+            Email = "doctor@survey.com",
+            NormalizedEmail = "ADMIN@SURVEY.COM",
+            UserName = "doctor@survey.com",
+            FirstName = "Microservice",
+            LastName = "Doctor",
+            NormalizedUserName = "Doctor",
+            PhoneNumber = "+79000000000",
+            EmailConfirmed = true,
+            PhoneNumberConfirmed = true,
+            SecurityStamp = Guid.NewGuid().ToString("D"),
+            ApplicationUserProfile = new ApplicationUserProfile
+            {
+                CreatedAt = DateTime.UtcNow,
+                CreatedBy = "SEED",
+                Permissions = new List<AppPermission>
+                {
+                    new()
+                    {
+                        CreatedAt = DateTime.UtcNow,
+                        CreatedBy = "SEED",
+                        PolicyName = "Profiles:Roles:Get",
+                        Description = "Access policy for view Roles in user Profiles"
+                    }
+                }
+            }
+        };
+
+        if (!context.Users.Any(u => u.UserName == doctor.UserName))
+        {
+            PasswordHasher<ApplicationUser> password = new();
+            string hashed = password.HashPassword(doctor, "123qwe!@#");
+            doctor.PasswordHash = hashed;
+            ApplicationUserStore userStore = scope.ServiceProvider.GetRequiredService<ApplicationUserStore>();
+            IdentityResult result = await userStore.CreateAsync(doctor);
+
+            if (!result.Succeeded)
+                throw new InvalidOperationException("Cannot create account");
+
+            UserManager<ApplicationUser>? userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
+
+            IdentityResult roleAdded = await userManager!.AddToRoleAsync(doctor, AppData.DoctorRoleName);
+
+            if (roleAdded.Succeeded)
+                await context.SaveChangesAsync();
+        }
+
+        #endregion
+
+        #region nurse
+
+        ApplicationUser nurse = new()
+        {
+            Email = "nurse@survey.com",
+            NormalizedEmail = "ADMIN@SURVEY.COM",
+            UserName = "nurse@survey.com",
+            FirstName = "Microservice",
+            LastName = "Nurse",
+            NormalizedUserName = "Nurse",
+            PhoneNumber = "+79000000000",
+            EmailConfirmed = true,
+            PhoneNumberConfirmed = true,
+            SecurityStamp = Guid.NewGuid().ToString("D"),
+            ApplicationUserProfile = new ApplicationUserProfile
+            {
+                CreatedAt = DateTime.UtcNow,
+                CreatedBy = "SEED",
+                Permissions = new List<AppPermission>
+                {
+                    new()
+                    {
+                        CreatedAt = DateTime.UtcNow,
+                        CreatedBy = "SEED",
+                        PolicyName = "Profiles:Roles:Get",
+                        Description = "Access policy for view Roles in user Profiles"
+                    }
+                }
+            }
+        };
+
+        if (!context.Users.Any(u => u.UserName == nurse.UserName))
+        {
+            PasswordHasher<ApplicationUser> password = new();
+            string hashed = password.HashPassword(nurse, "123qwe!@#");
+            nurse.PasswordHash = hashed;
+            ApplicationUserStore userStore = scope.ServiceProvider.GetRequiredService<ApplicationUserStore>();
+            IdentityResult result = await userStore.CreateAsync(nurse);
+
+            if (!result.Succeeded)
+                throw new InvalidOperationException("Cannot create account");
+
+            UserManager<ApplicationUser>? userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
+
+            IdentityResult roleAdded = await userManager!.AddToRoleAsync(nurse, AppData.NurseRoleName);
 
             if (roleAdded.Succeeded)
                 await context.SaveChangesAsync();

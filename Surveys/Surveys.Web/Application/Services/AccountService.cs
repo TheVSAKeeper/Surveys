@@ -82,7 +82,7 @@ public class AccountService : IAccountService
         ApplicationUser? user = _mapper.Map<ApplicationUser>(model);
         await using IDbContextTransaction transaction = await _unitOfWork.BeginTransactionAsync();
         IdentityResult result = await _userManager.CreateAsync(user!, model.Password);
-        const string Role = AppData.ManagerRoleName;
+        const string Role = AppData.DoctorRoleName;
 
         if (result.Succeeded)
         {

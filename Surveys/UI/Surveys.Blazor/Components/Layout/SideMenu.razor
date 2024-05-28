@@ -1,4 +1,5 @@
-﻿<Bar Breakpoint="Breakpoint.Desktop" CollapseMode="BarCollapseMode.Small" Mode="BarMode.VerticalInline"
+﻿@using Surveys.Blazor.Domain
+<Bar Breakpoint="Breakpoint.Desktop" CollapseMode="BarCollapseMode.Small" Mode="BarMode.VerticalInline"
      NavigationBreakpoint="Breakpoint.Tablet" ThemeContrast="ThemeContrast.Dark">
     <BarToggler/>
     <BarBrand>
@@ -17,23 +18,51 @@
                     Dashboard
                 </BarLink>
             </BarItem>
-            <BarItem>
-                <BarDropdown @bind-Visible="pagesBarVisible">
-                    <BarDropdownToggle>
-                        <BarIcon IconName="IconName.Edit"/>
-                        Pages
-                    </BarDropdownToggle>
-                    <BarDropdownMenu>
-                        <BarDropdownItem To="/simple-form">Simple Form</BarDropdownItem>
-                    </BarDropdownMenu>
-                    <BarDropdownMenu>
-                        <BarDropdownItem To="/simple-datagrid">Simple DataGrid</BarDropdownItem>
-                    </BarDropdownMenu>
-                    <BarDropdownMenu>
-                        <BarDropdownItem To="/patients">Patients</BarDropdownItem>
-                    </BarDropdownMenu>
-                </BarDropdown>
-            </BarItem>
+            <AuthorizeView Roles="@AppData.SystemAdministratorRoleName">
+                <BarItem>
+                    <BarDropdown @bind-Visible="pagesBarVisible">
+                        <BarDropdownToggle>
+                            <BarIcon IconName="IconName.Edit"/>
+                            Pages
+                        </BarDropdownToggle>
+                        <BarDropdownMenu>
+                            <BarDropdownItem To="/simple-form">Simple Form</BarDropdownItem>
+                        </BarDropdownMenu>
+                        <BarDropdownMenu>
+                            <BarDropdownItem To="/simple-datagrid">Simple DataGrid</BarDropdownItem>
+                        </BarDropdownMenu>
+                        <BarDropdownMenu>
+                            <BarDropdownItem To="/patients">Patients</BarDropdownItem>
+                        </BarDropdownMenu>
+                    </BarDropdown>
+                </BarItem>
+            </AuthorizeView>
+            <AuthorizeView Roles="@AppData.DoctorRoleName">
+                <BarItem>
+                    <BarDropdown @bind-Visible="pagesBarVisible">
+                        <BarDropdownToggle>
+                            <BarIcon IconName="IconName.Edit"/>
+                            Pages
+                        </BarDropdownToggle>
+                        <BarDropdownMenu>
+                            <BarDropdownItem To="/patients">Patients</BarDropdownItem>
+                        </BarDropdownMenu>
+                    </BarDropdown>
+                </BarItem>
+            </AuthorizeView>
+            <AuthorizeView Roles="@AppData.NurseRoleName">
+                <BarItem>
+                    <BarDropdown @bind-Visible="pagesBarVisible">
+                        <BarDropdownToggle>
+                            <BarIcon IconName="IconName.Edit"/>
+                            Pages
+                        </BarDropdownToggle>
+                        <BarDropdownMenu>
+                            <BarDropdownItem To="/patients">Patients</BarDropdownItem>
+                        </BarDropdownMenu>
+                    </BarDropdown>
+                </BarItem>
+            </AuthorizeView>
         </BarStart>
         <BarEnd>
             <BarItem>

@@ -1,5 +1,8 @@
 ﻿@page "/patients"
+@using Surveys.Blazor.Domain
 @using Surveys.Blazor.Endpoints.PatientEndpoints.ViewModels
+@attribute [Authorize(Roles = $"{AppData.SystemAdministratorRoleName}, {AppData.DoctorRoleName}, {AppData.NurseRoleName}")]
+
 <DataGrid Bordered
           Data="_patients"
           Editable
@@ -18,7 +21,7 @@
           TItem="PatientViewModel"
           TotalItems="@_totalPatients">
     <DataGridColumns>
-        <AuthorizeView Roles="Administrator">
+        <AuthorizeView Roles="@AppData.SystemAdministratorRoleName">
             <DataGridColumn Caption="ID" Editable Field="@nameof(PatientViewModel.Id)"/>
         </AuthorizeView>
         <DataGridColumn Caption="Фамилия" Editable Field="@nameof(PatientViewModel.LastName)"/>
