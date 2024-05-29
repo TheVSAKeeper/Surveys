@@ -30,26 +30,35 @@ public class ApplicationUserClaimsPrincipalFactory : UserClaimsPrincipalFactory<
     public override async Task<ClaimsPrincipal> CreateAsync(ApplicationUser user)
     {
         ClaimsPrincipal principal = await base.CreateAsync(user);
+        ClaimsIdentity identity = (ClaimsIdentity)principal.Identity!;
 
-        if (user.ApplicationUserProfile?.Permissions != null)
-        {
-            List<AppPermission> permissions = user.ApplicationUserProfile.Permissions.ToList();
-
-            if (permissions.Count != 0)
-                permissions.ForEach(x => ((ClaimsIdentity)principal.Identity!).AddClaim(new Claim(x.PolicyName, nameof(x.PolicyName).ToLower())));
-        }
-
-        ((ClaimsIdentity)principal.Identity!).AddClaim(new Claim("framework", "nimble"));
-
-        if (!string.IsNullOrWhiteSpace(user.UserName))
-            ((ClaimsIdentity)principal.Identity!).AddClaim(new Claim(ClaimTypes.Name, user.UserName));
-
-        if (!string.IsNullOrWhiteSpace(user.FirstName))
-            ((ClaimsIdentity)principal.Identity!).AddClaim(new Claim(ClaimTypes.GivenName, user.FirstName));
-
-        if (!string.IsNullOrWhiteSpace(user.LastName))
-            ((ClaimsIdentity)principal.Identity!).AddClaim(new Claim(ClaimTypes.Surname, user.LastName));
+        AddPermissionClaims(user, identity);
+        AddUserClaims(user, identity);
 
         return principal;
+    }
+
+    private static void AddPermissionClaims(ApplicationUser user, ClaimsIdentity identity)
+    {
+        if (user.ApplicationUserProfile?.Permissions == null || user.ApplicationUserProfile.Permissions.Count == 0)
+            return;
+
+        List<AppPermission> permissions = user.ApplicationUserProfile.Permissions.ToList();
+        permissions.ForEach(permission => identity.AddClaim(new Claim(permission.PolicyName, nameof(permission.PolicyName).ToLower())));
+    }
+
+    private static void AddUserClaims(ApplicationUser user, ClaimsIdentity identity)
+    {
+        if (string.IsNullOrWhiteSpace(user.UserName) == false)
+            identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
+
+        if (string.IsNullOrWhiteSpace(user.FirstName) == false)
+            identity.AddClaim(new Claim(ClaimTypes.GivenName, user.FirstName));
+
+        if (string.IsNullOrWhiteSpace(user.LastName) == false)
+            identity.AddClaim(new Claim(ClaimTypes.Surname, user.LastName));
+
+        if (string.IsNullOrWhiteSpace(user.Patronymic) == false)
+            identity.AddClaim(new Claim(nameof(user.Patronymic).ToLower(), user.Patronymic));
     }
 }

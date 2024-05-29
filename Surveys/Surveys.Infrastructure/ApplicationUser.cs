@@ -18,6 +18,10 @@ public class ApplicationUser : IdentityUser<Guid>
     /// </summary>
     public string? LastName { get; set; }
 
+    public string? Patronymic { get; set; }
+
+    public string? DisplayName { get; set; }
+
     /// <summary>
     ///     Profile identity
     /// </summary>
