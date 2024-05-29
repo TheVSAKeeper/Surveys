@@ -296,22 +296,12 @@ public static class DatabaseInitializer
         await context.SaveChangesAsync();
     }
 
-    /// <summary>
-    ///     Seeds one event to database for demo purposes only
-    /// </summary>
-    /// <param name="serviceProvider"></param>
-    /// <param name="dataPath"></param>
     public static async void SeedPatients(IServiceProvider serviceProvider, string dataPath)
     {
         using IServiceScope scope = serviceProvider.CreateScope();
         await using ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         ILogger<Patient> logger = scope.ServiceProvider.GetRequiredService<ILogger<Patient>>();
 
-        // ATTENTION!
-        // -----------------------------------------------------------------------------
-        // This is should not be used when UseInMemoryDatabase()
-        // It should be uncomment when using UseSqlServer() settings or any other providers.
-        // -----------------------------------------------------------------------------
         await context.Database.EnsureCreatedAsync();
         IEnumerable<string> pending = await context.Database.GetPendingMigrationsAsync();
 
@@ -360,6 +350,61 @@ public static class DatabaseInitializer
             .ToArray();
 
         await context.Patients.AddRangeAsync(patients);
+
+        await context.SaveChangesAsync();
+    }
+
+    public static async void SeedAnamnesisTemplates(IServiceProvider serviceProvider, string dataPath)
+    {
+        using IServiceScope scope = serviceProvider.CreateScope();
+        await using ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        ILogger<AnamnesisTemplate> logger = scope.ServiceProvider.GetRequiredService<ILogger<AnamnesisTemplate>>();
+
+        await context.Database.EnsureCreatedAsync();
+        IEnumerable<string> pending = await context.Database.GetPendingMigrationsAsync();
+
+        if (pending.Any())
+            await context.Database.MigrateAsync();
+
+        if (context.AnamnesisTemplates.Any())
+            return;
+
+        string path = dataPath + "AnamnesisTemplates.txt";
+
+        if (File.Exists(path) == false)
+        {
+            logger.LogError("[SeedAnamnesisTemplates] Not found {File}", path);
+            return;
+        }
+
+        string lines = await File.ReadAllTextAsync(path);
+
+        AnamnesisTemplate[] anamnesisTemplates = lines.Split('/', StringSplitOptions.RemoveEmptyEntries)
+            .Select((template, i) =>
+            {
+                string[] parts = template.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+
+                List<Question> questions = parts
+                    .Skip(1)
+                    .Select((question, j) => new Question
+                    {
+                        Id = Guid.NewGuid(),
+                        Content = question.Trim(['-', '?', ',', '.', ';']).Trim().ToLower() + "?",
+                        SortIndex = j + 1
+                    })
+                    .ToList();
+
+                return new AnamnesisTemplate
+                {
+                    Id = Guid.NewGuid(),
+                    Name = parts[0].Trim(),
+                    Questions = questions,
+                    SortIndex = i
+                };
+            })
+            .ToArray();
+
+        await context.AnamnesisTemplates.AddRangeAsync(anamnesisTemplates);
 
         await context.SaveChangesAsync();
     }

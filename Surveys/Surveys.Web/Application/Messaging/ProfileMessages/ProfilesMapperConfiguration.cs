@@ -16,6 +16,7 @@ public sealed class ProfilesMapperConfiguration : Profile
             .ForMember(user => user.EmailConfirmed, expression => expression.MapFrom(registerViewModel => true))
             .ForMember(user => user.FirstName, expression => expression.MapFrom(registerViewModel => registerViewModel.FirstName))
             .ForMember(user => user.LastName, expression => expression.MapFrom(registerViewModel => registerViewModel.LastName))
+            .ForMember(user => user.Patronymic, expression => expression.MapFrom(registerViewModel => registerViewModel.Patronymic))
             .ForMember(user => user.PhoneNumberConfirmed, expression => expression.MapFrom(registerViewModel => true))
             .ForMember(user => user.ApplicationUserProfileId, expression => expression.Ignore())
             .ForMember(user => user.ApplicationUserProfile, expression => expression.Ignore())

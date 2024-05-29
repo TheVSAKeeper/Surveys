@@ -19,5 +19,6 @@ public class DataSeedingDefinition : AppDefinition
         DatabaseInitializer.SeedUsers(app.Services);
         DatabaseInitializer.SeedEvents(app.Services);
         DatabaseInitializer.SeedPatients(app.Services, DataPath);
+        DatabaseInitializer.SeedAnamnesisTemplates(app.Services, DataPath);
     }
 }

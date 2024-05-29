@@ -14,10 +14,10 @@ public class AnamnesisTemplateModelConfiguration : IdentityModelConfigurationBas
 
         builder.Property(anamnesisTemplate => anamnesisTemplate.SortIndex).IsRequired();
 
-        builder.Property(anamnesisTemplate => anamnesisTemplate.SortIndex).IsRequired();
-
         builder.HasMany(anamnesisTemplate => anamnesisTemplate.Anamneses);
         builder.HasMany(anamnesisTemplate => anamnesisTemplate.Questions);
+
+        builder.Navigation(anamnesisTemplate => anamnesisTemplate.Questions).AutoInclude();
     }
 
     protected override string GetTableName() => nameof(AnamnesisTemplate);
