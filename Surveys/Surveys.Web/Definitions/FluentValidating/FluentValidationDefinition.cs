@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-using Calabonga.AspNetCore.AppDefinitions;
-using FluentValidation;
+﻿using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +21,7 @@ public class FluentValidationDefinition : AppDefinition
         });
 
         builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
-        
+
         builder.Services.AddFluentValidationAutoValidation(configuration =>
         {
             configuration.DisableDataAnnotationsValidation = true;

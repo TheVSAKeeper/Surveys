@@ -1,6 +1,5 @@
 ﻿using System.Security.Claims;
 using Calabonga.Microservices.Core;
-using MediatR;
 
 namespace Surveys.Web.Application.Messaging.ProfileMessages.Queries;
 

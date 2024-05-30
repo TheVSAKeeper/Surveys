@@ -1,6 +1,4 @@
-﻿using Surveys.Domain;
-
-namespace Surveys.Web.Application.Messaging.PatientMessages.ViewModels;
+﻿namespace Surveys.Web.Application.Messaging.PatientMessages.ViewModels;
 
 public class PatientViewModel
 {

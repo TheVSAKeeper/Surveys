@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Calabonga.PagedListCore;
+﻿using Calabonga.PagedListCore;
 
 namespace Surveys.Web.Definitions.Mapping;
 

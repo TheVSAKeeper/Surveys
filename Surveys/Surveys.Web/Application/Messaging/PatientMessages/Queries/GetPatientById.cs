@@ -1,10 +1,4 @@
-﻿using AutoMapper;
-using Calabonga.Results;
-using Calabonga.UnitOfWork;
-using MediatR;
-using Surveys.Domain;
-using Surveys.Domain.Base;
-using Surveys.Web.Application.Messaging.PatientMessages.ViewModels;
+﻿using Surveys.Web.Application.Messaging.PatientMessages.ViewModels;
 
 namespace Surveys.Web.Application.Messaging.PatientMessages.Queries;
 

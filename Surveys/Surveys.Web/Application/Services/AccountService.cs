@@ -1,17 +1,13 @@
 ﻿using System.Security.Claims;
 using System.Security.Principal;
-using AutoMapper;
 using Calabonga.Microservices.Core.Exceptions;
 using Calabonga.Microservices.Core.Extensions;
 using Calabonga.Microservices.Core.Validators;
-using Calabonga.Results;
-using Calabonga.UnitOfWork;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Options;
 using OpenIddict.Abstractions;
-using Surveys.Domain.Base;
 using Surveys.Infrastructure;
 using Surveys.Web.Application.Messaging.ProfileMessages.ViewModels;
 using Surveys.Web.Definitions.Authorizations;

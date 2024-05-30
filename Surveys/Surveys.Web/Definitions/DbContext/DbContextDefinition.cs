@@ -1,5 +1,4 @@
-﻿using Calabonga.AspNetCore.AppDefinitions;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OpenIddict.Abstractions;
 using Surveys.Infrastructure;

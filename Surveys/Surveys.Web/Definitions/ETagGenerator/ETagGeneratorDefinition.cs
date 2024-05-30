@@ -1,5 +1,4 @@
 ﻿using System.Security.Cryptography;
-using Calabonga.AspNetCore.AppDefinitions;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Primitives;
 using Microsoft.Net.Http.Headers;

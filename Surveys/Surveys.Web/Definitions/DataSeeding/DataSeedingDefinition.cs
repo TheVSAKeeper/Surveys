@@ -1,5 +1,4 @@
-﻿using Calabonga.AspNetCore.AppDefinitions;
-using Surveys.Infrastructure.DatabaseInitialization;
+﻿using Surveys.Infrastructure.DatabaseInitialization;
 
 namespace Surveys.Web.Definitions.DataSeeding;
 

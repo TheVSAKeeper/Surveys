@@ -1,6 +1,4 @@
-﻿using Calabonga.AspNetCore.AppDefinitions;
-using MediatR;
-using Surveys.Web.Definitions.FluentValidating;
+﻿using Surveys.Web.Definitions.FluentValidating;
 
 namespace Surveys.Web.Definitions.Mediator;
 

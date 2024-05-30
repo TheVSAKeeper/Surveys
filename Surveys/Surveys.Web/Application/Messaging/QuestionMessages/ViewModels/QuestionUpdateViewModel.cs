@@ -1,7 +1,4 @@
-﻿using Surveys.Domain;
-using Surveys.Domain.Base;
-
-namespace Surveys.Web.Application.Messaging.QuestionMessages.ViewModels;
+﻿namespace Surveys.Web.Application.Messaging.QuestionMessages.ViewModels;
 
 public class QuestionUpdateViewModel : ViewModelBase
 {

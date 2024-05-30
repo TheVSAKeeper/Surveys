@@ -1,5 +1,4 @@
 ﻿using System.Security.Claims;
-using AutoMapper;
 using Calabonga.Microservices.Core;
 using Surveys.Infrastructure;
 using Surveys.Web.Application.Messaging.ProfileMessages.ViewModels;

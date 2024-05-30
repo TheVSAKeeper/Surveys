@@ -1,10 +1,4 @@
-﻿using AutoMapper;
-using Calabonga.Microservices.Core;
-using Calabonga.Results;
-using Calabonga.UnitOfWork;
-using MediatR;
-using Surveys.Domain;
-using Surveys.Domain.Base;
+﻿using Calabonga.Microservices.Core;
 using Surveys.Web.Application.Messaging.QuestionMessages.ViewModels;
 
 namespace Surveys.Web.Application.Messaging.QuestionMessages.Queries;

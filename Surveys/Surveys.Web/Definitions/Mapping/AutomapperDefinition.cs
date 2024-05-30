@@ -1,5 +1,4 @@
-﻿using Calabonga.AspNetCore.AppDefinitions;
-using IConfigurationProvider = AutoMapper.IConfigurationProvider;
+﻿using IConfigurationProvider = AutoMapper.IConfigurationProvider;
 
 namespace Surveys.Web.Definitions.Mapping;
 

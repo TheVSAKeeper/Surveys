@@ -1,6 +1,4 @@
-using AutoMapper;
 using Calabonga.PagedListCore;
-using Surveys.Domain;
 using Surveys.Web.Application.Messaging.AnamnesisTemplateMessages.ViewModels;
 using Surveys.Web.Definitions.Mapping;
 

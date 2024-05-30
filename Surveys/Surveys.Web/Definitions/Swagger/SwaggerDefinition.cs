@@ -1,7 +1,5 @@
-﻿using Calabonga.AspNetCore.AppDefinitions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
-using Surveys.Domain.Base;
 using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace Surveys.Web.Definitions.Swagger;

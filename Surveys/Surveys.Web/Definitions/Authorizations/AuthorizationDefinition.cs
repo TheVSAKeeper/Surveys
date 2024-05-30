@@ -1,10 +1,8 @@
 ﻿using System.Text.Json;
-using Calabonga.AspNetCore.AppDefinitions;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
-using Surveys.Domain.Base;
 using Surveys.Web.Definitions.OpenIddict;
 
 namespace Surveys.Web.Definitions.Authorizations;

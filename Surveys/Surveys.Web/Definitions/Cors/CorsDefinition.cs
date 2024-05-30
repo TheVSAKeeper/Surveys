@@ -1,7 +1,4 @@
-﻿using Calabonga.AspNetCore.AppDefinitions;
-using Surveys.Domain.Base;
-
-namespace Surveys.Web.Definitions.Cors;
+﻿namespace Surveys.Web.Definitions.Cors;
 
 /// <summary>
 ///     Cors configurations

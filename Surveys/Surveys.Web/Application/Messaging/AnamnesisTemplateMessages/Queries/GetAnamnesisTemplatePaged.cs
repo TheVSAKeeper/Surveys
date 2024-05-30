@@ -1,12 +1,6 @@
 using System.Linq.Expressions;
-using AutoMapper;
 using Calabonga.PagedListCore;
 using Calabonga.PredicatesBuilder;
-using Calabonga.Results;
-using Calabonga.UnitOfWork;
-using MediatR;
-using Surveys.Domain;
-using Surveys.Domain.Base;
 using Surveys.Web.Application.Messaging.AnamnesisTemplateMessages.ViewModels;
 
 namespace Surveys.Web.Application.Messaging.AnamnesisTemplateMessages.Queries;

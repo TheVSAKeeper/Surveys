@@ -1,5 +1,4 @@
-﻿using Calabonga.AspNetCore.AppDefinitions;
-using Surveys.Web.Application.Services;
+﻿using Surveys.Web.Application.Services;
 using Surveys.Web.Definitions.Authorizations;
 
 namespace Surveys.Web.Definitions.DependencyContainer;

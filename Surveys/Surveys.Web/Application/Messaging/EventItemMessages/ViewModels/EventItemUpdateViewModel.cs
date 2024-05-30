@@ -1,6 +1,4 @@
-﻿using Surveys.Domain.Base;
-
-namespace Surveys.Web.Application.Messaging.EventItemMessages.ViewModels;
+﻿namespace Surveys.Web.Application.Messaging.EventItemMessages.ViewModels;
 
 public class EventItemUpdateViewModel : ViewModelBase
 {

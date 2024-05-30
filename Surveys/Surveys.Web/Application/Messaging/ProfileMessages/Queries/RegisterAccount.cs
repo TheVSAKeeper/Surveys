@@ -1,6 +1,4 @@
-﻿using Calabonga.Results;
-using MediatR;
-using Surveys.Web.Application.Messaging.ProfileMessages.ViewModels;
+﻿using Surveys.Web.Application.Messaging.ProfileMessages.ViewModels;
 using Surveys.Web.Application.Services;
 
 namespace Surveys.Web.Application.Messaging.ProfileMessages.Queries;

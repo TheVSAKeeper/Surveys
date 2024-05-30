@@ -1,6 +1,4 @@
-﻿using Calabonga.AspNetCore.AppDefinitions;
-using Calabonga.UnitOfWork;
-using Surveys.Infrastructure;
+﻿using Surveys.Infrastructure;
 
 namespace Surveys.Web.Definitions.UoW;
 

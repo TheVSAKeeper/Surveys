@@ -1,5 +1,4 @@
-﻿using Calabonga.AspNetCore.AppDefinitions;
-using OpenIddict.Abstractions;
+﻿using OpenIddict.Abstractions;
 using Surveys.Infrastructure;
 using Surveys.Web.HostedServices;
 

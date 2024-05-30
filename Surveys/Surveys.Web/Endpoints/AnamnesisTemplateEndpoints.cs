@@ -1,8 +1,4 @@
-using Calabonga.AspNetCore.AppDefinitions;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Surveys.Domain;
-using Surveys.Domain.Base;
 using Surveys.Web.Application.Messaging.AnamnesisTemplateMessages.Queries;
 using Surveys.Web.Application.Messaging.AnamnesisTemplateMessages.ViewModels;
 

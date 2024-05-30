@@ -1,6 +1,4 @@
-﻿using Calabonga.AspNetCore.AppDefinitions;
-
-namespace Surveys.Web.Definitions.Common;
+﻿namespace Surveys.Web.Definitions.Common;
 
 /// <summary>
 ///     AspNetCore common configuration

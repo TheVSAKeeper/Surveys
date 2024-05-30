@@ -1,5 +1,3 @@
-using Surveys.Domain;
-
 namespace Surveys.Web.Application.Messaging.AnamnesisTemplateMessages.ViewModels;
 
 public class AnamnesisTemplateViewModel

@@ -1,5 +1,4 @@
 ﻿using System.Security.Claims;
-using Calabonga.AspNetCore.AppDefinitions;
 using Calabonga.Microservices.Core.Extensions;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication;

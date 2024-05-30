@@ -1,7 +1,4 @@
-﻿using Calabonga.AspNetCore.AppDefinitions;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Surveys.Domain.Base;
+﻿using Microsoft.AspNetCore.Mvc;
 using Surveys.Web.Application.Messaging.ProfileMessages.Queries;
 using Surveys.Web.Application.Messaging.ProfileMessages.ViewModels;
 

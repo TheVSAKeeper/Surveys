@@ -1,6 +1,5 @@
 ﻿using System.Security.Claims;
 using Calabonga.Microservices.Core.Validators;
-using Calabonga.Results;
 using Surveys.Infrastructure;
 using Surveys.Web.Application.Messaging.ProfileMessages.ViewModels;
 

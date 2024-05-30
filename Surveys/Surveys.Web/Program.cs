@@ -1,5 +1,4 @@
-﻿using Calabonga.AspNetCore.AppDefinitions;
-using Serilog;
+﻿using Serilog;
 using Serilog.Events;
 
 try
