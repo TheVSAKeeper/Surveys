@@ -13,7 +13,7 @@ internal static class AnswerEndpointsExtensions
 {
     public static void MapAnswerEndpoints(this IEndpointRouteBuilder routes)
     {
-        RouteGroupBuilder group = routes.MapGroup("/api/answer/").WithTags(nameof(Answer));
+        RouteGroupBuilder group = routes.MapGroup("/api/answers/").WithTags(nameof(Answer));
 
         group.MapGet("paged/{pageIndex:int}", async ([FromServices] IMediator mediator, int pageIndex, string? search, HttpContext context, int pageSize = 10)
                 => await mediator.Send(new GetAnswerPaged.Request(pageIndex, pageSize, search), context.RequestAborted))
