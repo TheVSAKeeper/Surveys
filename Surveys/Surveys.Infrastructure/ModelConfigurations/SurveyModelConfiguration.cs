@@ -15,5 +15,8 @@ public class SurveyModelConfiguration : AuditableModelConfigurationBase<Survey>
         builder.HasOne(survey => survey.Patient)
             .WithMany(patient => patient.Surveys)
             .HasForeignKey(survey => survey.PatientId);
+
+        builder.Navigation(survey => survey.Patient).AutoInclude();
+        builder.Navigation(survey => survey.Anamneses).AutoInclude();
     }
 }

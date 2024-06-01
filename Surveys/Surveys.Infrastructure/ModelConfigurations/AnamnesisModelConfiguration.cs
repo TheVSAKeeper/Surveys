@@ -13,5 +13,7 @@ public class AnamnesisModelConfiguration : SortableAuditableModelConfigurationBa
             .HasForeignKey(anamnesis => anamnesis.AnamnesisTemplateId);
 
         builder.Property(anamnesis => anamnesis.IsComplete);
+        
+        builder.Navigation(survey => survey.Responses).AutoInclude();
     }
 }
