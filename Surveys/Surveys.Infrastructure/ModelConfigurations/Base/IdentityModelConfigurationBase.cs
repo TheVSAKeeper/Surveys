@@ -1,22 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Surveys.Domain.Base;
+﻿namespace Surveys.Infrastructure.ModelConfigurations.Base;
 
-namespace Surveys.Infrastructure.ModelConfigurations.Base;
-
-public abstract class IdentityModelConfigurationBase<T> : IEntityTypeConfiguration<T> where T : Identity
+public abstract class IdentityModelConfigurationBase<T> : ModelConfigurationBase<T> where T : Identity
 {
-    public void Configure(EntityTypeBuilder<T> builder)
+    protected override void AddBaseConfiguration(EntityTypeBuilder<T> builder)
     {
-        builder.ToTable(GetTableName());
-
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).IsRequired();
 
-        AddConfiguration(builder);
+        AddCustomConfiguration(builder);
     }
 
-    protected abstract void AddConfiguration(EntityTypeBuilder<T> builder);
-
-    protected abstract string GetTableName();
+    protected abstract void AddCustomConfiguration(EntityTypeBuilder<T> builder);
 }

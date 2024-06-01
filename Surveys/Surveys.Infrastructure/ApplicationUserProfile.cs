@@ -1,6 +1,4 @@
-﻿using Surveys.Domain.Base;
-
-namespace Surveys.Infrastructure;
+﻿namespace Surveys.Infrastructure;
 
 /// <summary>
 ///     Represent person with login information (ApplicationUser)

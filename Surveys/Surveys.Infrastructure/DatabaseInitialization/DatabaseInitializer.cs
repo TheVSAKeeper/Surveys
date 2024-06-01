@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Surveys.Domain;
-using Surveys.Domain.Base;
 
 namespace Surveys.Infrastructure.DatabaseInitialization;
 
@@ -379,7 +377,9 @@ public static class DatabaseInitializer
 
         string lines = await File.ReadAllTextAsync(path);
 
-        AnamnesisTemplate[] anamnesisTemplates = lines.Split('/', StringSplitOptions.RemoveEmptyEntries)
+        // TODO: Seeding anamnesisTemplates
+
+        /*AnamnesisTemplate[] anamnesisTemplates = lines.Split('/', StringSplitOptions.RemoveEmptyEntries)
             .Select((template, i) =>
             {
                 string[] parts = template.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
@@ -404,7 +404,7 @@ public static class DatabaseInitializer
             })
             .ToArray();
 
-        await context.AnamnesisTemplates.AddRangeAsync(anamnesisTemplates);
+        await context.AnamnesisTemplates.AddRangeAsync(anamnesisTemplates);*/
 
         await context.SaveChangesAsync();
     }

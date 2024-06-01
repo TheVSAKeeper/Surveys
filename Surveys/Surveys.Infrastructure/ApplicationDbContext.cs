@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Surveys.Domain;
 using Surveys.Infrastructure.Base;
 
 namespace Surveys.Infrastructure;
@@ -8,30 +7,21 @@ namespace Surveys.Infrastructure;
 /// <summary>
 ///     Database context for current application
 /// </summary>
-public class ApplicationDbContext : DbContextBase
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContextBase(options)
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options)
-    {
-    }
-
-    public DbSet<Anamnesis> Anamneses { get; set; } = null!;
-    public DbSet<AnamnesisAnswer> AnamnesisAnswers { get; set; } = null!;
-    public DbSet<AnamnesisTemplate> AnamnesisTemplates { get; set; } = null!;
-
-    public DbSet<Answer> Answers { get; set; } = null!;
-    public DbSet<Question> Questions { get; set; } = null!;
-
-    public DbSet<Diagnosis> Diagnoses { get; set; } = null!;
-    public DbSet<SurveyDiagnosis> SurveyDiagnoses { get; set; } = null!;
-
-    public DbSet<Survey> Surveys { get; set; } = null!;
-    public DbSet<Patient> Patients { get; set; } = null!;
-
+    public DbSet<Anamnesis> Anamneses { get; set; }
+    public DbSet<AnamnesisTemplate> AnamnesisTemplates { get; set; }
+    public DbSet<Diagnosis> Diagnoses { get; set; }
     public DbSet<EventItem> EventItems { get; set; }
+    public DbSet<Patient> Patients { get; set; }
+    public DbSet<Question> Questions { get; set; }
+    public DbSet<QuestionOption> QuestionOptions { get; set; }
+    public DbSet<Response> Responses { get; set; }
+    public DbSet<ResponseAnswer> ResponseAnswers { get; set; }
+    public DbSet<Survey> Surveys { get; set; }
+    public DbSet<SurveyDiagnosis> SurveyDiagnoses { get; set; }
 
     public DbSet<ApplicationUserProfile> Profiles { get; set; }
-
     public DbSet<AppPermission> Permissions { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -39,20 +29,8 @@ public class ApplicationDbContext : DbContextBase
         builder.UseOpenIddict<Guid>();
         base.OnModelCreating(builder);
     }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        // It should be removed when using real Database (not in memory mode)
-        // optionsBuilder.ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning));
-        base.OnConfiguring(optionsBuilder);
-    }
 }
 
-/// <summary>
-///     ATTENTION!
-///     It should uncomment two line below when using real Database (not in memory mode). Don't forget update connection
-///     string.
-/// </summary>
 public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
 {
     public ApplicationDbContext CreateDbContext(string[] args)

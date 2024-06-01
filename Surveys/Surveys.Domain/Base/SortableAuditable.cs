@@ -1,9 +1,6 @@
-﻿namespace Surveys.Domain.Base;
+namespace Surveys.Domain.Base;
 
-/// <summary>
-///     Order
-/// </summary>
-public class Sortable : Auditable
+public class SortableAuditable : Auditable, ISortable
 {
     /// <summary>
     ///     Sorting index for entity

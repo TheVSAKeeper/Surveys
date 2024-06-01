@@ -3,7 +3,6 @@ using Calabonga.UnitOfWork;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Surveys.Domain.Base;
 
 namespace Surveys.Infrastructure.Base;
 

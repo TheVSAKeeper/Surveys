@@ -9,8 +9,8 @@ public class Survey : Auditable
     public required Guid PatientId { get; set; }
     public virtual Patient? Patient { get; set; }
 
-    public bool IsComplete { get; set; }
+    public SurveyStatus Status { get; set; }
 
-    public virtual IList<SurveyDiagnosis>? SurveyDiagnoses { get; set; }
-    public virtual IList<Anamnesis>? Anamneses { get; set; }
+    public virtual List<Anamnesis>? Anamneses { get; set; }
+    public virtual List<SurveyDiagnosis>? SurveyDiagnoses { get; set; }
 }

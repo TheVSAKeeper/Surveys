@@ -1,24 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Surveys.Domain;
-using Surveys.Infrastructure.ModelConfigurations.Base;
-
 namespace Surveys.Infrastructure.ModelConfigurations;
 
-public class AnamnesisTemplateModelConfiguration : IdentityModelConfigurationBase<AnamnesisTemplate>
+public class AnamnesisTemplateModelConfiguration : SortableIdentityModelConfigurationBase<AnamnesisTemplate>
 {
-    protected override void AddConfiguration(EntityTypeBuilder<AnamnesisTemplate> builder)
+    protected override void AddCustomConfiguration(EntityTypeBuilder<AnamnesisTemplate> builder)
     {
-        builder.Property(anamnesisTemplate => anamnesisTemplate.Name)
-            .HasMaxLength(50)
+        builder.Property(anamnesisTemplate => anamnesisTemplate.Title)
+            .IsRequired()
+            .HasMaxLength(128);
+
+        builder.Property(anamnesisTemplate => anamnesisTemplate.Description)
+            .HasMaxLength(1024);
+
+        builder.HasMany(anamnesisTemplate => anamnesisTemplate.Questions)
+            .WithOne(question => question.AnamnesisTemplate)
+            .HasForeignKey(question => question.AnamnesisTemplateId)
             .IsRequired();
-
-        builder.Property(anamnesisTemplate => anamnesisTemplate.SortIndex).IsRequired();
-
-        builder.HasMany(anamnesisTemplate => anamnesisTemplate.Anamneses);
-        builder.HasMany(anamnesisTemplate => anamnesisTemplate.Questions);
-
-        builder.Navigation(anamnesisTemplate => anamnesisTemplate.Questions).AutoInclude();
     }
-
-    protected override string GetTableName() => nameof(AnamnesisTemplate);
 }

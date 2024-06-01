@@ -2,12 +2,11 @@
 
 namespace Surveys.Domain;
 
-public class AnamnesisTemplate : Identity
+public class AnamnesisTemplate : SortableIdentity
 {
-    public required string Name { get; set; }
+    public required string Title { get; set; }
+    public string? Description { get; set; }
+    public required List<Question> Questions { get; set; }
 
-    public required int SortIndex { get; set; }
-
-    public virtual required IList<Question> Questions { get; set; }
-    public virtual IList<Anamnesis>? Anamneses { get; set; }
+    public virtual List<Anamnesis>? Anamneses { get; set; }
 }

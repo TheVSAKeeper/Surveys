@@ -2,18 +2,15 @@
 
 namespace Surveys.Domain;
 
-public class Anamnesis : Auditable
+public class Anamnesis : SortableAuditable
 {
+    public required Guid SurveyId { get; set; }
+    public virtual Survey? Survey { get; set; }
+
     public required Guid AnamnesisTemplateId { get; set; }
     public virtual AnamnesisTemplate? AnamnesisTemplate { get; set; }
 
-    public virtual IList<AnamnesisAnswer>? AnamnesisAnswers { get; set; }
-
     public bool IsComplete { get; set; }
 
-    public required int SortIndex { get; set; }
-
-    // TODO: make Survey required
-    public Guid? SurveyId { get; set; }
-    public virtual Survey? Survey { get; set; }
+    public virtual List<Response>? Responses { get; set; }
 }

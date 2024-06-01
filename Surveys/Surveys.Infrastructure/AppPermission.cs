@@ -1,6 +1,4 @@
-﻿using Surveys.Domain.Base;
-
-namespace Surveys.Infrastructure;
+﻿namespace Surveys.Infrastructure;
 
 /// <summary>
 ///     User permission for application

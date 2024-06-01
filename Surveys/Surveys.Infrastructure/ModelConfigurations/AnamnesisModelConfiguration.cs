@@ -1,30 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Surveys.Domain;
-using Surveys.Infrastructure.ModelConfigurations.Base;
-
 namespace Surveys.Infrastructure.ModelConfigurations;
 
-public class AnamnesisModelConfiguration : AuditableModelConfigurationBase<Anamnesis>
+public class AnamnesisModelConfiguration : SortableAuditableModelConfigurationBase<Anamnesis>
 {
-    protected override void AddConfiguration(EntityTypeBuilder<Anamnesis> builder)
+    protected override void AddCustomConfiguration(EntityTypeBuilder<Anamnesis> builder)
     {
-        builder.Property(anamnesis => anamnesis.IsComplete)
-            .HasDefaultValue(false)
-            .IsRequired();
+        builder.HasOne(anamnesis => anamnesis.Survey)
+            .WithMany(survey => survey.Anamneses)
+            .HasForeignKey(anamnesis => anamnesis.SurveyId);
 
-        builder.Property(anamnesis => anamnesis.SortIndex).IsRequired();
+        builder.HasOne(anamnesis => anamnesis.AnamnesisTemplate)
+            .WithMany(anamnesisTemplate => anamnesisTemplate.Anamneses)
+            .HasForeignKey(anamnesis => anamnesis.AnamnesisTemplateId);
 
-        builder.Property(anamnesis => anamnesis.SortIndex).IsRequired();
-
-        builder.HasOne(anamnesis => anamnesis.AnamnesisTemplate);
-        builder.Navigation(anamnesis => anamnesis.AnamnesisTemplate).AutoInclude();
-
-        builder.HasMany(anamnesis => anamnesis.AnamnesisAnswers);
-        builder.Navigation(anamnesis => anamnesis.AnamnesisAnswers).AutoInclude();
-
-        builder.HasOne(anamnesis => anamnesis.Survey);
+        builder.Property(anamnesis => anamnesis.IsComplete);
     }
-
-    protected override string GetTableName() => nameof(Anamnesis);
 }

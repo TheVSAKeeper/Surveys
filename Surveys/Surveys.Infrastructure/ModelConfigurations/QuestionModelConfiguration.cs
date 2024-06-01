@@ -1,25 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Surveys.Domain;
-using Surveys.Infrastructure.ModelConfigurations.Base;
-
 namespace Surveys.Infrastructure.ModelConfigurations;
 
-public class QuestionModelConfiguration : IdentityModelConfigurationBase<Question>
+public class QuestionModelConfiguration : SortableIdentityModelConfigurationBase<Question>
 {
-    protected override void AddConfiguration(EntityTypeBuilder<Question> builder)
+    protected override void AddCustomConfiguration(EntityTypeBuilder<Question> builder)
     {
-        builder.Property(question => question.Content)
-            .HasMaxLength(1024)
-            .IsRequired();
+        builder.Property(question => question.Text)
+            .IsRequired()
+            .HasMaxLength(1024);
 
-        builder.Property(question => question.SortIndex).IsRequired();
+        builder.Property(question => question.Type)
+            .IsRequired()
+            .HasConversion<string>();
 
-        builder.Property(question => question.SortIndex).IsRequired();
-
-        builder.HasOne(question => question.AnamnesisTemplate);
-
-        builder.HasMany(question => question.AnamnesisAnswers);
+        builder.HasMany(question => question.Options)
+            .WithOne(option => option.Question)
+            .HasForeignKey(question => question.QuestionId);
     }
-
-    protected override string GetTableName() => nameof(Question);
 }

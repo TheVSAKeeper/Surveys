@@ -1,26 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Surveys.Domain;
-using Surveys.Infrastructure.ModelConfigurations.Base;
-
-namespace Surveys.Infrastructure.ModelConfigurations;
+﻿namespace Surveys.Infrastructure.ModelConfigurations;
 
 public class SurveyModelConfiguration : AuditableModelConfigurationBase<Survey>
 {
-    protected override void AddConfiguration(EntityTypeBuilder<Survey> builder)
+    protected override void AddCustomConfiguration(EntityTypeBuilder<Survey> builder)
     {
         builder.Property(survey => survey.Complaint)
-            .HasMaxLength(1024)
-            .IsRequired();
+            .IsRequired()
+            .HasMaxLength(1024);
 
-        builder.Property(survey => survey.IsComplete)
-            .HasDefaultValue(false)
-            .IsRequired();
+        builder.Property(survey => survey.Status)
+            .IsRequired()
+            .HasConversion<string>();
 
-        builder.HasOne(survey => survey.Patient);
-        builder.HasMany(survey => survey.SurveyDiagnoses);
-        builder.HasMany(survey => survey.Anamneses);
+        builder.HasOne(survey => survey.Patient)
+            .WithMany(patient => patient.Surveys)
+            .HasForeignKey(survey => survey.PatientId);
     }
-
-    protected override string GetTableName() => nameof(Survey);
 }

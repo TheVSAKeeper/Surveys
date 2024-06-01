@@ -1,20 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Surveys.Domain.Base;
+﻿using System.Linq.Expressions;
 
 namespace Surveys.Infrastructure.ModelConfigurations.Base;
 
-public abstract class AuditableModelConfigurationBase<T> : IEntityTypeConfiguration<T> where T : Auditable
+public abstract class AuditableModelConfigurationBase<T> : IdentityModelConfigurationBase<T> where T : Auditable
 {
-    public void Configure(EntityTypeBuilder<T> builder)
+    protected override void AddBaseConfiguration(EntityTypeBuilder<T> builder)
     {
-        builder.ToTable(GetTableName());
-
-        builder.HasKey(x => x.Id);
-        builder.Property(x => x.Id).IsRequired();
+        Expression<Func<DateTime, DateTime>> convertToUtc = dateTime =>
+            dateTime.Kind == DateTimeKind.Utc ? dateTime : DateTime.SpecifyKind(dateTime, DateTimeKind.Utc);
 
         builder.Property(x => x.CreatedAt)
-            .HasConversion(v => v, v => DateTime.SpecifyKind(v, DateTimeKind.Utc))
+            .HasConversion(convertToUtc, convertToUtc)
             .IsRequired();
 
         builder.Property(x => x.CreatedBy)
@@ -22,14 +18,14 @@ public abstract class AuditableModelConfigurationBase<T> : IEntityTypeConfigurat
             .IsRequired();
 
         builder.Property(x => x.UpdatedAt)
-            .HasConversion(v => v!.Value, v => DateTime.SpecifyKind(v, DateTimeKind.Utc));
+            .HasConversion(dateTime => dateTime!.Value.Kind == DateTimeKind.Utc ? dateTime : DateTime.SpecifyKind(dateTime.Value, DateTimeKind.Utc),
+                dateTime => dateTime!.Value.Kind == DateTimeKind.Utc ? dateTime : DateTime.SpecifyKind(dateTime.Value, DateTimeKind.Utc));
 
-        builder.Property(x => x.UpdatedBy).HasMaxLength(256);
+        builder.Property(x => x.UpdatedBy)
+            .HasMaxLength(256);
 
-        AddConfiguration(builder);
+        AddCustomConfiguration(builder);
     }
 
-    protected abstract void AddConfiguration(EntityTypeBuilder<T> builder);
-
-    protected abstract string GetTableName();
+    protected abstract override void AddCustomConfiguration(EntityTypeBuilder<T> builder);
 }

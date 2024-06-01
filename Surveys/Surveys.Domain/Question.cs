@@ -1,15 +1,16 @@
-﻿using Surveys.Domain.Base;
+using Surveys.Domain.Base;
 
 namespace Surveys.Domain;
 
-public class Question : Identity
+public class Question : SortableIdentity
 {
-    public required string Content { get; set; }
-
-    public required int SortIndex { get; set; }
-
-    public Guid? AnamnesisTemplateId { get; set; }
+    public required Guid AnamnesisTemplateId { get; set; }
     public AnamnesisTemplate? AnamnesisTemplate { get; set; }
 
-    public virtual IList<AnamnesisAnswer>? AnamnesisAnswers { get; set; }
+    public required string Text { get; set; }
+    public required QuestionType Type { get; set; }
+
+    public virtual List<QuestionOption>? Options { get; set; }
+
+    public virtual List<ResponseAnswer>? Answers { get; set; }
 }

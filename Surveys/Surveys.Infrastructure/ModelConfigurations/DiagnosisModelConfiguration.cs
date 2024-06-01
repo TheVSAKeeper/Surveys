@@ -1,21 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Surveys.Domain;
-using Surveys.Infrastructure.ModelConfigurations.Base;
-
-namespace Surveys.Infrastructure.ModelConfigurations;
+﻿namespace Surveys.Infrastructure.ModelConfigurations;
 
 public class DiagnosisModelConfiguration : IdentityModelConfigurationBase<Diagnosis>
 {
-    protected override void AddConfiguration(EntityTypeBuilder<Diagnosis> builder)
+    protected override void AddCustomConfiguration(EntityTypeBuilder<Diagnosis> builder)
     {
         builder.Property(diagnosis => diagnosis.Name)
             .HasMaxLength(50)
             .IsRequired();
 
-        builder.Property(diagnosis => diagnosis.Description).HasMaxLength(1024);
-
-        builder.HasMany(diagnosis => diagnosis.SurveyDiagnoses);
+        builder.Property(diagnosis => diagnosis.Description)
+            .HasMaxLength(1024);
     }
-
-    protected override string GetTableName() => nameof(Diagnosis);
 }
