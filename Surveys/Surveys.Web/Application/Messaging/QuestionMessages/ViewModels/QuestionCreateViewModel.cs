@@ -1,10 +1,12 @@
-﻿namespace Surveys.Web.Application.Messaging.QuestionMessages.ViewModels;
+using Surveys.Web.Application.Messaging.QuestionOptionMessages.ViewModels;
 
-public class QuestionCreateViewModel : IViewModel
+namespace Surveys.Web.Application.Messaging.QuestionMessages.ViewModels;
+
+public class QuestionCreateViewModel
 {
-    public required string Content { get; set; }
-
-    public required int SortIndex { get; set; } = 0;
-
-    public Guid? AnamnesisTemplateId { get; set; }
+    public Guid AnamnesisTemplateId { get; set; }
+    public string Text { get; set; } = null!;
+    public QuestionType Type { get; set; }
+    public List<QuestionOptionCreateViewModel>? Options { get; set; }
+    public int SortIndex { get; set; }
 }

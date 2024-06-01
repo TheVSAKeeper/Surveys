@@ -1,7 +1,6 @@
 using System.Linq.Expressions;
 using Calabonga.PagedListCore;
 using Calabonga.PredicatesBuilder;
-using Surveys.Web.Application.Messaging.AnamnesisMessages.ViewModels;
 
 namespace Surveys.Web.Application.Messaging.AnamnesisMessages.Queries;
 

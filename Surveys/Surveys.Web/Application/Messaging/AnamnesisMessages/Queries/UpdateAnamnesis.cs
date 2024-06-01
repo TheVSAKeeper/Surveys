@@ -1,6 +1,5 @@
 using System.Security.Claims;
 using Surveys.Infrastructure;
-using Surveys.Web.Application.Messaging.AnamnesisMessages.ViewModels;
 
 namespace Surveys.Web.Application.Messaging.AnamnesisMessages.Queries;
 

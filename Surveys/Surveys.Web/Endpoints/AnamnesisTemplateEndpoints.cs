@@ -13,7 +13,7 @@ internal static class AnamnesisTemplateEndpointsExtensions
 {
     public static void MapAnamnesisTemplateEndpoints(this IEndpointRouteBuilder routes)
     {
-        RouteGroupBuilder group = routes.MapGroup("/api/anamnesis-templates/").WithTags(nameof(AnamnesisTemplate));
+        RouteGroupBuilder group = routes.MapGroup("/api/anamnesis-template/").WithTags(nameof(AnamnesisTemplate));
 
         group.MapGet("paged/{pageIndex:int}", async ([FromServices] IMediator mediator, int pageIndex, string? search, HttpContext context, int pageSize = 10)
                 => await mediator.Send(new GetAnamnesisTemplatePaged.Request(pageIndex, pageSize, search), context.RequestAborted))

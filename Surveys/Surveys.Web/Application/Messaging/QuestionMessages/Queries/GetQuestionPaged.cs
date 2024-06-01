@@ -1,13 +1,10 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 using Calabonga.PagedListCore;
 using Calabonga.PredicatesBuilder;
 using Surveys.Web.Application.Messaging.QuestionMessages.ViewModels;
 
 namespace Surveys.Web.Application.Messaging.QuestionMessages.Queries;
 
-/// <summary>
-///     Request for paged list of Questions
-/// </summary>
 public sealed class GetQuestionPaged
 {
     public class Handler(IUnitOfWork unitOfWork, IMapper mapper)
@@ -32,10 +29,10 @@ public sealed class GetQuestionPaged
 
             IPagedList<QuestionViewModel>? mapped = mapper.Map<IPagedList<QuestionViewModel>>(pagedList);
 
-            if (mapped is not null)
-                return Operation.Result(mapped);
+            if (mapped is null)
+                return Operation.Error(AppData.Exceptions.MappingException);
 
-            return Operation.Error(AppData.Exceptions.MappingException);
+            return Operation.Result(mapped);
         }
 
         private Expression<Func<Question, bool>> GetPredicate(string? search)
@@ -45,7 +42,7 @@ public sealed class GetQuestionPaged
             if (search is null)
                 return predicate;
 
-            predicate = predicate.And(x => x.Content.Contains(search));
+            // predicate = predicate.And(x => x.Name.Contains(search));
             return predicate;
         }
     }

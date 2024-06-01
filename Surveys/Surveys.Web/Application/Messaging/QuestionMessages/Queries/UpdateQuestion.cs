@@ -1,26 +1,22 @@
-﻿using Calabonga.Microservices.Core;
 using Surveys.Web.Application.Messaging.QuestionMessages.ViewModels;
 
 namespace Surveys.Web.Application.Messaging.QuestionMessages.Queries;
 
-/// <summary>
-///     Request: Question edit
-/// </summary>
 public sealed class UpdateQuestion
 {
     public class Handler(IUnitOfWork unitOfWork, IMapper mapper)
         : IRequestHandler<Request, Operation<QuestionViewModel, string>>
     {
-        public async Task<Operation<QuestionViewModel, string>> Handle(Request QuestionRequest, CancellationToken cancellationToken)
+        public async Task<Operation<QuestionViewModel, string>> Handle(Request questionRequest, CancellationToken cancellationToken)
         {
             IRepository<Question> repository = unitOfWork.GetRepository<Question>();
 
-            Question? entity = await repository.GetFirstOrDefaultAsync(predicate: Question => Question.Id == QuestionRequest.Id, disableTracking: false);
+            Question? entity = await repository.GetFirstOrDefaultAsync(predicate: question => question.Id == questionRequest.Id, disableTracking: false);
 
             if (entity == null)
-                return Operation.Error(AppContracts.Exceptions.NotFoundException);
+                return Operation.Error(AppData.Exceptions.NotFoundException);
 
-            mapper.Map(QuestionRequest.Model, entity);
+            mapper.Map(questionRequest.Model, entity);
 
             repository.Update(entity);
             await unitOfWork.SaveChangesAsync();

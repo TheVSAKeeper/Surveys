@@ -32,15 +32,6 @@ public sealed class GetAnamnesisTemplatePaged
             if (mapped is null)
                 return Operation.Error(AppData.Exceptions.MappingException);
 
-            foreach (AnamnesisTemplateViewModel item in mapped.Items)
-            {
-                if (item.Questions == null)
-                    continue;
-
-                foreach (Question question in item.Questions)
-                    question.AnamnesisTemplate = null;
-            }
-
             return Operation.Result(mapped);
         }
 
@@ -51,7 +42,7 @@ public sealed class GetAnamnesisTemplatePaged
             if (search is null)
                 return predicate;
 
-            predicate = predicate.And(x => x.Name.Contains(search));
+            // predicate = predicate.And(x => x.Name.Contains(search));
             return predicate;
         }
     }

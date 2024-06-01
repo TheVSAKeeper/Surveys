@@ -21,12 +21,6 @@ public sealed class GetAnamnesisTemplateById
             if (mapped is null)
                 return Operation.Error(AppData.Exceptions.MappingException);
 
-            if (mapped.Questions == null)
-                return Operation.Result(mapped);
-
-            foreach (Question question in mapped.Questions)
-                question.AnamnesisTemplate = null;
-
             return Operation.Result(mapped);
         }
     }

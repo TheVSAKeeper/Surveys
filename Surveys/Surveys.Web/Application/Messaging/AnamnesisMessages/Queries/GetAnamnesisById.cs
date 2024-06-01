@@ -1,5 +1,3 @@
-using Surveys.Web.Application.Messaging.AnamnesisMessages.ViewModels;
-
 namespace Surveys.Web.Application.Messaging.AnamnesisMessages.Queries;
 
 public sealed class GetAnamnesisById

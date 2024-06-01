@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Surveys.Web.Application.Messaging.AnamnesisMessages;
 using Surveys.Web.Application.Messaging.AnamnesisMessages.Queries;
-using Surveys.Web.Application.Messaging.AnamnesisMessages.ViewModels;
 
 namespace Surveys.Web.Endpoints;
 

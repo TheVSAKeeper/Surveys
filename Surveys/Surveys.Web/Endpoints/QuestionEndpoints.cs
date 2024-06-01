@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Surveys.Web.Application.Messaging.QuestionMessages.Queries;
 using Surveys.Web.Application.Messaging.QuestionMessages.ViewModels;
 
@@ -13,7 +13,7 @@ internal static class QuestionEndpointsExtensions
 {
     public static void MapQuestionEndpoints(this IEndpointRouteBuilder routes)
     {
-        RouteGroupBuilder group = routes.MapGroup("/api/questions/").WithTags(nameof(Question));
+        RouteGroupBuilder group = routes.MapGroup("/api/question/").WithTags(nameof(Question));
 
         group.MapGet("paged/{pageIndex:int}", async ([FromServices] IMediator mediator, int pageIndex, string? search, HttpContext context, int pageSize = 10)
                 => await mediator.Send(new GetQuestionPaged.Request(pageIndex, pageSize, search), context.RequestAborted))

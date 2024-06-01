@@ -1,26 +1,22 @@
-﻿using Calabonga.Microservices.Core;
 using Surveys.Web.Application.Messaging.QuestionMessages.ViewModels;
 
 namespace Surveys.Web.Application.Messaging.QuestionMessages.Queries;
 
-/// <summary>
-///     Request: Question creation
-/// </summary>
 public sealed class CreateQuestion
 {
     public class Handler(IUnitOfWork unitOfWork, IMapper mapper, ILogger<Handler> logger)
         : IRequestHandler<Request, Operation<QuestionViewModel, string>>
     {
-        public async Task<Operation<QuestionViewModel, string>> Handle(Request QuestionRequest, CancellationToken cancellationToken)
+        public async Task<Operation<QuestionViewModel, string>> Handle(Request questionRequest, CancellationToken cancellationToken)
         {
             logger.LogDebug("Creating new Question");
 
-            Question? entity = mapper.Map<QuestionCreateViewModel, Question>(QuestionRequest.Model);
+            Question? entity = mapper.Map<QuestionCreateViewModel, Question>(questionRequest.Model);
 
             if (entity == null)
             {
                 logger.LogError("Mapper not configured correctly or something went wrong");
-                return Operation.Error(AppContracts.Exceptions.MappingException);
+                return Operation.Error(AppData.Exceptions.MappingException);
             }
 
             await unitOfWork.GetRepository<Question>().InsertAsync(entity, cancellationToken);

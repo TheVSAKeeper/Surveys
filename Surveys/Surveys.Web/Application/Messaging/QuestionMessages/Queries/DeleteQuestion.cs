@@ -1,19 +1,12 @@
-﻿using Surveys.Web.Application.Messaging.QuestionMessages.ViewModels;
+using Surveys.Web.Application.Messaging.QuestionMessages.ViewModels;
 
 namespace Surveys.Web.Application.Messaging.QuestionMessages.Queries;
 
-/// <summary>
-///     Question delete
-/// </summary>
 public sealed class DeleteQuestion
 {
     public class Handler(IUnitOfWork unitOfWork, IMapper mapper)
         : IRequestHandler<Request, Operation<QuestionViewModel, string>>
     {
-        /// <summary>Handles a request</summary>
-        /// <param name="request">The request</param>
-        /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>Response from the request</returns>
         public async Task<Operation<QuestionViewModel, string>> Handle(Request request, CancellationToken cancellationToken)
         {
             IRepository<Question> repository = unitOfWork.GetRepository<Question>();
