@@ -7,13 +7,9 @@ namespace Surveys.Infrastructure;
 /// <summary>
 ///     Application store for user
 /// </summary>
-public class ApplicationUserStore : UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, Guid>
+public class ApplicationUserStore(ApplicationDbContext context, IdentityErrorDescriber describer) 
+    : UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, Guid>(context, describer)
 {
-    public ApplicationUserStore(ApplicationDbContext context, IdentityErrorDescriber describer)
-        : base(context, describer)
-    {
-    }
-
     /// <summary>
     ///     Finds and returns a user, if any, who has the specified <paramref name="userId" />.
     /// </summary>
