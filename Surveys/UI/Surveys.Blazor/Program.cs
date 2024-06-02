@@ -1,5 +1,6 @@
 ﻿using Blazorise;
 using Blazorise.FluentValidation;
+using Blazorise.Icons.FontAwesome;
 using Blazorise.Icons.Material;
 using Blazorise.Material;
 using FluentValidation;
@@ -67,5 +68,6 @@ void AddBlazorise(IServiceCollection services)
 
     services
         .AddMaterialProviders()
-        .AddMaterialIcons();
+        .AddMaterialIcons()
+        .AddFontAwesomeIcons();
 }
