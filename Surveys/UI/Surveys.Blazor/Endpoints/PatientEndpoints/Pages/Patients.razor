@@ -1,6 +1,7 @@
 ﻿@page "/patients"
 @using Surveys.Blazor.Domain
 @using Surveys.Blazor.Endpoints.PatientEndpoints.ViewModels
+@using Surveys.Blazor.Endpoints.SurveyEndpoints.Components
 @attribute [Authorize(Roles = $"{AppData.SystemAdministratorRoleName}, {AppData.DoctorRoleName}, {AppData.NurseRoleName}")]
 
 @*<Alert Color="Color.Warning" @ref="_alert">
