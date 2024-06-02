@@ -5,24 +5,26 @@ namespace Surveys.Blazor.Components.TodoApp;
 
 public abstract class BaseTodoItems : ComponentBase
 {
-    protected Validations? validations;
-
-    protected string? description;
-
     protected Filter filter = Filter.All;
 
     protected List<Todo> todos = new()
     {
-        new() { Description = "Buy milk" },
-        new() { Description = "Call John regarding the meeting" },
-        new() { Description = "Walk a dog" },
+        new Todo
+            { Description = "Buy milk" },
+        new Todo
+            { Description = "Call John regarding the meeting" },
+        new Todo
+            { Description = "Walk a dog" }
     };
+
+    protected string? description;
+    protected Validations? validations;
 
     protected IEnumerable<Todo> Todos
     {
         get
         {
-            var query = from t in todos select t;
+            IEnumerable<Todo> query = from t in todos select t;
 
             if (filter == Filter.Active)
                 query = from q in query where !q.Completed select q;
@@ -48,7 +50,9 @@ public abstract class BaseTodoItems : ComponentBase
     {
         if (await validations!.ValidateAll())
         {
-            todos.Add(new() { Description = description });
+            todos.Add(new Todo
+                { Description = description });
+
             description = null;
 
             await validations.ClearAll();
@@ -61,8 +65,5 @@ public abstract class BaseTodoItems : ComponentBase
         filter = Filter.All;
     }
 
-    protected Task OnTodoStatusChanged(bool isChecked)
-    {
-        return InvokeAsync(StateHasChanged);
-    }
+    protected Task OnTodoStatusChanged(bool isChecked) => InvokeAsync(StateHasChanged);
 }

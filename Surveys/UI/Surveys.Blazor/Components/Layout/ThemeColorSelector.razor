@@ -1,12 +1,12 @@
 <div>
-    @foreach (var color in ThemeColors.Items.Values)
+    @foreach (ThemeColor? color in ThemeColors.Items.Values)
     {
         <div @key="color.Key">
-            @foreach (var shade in color.Shades.Values)
+            @foreach (ThemeColorShade? shade in color.Shades.Values)
             {
-                var temp = shade.Value;
+                string? temp = shade.Value;
 
-                <div @key="shade.Key" class="demo-theme-color-item" style="background: @temp" @onclick="@(() => OnThemeColorSelect(temp))"></div>
+                <div class="demo-theme-color-item" @key="shade.Key" @onclick="@(() => OnThemeColorSelect(temp))" style="background: @temp"></div>
             }
         </div>
     }

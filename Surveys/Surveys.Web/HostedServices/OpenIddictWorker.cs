@@ -25,13 +25,12 @@ public sealed class OpenIddictWorker(IServiceProvider serviceProvider) : IHosted
                 {
                     new Uri("https://localhost:5001/authentication/logout-callback"),
                     new Uri("https://localhost:5001/logout-oidc"),
-                    new Uri("https://localhost:5001/signout-callback-oidc"),
-                    
+                    new Uri("https://localhost:5001/signout-callback-oidc")
                 },
                 RedirectUris =
                 {
                     new Uri("https://localhost:5001/authentication/login-callback"),
-                    new Uri("https://localhost:5001/signin-oidc"),
+                    new Uri("https://localhost:5001/signin-oidc")
                 },
                 Permissions =
                 {

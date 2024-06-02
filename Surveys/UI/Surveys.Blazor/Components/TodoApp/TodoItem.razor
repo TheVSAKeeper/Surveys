@@ -3,7 +3,7 @@
     <ListGroupItem>
         <Field Horizontal Padding="Padding.IsAuto.OnAll">
             <FieldBody ColumnSize="ColumnSize.Is1">
-                <Check TValue="bool" Checked="@Todo.Completed" CheckedChanged="@OnCheckedChanged"></Check>
+                <Check Checked="@Todo.Completed" CheckedChanged="@OnCheckedChanged" TValue="bool"></Check>
             </FieldBody>
             <FieldBody ColumnSize="ColumnSize.Is11">
                 @Todo.Description

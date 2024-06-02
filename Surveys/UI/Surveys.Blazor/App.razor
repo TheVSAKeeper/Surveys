@@ -2,7 +2,7 @@
     <Blazorise.ThemeProvider Theme="@_theme">
         <Router AppAssembly="@typeof(App).Assembly">
             <Found Context="routeData">
-                <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+                <AuthorizeRouteView DefaultLayout="@typeof(MainLayout)" RouteData="@routeData">
                     <NotAuthorized>
                         @if (context.User.Identity?.IsAuthenticated == false)
                         {

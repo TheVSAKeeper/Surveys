@@ -6,18 +6,17 @@
 @inject AuthorizedHttpClient AuthorizedHttpClient
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-
-<Div Class="d-flex flex-fill align-items-center justify-content-center">
+<Div Class="align-items-center d-flex flex-fill justify-content-center">
     <AuthorizeView>
         <Authorized>
-            <Div Class="d-flex align-items-center gap-3">
+            <Div Class="align-items-center d-flex gap-3">
                 <Text TextSize="TextSize.Heading4">Hello, @context.User.Identity?.Name!</Text>
-                <Button Color="Color.Primary" Clicked="BeginLogOut">Log out</Button>
-                <Button Color="Color.Info" Clicked="GetRoles">Get User Roles</Button>
+                <Button Clicked="BeginLogOut" Color="Color.Primary">Log out</Button>
+                <Button Clicked="GetRoles" Color="Color.Info">Get User Roles</Button>
             </Div>
         </Authorized>
         <NotAuthorized>
-            <Button Color="Color.Primary" Clicked="BeginLogIn">Log in</Button>
+            <Button Clicked="BeginLogIn" Color="Color.Primary">Log in</Button>
         </NotAuthorized>
     </AuthorizeView>
 </Div>

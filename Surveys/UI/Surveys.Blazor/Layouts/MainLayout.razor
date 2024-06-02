@@ -1,7 +1,6 @@
 ﻿@using Surveys.Blazor.Components.Layout
 @inherits LayoutComponentBase
 
-
 @switch (layoutType)
 {
     case "fixed-header":
@@ -13,47 +12,47 @@
             </LayoutSider>
             <Layout>
                 <LayoutHeader Fixed>
-                    <TopMenu ThemeEnabledChanged="@OnThemeEnabledChanged"
-                             ThemeGradientChanged="@OnThemeGradientChanged"
-                             ThemeRoundedChanged="@OnThemeRoundedChanged"
+                    <TopMenu @bind-LayoutType="@layoutType"
                              ThemeColorChanged="@OnThemeColorChanged"
-                             @bind-LayoutType="@layoutType"/>
+                             ThemeEnabledChanged="@OnThemeEnabledChanged"
+                             ThemeGradientChanged="@OnThemeGradientChanged"
+                             ThemeRoundedChanged="@OnThemeRoundedChanged"/>
                 </LayoutHeader>
                 <LayoutContent Padding="Padding.Is4.OnX.Is4.FromTop">
                     @Body
-    </LayoutContent>
-    </Layout>
-    </Layout>
+                </LayoutContent>
+            </Layout>
+        </Layout>
 
         break;
 
     case "fixed-header-footer-only":
         <Layout>
             <LayoutHeader Fixed>
-                <TopMenu ThemeEnabledChanged="@OnThemeEnabledChanged"
-                         ThemeGradientChanged="@OnThemeGradientChanged"
-                         ThemeRoundedChanged="@OnThemeRoundedChanged"
+                <TopMenu @bind-LayoutType="@layoutType"
                          ThemeColorChanged="@OnThemeColorChanged"
-                         @bind-LayoutType="@layoutType"/>
+                         ThemeEnabledChanged="@OnThemeEnabledChanged"
+                         ThemeGradientChanged="@OnThemeGradientChanged"
+                         ThemeRoundedChanged="@OnThemeRoundedChanged"/>
             </LayoutHeader>
             <LayoutContent Padding="Padding.Is4.OnX.Is4.FromTop">
                 @Body
-    </LayoutContent>
-    <LayoutFooter Fixed>
-        <FooterMenu></FooterMenu>
-    </LayoutFooter>
-    </Layout>
+            </LayoutContent>
+            <LayoutFooter Fixed>
+                <FooterMenu></FooterMenu>
+            </LayoutFooter>
+        </Layout>
 
         break;
 
     case "sider-with-header-on-top":
         <Layout>
             <LayoutHeader Fixed>
-                <TopMenu ThemeEnabledChanged="@OnThemeEnabledChanged"
-                         ThemeGradientChanged="@OnThemeGradientChanged"
-                         ThemeRoundedChanged="@OnThemeRoundedChanged"
+                <TopMenu @bind-LayoutType="@layoutType"
                          ThemeColorChanged="@OnThemeColorChanged"
-                         @bind-LayoutType="@layoutType"/>
+                         ThemeEnabledChanged="@OnThemeEnabledChanged"
+                         ThemeGradientChanged="@OnThemeGradientChanged"
+                         ThemeRoundedChanged="@OnThemeRoundedChanged"/>
             </LayoutHeader>
             <Layout Sider>
                 <LayoutSider>
@@ -64,10 +63,10 @@
                 <Layout>
                     <LayoutContent Padding="Padding.Is4.OnX.Is4.FromTop">
                         @Body
-    </LayoutContent>
-    </Layout>
-    </Layout>
-    </Layout>
+                    </LayoutContent>
+                </Layout>
+            </Layout>
+        </Layout>
 
         break;
 }

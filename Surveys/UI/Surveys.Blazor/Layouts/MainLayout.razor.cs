@@ -6,11 +6,10 @@ namespace Surveys.Blazor.Layouts;
 
 public partial class MainLayout
 {
+    protected string layoutType = "fixed-header";
     [Inject] protected ITextLocalizerService? LocalizationService { get; set; }
 
     [CascadingParameter] protected Theme? Theme { get; set; }
-
-    protected string layoutType = "fixed-header";
 
     protected override async Task OnInitializedAsync()
     {
@@ -26,7 +25,7 @@ public partial class MainLayout
         return Task.CompletedTask;
     }
 
-    Task OnThemeEnabledChanged(bool value)
+    private Task OnThemeEnabledChanged(bool value)
     {
         if (Theme is null)
             return Task.CompletedTask;
@@ -36,7 +35,7 @@ public partial class MainLayout
         return InvokeAsync(Theme.ThemeHasChanged);
     }
 
-    Task OnThemeGradientChanged(bool value)
+    private Task OnThemeGradientChanged(bool value)
     {
         if (Theme is null)
             return Task.CompletedTask;
@@ -46,7 +45,7 @@ public partial class MainLayout
         return InvokeAsync(Theme.ThemeHasChanged);
     }
 
-    Task OnThemeRoundedChanged(bool value)
+    private Task OnThemeRoundedChanged(bool value)
     {
         if (Theme is null)
             return Task.CompletedTask;
@@ -56,27 +55,27 @@ public partial class MainLayout
         return InvokeAsync(Theme.ThemeHasChanged);
     }
 
-    Task OnThemeColorChanged(string value)
+    private Task OnThemeColorChanged(string value)
     {
         if (Theme is null)
             return Task.CompletedTask;
 
-        Theme.ColorOptions ??= new();
+        Theme.ColorOptions ??= new ThemeColorOptions();
 
-        Theme.BackgroundOptions ??= new();
+        Theme.BackgroundOptions ??= new ThemeBackgroundOptions();
 
-        Theme.TextColorOptions ??= new();
+        Theme.TextColorOptions ??= new ThemeTextColorOptions();
 
         Theme.ColorOptions.Primary = value;
         Theme.BackgroundOptions.Primary = value;
         Theme.TextColorOptions.Primary = value;
 
-        Theme.InputOptions ??= new();
+        Theme.InputOptions ??= new ThemeInputOptions();
 
         Theme.InputOptions.CheckColor = value;
         Theme.InputOptions.SliderColor = value;
 
-        Theme.SpinKitOptions ??= new();
+        Theme.SpinKitOptions ??= new ThemeSpinKitOptions();
 
         Theme.SpinKitOptions.Color = value;
 

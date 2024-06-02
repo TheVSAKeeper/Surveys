@@ -2,25 +2,25 @@
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 @model Surveys.Web.Pages.Connect.LoginModel
 
-<div class="w3-content w3-padding-16 m6" style="max-width: 400px;">
+<div class="m6 w3-content w3-padding-16" style="max-width: 400px;">
     @if (Model.Input != null)
     {
-        <form method="post" >
-            <input type="hidden" asp-for="@Model.Input.ReturnUrl"/>
+        <form method="post">
+            <input asp-for="@Model.Input.ReturnUrl" type="hidden"/>
 
             <div asp-validation-summary="All" class="w3-text-red"></div>
 
             <div class="w3-section">
-                <label class="w3-label" style="font-weight: bold;" asp-for="@Model.Input.UserName"></label>
-                <input type="email" class="w3-input w3-border w3-margin-bottom" asp-for="@Model.Input.UserName">
+                <label asp-for="@Model.Input.UserName" class="w3-label" style="font-weight: bold;"></label>
+                <input asp-for="@Model.Input.UserName" class="w3-border w3-input w3-margin-bottom" type="email">
             </div>
 
             <div class="w3-section">
-                <label class="w3-label" style="font-weight: bold;" asp-for="@Model.Input.Password"></label>
-                <input class="w3-input w3-border" type="password" asp-for="@Model.Input.Password"/>
+                <label asp-for="@Model.Input.Password" class="w3-label" style="font-weight: bold;"></label>
+                <input asp-for="@Model.Input.Password" class="w3-border w3-input" type="password"/>
             </div>
             <div class="w3-section">
-                <button class="w3-button w3-block w3-blue w3-section w3-padding" type="submit">Вход</button>
+                <button class="w3-block w3-blue w3-button w3-padding w3-section" type="submit">Вход</button>
             </div>
         </form>
     }
