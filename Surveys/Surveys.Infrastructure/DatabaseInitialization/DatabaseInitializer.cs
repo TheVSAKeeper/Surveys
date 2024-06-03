@@ -420,9 +420,7 @@ public static class DatabaseInitializer
                             Id = Guid.NewGuid(),
                             SortIndex = index,
                             QuestionId = question.Id,
-                            Value = option.Trim(['-', '?', ',', '.', ';', '[', ']'])
-                                .Trim()
-                                .ToLower()
+                            Value = option.Trim(['-', '?', ',', '.', ';', '[', ']']).Trim().ToLower()
                         }));
 
                     question.Options = options;

@@ -10,6 +10,7 @@ public class AnamnesisTemplateMapperConfiguration : Profile
     {
         CreateMap<AnamnesisTemplate, AnamnesisTemplateViewModel>()
             .ForMember(dest => dest.Questions, opt => opt.MapFrom(src => src.Questions))
+            .ForMember(survey => survey.IsSelected, expression => expression.Ignore())
             ;
 
         CreateMap<AnamnesisTemplateCreateViewModel, AnamnesisTemplate>()

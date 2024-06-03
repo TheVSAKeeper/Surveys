@@ -6,6 +6,6 @@ public class AnamnesisTemplateCreateViewModel
 {
     public string Title { get; set; } = null!;
     public string? Description { get; set; }
-    public List<QuestionCreateViewModel> Questions { get; set; } = new();
+    public required List<QuestionCreateViewModel> Questions { get; set; }
     public int SortIndex { get; set; }
 }
