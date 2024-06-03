@@ -1,0 +1,85 @@
+@using Surveys.Blazor.Endpoints.QuestionEndpoints.ViewModels
+<Card>
+    <CardHeader>
+        <CardTitle>@Question.Text</CardTitle>
+    </CardHeader>
+    <CardBody>
+        <Field>
+            <FieldLabel>Ответ</FieldLabel>
+
+            @switch (Question.Type)
+            {
+                case QuestionType.SingleChoice:
+                case QuestionType.MultipleChoice:
+                    <Select @bind-SelectedValue="@SelectedOptionId" TValue="Guid">
+                        @foreach (QuestionOptionViewModel option in Question.Options ?? [])
+                        {
+                            <SelectItem Value="@option.Id">@option.Value</SelectItem>
+                        }
+                    </Select>
+
+                    break;
+
+                case QuestionType.Text:
+                    <TextEdit @bind-Text="@AnswerText"/>
+
+                    break;
+
+                case QuestionType.Number:
+                    <NumericEdit @bind-Value="@AnswerNumber" TValue="decimal"/>
+
+                    break;
+
+                case QuestionType.Date:
+                    <DateEdit @bind-Date="@AnswerDate" TValue="DateTime"/>
+
+                    break;
+
+                case QuestionType.None:
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        </Field>
+
+    </CardBody>
+</Card>
+
+@code {
+
+    [Parameter]
+    public required QuestionViewModel Question { get; set; }
+
+    private Guid SelectedOptionId { get; set; }
+    private string AnswerText { get; set; } = "";
+    private decimal AnswerNumber { get; set; }
+    private DateTime AnswerDate { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        /*if (Question.Answers?.Count > 0)
+        {
+            switch (Question.Type)
+            {
+                case QuestionType.SingleChoice:
+                case QuestionType.MultipleChoice:
+                    SelectedOptionId = Question.Answers.First().Id;
+                    break;
+
+                case QuestionType.Text:
+                    AnswerText = Question.Answers.First().Value;
+                    break;
+
+                case QuestionType.Number:
+                    AnswerNumber = decimal.Parse(Question.Answers.First().Value);
+                    break;
+
+                case QuestionType.Date:
+                    AnswerDate = DateTime.Parse(Question.Answers.First().Value);
+                    break;
+            }
+        }*/
+    }
+
+}

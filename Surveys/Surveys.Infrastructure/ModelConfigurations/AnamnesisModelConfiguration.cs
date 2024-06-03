@@ -14,6 +14,7 @@ public class AnamnesisModelConfiguration : SortableAuditableModelConfigurationBa
 
         builder.Property(anamnesis => anamnesis.IsComplete);
 
+        builder.Navigation(survey => survey.AnamnesisTemplate).AutoInclude();
         builder.Navigation(survey => survey.Responses).AutoInclude();
     }
 }
