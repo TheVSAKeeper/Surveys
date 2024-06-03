@@ -1,0 +1,43 @@
+@using Surveys.Blazor.Endpoints.SurveyEndpoints.ViewModels
+@if (_surveys != null)
+{
+    foreach (SurveyViewModel survey in _surveys)
+    {
+        <SurveyInfoComponent AddEdit="true" CompactView="true" ViewModel="survey"></SurveyInfoComponent>
+    }
+}
+<div class="align-items-center d-flex justify-content-sm-start">
+    <Pagination>
+        <PaginationItem Disabled="@IsPageNavigationDisabled(PREVIOUS)" @onclick="Previous">
+            <PaginationLink>
+                <span aria-hidden="true">«</span>
+            </PaginationLink>
+        </PaginationItem>
+        @{
+            for (int i = 1; i <= _totalPages; i++)
+            {
+                int pageNumber = i;
+
+                <PaginationItem Active="@IsActive(pageNumber)" @key="pageNumber">
+                    <PaginationLink Clicked="SetActive" Page="@pageNumber.ToString()">
+                        @pageNumber
+                    </PaginationLink>
+                </PaginationItem>
+            }
+        }
+        <PaginationItem Disabled="@IsPageNavigationDisabled(NEXT)" @onclick="Next">
+            <PaginationLink>
+                <span aria-hidden="true">»</span>
+            </PaginationLink>
+        </PaginationItem>
+    </Pagination>
+
+    <div class="form-group mb-0 mr-3">
+        <Select SelectedValueChanged="OnPageSizeChanged" TValue="int">
+            @foreach (int size in _pageSizes)
+            {
+                <SelectItem Value="@size">@size</SelectItem>
+            }
+        </Select>
+    </div>
+</div>

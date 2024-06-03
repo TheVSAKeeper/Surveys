@@ -1,3 +1,4 @@
+@using Surveys.Blazor.Endpoints.PatientEndpoints
 <Modal @ref="_modal">
     <ModalContent Centered>
         <ModalHeader>
@@ -9,20 +10,7 @@
         <ModalBody>
             @if (_createViewModel is { Patient: not null })
             {
-                <Div class="mb-3">
-                    <Heading Size="HeadingSize.Is5">
-                        Информация о пациенте
-                    </Heading>
-                    <Paragraph>
-                        Имя: @_createViewModel.Patient.FirstName @_createViewModel.Patient.LastName @_createViewModel.Patient.Patronymic
-                    </Paragraph>
-                    <Paragraph>
-                        Дата рождения: @_createViewModel.Patient.BirthDate.ToString("d")
-                    </Paragraph>
-                    <Paragraph>
-                        Пол: @_createViewModel.Patient.Gender.ToString()
-                    </Paragraph>
-                </Div>
+                <PatientInfoComponent ViewModel="@_createViewModel.Patient"/>
 
                 <EditForm Model="@_createViewModel" OnValidSubmit="SubmitComplaint">
                     <Validations HandlerType="typeof(FluentValidationHandler)" Mode="ValidationMode.Auto" Model="@_createViewModel" @ref="@_fluentValidations">

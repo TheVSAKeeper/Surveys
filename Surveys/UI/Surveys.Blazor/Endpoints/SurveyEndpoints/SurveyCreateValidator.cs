@@ -17,3 +17,15 @@ public class SurveyCreateValidator : AbstractValidator<SurveyCreateViewModel>
             .NotNull();
     }
 }
+
+public class SurveyUpdateValidator : AbstractValidator<SurveyUpdateViewModel>
+{
+    public SurveyUpdateValidator()
+    {
+        RuleFor(viewModel => viewModel.Complaint)
+            .NotEmpty()
+            .MinimumLength(8)
+            .MaximumLength(1024)
+            .WithName("Жалоба");
+    }
+}

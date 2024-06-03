@@ -1,0 +1,161 @@
+@using Surveys.Blazor.Endpoints.PatientEndpoints
+@using Surveys.Blazor.Endpoints.SurveyEndpoints.ViewModels
+@using Surveys.Blazor.Endpoints.PatientEndpoints.Components
+<Card>
+    <CardHeader>
+        <CardTitle>Информация об опросе</CardTitle>
+    </CardHeader>
+    <CardBody>
+        @if (CompactView)
+        {
+            <Row>
+                <Column ColumnSize="ColumnSize.Is6">
+                    <Field>
+                        <FieldLabel>Complaint</FieldLabel>
+                        <TextEdit ReadOnly="true" Text="@ViewModel.Complaint"/>
+                    </Field>
+                </Column>
+                <Column ColumnSize="ColumnSize.Is6">
+                    <Field>
+                        <FieldLabel>Status</FieldLabel>
+                        <TextEdit ReadOnly="true" Text="@ViewModel.Status.ToString()"/>
+                    </Field>
+                </Column>
+            </Row>
+
+            <Row>
+                <Column ColumnSize="ColumnSize.Is6">
+                    <Field>
+                        <FieldLabel>Created At</FieldLabel>
+                        <TextEdit ReadOnly="true" Text="@ViewModel.CreatedAt.ToString("G")"/>
+                    </Field>
+                </Column>
+                <Column ColumnSize="ColumnSize.Is6">
+                    <Field>
+                        <FieldLabel>Created By</FieldLabel>
+                        <TextEdit ReadOnly="true" Text="@ViewModel.CreatedBy"/>
+                    </Field>
+                </Column>
+            </Row>
+        }
+        else
+        {
+            <Row>
+                <Column ColumnSize="ColumnSize.Is6">
+                    <Field>
+                        <FieldLabel>Complaint</FieldLabel>
+                        <TextEdit ReadOnly="true" Text="@ViewModel.Complaint"/>
+                    </Field>
+                </Column>
+                <Column ColumnSize="ColumnSize.Is6">
+                    <Field>
+                        <FieldLabel>Status</FieldLabel>
+                        <TextEdit ReadOnly="true" Text="@ViewModel.Status.ToString()"/>
+                    </Field>
+                </Column>
+            </Row>
+
+            <Row>
+                <Column ColumnSize="ColumnSize.Is12">
+                    <Field>
+                        <FieldLabel>Patient</FieldLabel>
+                        @if (ViewModel.Patient != null)
+                        {
+                            <PatientInfoComponent ViewModel="@ViewModel.Patient"/>
+                        }
+                        else
+                        {
+                            <TextEdit ReadOnly="true" Text="No patient information available"/>
+                        }
+                    </Field>
+                </Column>
+            </Row>
+
+            <Row>
+                <Column ColumnSize="ColumnSize.Is6">
+                    <Field>
+                        <FieldLabel>Created At</FieldLabel>
+                        <TextEdit ReadOnly="true" Text="@ViewModel.CreatedAt.ToString("G")"/>
+                    </Field>
+                </Column>
+                <Column ColumnSize="ColumnSize.Is6">
+                    <Field>
+                        <FieldLabel>Created By</FieldLabel>
+                        <TextEdit ReadOnly="true" Text="@ViewModel.CreatedBy"/>
+                    </Field>
+                </Column>
+            </Row>
+
+            <Row>
+                <Column ColumnSize="ColumnSize.Is6">
+                    <Field>
+                        <FieldLabel>Updated At</FieldLabel>
+                        <TextEdit ReadOnly="true" Text="@(ViewModel.UpdatedAt?.ToString("G") ?? "N/A")"/>
+                    </Field>
+                </Column>
+                <Column ColumnSize="ColumnSize.Is6">
+                    <Field>
+                        <FieldLabel>Updated By</FieldLabel>
+                        <TextEdit ReadOnly="true" Text="@(ViewModel.UpdatedBy ?? "N/A")"/>
+                    </Field>
+                </Column>
+            </Row>
+
+            <Row>
+                <Column ColumnSize="ColumnSize.Is12">
+                    <Field>
+                        <FieldLabel>Anamneses</FieldLabel>
+                        @if (ViewModel.Anamneses != null && ViewModel.Anamneses.Any())
+                        {
+                            <Table RowTemplate="@RenderAnamnesisRow" TItem="AnamnesisViewModel">
+                                <TableHeader>
+                                    <TableHeaderCell>Created At</TableHeaderCell>
+                                    <TableHeaderCell>Created By</TableHeaderCell>
+                                    <TableHeaderCell>Description</TableHeaderCell>
+                                </TableHeader>
+                            </Table>
+                        }
+                        else
+                        {
+                            <TextEdit ReadOnly="true" Text="No anamneses available"/>
+                        }
+                    </Field>
+                </Column>
+            </Row>
+        }
+        @if (AddEdit)
+        {
+            <CardFooter>
+                <Button Clicked="NavigateToEdit" Color="Color.Primary">Редактировать</Button>
+            </CardFooter>
+        }
+    </CardBody>
+</Card>
+
+@code {
+
+    [Parameter]
+    public required SurveyViewModel ViewModel { get; set; }
+
+    [Parameter]
+    public bool CompactView { get; set; }
+
+    [Parameter]
+    public bool AddEdit { get; set; }
+
+    [Inject]
+    private NavigationManager Navigation { get; set; } = null!;
+
+    private void NavigateToEdit()
+    {
+        Navigation.NavigateTo($"/survey-update/{ViewModel.Id}");
+    }
+
+    private readonly RenderFragment<AnamnesisViewModel> RenderAnamnesisRow = item =>
+        @<TableRow>
+            <TableRowCell>@item.CreatedAt.ToString("G")</TableRowCell>
+            <TableRowCell>@item.CreatedBy</TableRowCell>
+            <TableRowCell>@item.AnamnesisTemplate?.Title</TableRowCell>
+    </TableRow>;
+
+}

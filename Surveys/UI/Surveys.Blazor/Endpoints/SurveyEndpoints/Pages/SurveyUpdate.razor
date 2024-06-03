@@ -1,0 +1,93 @@
+@page "/survey-update/{id:guid}"
+@using Surveys.Blazor.Endpoints.PatientEndpoints.Components
+@using Surveys.Blazor.Endpoints.SurveyEndpoints.ViewModels
+
+@if (ViewModel is not null)
+{
+    <Card>
+        <CardHeader>
+            <CardTitle>Информация об опросе</CardTitle>
+        </CardHeader>
+        <CardBody>
+            <Row>
+                <Column ColumnSize="ColumnSize.Is12">
+                    <EditForm Model="@ViewModel">
+                        <Validations HandlerType="typeof(FluentValidationHandler)" Mode="ValidationMode.Auto" Model="@ViewModel" @ref="@_fluentValidations">
+                            <Validation>
+                                <Field>
+                                    <FieldLabel>
+                                        <Icon Name="IconName.Edit"/> Жалоба
+                                    </FieldLabel>
+                                    <TextEdit @bind-Text="@ViewModel.Complaint" Placeholder="Введите жалобу">
+                                        <Feedback>
+                                            <ValidationError/>
+                                        </Feedback>
+                                    </TextEdit>
+                                </Field>
+                            </Validation>
+                        </Validations>
+
+                        <Field>
+                            <FieldLabel>
+                                Статус
+                            </FieldLabel>
+                            <Select @bind-SelectedValue="@ViewModel.Status">
+                                @foreach (string value in Enum.GetNames(typeof(SurveyStatus)))
+                                {
+                                    <SelectItem Value="@value">@value</SelectItem>
+                                }
+                            </Select>
+                        </Field>
+                    </EditForm>
+                </Column>
+            </Row>
+
+            <Row>
+                <Column ColumnSize="ColumnSize.Is12">
+                    <Field>
+                        <FieldLabel>Пациент</FieldLabel>
+                        <PatientInfoComponent ViewModel="@ViewModel.Patient"/>
+                    </Field>
+                </Column>
+            </Row>
+
+            <Row>
+                <Column ColumnSize="ColumnSize.Is12">
+                    <Field>
+                        <FieldLabel>Анамнезы</FieldLabel>
+                        @if (ViewModel.Anamneses != null && ViewModel.Anamneses.Any())
+                        {
+                            <Table RowTemplate="@_renderAnamnesisRow" TItem="AnamnesisViewModel">
+                                <TableHeader>
+                                    <TableHeaderCell>Created At</TableHeaderCell>
+                                    <TableHeaderCell>Created By</TableHeaderCell>
+                                    <TableHeaderCell>Description</TableHeaderCell>
+                                </TableHeader>
+                            </Table>
+                        }
+                        else
+                        {
+                            <TextEdit ReadOnly="true" Text="No anamneses available"/>
+                        }
+                    </Field>
+                </Column>
+            </Row>
+
+        </CardBody>
+    </Card>
+}
+else
+{
+    <Paragraph>Загрузка...</Paragraph>
+}
+
+@code {
+
+    private readonly RenderFragment<AnamnesisViewModel> _renderAnamnesisRow = item =>
+        @<TableRow>
+            <TableRowCell>@item.CreatedAt.ToString("G")</TableRowCell>
+            <TableRowCell>@item.CreatedBy</TableRowCell>
+            <TableRowCell>@item.AnamnesisTemplate?.Title</TableRowCell>
+    </TableRow>;
+
+}
