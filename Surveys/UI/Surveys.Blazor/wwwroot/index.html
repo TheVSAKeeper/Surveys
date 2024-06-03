@@ -31,20 +31,49 @@
 
 <body>
 <div id="app">
-    <div class="loading">Loading...</div>
+    <div class="loading">Загрузка...</div>
     <link href="data:text/css,.loading%7Bfont-family%3A'Franklin%20Gothic%20Medium'%2C'Arial%20Narrow'%2CArial%2Csans-serif%3Bcolor%3A%2388a%3Bfont-size%3A18px%3Btext-align%3Acenter%3Bwidth%3A150px%3Bheight%3A150px%3Bposition%3Afixed%3Btop%3A0%3Bbottom%3A0%3Bleft%3A0%3Bright%3A0%3Bmargin%3Aauto%7D.loading%3A%3Aafter%7Bcontent%3A''%3Bborder%3Asolid%2010px%3Bborder-color%3A%2388a%20%23eee%20%23eee%3Bborder-radius%3A60px%3Bposition%3Aabsolute%3Bwidth%3A60px%3Bheight%3A60px%3Btop%3A0%3Bbottom%3A0%3Bleft%3A0%3Bright%3A0%3Bmargin%3Aauto%3Banimation%3Arotation%201.5s%20linear%200s%20infinite%7D%40keyframes%20rotation%7B0%25%7Btransform%3Arotate(45deg)%7D100%25%7Btransform%3Arotate(405deg)%7D%7D"
           rel="stylesheet"/>
 </div>
 
 <div id="blazor-error-ui">
-    An unhandled error has occurred.
-    <a class="reload" href="">Reload</a>
+    Произошла необработанная ошибка.
+    <a class="reload" href="">Перезагрузить</a>
     <a class="dismiss">🗙</a>
 </div>
 
-<script src="js/material/material.min.js"></script>
-<script src="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService.js"></script>
+<script src="_content/Blazorise/breakpoint.js?v=1.5.3.0" type="module"></script>
+<script src="_content/Blazorise/button.js?v=1.5.3.0" type="module"></script>
+<script src="_content/Blazorise/closable.js?v=1.5.3.0" type="module"></script>
+<script src="_content/Blazorise/colorPicker.js?v=1.5.3.0" type="module"></script>
+<script src="_content/Blazorise/datePicker.js?v=1.5.3.0" type="module"></script>
+<script src="_content/Blazorise/dragDrop.js?v=1.5.3.0" type="module"></script>
+<script src="_content/Blazorise/dropdown.js?v=1.5.3.0" type="module"></script>
+<script src="_content/Blazorise/fileEdit.js?v=1.5.3.0" type="module"></script>
+<script src="_content/Blazorise/filePicker.js?v=1.5.3.0" type="module"></script>
+<script src="_content/Blazorise/inputMask.js?v=1.5.3.0" type="module"></script>
+<script src="_content/Blazorise/io.js?v=1.5.3.0" type="module"></script>
+<script src="_content/Blazorise/memoEdit.js?v=1.5.3.0" type="module"></script>
+<script src="_content/Blazorise/numericPicker.js?v=1.5.3.0" type="module"></script>
+<script src="_content/Blazorise/observer.js?v=1.5.3.0" type="module"></script>
+<script src="_content/Blazorise/table.js?v=1.5.3.0" type="module"></script>
+<script src="_content/Blazorise/textEdit.js?v=1.5.3.0" type="module"></script>
+<script src="_content/Blazorise/theme.js?v=1.5.3.0" type="module"></script>
+<script src="_content/Blazorise/timePicker.js?v=1.5.3.0" type="module"></script>
+<script src="_content/Blazorise/tooltip.js?v=1.5.3.0" type="module"></script>
+<script src="_content/Blazorise/utilities.js?v=1.5.3.0" type="module"></script>
+<script src="_content/Blazorise.Material/modal.js?v=1.5.3.0" type="module"></script>
+<script src="_content/Blazorise.Material/tooltip.js?v=1.5.3.0" type="module"></script>
+<script src="_content/Blazorise.DataGrid/datagrid.js?v=1.5.3.0" type="module"></script>
+<script src="_content/Blazorise.Markdown/markdown.js?v=1.5.3.0" type="module"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.0.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="js/material.min.js"></script>
+<script src="_content/Blazorise.Material/blazorise.material.js"></script>
 <script src="_framework/blazor.webassembly.js"></script>
+<script src="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication/AuthenticationService.js"></script>
 <script>navigator.serviceWorker.register('service-worker.js');</script>
 </body>
 

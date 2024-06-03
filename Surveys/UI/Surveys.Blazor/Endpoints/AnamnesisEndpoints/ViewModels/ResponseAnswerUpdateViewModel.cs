@@ -1,4 +1,4 @@
-namespace Surveys.Blazor.Endpoints.SurveyEndpoints.ViewModels;
+namespace Surveys.Blazor.Endpoints.AnamnesisEndpoints.ViewModels;
 
 public class ResponseAnswerUpdateViewModel
 {

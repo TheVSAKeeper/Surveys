@@ -1,4 +1,6 @@
-namespace Surveys.Blazor.Endpoints.SurveyEndpoints.ViewModels;
+using Surveys.Blazor.Endpoints.AnamnesisTemplateEndpoints.ViewModels;
+
+namespace Surveys.Blazor.Endpoints.AnamnesisEndpoints.ViewModels;
 
 public class AnamnesisViewModel
 {

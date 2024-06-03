@@ -1,4 +1,7 @@
 @page "/survey-update/{id:guid}"
+@using Surveys.Blazor.Endpoints.AnamnesisEndpoints.Components
+@using Surveys.Blazor.Endpoints.AnamnesisEndpoints.ViewModels
+@using Surveys.Blazor.Endpoints.AnamnesisTemplateEndpoints.Components
 @using Surveys.Blazor.Endpoints.PatientEndpoints.Components
 @using Surveys.Blazor.Endpoints.SurveyEndpoints.ViewModels
 
@@ -55,20 +58,23 @@
                 <Column ColumnSize="ColumnSize.Is12">
                     <Field>
                         <FieldLabel>Анамнезы</FieldLabel>
+                        <AnamnesisTemplateModal OnTemplatesSelected="HandleTemplatesSelected" @ref="_anamnesisTemplateModal"/>
+
                         @if (ViewModel.Anamneses != null && ViewModel.Anamneses.Any())
                         {
-                            <Table RowTemplate="@_renderAnamnesisRow" TItem="AnamnesisViewModel">
-                                <TableHeader>
-                                    <TableHeaderCell>Created At</TableHeaderCell>
-                                    <TableHeaderCell>Created By</TableHeaderCell>
-                                    <TableHeaderCell>Description</TableHeaderCell>
-                                </TableHeader>
-                            </Table>
+                            foreach (AnamnesisViewModel anamnesis in ViewModel.Anamneses)
+                            {
+                                <AnamnesisCard Anamnesis="@anamnesis"/>
+                            }
                         }
                         else
                         {
                             <TextEdit ReadOnly="true" Text="No anamneses available"/>
                         }
+
+                        <Button Clicked="() => _anamnesisTemplateModal.Show()" Color="Color.Primary">
+                            <Icon Name="IconName.Add"/> Добавить
+                        </Button>
                     </Field>
                 </Column>
             </Row>
@@ -79,15 +85,4 @@
 else
 {
     <Paragraph>Загрузка...</Paragraph>
-}
-
-@code {
-
-    private readonly RenderFragment<AnamnesisViewModel> _renderAnamnesisRow = item =>
-        @<TableRow>
-            <TableRowCell>@item.CreatedAt.ToString("G")</TableRowCell>
-            <TableRowCell>@item.CreatedBy</TableRowCell>
-            <TableRowCell>@item.AnamnesisTemplate?.Title</TableRowCell>
-    </TableRow>;
-
 }

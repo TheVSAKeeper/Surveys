@@ -1,0 +1,100 @@
+@using Surveys.Blazor.Domain
+@using Surveys.Blazor.Endpoints.AnamnesisTemplateEndpoints.ViewModels
+@using Surveys.Blazor.Services
+<Modal Centered @ref="modal">
+    <ModalContent Size="ModalSize.Fullscreen">
+        <ModalHeader>
+            <ModalTitle>Select Templates</ModalTitle>
+            <CloseButton/>
+        </ModalHeader>
+        <ModalBody>
+            <Accordion>
+                @foreach (AnamnesisTemplateViewModel template in Templates)
+                {
+                    <AccordionItem>
+                        <AccordionHeader>
+                            <Check @bind-Checked="@template.IsSelected" TValue="bool"></Check>
+                            <AccordionToggle>@template.Title</AccordionToggle>
+                        </AccordionHeader>
+                        <AccordionBody>
+                            @if (template.Description is not null)
+                            {
+                                <p>@template.Description</p>
+                            }
+                            else
+                            {
+                                <p>Нет описания</p>
+                            }
+
+                            @if (template.Questions.Count != 0)
+                            {
+                                <ListView Data="template.Questions"
+                                          MaxHeight="300px"
+                                          Mode="ListGroupMode.Static"
+                                          TextField="item => item.Text"
+                                          TItem="QuestionViewModel"
+                                          ValueField="item => item.Text">
+                                </ListView>
+                            }
+                            else
+                            {
+                                <p>Нет вопросов</p>
+                            }
+
+                        </AccordionBody>
+                    </AccordionItem>
+                }
+            </Accordion>
+        </ModalBody>
+        <ModalFooter>
+            <Button Color="Color.Primary" @onclick="SaveAndClose">Save</Button>
+            <Button Color="Color.Secondary" @onclick="CloseModal">Cancel</Button>
+        </ModalFooter>
+    </ModalContent>
+</Modal>
+
+@code {
+    private Modal modal;
+
+    private List<AnamnesisTemplateViewModel> Templates { get; set; } = [];
+    private List<AnamnesisTemplateViewModel> SelectedTemplates { get; set; } = [];
+
+    [Parameter]
+    public EventCallback<List<AnamnesisTemplateViewModel>> OnTemplatesSelected { get; set; }
+
+    [Inject]
+    public IAuthorizedHttpClient Client { get; set; } = null!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Load();
+        await base.OnInitializedAsync();
+    }
+
+    private async Task Load()
+    {
+        Operation<PagedListResult<AnamnesisTemplateViewModel>>? response = await Client
+            .GetFromJsonAsync<Operation<PagedListResult<AnamnesisTemplateViewModel>>>($"anamnesis-template/paged/{0}?pageSize={999}");
+
+        if (response?.Ok ?? false)
+            Templates = [..response.Result.Items.ToList()];
+    }
+
+    public void Show()
+    {
+        modal.Show();
+    }
+
+    private void SaveAndClose()
+    {
+        SelectedTemplates = Templates.Where(t => t.IsSelected).ToList();
+        OnTemplatesSelected.InvokeAsync(SelectedTemplates);
+        CloseModal();
+    }
+
+    private void CloseModal()
+    {
+        modal.Hide();
+    }
+
+}

@@ -1,0 +1,48 @@
+@using Surveys.Blazor.Endpoints.AnamnesisEndpoints.ViewModels
+<Card>
+    <CardHeader>
+        <CardTitle>Anamnesis</CardTitle>
+    </CardHeader>
+    <CardBody>
+        <Field>
+            <FieldLabel>ID</FieldLabel>
+            <TextEdit Disabled="true" Text="@Anamnesis.Id.ToString()"/>
+        </Field>
+        <Field>
+            <FieldLabel>Survey ID</FieldLabel>
+            <TextEdit Disabled="true" Text="@Anamnesis.SurveyId.ToString()"/>
+        </Field>
+        <Field>
+            <FieldLabel>Anamnesis Template</FieldLabel>
+            <TextEdit Disabled="true" Text="@(Anamnesis.AnamnesisTemplate?.ToString() ?? "-")"/>
+        </Field>
+        <Field>
+            <FieldLabel>Is Complete</FieldLabel>
+            <Check Checked="@Anamnesis.IsComplete" Disabled="true"/>
+        </Field>
+        <Field>
+            <FieldLabel>Sort Index</FieldLabel>
+            <NumericEdit Disabled="true" TValue="int" Value="@Anamnesis.SortIndex"/>
+        </Field>
+        <Field>
+            <FieldLabel>Created At</FieldLabel>
+            <TextEdit Disabled="true" Text="@Anamnesis.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss")"/>
+        </Field>
+        <Field>
+            <FieldLabel>Created By</FieldLabel>
+            <TextEdit Disabled="true" Text="@Anamnesis.CreatedBy"/>
+        </Field>
+        <Field>
+            <FieldLabel>Updated At</FieldLabel>
+            <TextEdit Disabled="true" Text="@(Anamnesis.UpdatedAt?.ToString("yyyy-MM-dd HH:mm:ss") ?? "-")"/>
+        </Field>
+        <Field>
+            <FieldLabel>Updated By</FieldLabel>
+            <TextEdit Disabled="true" Text="@Anamnesis.UpdatedBy"/>
+        </Field>
+    </CardBody>
+</Card>
+
+@code {
+    [Parameter] public required AnamnesisViewModel Anamnesis { get; set; }
+}

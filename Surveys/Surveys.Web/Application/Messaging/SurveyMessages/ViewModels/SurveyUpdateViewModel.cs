@@ -11,5 +11,5 @@ public class SurveyUpdateViewModel
     public required PatientViewModel Patient { get; set; }
     public required SurveyStatus Status { get; set; }
 
-    public required List<AnamnesisUpdateViewModel>? Anamneses { get; set; }
+    public required List<AnamnesisViewModel> Anamneses { get; set; }
 }

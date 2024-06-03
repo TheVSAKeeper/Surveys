@@ -1,3 +1,4 @@
+using Surveys.Blazor.Endpoints.AnamnesisEndpoints.ViewModels;
 using Surveys.Blazor.Endpoints.PatientEndpoints.ViewModels;
 
 namespace Surveys.Blazor.Endpoints.SurveyEndpoints.ViewModels;
