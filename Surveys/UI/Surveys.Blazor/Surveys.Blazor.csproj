@@ -17,7 +17,7 @@
     <ItemGroup>
         <PackageReference Include="Blazorise.Components" Version="1.5.2"/>
         <PackageReference Include="Blazorise.FluentValidation" Version="1.5.2"/>
-        <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.5.2" />
+        <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.5.2"/>
         <PackageReference Include="Blazorise.LoadingIndicator" Version="1.5.2"/>
         <PackageReference Include="Calabonga.PagedListCore" Version="1.0.4"/>
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.1"/>
@@ -42,15 +42,6 @@
         <ServiceWorker Include="wwwroot\service-worker.js">
             <PublishedContent>wwwroot\service-worker.published.js</PublishedContent>
         </ServiceWorker>
-    </ItemGroup>
-
-    <ItemGroup>
-      <AdditionalFiles Include="Endpoints\SurveyEndpoints\Components\SurveyView.razor" />
-      <AdditionalFiles Include="Endpoints\SurveyEndpoints\Pages\Surveys.razor" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Endpoints\SurveyEndpoints\Pages\" />
     </ItemGroup>
 
 </Project>

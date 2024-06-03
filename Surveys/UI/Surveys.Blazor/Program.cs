@@ -36,7 +36,7 @@ builder.Services.AddHttpClient("Surveys.ServerAPI")
     .ConfigureHttpClient(client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
     .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
-builder.Services.AddScoped<AuthorizedHttpClient>();
+builder.Services.AddScoped<IAuthorizedHttpClient, AuthorizedHttpClient>();
 
 // Supply HttpClient instances that include access tokens when making requests to the server project.
 builder.Services.AddScoped(provider =>
