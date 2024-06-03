@@ -352,7 +352,7 @@ public static class DatabaseInitializer
         await context.SaveChangesAsync();
     }
 
-    public static async void SeedAnamnesisTemplates(IServiceProvider serviceProvider, string dataPath)
+    public static async Task SeedAnamnesisTemplates(IServiceProvider serviceProvider, string dataPath)
     {
         using IServiceScope scope = serviceProvider.CreateScope();
         await using ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
@@ -377,35 +377,65 @@ public static class DatabaseInitializer
 
         string lines = await File.ReadAllTextAsync(path);
 
-        // TODO: Seeding anamnesisTemplates
+        List<AnamnesisTemplate> anamnesisTemplates = [];
 
-        /*AnamnesisTemplate[] anamnesisTemplates = lines.Split('/', StringSplitOptions.RemoveEmptyEntries)
-            .Select((template, i) =>
+        string[] templates = lines.Split('/', StringSplitOptions.RemoveEmptyEntries);
+
+        foreach (string template in templates)
+        {
+            string[] parts = template.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            List<Question> questions = [];
+
+            AnamnesisTemplate anamnesisTemplate = new()
             {
-                string[] parts = template.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+                Id = Guid.NewGuid(),
+                Title = parts[0].Trim(),
+                Description = null,
+                SortIndex = anamnesisTemplates.Count + 1,
+                Questions = questions
+            };
 
-                List<Question> questions = parts
-                    .Skip(1)
-                    .Select((question, j) => new Question
-                    {
-                        Id = Guid.NewGuid(),
-                        Content = question.Trim(['-', '?', ',', '.', ';']).Trim().ToLower() + "?",
-                        SortIndex = j + 1
-                    })
-                    .ToList();
+            for (int i = 1; i < parts.Length; i++)
+            {
+                string part = parts[i];
+                string[] content = part.Split(["["], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 
-                return new AnamnesisTemplate
+                Question question = new()
                 {
                     Id = Guid.NewGuid(),
-                    Name = parts[0].Trim(),
-                    Questions = questions,
+                    AnamnesisTemplateId = anamnesisTemplate.Id,
+                    Text = content[0].Trim(['-', '?', ',', '.', ';', '[', ']']).Trim().ToLower() + "?",
+                    Type = QuestionType.Text,
                     SortIndex = i
                 };
-            })
-            .ToArray();
 
-        await context.AnamnesisTemplates.AddRangeAsync(anamnesisTemplates);*/
+                List<QuestionOption> options = [];
 
+                if (part.Contains('['))
+                {
+                    options.AddRange(content[1]
+                        .Split([","], StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                        .Select((option, index) => new QuestionOption
+                        {
+                            Id = Guid.NewGuid(),
+                            SortIndex = index,
+                            QuestionId = question.Id,
+                            Value = option.Trim(['-', '?', ',', '.', ';', '[', ']'])
+                                .Trim()
+                                .ToLower()
+                        }));
+
+                    question.Options = options;
+                    question.Type = QuestionType.SingleChoice;
+                }
+
+                questions.Add(question);
+            }
+
+            anamnesisTemplates.Add(anamnesisTemplate);
+        }
+
+        context.AnamnesisTemplates.AddRange(anamnesisTemplates);
         await context.SaveChangesAsync();
     }
 }

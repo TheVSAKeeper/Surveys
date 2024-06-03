@@ -38,7 +38,7 @@ public class AnamnesisMapperConfiguration : Profile
             .ForMember(dest => dest.AnamnesisTemplate, expression => expression.Ignore())
             .ForMember(dest => dest.Responses, expression => expression.MapFrom(src => src.Responses))
             ;
-        
+
         CreateMap<IPagedList<Anamnesis>, IPagedList<AnamnesisViewModel>>()
             .ConvertUsing<PagedListConverter<Anamnesis, AnamnesisViewModel>>();
     }

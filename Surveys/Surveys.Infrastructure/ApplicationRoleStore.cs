@@ -6,5 +6,5 @@ namespace Surveys.Infrastructure;
 /// <summary>
 ///     Application store for user
 /// </summary>
-public class ApplicationRoleStore(ApplicationDbContext context, IdentityErrorDescriber? describer = null) 
+public class ApplicationRoleStore(ApplicationDbContext context, IdentityErrorDescriber? describer = null)
     : RoleStore<ApplicationRole, ApplicationDbContext, Guid>(context, describer);

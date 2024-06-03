@@ -15,5 +15,7 @@ public class AnamnesisTemplateModelConfiguration : SortableIdentityModelConfigur
             .WithOne(question => question.AnamnesisTemplate)
             .HasForeignKey(question => question.AnamnesisTemplateId)
             .IsRequired();
+
+        builder.Navigation(anamnesisTemplate => anamnesisTemplate.Questions).AutoInclude();
     }
 }

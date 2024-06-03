@@ -20,12 +20,15 @@ public sealed class GetAnamnesisTemplatePaged
                 .GetPagedListAsync(predicate,
                     pageIndex: request.PageIndex,
                     pageSize: request.PageSize,
+                    orderBy: o => o.OrderBy(x => x.SortIndex),
                     cancellationToken: cancellationToken);
 
             if (pagedList.PageIndex > pagedList.TotalPages)
                 pagedList = await unitOfWork.GetRepository<AnamnesisTemplate>()
                     .GetPagedListAsync(pageIndex: 0,
-                        pageSize: request.PageSize, cancellationToken: cancellationToken);
+                        pageSize: request.PageSize,
+                        orderBy: o => o.OrderBy(x => x.SortIndex),
+                        cancellationToken: cancellationToken);
 
             IPagedList<AnamnesisTemplateViewModel>? mapped = mapper.Map<IPagedList<AnamnesisTemplateViewModel>>(pagedList);
 

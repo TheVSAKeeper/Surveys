@@ -15,5 +15,7 @@ public class QuestionModelConfiguration : SortableIdentityModelConfigurationBase
         builder.HasMany(question => question.Options)
             .WithOne(option => option.Question)
             .HasForeignKey(question => question.QuestionId);
+
+        builder.Navigation(question => question.Options).AutoInclude();
     }
 }

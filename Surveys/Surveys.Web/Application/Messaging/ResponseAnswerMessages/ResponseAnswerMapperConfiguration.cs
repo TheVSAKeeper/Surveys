@@ -25,7 +25,7 @@ public class ResponseAnswerMapperConfiguration : Profile
             .ForMember(dest => dest.Response, opt => opt.Ignore())
             .ForMember(dest => dest.Question, opt => opt.Ignore())
             ;
-        
+
         CreateMap<IPagedList<ResponseAnswer>, IPagedList<ResponseAnswerViewModel>>()
             .ConvertUsing<PagedListConverter<ResponseAnswer, ResponseAnswerViewModel>>();
     }

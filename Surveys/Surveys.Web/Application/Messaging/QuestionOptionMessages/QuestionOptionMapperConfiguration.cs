@@ -21,7 +21,7 @@ public class QuestionOptionMapperConfiguration : Profile
             .ForMember(survey => survey.Question, expression => expression.Ignore())
             .ForMember(survey => survey.QuestionId, expression => expression.Ignore())
             ;
-        
+
         CreateMap<IPagedList<QuestionOption>, IPagedList<QuestionOptionViewModel>>()
             .ConvertUsing<PagedListConverter<QuestionOption, QuestionOptionViewModel>>();
     }

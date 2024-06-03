@@ -7,7 +7,7 @@ namespace Surveys.Infrastructure;
 /// <summary>
 ///     Application store for user
 /// </summary>
-public class ApplicationUserStore(ApplicationDbContext context, IdentityErrorDescriber describer) 
+public class ApplicationUserStore(ApplicationDbContext context, IdentityErrorDescriber describer)
     : UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, Guid>(context, describer)
 {
     /// <summary>

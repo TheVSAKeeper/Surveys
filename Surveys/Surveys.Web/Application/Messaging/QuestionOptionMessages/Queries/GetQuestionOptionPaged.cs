@@ -20,12 +20,15 @@ public sealed class GetQuestionOptionPaged
                 .GetPagedListAsync(predicate,
                     pageIndex: request.PageIndex,
                     pageSize: request.PageSize,
+                    orderBy: o => o.OrderBy(x => x.SortIndex),
                     cancellationToken: cancellationToken);
 
             if (pagedList.PageIndex > pagedList.TotalPages)
                 pagedList = await unitOfWork.GetRepository<QuestionOption>()
                     .GetPagedListAsync(pageIndex: 0,
-                        pageSize: request.PageSize, cancellationToken: cancellationToken);
+                        pageSize: request.PageSize,
+                        orderBy: o => o.OrderBy(x => x.SortIndex),
+                        cancellationToken: cancellationToken);
 
             IPagedList<QuestionOptionViewModel>? mapped = mapper.Map<IPagedList<QuestionOptionViewModel>>(pagedList);
 

@@ -25,7 +25,7 @@ public class QuestionMapperConfiguration : Profile
             .ForMember(survey => survey.AnamnesisTemplateId, expression => expression.Ignore())
             .ForMember(survey => survey.Answers, expression => expression.Ignore())
             ;
-        
+
         CreateMap<IPagedList<Question>, IPagedList<QuestionViewModel>>()
             .ConvertUsing<PagedListConverter<Question, QuestionViewModel>>();
     }
