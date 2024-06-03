@@ -1,18 +1,9 @@
-﻿@using System.Security.Claims
-@using Calabonga.Microservices.Core
-@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
-@using Surveys.Blazor.Services
-@inject NavigationManager Navigation
-@inject AuthorizedHttpClient AuthorizedHttpClient
-@inject AuthenticationStateProvider AuthenticationStateProvider
-
-<Div Class="align-items-center d-flex flex-fill justify-content-center">
+﻿<Div Class="align-items-center d-flex flex-fill justify-content-center">
     <AuthorizeView>
         <Authorized>
             <Div Class="align-items-center d-flex gap-3">
                 <Text TextSize="TextSize.Heading4">Hello, @context.User.Identity?.Name!</Text>
                 <Button Clicked="BeginLogOut" Color="Color.Primary">Log out</Button>
-                <Button Clicked="GetRoles" Color="Color.Info">Get User Roles</Button>
             </Div>
         </Authorized>
         <NotAuthorized>
@@ -20,49 +11,3 @@
         </NotAuthorized>
     </AuthorizeView>
 </Div>
-
-@code{
-
-    private async Task GetRoles()
-    {
-        HttpResponseMessage response = await AuthorizedHttpClient.GetAsync("https://localhost:10001/api/profiles/roles");
-        AuthenticationState authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        ClaimsPrincipal user = authState.User;
-
-        if (response.IsSuccessStatusCode)
-        {
-            string rolesJson = await response.Content.ReadAsStringAsync();
-            Console.WriteLine(rolesJson);
-
-            IEnumerable<Claim> userClaims = user.Claims;
-
-            foreach (Claim claim in userClaims)
-            {
-                Console.WriteLine($"{claim.Type}: {claim.Value}");
-            }
-
-            Console.WriteLine($"user.IsInRole(\"Administrator\") {user.IsInRole("Administrator")}");
-
-            IEnumerable<Claim> claims = user.FindAll(claim => claim.Type == ClaimTypes.Role);
-            List<string>? roles = ClaimsHelper.GetValues<string>(new ClaimsIdentity(claims), ClaimTypes.Role);
-
-            string message = $"Current user ({user.Identity!.Name}) have following roles: {string.Join('|', roles)}";
-            Console.WriteLine(message);
-        }
-        else
-        {
-            Console.WriteLine($"Failed to retrieve roles. Status code: {response.StatusCode}");
-        }
-    }
-
-    public void BeginLogOut()
-    {
-        Navigation.NavigateToLogout("authentication/logout");
-    }
-
-    public void BeginLogIn()
-    {
-        Navigation.NavigateToLogout("authentication/login");
-    }
-
-}
