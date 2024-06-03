@@ -15,8 +15,8 @@ internal static class SurveyEndpointsExtensions
     {
         RouteGroupBuilder group = routes.MapGroup("/api/surveys/").WithTags(nameof(Survey));
 
-        group.MapGet("paged/{pageIndex:int}", async ([FromServices] IMediator mediator, int pageIndex, string? search, HttpContext context, int pageSize = 10)
-                => await mediator.Send(new GetSurveyPaged.Request(pageIndex, pageSize, search), context.RequestAborted))
+        group.MapGet("paged/{pageIndex:int}", async ([FromServices] IMediator mediator, int pageIndex, string? search, Guid? patientId, HttpContext context, int pageSize = 10)
+                => await mediator.Send(new GetSurveyPaged.Request(pageIndex, pageSize, search, patientId), context.RequestAborted))
             .RequireAuthorization(AppData.PolicyDefaultName)
             .Produces(200)
             .ProducesProblem(401)
@@ -25,6 +25,14 @@ internal static class SurveyEndpointsExtensions
 
         group.MapGet("{id:guid}", async ([FromServices] IMediator mediator, Guid id, HttpContext context)
                 => await mediator.Send(new GetSurveyById.Request(id), context.RequestAborted))
+            .RequireAuthorization(AppData.PolicyDefaultName)
+            .Produces(200)
+            .ProducesProblem(401)
+            .ProducesProblem(404)
+            .WithOpenApi();
+
+        group.MapGet("get-for-edit/{id:guid}", async ([FromServices] IMediator mediator, Guid id, HttpContext context)
+                => await mediator.Send(new GetSurveyForUpdateById.Request(id), context.RequestAborted))
             .RequireAuthorization(AppData.PolicyDefaultName)
             .Produces(200)
             .ProducesProblem(401)

@@ -14,7 +14,7 @@ public sealed class GetSurveyPaged
             Request request,
             CancellationToken cancellationToken)
         {
-            Expression<Func<Survey, bool>> predicate = GetPredicate(request.Search);
+            Expression<Func<Survey, bool>> predicate = GetPredicate(request.Search, request.PatientId);
 
             IPagedList<Survey> pagedList = await unitOfWork.GetRepository<Survey>()
                 .GetPagedListAsync(predicate,
@@ -35,17 +35,20 @@ public sealed class GetSurveyPaged
             return Operation.Result(mapped);
         }
 
-        private Expression<Func<Survey, bool>> GetPredicate(string? search)
+        private Expression<Func<Survey, bool>> GetPredicate(string? search, Guid? patientId)
         {
             Expression<Func<Survey, bool>>? predicate = PredicateBuilder.True<Survey>();
+
+            if (patientId is not null)
+                predicate = predicate.And(x => x.PatientId == patientId);
 
             if (search is null)
                 return predicate;
 
-            //  predicate = predicate.And(x => x.Name.Contains(search));
+            predicate = predicate.And(x => x.Complaint.Contains(search));
             return predicate;
         }
     }
 
-    public record Request(int PageIndex, int PageSize, string? Search) : IRequest<Operation<IPagedList<SurveyViewModel>, string>>;
+    public record Request(int PageIndex, int PageSize, string? Search, Guid? PatientId) : IRequest<Operation<IPagedList<SurveyViewModel>, string>>;
 }

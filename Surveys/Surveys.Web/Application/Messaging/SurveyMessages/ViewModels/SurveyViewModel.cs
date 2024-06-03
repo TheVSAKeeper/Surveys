@@ -1,3 +1,4 @@
+using Surveys.Web.Application.Messaging.AnamnesisMessages;
 using Surveys.Web.Application.Messaging.PatientMessages.ViewModels;
 
 namespace Surveys.Web.Application.Messaging.SurveyMessages.ViewModels;
@@ -17,5 +18,5 @@ public class SurveyViewModel
     public DateTime? UpdatedAt { get; set; }
     public string? UpdatedBy { get; set; }
 
-    public List<Anamnesis>? Anamneses { get; set; }
+    public List<AnamnesisViewModel>? Anamneses { get; set; }
 }
