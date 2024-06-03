@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components;
 using Surveys.Blazor.Domain;
 using Surveys.Blazor.Endpoints.PatientEndpoints.ViewModels;
 using Surveys.Blazor.Endpoints.SurveyEndpoints.Components;
+using Surveys.Blazor.Endpoints.SurveyEndpoints.ViewModels;
 using Surveys.Blazor.Services;
 
 namespace Surveys.Blazor.Endpoints.PatientEndpoints.Pages;
@@ -13,7 +14,9 @@ public partial class Patients
     private List<PatientViewModel> _patients = null!;
     private SurveyCreateModal? _surveyCreateModal;
 
-    [Inject] private AuthorizedHttpClient Client { get; set; } = null!;
+    private PatientViewModel? SelectedPatient { get; set; }
+
+    [Inject] private IAuthorizedHttpClient Client { get; set; } = null!;
     [Inject] private NavigationManager Navigation { get; set; } = null!;
 
     private void ShowComplaintModal(PatientViewModel patient)
@@ -21,13 +24,7 @@ public partial class Patients
         _surveyCreateModal?.Show(patient);
     }
 
-    private async Task SubmitComplaint()
-    {
-        // Handle the submission of the complaint
-        // You can use the _complaint.Text and _complaint.PatientId to send the complaint to the server
-        if (_surveyCreateModal != null)
-            await _surveyCreateModal.Hide();
-    }
+    private void SubmitComplaint(SurveyCreateViewModel createViewModel) => Navigation.NavigateTo($"/survey-update/{createViewModel.Id}");
 
     protected override async Task OnInitializedAsync()
     {
@@ -38,7 +35,7 @@ public partial class Patients
     private async Task<PagedListResult<PatientViewModel>> GetPaged(int pageIndex, int pageSize = 10)
     {
         Operation<PagedListResult<PatientViewModel>>? response = await Client
-            .GetFromJsonAsync<Operation<PagedListResult<PatientViewModel>>>($"https://localhost:10001/api/patients/paged/{pageIndex}?pageSize={pageSize}");
+            .GetFromJsonAsync<Operation<PagedListResult<PatientViewModel>>>($"patients/paged/{pageIndex}?pageSize={pageSize}");
 
         return response?.Result
                ?? new PagedListResult<PatientViewModel>

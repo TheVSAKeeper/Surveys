@@ -4,34 +4,26 @@
 @using Surveys.Blazor.Endpoints.SurveyEndpoints.Components
 @attribute [Authorize(Roles = $"{AppData.SystemAdministratorRoleName}, {AppData.DoctorRoleName}, {AppData.NurseRoleName}")]
 
-@*<Alert Color="Color.Warning" @ref="_alert">
-    <AlertMessage>
-        Предупреждение.
-    </AlertMessage>
-    <AlertDescription>
-        Не выбран пациент.
-    </AlertDescription>
-    <CloseButton/>
-</Alert>*@
-
 <SurveyCreateModal OnSubmitComplaint="SubmitComplaint" @ref="_surveyCreateModal"/>
 
-<DataGrid Bordered
+<DataGrid @bind-SelectedRow="@SelectedPatient"
+          Bordered
           Data="_patients"
+          DetailRowTrigger="@(e => e.Item.Id == SelectedPatient?.Id)"
           Editable
           Groupable
           Hoverable
           Narrow
           ReadData="@OnReadData"
           Resizable
-          ResizeMode="TableResizeMode.Columns"
+          ResizeMode="TableResizeMode.Header"
           Responsive
           Row
           ShowGrouping
           ShowPager
           ShowPageSizes
           Sortable
-          SortMode="DataGridSortMode.Single"
+          SortMode="DataGridSortMode.Multiple"
           TItem="PatientViewModel"
           TotalItems="@_totalPatients">
     <DataGridColumns>
@@ -43,13 +35,13 @@
         <DataGridColumn Caption="Отчество" Editable Field="@nameof(PatientViewModel.Patronymic)"/>
         <DataGridColumn Caption="Пол" Editable Field="@nameof(PatientViewModel.Gender)" Groupable/>
         <DataGridColumn Caption="Дата рождения" Editable Field="@nameof(PatientViewModel.BirthDate)" Groupable/>
-        <DataGridColumn Field="@nameof(PatientViewModel.Id)" Filterable="true" Sortable="true" TItem="PatientViewModel">
+        <DataGridColumn Field="@nameof(PatientViewModel.Id)" Filterable="false" Sortable="false" TItem="PatientViewModel">
             <DisplayTemplate>
                 <Button Clicked="() => ShowComplaintModal(context)" Color="Color.Primary">Создать опрос</Button>
             </DisplayTemplate>
         </DataGridColumn>
         <AuthorizeView Context="_" Roles="@AppData.SystemAdministratorRoleName">
-            <DataGridCommandColumn PreventRowClick>
+            <DataGridCommandColumn Filterable="false" PreventRowClick>
                 <NewCommandTemplate >
                     <Button Clicked="@context.Clicked" Color="Color.Success">@context.LocalizationString</Button>
                 </NewCommandTemplate>
@@ -71,4 +63,9 @@
             </DataGridCommandColumn>
         </AuthorizeView>
     </DataGridColumns>
+    <DetailRowTemplate>
+        @{
+            <PatientSurveys PatientId="@context.Id"></PatientSurveys>
+        }
+    </DetailRowTemplate>
 </DataGrid>

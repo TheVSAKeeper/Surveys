@@ -1,0 +1,50 @@
+@using Surveys.Blazor.Endpoints.PatientEndpoints.ViewModels
+
+<Card>
+    <CardHeader>
+        <CardTitle>Информация о пациенте</CardTitle>
+    </CardHeader>
+    <CardBody>
+        <Row>
+            <Column ColumnSize="ColumnSize.Is6">
+                <Field>
+                    <FieldLabel>Фамилия</FieldLabel>
+                    <TextEdit ReadOnly="true" Text="@ViewModel.LastName"/>
+                </Field>
+            </Column>
+            <Column ColumnSize="ColumnSize.Is6">
+                <Field>
+                    <FieldLabel>Имя</FieldLabel>
+                    <TextEdit ReadOnly="true" Text="@ViewModel.FirstName"/>
+                </Field>
+            </Column>
+        </Row>
+        <Row>
+            <Column ColumnSize="ColumnSize.Is6">
+                <Field>
+                    <FieldLabel>Отчество</FieldLabel>
+                    <TextEdit ReadOnly="true" Text="@ViewModel.Patronymic"/>
+                </Field>
+            </Column>
+            <Column ColumnSize="ColumnSize.Is6">
+                <Field>
+                    <FieldLabel>Пол</FieldLabel>
+                    <TextEdit ReadOnly="true" Text="@ViewModel.Gender.ToString()"/>
+                </Field>
+            </Column>
+        </Row>
+        <Row>
+            <Column ColumnSize="ColumnSize.Is6">
+                <Field>
+                    <FieldLabel>Дата рождения</FieldLabel>
+                    <TextEdit ReadOnly="true" Text="@ViewModel.BirthDate.ToString("d")"/>
+                </Field>
+            </Column>
+        </Row>
+    </CardBody>
+</Card>
+
+@code
+{
+    [Parameter] public required PatientViewModel ViewModel { get; set; }
+}
