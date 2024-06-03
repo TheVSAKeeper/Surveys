@@ -1,4 +1,6 @@
+using Calabonga.PagedListCore;
 using Surveys.Web.Application.Messaging.ResponseAnswerMessages.ViewModels;
+using Surveys.Web.Definitions.Mapping;
 
 namespace Surveys.Web.Application.Messaging.ResponseAnswerMessages;
 
@@ -23,5 +25,8 @@ public class ResponseAnswerMapperConfiguration : Profile
             .ForMember(dest => dest.Response, opt => opt.Ignore())
             .ForMember(dest => dest.Question, opt => opt.Ignore())
             ;
+        
+        CreateMap<IPagedList<ResponseAnswer>, IPagedList<ResponseAnswerViewModel>>()
+            .ConvertUsing<PagedListConverter<ResponseAnswer, ResponseAnswerViewModel>>();
     }
 }

@@ -1,4 +1,6 @@
+using Calabonga.PagedListCore;
 using Surveys.Web.Application.Messaging.AnamnesisTemplateMessages.ViewModels;
+using Surveys.Web.Definitions.Mapping;
 
 namespace Surveys.Web.Application.Messaging.AnamnesisTemplateMessages;
 
@@ -21,5 +23,8 @@ public class AnamnesisTemplateMapperConfiguration : Profile
             .ForMember(survey => survey.Questions, expression => expression.Ignore())
             .ForMember(survey => survey.Anamneses, expression => expression.Ignore())
             ;
+        
+        CreateMap<IPagedList<AnamnesisTemplate>, IPagedList<AnamnesisTemplateViewModel>>()
+            .ConvertUsing<PagedListConverter<AnamnesisTemplate, AnamnesisTemplateViewModel>>();
     }
 }

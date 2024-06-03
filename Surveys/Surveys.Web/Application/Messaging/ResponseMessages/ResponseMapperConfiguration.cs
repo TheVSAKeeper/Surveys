@@ -1,5 +1,7 @@
+using Calabonga.PagedListCore;
 using Surveys.Infrastructure;
 using Surveys.Web.Application.Messaging.ResponseMessages.ViewModels;
+using Surveys.Web.Definitions.Mapping;
 
 namespace Surveys.Web.Application.Messaging.ResponseMessages;
 
@@ -33,5 +35,8 @@ public class ResponseMapperConfiguration : Profile
             .ForMember(survey => survey.AnamnesisId, expression => expression.Ignore())
             .ForMember(survey => survey.Anamnesis, expression => expression.Ignore())
             .ForMember(dest => dest.Answers, opt => opt.MapFrom(src => src.Answers));
+        
+        CreateMap<IPagedList<Response>, IPagedList<ResponseViewModel>>()
+            .ConvertUsing<PagedListConverter<Response, ResponseViewModel>>();
     }
 }

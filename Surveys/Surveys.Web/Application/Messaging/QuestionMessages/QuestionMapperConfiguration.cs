@@ -1,4 +1,6 @@
+using Calabonga.PagedListCore;
 using Surveys.Web.Application.Messaging.QuestionMessages.ViewModels;
+using Surveys.Web.Definitions.Mapping;
 
 namespace Surveys.Web.Application.Messaging.QuestionMessages;
 
@@ -23,5 +25,8 @@ public class QuestionMapperConfiguration : Profile
             .ForMember(survey => survey.AnamnesisTemplateId, expression => expression.Ignore())
             .ForMember(survey => survey.Answers, expression => expression.Ignore())
             ;
+        
+        CreateMap<IPagedList<Question>, IPagedList<QuestionViewModel>>()
+            .ConvertUsing<PagedListConverter<Question, QuestionViewModel>>();
     }
 }
