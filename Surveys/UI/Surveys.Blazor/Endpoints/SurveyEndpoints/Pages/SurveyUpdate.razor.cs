@@ -1,11 +1,11 @@
 using Blazorise;
 using Microsoft.AspNetCore.Components;
 using Surveys.Blazor.Domain;
-using Surveys.Blazor.Endpoints.AnamnesisEndpoints.ViewModels;
 using Surveys.Blazor.Endpoints.AnamnesisTemplateEndpoints.Components;
-using Surveys.Blazor.Endpoints.AnamnesisTemplateEndpoints.ViewModels;
-using Surveys.Blazor.Endpoints.SurveyEndpoints.ViewModels;
 using Surveys.Blazor.Services;
+using Surveys.Web.Application.Messaging.AnamnesisMessages;
+using Surveys.Web.Application.Messaging.AnamnesisTemplateMessages.ViewModels;
+using Surveys.Web.Application.Messaging.SurveyMessages.ViewModels;
 
 namespace Surveys.Blazor.Endpoints.SurveyEndpoints.Pages;
 

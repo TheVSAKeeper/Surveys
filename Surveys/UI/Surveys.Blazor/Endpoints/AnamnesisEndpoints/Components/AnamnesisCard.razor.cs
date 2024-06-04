@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
-using Surveys.Blazor.Endpoints.AnamnesisEndpoints.ViewModels;
 using Surveys.Blazor.Endpoints.QuestionEndpoints.Components;
+using Surveys.Web.Application.Messaging.AnamnesisMessages;
 
 namespace Surveys.Blazor.Endpoints.AnamnesisEndpoints.Components;
 

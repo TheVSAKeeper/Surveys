@@ -1,10 +1,10 @@
 using Blazorise.DataGrid;
 using Microsoft.AspNetCore.Components;
 using Surveys.Blazor.Domain;
-using Surveys.Blazor.Endpoints.PatientEndpoints.ViewModels;
 using Surveys.Blazor.Endpoints.SurveyEndpoints.Components;
-using Surveys.Blazor.Endpoints.SurveyEndpoints.ViewModels;
 using Surveys.Blazor.Services;
+using Surveys.Web.Application.Messaging.PatientMessages.ViewModels;
+using Surveys.Web.Application.Messaging.SurveyMessages.ViewModels;
 
 namespace Surveys.Blazor.Endpoints.PatientEndpoints.Pages;
 

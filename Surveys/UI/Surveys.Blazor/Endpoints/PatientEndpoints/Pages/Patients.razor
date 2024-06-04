@@ -1,7 +1,7 @@
 ﻿@page "/patients"
 @using Surveys.Blazor.Domain
-@using Surveys.Blazor.Endpoints.PatientEndpoints.ViewModels
 @using Surveys.Blazor.Endpoints.SurveyEndpoints.Components
+@using Surveys.Web.Application.Messaging.PatientMessages.ViewModels
 @attribute [Authorize(Roles = $"{AppData.SystemAdministratorRoleName}, {AppData.DoctorRoleName}, {AppData.NurseRoleName}")]
 
 <SurveyCreateModal OnSubmitComplaint="SubmitComplaint" @ref="_surveyCreateModal"/>

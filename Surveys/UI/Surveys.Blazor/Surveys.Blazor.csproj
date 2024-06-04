@@ -62,4 +62,85 @@
         <AdditionalFiles Include="Endpoints\BaseEndpoints\Layouts\MainLayout.razor"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <Compile Include="..\..\Surveys.Domain\Gender.cs">
+            <Link>Endpoints\PatientEndpoints\ViewModels\Gender.cs</Link>
+        </Compile>
+        <Compile Include="..\..\Surveys.Domain\QuestionType.cs">
+            <Link>Endpoints\QuestionEndpoints\ViewModels\QuestionType.cs</Link>
+        </Compile>
+        <Compile Include="..\..\Surveys.Domain\SurveyStatus.cs">
+            <Link>Endpoints\SurveyEndpoints\ViewModels\SurveyStatus.cs</Link>
+        </Compile>
+        <Compile Include="..\..\Surveys.Web\Application\Messaging\AnamnesisMessages\ViewModels\AnamnesisCreateViewModel.cs">
+            <Link>Endpoints\AnamnesisEndpoints\ViewModels\AnamnesisCreateViewModel.cs</Link>
+        </Compile>
+        <Compile Include="..\..\Surveys.Web\Application\Messaging\AnamnesisMessages\ViewModels\AnamnesisUpdateViewModel.cs">
+            <Link>Endpoints\AnamnesisEndpoints\ViewModels\AnamnesisUpdateViewModel.cs</Link>
+        </Compile>
+        <Compile Include="..\..\Surveys.Web\Application\Messaging\AnamnesisMessages\ViewModels\AnamnesisViewModel.cs">
+            <Link>Endpoints\AnamnesisEndpoints\ViewModels\AnamnesisViewModel.cs</Link>
+        </Compile>
+        <Compile Include="..\..\Surveys.Web\Application\Messaging\AnamnesisTemplateMessages\ViewModels\AnamnesisTemplateCreateViewModel.cs">
+            <Link>Endpoints\AnamnesisTemplateEndpoints\ViewModels\AnamnesisTemplateCreateViewModel.cs</Link>
+        </Compile>
+        <Compile Include="..\..\Surveys.Web\Application\Messaging\AnamnesisTemplateMessages\ViewModels\AnamnesisTemplateUpdateViewModel.cs">
+            <Link>Endpoints\AnamnesisTemplateEndpoints\ViewModels\AnamnesisTemplateUpdateViewModel.cs</Link>
+        </Compile>
+        <Compile Include="..\..\Surveys.Web\Application\Messaging\AnamnesisTemplateMessages\ViewModels\AnamnesisTemplateViewModel.cs">
+            <Link>Endpoints\AnamnesisTemplateEndpoints\ViewModels\AnamnesisTemplateViewModel.cs</Link>
+        </Compile>
+        <Compile Include="..\..\Surveys.Web\Application\Messaging\PatientMessages\ViewModels\PatientsCreateViewModel.cs">
+            <Link>Endpoints\PatientEndpoints\ViewModels\PatientsCreateViewModel.cs</Link>
+        </Compile>
+        <Compile Include="..\..\Surveys.Web\Application\Messaging\PatientMessages\ViewModels\PatientsViewModel.cs">
+            <Link>Endpoints\PatientEndpoints\ViewModels\PatientsViewModel.cs</Link>
+        </Compile>
+        <Compile Include="..\..\Surveys.Web\Application\Messaging\QuestionMessages\ViewModels\QuestionCreateViewModel.cs">
+            <Link>Endpoints\QuestionEndpoints\ViewModels\QuestionCreateViewModel.cs</Link>
+        </Compile>
+        <Compile Include="..\..\Surveys.Web\Application\Messaging\QuestionMessages\ViewModels\QuestionUpdateViewModel.cs">
+            <Link>Endpoints\QuestionEndpoints\ViewModels\QuestionUpdateViewModel.cs</Link>
+        </Compile>
+        <Compile Include="..\..\Surveys.Web\Application\Messaging\QuestionMessages\ViewModels\QuestionViewModel.cs">
+            <Link>Endpoints\QuestionEndpoints\ViewModels\QuestionViewModel.cs</Link>
+        </Compile>
+        <Compile Include="..\..\Surveys.Web\Application\Messaging\QuestionOptionMessages\ViewModels\QuestionOptionCreateViewModel.cs">
+            <Link>Endpoints\QuestionEndpoints\ViewModels\QuestionOptionCreateViewModel.cs</Link>
+        </Compile>
+        <Compile Include="..\..\Surveys.Web\Application\Messaging\QuestionOptionMessages\ViewModels\QuestionOptionUpdateViewModel.cs">
+            <Link>Endpoints\QuestionEndpoints\ViewModels\QuestionOptionUpdateViewModel.cs</Link>
+        </Compile>
+        <Compile Include="..\..\Surveys.Web\Application\Messaging\QuestionOptionMessages\ViewModels\QuestionOptionViewModel.cs">
+            <Link>Endpoints\QuestionEndpoints\ViewModels\QuestionOptionViewModel.cs</Link>
+        </Compile>
+        <Compile Include="..\..\Surveys.Web\Application\Messaging\ResponseAnswerMessages\ViewModels\ResponseAnswerCreateViewModel.cs">
+            <Link>Endpoints\AnamnesisEndpoints\ViewModels\ResponseAnswerCreateViewModel.cs</Link>
+        </Compile>
+        <Compile Include="..\..\Surveys.Web\Application\Messaging\ResponseAnswerMessages\ViewModels\ResponseAnswerUpdateViewModel.cs">
+            <Link>Endpoints\AnamnesisEndpoints\ViewModels\ResponseAnswerUpdateViewModel.cs</Link>
+        </Compile>
+        <Compile Include="..\..\Surveys.Web\Application\Messaging\ResponseAnswerMessages\ViewModels\ResponseAnswerViewModel.cs">
+            <Link>Endpoints\AnamnesisEndpoints\ViewModels\ResponseAnswerViewModel.cs</Link>
+        </Compile>
+        <Compile Include="..\..\Surveys.Web\Application\Messaging\ResponseMessages\ViewModels\ResponseCreateViewModel.cs">
+            <Link>Endpoints\AnamnesisEndpoints\ViewModels\ResponseCreateViewModel.cs</Link>
+        </Compile>
+        <Compile Include="..\..\Surveys.Web\Application\Messaging\ResponseMessages\ViewModels\ResponseUpdateViewModel.cs">
+            <Link>Endpoints\AnamnesisEndpoints\ViewModels\ResponseUpdateViewModel.cs</Link>
+        </Compile>
+        <Compile Include="..\..\Surveys.Web\Application\Messaging\ResponseMessages\ViewModels\ResponseViewModel.cs">
+            <Link>Endpoints\AnamnesisEndpoints\ViewModels\ResponseViewModel.cs</Link>
+        </Compile>
+        <Compile Include="..\..\Surveys.Web\Application\Messaging\SurveyMessages\ViewModels\SurveyCreateViewModel.cs">
+            <Link>Endpoints\SurveyEndpoints\ViewModels\SurveyCreateViewModel.cs</Link>
+        </Compile>
+        <Compile Include="..\..\Surveys.Web\Application\Messaging\SurveyMessages\ViewModels\SurveyUpdateViewModel.cs">
+            <Link>Endpoints\SurveyEndpoints\ViewModels\SurveyUpdateViewModel.cs</Link>
+        </Compile>
+        <Compile Include="..\..\Surveys.Web\Application\Messaging\SurveyMessages\ViewModels\SurveyViewModel.cs">
+            <Link>Endpoints\SurveyEndpoints\ViewModels\SurveyViewModel.cs</Link>
+        </Compile>
+    </ItemGroup>
+
 </Project>

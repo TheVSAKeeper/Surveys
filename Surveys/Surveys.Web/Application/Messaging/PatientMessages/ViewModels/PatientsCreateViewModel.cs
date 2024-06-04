@@ -1,6 +1,8 @@
-﻿namespace Surveys.Web.Application.Messaging.PatientMessages.ViewModels;
+﻿using Surveys.Domain;
 
-public class PatientCreateViewModel : IViewModel
+namespace Surveys.Web.Application.Messaging.PatientMessages.ViewModels;
+
+public class PatientCreateViewModel
 {
     public required string LastName { get; set; }
     public required string FirstName { get; set; }

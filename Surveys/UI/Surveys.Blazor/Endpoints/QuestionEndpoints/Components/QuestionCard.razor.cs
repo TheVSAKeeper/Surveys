@@ -1,7 +1,8 @@
 using System.Globalization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Surveys.Blazor.Endpoints.QuestionEndpoints.ViewModels;
+using Surveys.Domain;
+using Surveys.Web.Application.Messaging.QuestionMessages.ViewModels;
 
 namespace Surveys.Blazor.Endpoints.QuestionEndpoints.Components;
 

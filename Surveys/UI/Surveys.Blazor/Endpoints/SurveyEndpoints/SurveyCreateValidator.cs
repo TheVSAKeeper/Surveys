@@ -1,5 +1,5 @@
 using FluentValidation;
-using Surveys.Blazor.Endpoints.SurveyEndpoints.ViewModels;
+using Surveys.Web.Application.Messaging.SurveyMessages.ViewModels;
 
 namespace Surveys.Blazor.Endpoints.SurveyEndpoints;
 

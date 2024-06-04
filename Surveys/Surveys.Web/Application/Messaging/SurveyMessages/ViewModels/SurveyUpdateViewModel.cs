@@ -1,3 +1,4 @@
+using Surveys.Domain;
 using Surveys.Web.Application.Messaging.AnamnesisMessages;
 using Surveys.Web.Application.Messaging.PatientMessages.ViewModels;
 

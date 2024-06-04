@@ -1,9 +1,9 @@
 @page "/survey-update/{id:guid}"
 @using Surveys.Blazor.Endpoints.AnamnesisEndpoints.Components
-@using Surveys.Blazor.Endpoints.AnamnesisEndpoints.ViewModels
 @using Surveys.Blazor.Endpoints.AnamnesisTemplateEndpoints.Components
 @using Surveys.Blazor.Endpoints.PatientEndpoints.Components
-@using Surveys.Blazor.Endpoints.SurveyEndpoints.ViewModels
+@using Surveys.Domain
+@using Surveys.Web.Application.Messaging.AnamnesisMessages
 
 @if (ViewModel is not null)
 {

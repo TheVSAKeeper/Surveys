@@ -1,3 +1,4 @@
+using Surveys.Domain;
 using Surveys.Web.Application.Messaging.QuestionOptionMessages.ViewModels;
 
 namespace Surveys.Web.Application.Messaging.QuestionMessages.ViewModels;
