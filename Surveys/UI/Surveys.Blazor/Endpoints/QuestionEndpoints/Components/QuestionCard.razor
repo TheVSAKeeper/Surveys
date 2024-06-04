@@ -11,27 +11,27 @@
             {
                 case QuestionType.SingleChoice:
                 case QuestionType.MultipleChoice:
-                    <Select @bind-SelectedValue="@SelectedOptionId" TValue="Guid">
+                    <Select @bind-SelectedValue="@SelectedOption" @onfocusout="OnAnswerChanged" TValue="string">
                         @foreach (QuestionOptionViewModel option in Question.Options ?? [])
                         {
-                            <SelectItem Value="@option.Id">@option.Value</SelectItem>
+                            <SelectItem Value="@option.Value">@option.Value</SelectItem>
                         }
                     </Select>
 
                     break;
 
                 case QuestionType.Text:
-                    <TextEdit @bind-Text="@AnswerText"/>
+                    <TextEdit @bind-Text="@AnswerText" @onfocusout="OnAnswerChanged"/>
 
                     break;
 
                 case QuestionType.Number:
-                    <NumericEdit @bind-Value="@AnswerNumber" TValue="decimal"/>
+                    <NumericEdit @bind-Value="@AnswerNumber" @onfocusout="OnAnswerChanged" TValue="decimal"/>
 
                     break;
 
                 case QuestionType.Date:
-                    <DateEdit @bind-Date="@AnswerDate" TValue="DateTime"/>
+                    <DateEdit @bind-Date="@AnswerDate" @onfocusout="OnAnswerChanged" TValue="DateTime"/>
 
                     break;
 
@@ -45,41 +45,3 @@
 
     </CardBody>
 </Card>
-
-@code {
-
-    [Parameter]
-    public required QuestionViewModel Question { get; set; }
-
-    private Guid SelectedOptionId { get; set; }
-    private string AnswerText { get; set; } = string.Empty;
-    private decimal AnswerNumber { get; set; }
-    private DateTime AnswerDate { get; set; }
-
-    protected override void OnParametersSet()
-    {
-        /*if (Question.Answers?.Count > 0)
-        {
-            switch (Question.Type)
-            {
-                case QuestionType.SingleChoice:
-                case QuestionType.MultipleChoice:
-                    SelectedOptionId = Question.Answers.First().Id;
-                    break;
-
-                case QuestionType.Text:
-                    AnswerText = Question.Answers.First().Value;
-                    break;
-
-                case QuestionType.Number:
-                    AnswerNumber = decimal.Parse(Question.Answers.First().Value);
-                    break;
-
-                case QuestionType.Date:
-                    AnswerDate = DateTime.Parse(Question.Answers.First().Value);
-                    break;
-            }
-        }*/
-    }
-
-}

@@ -1,21 +1,18 @@
-@using Surveys.Blazor.Endpoints.AnamnesisEndpoints.ViewModels
 @using Surveys.Blazor.Endpoints.QuestionEndpoints.Components
 @using Surveys.Blazor.Endpoints.QuestionEndpoints.ViewModels
 <Card>
     <CardHeader>
-        <CardTitle>@(Anamnesis.AnamnesisTemplate?.Title ?? "Неизвестно")<Check Checked="@Anamnesis.IsComplete" Disabled="true"/></CardTitle>
+        <CardTitle>
+            @(Anamnesis.AnamnesisTemplate?.Title ?? "Неизвестно")<Check Checked="@Anamnesis.IsComplete" Disabled="true"/>
+        </CardTitle>
     </CardHeader>
     <CardBody>
         @if (Anamnesis.AnamnesisTemplate != null)
         {
             foreach (QuestionViewModel question in Anamnesis.AnamnesisTemplate.Questions)
             {
-                <QuestionCard Question="@question"/>
+                <QuestionCard OnAnswerSaved="OnAnswerSaved" Question="@question"/>
             }
         }
     </CardBody>
 </Card>
-
-@code {
-    [Parameter] public required AnamnesisViewModel Anamnesis { get; set; }
-}
