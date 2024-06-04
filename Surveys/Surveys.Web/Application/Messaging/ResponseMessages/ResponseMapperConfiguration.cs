@@ -17,6 +17,8 @@ public class ResponseMapperConfiguration : Profile
                 .MapFrom((_, _, _, context) => context.Items[nameof(ApplicationUser)]))
             .ForMember(survey => survey.UpdatedAt, expression => expression.Ignore())
             .ForMember(survey => survey.UpdatedBy, expression => expression.Ignore())
+            .ForMember(survey => survey.Question, expression => expression.Ignore())
+            .ForMember(survey => survey.QuestionId, expression => expression.Ignore())
             .ForMember(dest => dest.Answers, opt => opt.MapFrom(src => src.Answers));
 
         CreateMap<Response, ResponseViewModel>()
@@ -34,6 +36,8 @@ public class ResponseMapperConfiguration : Profile
                 .MapFrom((_, _, _, context) => context.Items[nameof(ApplicationUser)]))
             .ForMember(survey => survey.AnamnesisId, expression => expression.Ignore())
             .ForMember(survey => survey.Anamnesis, expression => expression.Ignore())
+            .ForMember(survey => survey.Question, expression => expression.Ignore())
+            .ForMember(survey => survey.QuestionId, expression => expression.Ignore())
             .ForMember(dest => dest.Answers, opt => opt.MapFrom(src => src.Answers));
 
         CreateMap<IPagedList<Response>, IPagedList<ResponseViewModel>>()

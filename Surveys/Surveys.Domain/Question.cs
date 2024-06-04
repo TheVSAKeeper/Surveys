@@ -12,5 +12,5 @@ public class Question : SortableIdentity
 
     public virtual List<QuestionOption>? Options { get; set; }
 
-    public virtual List<ResponseAnswer>? Answers { get; set; }
+    public virtual List<Response>? Answers { get; set; }
 }

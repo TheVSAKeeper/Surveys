@@ -7,5 +7,9 @@ public class ResponseModelConfiguration : AuditableModelConfigurationBase<Respon
         builder.HasOne(response => response.Anamnesis)
             .WithMany(anamnesis => anamnesis.Responses)
             .HasForeignKey(response => response.AnamnesisId);
+
+        builder.HasOne(response => response.Question)
+            .WithMany(anamnesis => anamnesis.Answers)
+            .HasForeignKey(response => response.QuestionId);
     }
 }

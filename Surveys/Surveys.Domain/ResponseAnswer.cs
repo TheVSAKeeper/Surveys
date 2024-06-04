@@ -8,7 +8,4 @@ public class ResponseAnswer : Identity
 
     public required Guid ResponseId { get; set; }
     public virtual Response? Response { get; set; }
-
-    public required Guid QuestionId { get; set; }
-    public virtual Question? Question { get; set; }
 }

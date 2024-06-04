@@ -11,9 +11,5 @@ public class ResponseAnswerModelConfiguration : IdentityModelConfigurationBase<R
         builder.HasOne(response => response.Response)
             .WithMany(anamnesis => anamnesis.Answers)
             .HasForeignKey(response => response.ResponseId);
-
-        builder.HasOne(response => response.Question)
-            .WithMany(anamnesis => anamnesis.Answers)
-            .HasForeignKey(response => response.QuestionId);
     }
 }
