@@ -45,8 +45,21 @@
     </ItemGroup>
 
     <ItemGroup>
-      <_ContentIncludedByDefault Remove="Components\TodoApp\TodoItem.razor" />
-      <_ContentIncludedByDefault Remove="Components\TodoApp\TodoItems.razor" />
+        <_ContentIncludedByDefault Remove="Components\TodoApp\TodoItem.razor"/>
+        <_ContentIncludedByDefault Remove="Components\TodoApp\TodoItems.razor"/>
+        <_ContentIncludedByDefault Remove="Layouts\MainLayout.razor"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Endpoints\BaseEndpoints\Components\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="Endpoints\BaseEndpoints\Components\Layout\FooterMenu.razor"/>
+        <AdditionalFiles Include="Endpoints\BaseEndpoints\Components\Layout\SideMenu.razor"/>
+        <AdditionalFiles Include="Endpoints\BaseEndpoints\Components\Layout\ThemeColorSelector.razor"/>
+        <AdditionalFiles Include="Endpoints\BaseEndpoints\Components\Layout\TopMenu.razor"/>
+        <AdditionalFiles Include="Endpoints\BaseEndpoints\Layouts\MainLayout.razor"/>
     </ItemGroup>
 
 </Project>

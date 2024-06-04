@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 
-namespace Surveys.Blazor.Components;
+namespace Surveys.Blazor.Endpoints.AuthenticationEndpoints.Components;
 
 public partial class LoginDisplay
 {

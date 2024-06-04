@@ -2,7 +2,7 @@
 using Blazorise.Localization;
 using Microsoft.AspNetCore.Components;
 
-namespace Surveys.Blazor.Layouts;
+namespace Surveys.Blazor.Endpoints.BaseEndpoints.Layouts;
 
 public partial class MainLayout
 {
