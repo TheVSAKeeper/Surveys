@@ -6,7 +6,7 @@
         <BarItem>
             <BarLink To="">
                 <BarIcon IconName="customIcon"/>
-                Surveys
+                Опросы
             </BarLink>
         </BarItem>
     </BarBrand>
@@ -15,7 +15,7 @@
             <BarItem>
                 <BarLink To="/">
                     <BarIcon IconName="IconName.Dashboard"/>
-                    Dashboard
+                    Главная страница
                 </BarLink>
             </BarItem>
             <AuthorizeView Roles="@AppData.SystemAdministratorRoleName">
@@ -23,16 +23,10 @@
                     <BarDropdown @bind-Visible="pagesBarVisible">
                         <BarDropdownToggle>
                             <BarIcon IconName="IconName.Edit"/>
-                            Pages
+                            Страницы
                         </BarDropdownToggle>
                         <BarDropdownMenu>
-                            <BarDropdownItem To="/simple-form">Simple Form</BarDropdownItem>
-                        </BarDropdownMenu>
-                        <BarDropdownMenu>
-                            <BarDropdownItem To="/simple-datagrid">Simple DataGrid</BarDropdownItem>
-                        </BarDropdownMenu>
-                        <BarDropdownMenu>
-                            <BarDropdownItem To="/patients">Patients</BarDropdownItem>
+                            <BarDropdownItem To="/patients">Пациенты</BarDropdownItem>
                         </BarDropdownMenu>
                     </BarDropdown>
                 </BarItem>
@@ -42,10 +36,10 @@
                     <BarDropdown @bind-Visible="pagesBarVisible">
                         <BarDropdownToggle>
                             <BarIcon IconName="IconName.Edit"/>
-                            Pages
+                            Страницы
                         </BarDropdownToggle>
                         <BarDropdownMenu>
-                            <BarDropdownItem To="/patients">Patients</BarDropdownItem>
+                            <BarDropdownItem To="/patients">Пациенты</BarDropdownItem>
                         </BarDropdownMenu>
                     </BarDropdown>
                 </BarItem>
@@ -55,30 +49,15 @@
                     <BarDropdown @bind-Visible="pagesBarVisible">
                         <BarDropdownToggle>
                             <BarIcon IconName="IconName.Edit"/>
-                            Pages
+                            Страницы
                         </BarDropdownToggle>
                         <BarDropdownMenu>
-                            <BarDropdownItem To="/patients">Patients</BarDropdownItem>
+                            <BarDropdownItem To="/patients">Пациенты</BarDropdownItem>
                         </BarDropdownMenu>
                     </BarDropdown>
                 </BarItem>
             </AuthorizeView>
         </BarStart>
-        <BarEnd>
-            <BarItem>
-                <BarDropdown>
-                    <BarDropdownToggle>
-                        <BarIcon IconName="IconName.Smartphone"/>
-                        Apps
-                    </BarDropdownToggle>
-                    <BarDropdownMenu>
-                        <BarDropdownItem To="/apps/todo">
-                            Todo
-                        </BarDropdownItem>
-                    </BarDropdownMenu>
-                </BarDropdown>
-            </BarItem>
-        </BarEnd>
     </BarMenu>
 </Bar>
 

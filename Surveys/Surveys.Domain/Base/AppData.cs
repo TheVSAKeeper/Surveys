@@ -8,13 +8,13 @@ public static partial class AppData
     /// <summary>
     ///     Current service name
     /// </summary>
-    public const string ServiceName = "Microservice Template with OpenIddict";
+    public const string ServiceName = "Survey Service with AuthServer";
 
     /// <summary>
     ///     Nimble Framework Microservice Template with integrated OpenIddict
     ///     for OpenID Connect server and Token Validation
     /// </summary>
-    public const string ServiceDescription = "Nimble Framework Microservice Template with integrated OpenIddict for OpenID Connect server and Token Validation";
+    public const string ServiceDescription = "Provides an opportunity to submit medical surveys";
 
     /// <summary>
     ///     Default policy name for CORS

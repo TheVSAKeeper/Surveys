@@ -1,37 +1,77 @@
 ﻿@page "/"
 @inject IVersionProvider VersionProvider
 
-<Heading Margin="Margin.Is3.FromBottom" Size="HeadingSize.Is1">Blazorise</Heading>
+<Heading Margin="Margin.Is3.FromBottom" Size="HeadingSize.Is2">Опрос пациентов</Heading>
 
 <Paragraph>
-    Blazorise is a component library built on top of Blazor and CSS frameworks like <Anchor Target="Target.Blank" To="https://getbootstrap.com/">Bootstrap</Anchor>, <Anchor Target="Target.Blank" To="https://fluent2.microsoft.design/">FluentUI2</Anchor>, <Anchor Target="Target.Blank" To="https://tailwindcss.com/">Tailwind</Anchor>, <Anchor Target="Target.Blank" To="https://bulma.io/">Bulma</Anchor>, <Anchor Target="Target.Blank" To="https://ant.design/">Ant Design</Anchor>, and <Anchor Target="Target.Blank" To="http://daemonite.github.io/material/">Material</Anchor>. It can be used to build responsive, single-page web applications.
+    «Опрос пациентов» – приложение для автозаполнения форм осмотра пациентов. Web-приложения, к которым относится «Сервис автозаполнения формы опроса пациентов», актуальны, так как они кроссплатформенные и адаптивные, удовлетворяют потребности клиентов и бизнеса.
+</Paragraph>
+<Paragraph>
+    Автоматизация процесса заполнения форм повышает эффективность работы медицинских учреждений, улучшает качество медицинского обслуживания и ускоряет принятие решений при лечении пациентов.
+</Paragraph>
+<Paragraph>
+    Проблема – необходимость автоматизации сбора и обработки информации от пациентов, надежного хранения данных и выставления диагнозов. Решение проблемы позволит сократить время заполнения медицинской документации, снизить вероятность ошибок и обеспечить быстрый доступ к медицинской информации пациентов.
 </Paragraph>
 
-<Alert Color="Color.Info" Visible>
-    <Paragraph>
-        This is a Blazorise Starting Template allowing you to quickly get started building your project!
-    </Paragraph>
+<Card Margin="Margin.Is3.FromBottom">
+    <CardHeader >
+        <Heading Size="HeadingSize.Is4">
+            Роли в системе
+        </Heading>
+    </CardHeader>
 
-    <Paragraph>
-        The following Blazorise packages have been installed for you:
-    </Paragraph>
+    <CardBody>
+        <Paragraph>
+            В проекте используется доступны 3 роли, которые регламентируют доступ к функционалу.
+        </Paragraph>
 
-    <UnorderedList>
-        <UnorderedListItem>Blazorise @($"v{VersionProvider.MilestoneVersion}")</UnorderedListItem>
-        <UnorderedListItem>The <Anchor To="https://blazorise.com/docs/usage/material">Blazorise Material</Anchor> Provider</UnorderedListItem>
-        <UnorderedListItem>The Blazorise Material Icon Provider</UnorderedListItem>
-        <UnorderedListItem>The <Anchor To="https://blazorise.com/docs/extensions/datagrid/getting-started">Blazorise DataGrid</Anchor> extension</UnorderedListItem>
-    </UnorderedList>
+        <UnorderedList>
+            <UnorderedListItem><Code>Administrator</Code> - (администратор) пользователь, который может выполнять все операции с любыми сущностями.</UnorderedListItem>
+            <UnorderedListItem><Code>Doctor</Code> - (врач) пользователь, который может добавить информацию опросу и указать диагноз.</UnorderedListItem>
+            <UnorderedListItem><Code>Nurse</Code> - (медицинская сестра) пользователь, который может только добавить информацию опроса.</UnorderedListItem>
+        </UnorderedList>
+    </CardBody>
 
-    <Paragraph>
-        However Blazorise has many more extensions at your disposal.
-        You can find them <Anchor Target="Target.Blank" To="https://blazorise.com/docs/extensions">here</Anchor>.
-    </Paragraph>
+    <CardFooter>
+        <Alert Color="Color.Danger" Visible>
+            Работа только в режиме авторизации.
+        </Alert>
+    </CardFooter>
+</Card>
 
-    <Paragraph>
-        Please visit the official <Anchor Target="Target.Blank" To="https://bootstrapdemo.blazorise.com/">Blazorise Demo</Anchor> for component examples.
-    </Paragraph>
-    <Paragraph>
-        Please visit the official <Anchor Target="Target.Blank" To="https://blazorise.com/docs/">Blazorise Documentation</Anchor> to learn more about the available components.
-    </Paragraph>
-</Alert>
+<Card Margin="Margin.Is3.FromBottom">
+    <CardHeader >
+        <Heading Size="HeadingSize.Is4">
+            Состав проекта
+        </Heading>
+    </CardHeader>
+
+    <CardBody>
+        <Paragraph>
+            Ключевые понятия, которые присутствуют в проекте:
+        </Paragraph>
+
+        <UnorderedList>
+            <UnorderedListItem><Code>PostgreSQL</Code> - база данных, используемая для хранения данных приложения.</UnorderedListItem>
+            <UnorderedListItem><Code>EntityFrameworkCore</Code> - фреймворк для работы с базой данных, используемый для доступа и управления данными.</UnorderedListItem>
+            <UnorderedListItem><Code>Unit of Work</Code> - паттерн, используемый для управления транзакциями и обеспечения целостности данных.</UnorderedListItem>
+            <UnorderedListItem><Code>MediatR</Code> - библиотека, используемая для реализации паттерна Mediator, который позволяет отделить логику обработки запросов от контроллеров.</UnorderedListItem>
+            <UnorderedListItem><Code>FluentValidation</Code> - библиотека, используемая для валидации данных.</UnorderedListItem>
+            <UnorderedListItem><Code>AutoMapper</Code> - библиотека, используемая для автоматического преобразования объектов между слоями приложения.</UnorderedListItem>
+            <UnorderedListItem><Code>OperationResult</Code> - кастомный тип, используемый для возврата результатов операций с информацией об успехе/ошибке.</UnorderedListItem>
+            <UnorderedListItem><Code>Microsoft Identity</Code> - фреймворк, используемый для аутентификации и авторизации пользователей.</UnorderedListItem>
+            <UnorderedListItem><Code>Vertical Slice Architecture</Code> - архитектурный подход, при котором приложение разделено на вертикальные срезы, каждый из которых содержит все необходимые компоненты для реализации определенной функциональности.</UnorderedListItem>
+            <UnorderedListItem><Code>MVVM</Code> - паттерн проектирования, используемый для разделения логики представления и бизнес-логики.</UnorderedListItem>
+            <UnorderedListItem><Code>AppDefinitions</Code> - модуль, отвечающий за определение и конфигурацию приложения.</UnorderedListItem>
+            <UnorderedListItem><Code>DDD</Code> - методология проектирования, основанная на предметно-ориентированном проектировании.</UnorderedListItem>
+            <UnorderedListItem><Code>Material Design</Code> - дизайн-система, используемая для создания пользовательского интерфейса.</UnorderedListItem>
+            <UnorderedListItem><Code>Navigation и ModalNavigation</Code> - модули, отвечающие за навигацию между экранами и отображение модальных окон.</UnorderedListItem>
+        </UnorderedList>
+    </CardBody>
+
+    <CardFooter>
+        <Alert Color="Color.Info" Visible>
+            Исходный код приложения доступен на GitHub <Anchor Target="Target.Blank" To="https://github.com/TheVSAKeeper/Surveys">здесь</Anchor>.
+        </Alert>
+    </CardFooter>
+</Card>

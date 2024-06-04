@@ -2,12 +2,12 @@
     <AuthorizeView>
         <Authorized>
             <Div Class="align-items-center d-flex gap-3">
-                <Text TextSize="TextSize.Heading4">Hello, @context.User.Identity?.Name!</Text>
-                <Button Clicked="BeginLogOut" Color="Color.Primary">Log out</Button>
+                <Text TextSize="TextSize.Heading4">Здравствуйте, @context.User.Identity?.Name!</Text>
+                <Button Clicked="BeginLogOut" Color="Color.Primary">Выйти</Button>
             </Div>
         </Authorized>
         <NotAuthorized>
-            <Button Clicked="BeginLogIn" Color="Color.Primary">Log in</Button>
+            <Button Clicked="BeginLogIn" Color="Color.Primary">Авторизоваться</Button>
         </NotAuthorized>
     </AuthorizeView>
 </Div>

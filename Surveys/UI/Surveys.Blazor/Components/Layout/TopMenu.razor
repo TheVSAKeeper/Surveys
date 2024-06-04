@@ -4,7 +4,7 @@
         <BarItem>
             <BarLink To="">
                 <BarIcon IconName="IconName.Dashboard" Margin="Margin.Is2.FromEnd"/>
-                Surveys
+                Опросы
             </BarLink>
         </BarItem>
     </BarBrand>
@@ -12,49 +12,32 @@
     <BarMenu>
         <BarStart>
             <BarItem>
-                <BarLink To="/">Home</BarLink>
-            </BarItem>
-            <BarItem>
-                <BarLink To="https://blazorise.com/docs/">Documentation</BarLink>
+                <BarLink To="/">Дом</BarLink>
             </BarItem>
             <BarItem>
                 <BarDropdown>
-                    <BarDropdownToggle>More</BarDropdownToggle>
-                    <BarDropdownMenu>
-                        <BarDropdownItem To="https://blazorise.com/docs/start/">
-                            Quick-Start Guide
-                        </BarDropdownItem>
-                        <BarDropdownDivider/>
-                        <BarDropdownItem To="https://blazorise.com/docs/usage/">
-                            Usage
-                        </BarDropdownItem>
-                    </BarDropdownMenu>
-                </BarDropdown>
-            </BarItem>
-            <BarItem>
-                <BarDropdown>
-                    <BarDropdownToggle>Layout</BarDropdownToggle>
+                    <BarDropdownToggle>Макет</BarDropdownToggle>
                     <BarDropdownMenu>
                         <BarDropdownItem Clicked="@(() => OnLayoutTypeChecked("fixed-header"))">
                             @if (LayoutType == "fixed-header")
                             {
                                 <Icon Name="IconName.CheckCircle" TextColor="TextColor.Success"/>
                             }
-                            Fixed Header
+                            Фиксированный заголовок
                         </BarDropdownItem>
                         <BarDropdownItem Clicked="@(() => OnLayoutTypeChecked("fixed-header-footer-only"))">
                             @if (LayoutType == "fixed-header-footer-only")
                             {
                                 <Icon Name="IconName.CheckCircle" TextColor="TextColor.Success"/>
                             }
-                            Fixed Header and Footer only
+                            Только фиксированный верхний и нижний колонтитулы
                         </BarDropdownItem>
                         <BarDropdownItem Clicked="@(() => OnLayoutTypeChecked("sider-with-header-on-top"))">
                             @if (LayoutType == "sider-with-header-on-top")
                             {
                                 <Icon Name="IconName.CheckCircle" TextColor="TextColor.Success"/>
                             }
-                            Sider with Header on top
+                            Сайдер с заголовком сверху
                         </BarDropdownItem>
                     </BarDropdownMenu>
                 </BarDropdown>
@@ -72,17 +55,17 @@
                         <Row>
                             <Column Margin="Margin.Is2.FromBottom">
                                 <Field>
-                                    <Switch Checked="@(Theme?.Enabled == true)" CheckedChanged="@ThemeEnabledChanged" TValue="bool">Theme enabled</Switch>
+                                    <Switch Checked="@(Theme?.Enabled == true)" CheckedChanged="@ThemeEnabledChanged" TValue="bool">Тема включена</Switch>
                                 </Field>
                             </Column>
                         </Row>
                         <Row>
                             <Column Margin="Margin.Is2.FromBottom">
                                 <Field>
-                                    <Check Checked="@(Theme?.IsGradient == true)" CheckedChanged="@ThemeGradientChanged" TValue="bool">Gradient colors</Check>
+                                    <Check Checked="@(Theme?.IsGradient == true)" CheckedChanged="@ThemeGradientChanged" TValue="bool">Градиентные цвета</Check>
                                 </Field>
                                 <Field>
-                                    <Check Checked="@(Theme?.IsRounded == true)" CheckedChanged="@ThemeRoundedChanged" TValue="bool">Rounded elements</Check>
+                                    <Check Checked="@(Theme?.IsRounded == true)" CheckedChanged="@ThemeRoundedChanged" TValue="bool">Закругленные элементы</Check>
                                 </Field>
                             </Column>
                         </Row>

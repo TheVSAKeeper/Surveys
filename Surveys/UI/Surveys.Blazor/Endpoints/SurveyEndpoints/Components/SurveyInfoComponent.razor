@@ -3,7 +3,7 @@
 @using Surveys.Blazor.Endpoints.SurveyEndpoints.ViewModels
 <Card>
     <CardHeader>
-        <CardTitle>Информация об опросе</CardTitle>
+        <CardTitle>Опрос от @ViewModel.CreatedAt.ToString("G")</CardTitle>
     </CardHeader>
     <CardBody>
         @if (CompactView)
@@ -11,13 +11,13 @@
             <Row>
                 <Column ColumnSize="ColumnSize.Is6">
                     <Field>
-                        <FieldLabel>Complaint</FieldLabel>
+                        <FieldLabel>Жалоба</FieldLabel>
                         <TextEdit ReadOnly="true" Text="@ViewModel.Complaint"/>
                     </Field>
                 </Column>
                 <Column ColumnSize="ColumnSize.Is6">
                     <Field>
-                        <FieldLabel>Status</FieldLabel>
+                        <FieldLabel>Статус</FieldLabel>
                         <TextEdit ReadOnly="true" Text="@ViewModel.Status.ToString()"/>
                     </Field>
                 </Column>
@@ -26,13 +26,13 @@
             <Row>
                 <Column ColumnSize="ColumnSize.Is6">
                     <Field>
-                        <FieldLabel>Created At</FieldLabel>
+                        <FieldLabel>Создан в</FieldLabel>
                         <TextEdit ReadOnly="true" Text="@ViewModel.CreatedAt.ToString("G")"/>
                     </Field>
                 </Column>
                 <Column ColumnSize="ColumnSize.Is6">
                     <Field>
-                        <FieldLabel>Created By</FieldLabel>
+                        <FieldLabel>Создан</FieldLabel>
                         <TextEdit ReadOnly="true" Text="@ViewModel.CreatedBy"/>
                     </Field>
                 </Column>
@@ -43,7 +43,7 @@
             <Row>
                 <Column ColumnSize="ColumnSize.Is6">
                     <Field>
-                        <FieldLabel>Complaint</FieldLabel>
+                        <FieldLabel>Жалоба</FieldLabel>
                         <TextEdit ReadOnly="true" Text="@ViewModel.Complaint"/>
                     </Field>
                 </Column>
