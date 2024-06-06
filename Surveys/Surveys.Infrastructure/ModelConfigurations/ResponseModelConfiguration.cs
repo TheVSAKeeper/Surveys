@@ -11,5 +11,8 @@ public class ResponseModelConfiguration : AuditableModelConfigurationBase<Respon
         builder.HasOne(response => response.Question)
             .WithMany(anamnesis => anamnesis.Answers)
             .HasForeignKey(response => response.QuestionId);
+
+        builder.Navigation(question => question.Question).AutoInclude();
+        builder.Navigation(question => question.Answers).AutoInclude();
     }
 }
