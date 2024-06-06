@@ -14,7 +14,7 @@ namespace Surveys.Blazor.Endpoints.ResponseEndpoints.Components;
 public partial class ResponseCard
 {
     [Parameter] public ResponseViewModel Response { get; set; } = null!;
-
+    [Parameter] public EventCallback AnswerChanged { get; set; }
     [Inject] private IAuthorizedHttpClient Client { get; set; } = null!;
     [Inject] private IToastService ToastService { get; set; } = null!;
 
@@ -30,7 +30,6 @@ public partial class ResponseCard
     protected override async Task OnParametersSetAsync()
     {
         await UpdateCard();
-
         await base.OnParametersSetAsync();
     }
 
@@ -110,6 +109,7 @@ public partial class ResponseCard
         {
             Answer = result.Result;
             await ToastService.Success($"Ответ {result.Result.Value} сохранен", "Сохранение");
+            await AnswerChanged.InvokeAsync();
         }
     }
 

@@ -1,6 +1,7 @@
 @using Blazorise.Icons.FontAwesome
 @using Surveys.Blazor.Endpoints.ResponseEndpoints.Components
 @using Surveys.Web.Application.Messaging.ResponseMessages.ViewModels
+
 <Card Margin="Margin.Is3.FromBottom">
     <CardHeader>
         <CardTitle>
@@ -18,7 +19,7 @@
 
             @foreach (ResponseViewModel response in Anamnesis.Responses)
             {
-                <ResponseCard Response="@response"/>
+                <ResponseCard AnswerChanged="OnAnswerChanged" Response="@response"/>
             }
         }
         else

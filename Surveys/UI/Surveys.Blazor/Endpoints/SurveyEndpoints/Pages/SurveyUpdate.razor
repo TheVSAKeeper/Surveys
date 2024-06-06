@@ -64,7 +64,7 @@
                         {
                             foreach (AnamnesisViewModel anamnesis in ViewModel.Anamneses)
                             {
-                                <AnamnesisCard Anamnesis="@anamnesis" OnChanged="OnAnswerChanged"/>
+                                <AnamnesisCard Anamnesis="@anamnesis" AnamnesisChanged="OnAnswerChanged"/>
                             }
                         }
                         else
@@ -79,11 +79,6 @@
                 <Column ColumnSize="ColumnSize.Is6">
                     <Button Clicked="() => _anamnesisTemplateModal.Show()" Color="Color.Primary">
                         <Icon Name="IconName.Add"/> Добавить
-                    </Button>
-                </Column>
-                <Column ColumnSize="ColumnSize.Is6">
-                    <Button Clicked="OnSaveSurveyClicked" Color="Color.Primary">
-                        <Icon Name="IconName.Save"/> Сохранить
                     </Button>
                 </Column>
             </Row>

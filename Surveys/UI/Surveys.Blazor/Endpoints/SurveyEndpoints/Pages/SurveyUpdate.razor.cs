@@ -1,7 +1,5 @@
 using Blazorise;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
-using Newtonsoft.Json;
 using Surveys.Blazor.Domain;
 using Surveys.Blazor.Endpoints.AnamnesisTemplateEndpoints.Components;
 using Surveys.Blazor.Services;
@@ -52,23 +50,5 @@ public partial class SurveyUpdate
         await LoadSurveyUpdateViewModel();
     }
 
-    private void OnSaveSurveyClicked(MouseEventArgs obj)
-    {
-        if (ViewModel == null)
-            return;
-
-        string serializedViewModel = JsonConvert.SerializeObject(ViewModel, Formatting.Indented);
-        Console.WriteLine(serializedViewModel);
-    }
-
-    private void OnAnswerChanged(ResponseViewModel obj)
-    {
-        AnamnesisViewModel? anamnesisViewModel = ViewModel?.Anamneses.FirstOrDefault(x => x.Id == obj.AnamnesisId);
-
-        if (anamnesisViewModel != null)
-        {
-            anamnesisViewModel.Responses = [obj];
-            Console.WriteLine(JsonConvert.SerializeObject(anamnesisViewModel, Formatting.Indented));
-        }
-    }
+    private Task OnAnswerChanged() => LoadSurveyUpdateViewModel();
 }

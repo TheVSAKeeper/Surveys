@@ -29,6 +29,20 @@ public sealed class UpdateResponseAnswer
                 return Operation.Error(errorMessage);
             }
 
+            Response? response = await unitOfWork.GetRepository<Response>().FindAsync([entity.ResponseId], cancellationToken);
+
+            if (response != null)
+            {
+                Anamnesis? anamnesis = await unitOfWork.GetRepository<Anamnesis>().FindAsync([response.AnamnesisId], cancellationToken);
+
+                if (anamnesis != null)
+                {
+                    IEnumerable<ResponseAnswer> responseAnswers = anamnesis.Responses!.SelectMany(x => x.Answers);
+                    anamnesis.IsComplete = responseAnswers.All(responseAnswer => !string.IsNullOrEmpty(responseAnswer.Value));
+                    await unitOfWork.SaveChangesAsync();
+                }
+            }
+
             ResponseAnswerViewModel? mapped = mapper.Map<ResponseAnswer, ResponseAnswerViewModel>(entity);
 
             if (mapped is null)
