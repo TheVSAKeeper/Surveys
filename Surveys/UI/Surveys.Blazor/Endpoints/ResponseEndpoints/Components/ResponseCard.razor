@@ -1,8 +1,8 @@
 @using Surveys.Domain
 @using Surveys.Web.Application.Messaging.QuestionOptionMessages.ViewModels
-<Card>
+<Card Margin="Margin.Is3.FromBottom">
     <CardHeader>
-        <CardTitle>@Question.Text</CardTitle>
+        <CardTitle>@(char.ToUpper(Question.Text.First()) + Question.Text[1..])</CardTitle>
     </CardHeader>
     <CardBody>
         <Field>
@@ -13,6 +13,8 @@
                 case QuestionType.SingleChoice:
                 case QuestionType.MultipleChoice:
                     <Select @bind-SelectedValue="@SelectedOption" @onfocusout="OnAnswerChanged" TValue="string">
+                        <SelectItem Value="@string.Empty">@string.Empty</SelectItem>
+
                         @foreach (QuestionOptionViewModel option in Question.Options ?? [])
                         {
                             <SelectItem Value="@option.Value">@option.Value</SelectItem>

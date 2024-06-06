@@ -1,4 +1,5 @@
 using System.Globalization;
+using Blazorise;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Surveys.Blazor.Domain;
@@ -15,6 +16,7 @@ public partial class ResponseCard
     [Parameter] public ResponseViewModel Response { get; set; } = null!;
 
     [Inject] private IAuthorizedHttpClient Client { get; set; } = null!;
+    [Inject] private IToastService ToastService { get; set; } = null!;
 
     private QuestionViewModel Question => Response.Question!;
 
@@ -105,7 +107,10 @@ public partial class ResponseCard
             answer);
 
         if (result is { Ok: true })
+        {
             Answer = result.Result;
+            await ToastService.Success($"Ответ {result.Result.Value} сохранен", "Сохранение");
+        }
     }
 
     private ResponseAnswerUpdateViewModel GetUpdateAnswer()

@@ -1,17 +1,22 @@
+@using Blazorise.Icons.FontAwesome
 @using Surveys.Blazor.Endpoints.ResponseEndpoints.Components
 @using Surveys.Web.Application.Messaging.ResponseMessages.ViewModels
-<Card>
+<Card Margin="Margin.Is3.FromBottom">
     <CardHeader>
         <CardTitle>
-            @(Anamnesis.AnamnesisTemplate?.Title ?? "Неизвестно")<Check Checked="@Anamnesis.IsComplete" Disabled="true"/>
+            @(AnamnesisTemplate?.Title ?? "Нет названия")
+            <Blazorise.Icons.FontAwesome.Icon Name="@(Anamnesis.IsComplete ? FontAwesomeIcons.CheckCircle : FontAwesomeIcons.CircleXmark)" TextColor="@(Anamnesis.IsComplete ? TextColor.Success : TextColor.Danger)"/>
         </CardTitle>
     </CardHeader>
     <CardBody>
         @if (Anamnesis.Responses != null)
         {
-            <Paragraph>Не найден отклик @Anamnesis.Responses.Count</Paragraph>
+            <Paragraph>
+                Количество вопросов/ответов: @AnamnesisTemplate?.Questions.Count /
+                @Anamnesis.Responses.Count(response => response.Answers.Any(answer => string.IsNullOrWhiteSpace(answer.Value) == false))
+            </Paragraph>
 
-            foreach (ResponseViewModel response in Anamnesis.Responses)
+            @foreach (ResponseViewModel response in Anamnesis.Responses)
             {
                 <ResponseCard Response="@response"/>
             }

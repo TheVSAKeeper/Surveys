@@ -4,6 +4,7 @@ using Surveys.Blazor.Domain;
 using Surveys.Blazor.Endpoints.QuestionEndpoints.Components;
 using Surveys.Blazor.Services;
 using Surveys.Web.Application.Messaging.AnamnesisMessages;
+using Surveys.Web.Application.Messaging.AnamnesisTemplateMessages.ViewModels;
 using Surveys.Web.Application.Messaging.ResponseAnswerMessages.ViewModels;
 using Surveys.Web.Application.Messaging.ResponseMessages.ViewModels;
 
@@ -16,6 +17,8 @@ public partial class AnamnesisCard
     [Parameter] public EventCallback<ResponseViewModel> OnChanged { get; set; }
 
     [Inject] public IAuthorizedHttpClient Client { get; set; } = null!;
+
+    private AnamnesisTemplateViewModel? AnamnesisTemplate => Anamnesis.AnamnesisTemplate;
 
     private async Task OnAnswerSaved(QuestionCard.AnswerSavedEventArgs args)
     {
