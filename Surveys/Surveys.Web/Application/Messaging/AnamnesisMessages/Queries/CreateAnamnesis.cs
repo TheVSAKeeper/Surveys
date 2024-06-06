@@ -21,6 +21,25 @@ public sealed class CreateAnamnesis
                 return Operation.Error(AppData.Exceptions.MappingException);
             }
 
+            AnamnesisTemplate? template = await unitOfWork.GetRepository<AnamnesisTemplate>().FindAsync([anamnesisRequest.Model.AnamnesisTemplateId], cancellationToken);
+
+            if (template == null)
+            {
+                logger.LogError("Template of anamnesis not found");
+                return Operation.Error($"Entity with identifier {anamnesisRequest.Model.AnamnesisTemplateId} not found");
+            }
+
+            List<Response> responses = [];
+
+            responses.AddRange(template.Questions.Select(question => new Response
+            {
+                AnamnesisId = anamnesisRequest.Model.Id,
+                QuestionId = question.Id,
+                Answers = []
+            }));
+
+            entity.Responses = responses;
+
             await unitOfWork.GetRepository<Anamnesis>().InsertAsync(entity, cancellationToken);
             await unitOfWork.SaveChangesAsync();
 
