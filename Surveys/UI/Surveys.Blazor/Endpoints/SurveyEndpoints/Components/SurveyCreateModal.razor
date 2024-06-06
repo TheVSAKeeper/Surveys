@@ -27,6 +27,8 @@
                             </Field>
                         </Validation>
                     </Validations>
+                    
+                    <Check @bind-Checked="_isDefaultSurvey" TValue="bool"></Check>
 
                     <Button Color="Color.Primary" Type="ButtonType.Submit">
                         <Icon Name="IconName.Check"/> Подтвердить
