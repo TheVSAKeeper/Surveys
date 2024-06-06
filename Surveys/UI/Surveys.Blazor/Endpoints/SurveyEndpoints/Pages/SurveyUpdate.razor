@@ -60,22 +60,31 @@
                         <FieldLabel>Анамнезы</FieldLabel>
                         <AnamnesisTemplateModal OnTemplatesSelected="HandleTemplatesSelected" @ref="_anamnesisTemplateModal"/>
 
-                        @if (ViewModel.Anamneses != null && ViewModel.Anamneses.Any())
+                        @if (ViewModel.Anamneses.Any())
                         {
                             foreach (AnamnesisViewModel anamnesis in ViewModel.Anamneses)
                             {
-                                <AnamnesisCard Anamnesis="@anamnesis"/>
+                                <AnamnesisCard Anamnesis="@anamnesis" OnChanged="OnAnswerChanged"/>
                             }
                         }
                         else
                         {
                             <TextEdit ReadOnly="true" Text="No anamneses available"/>
                         }
-
-                        <Button Clicked="() => _anamnesisTemplateModal.Show()" Color="Color.Primary">
-                            <Icon Name="IconName.Add"/> Добавить
-                        </Button>
                     </Field>
+                </Column>
+            </Row>
+
+            <Row>
+                <Column ColumnSize="ColumnSize.Is6">
+                    <Button Clicked="() => _anamnesisTemplateModal.Show()" Color="Color.Primary">
+                        <Icon Name="IconName.Add"/> Добавить
+                    </Button>
+                </Column>
+                <Column ColumnSize="ColumnSize.Is6">
+                    <Button Clicked="OnSaveSurveyClicked" Color="Color.Primary">
+                        <Icon Name="IconName.Save"/> Сохранить
+                    </Button>
                 </Column>
             </Row>
 

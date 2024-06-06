@@ -16,4 +16,6 @@ public class AppData
     ///     "Nurse"
     /// </summary>
     public const string NurseRoleName = "Nurse";
+
+    public const string ResponseAnswerUrl = "response-answer";
 }

@@ -1,6 +1,8 @@
 using System.Linq.Expressions;
 using Calabonga.PagedListCore;
 using Calabonga.PredicatesBuilder;
+using Surveys.Web.Application.Messaging.AnamnesisMessages;
+using Surveys.Web.Application.Messaging.ResponseMessages.ViewModels;
 using Surveys.Web.Application.Messaging.SurveyMessages.ViewModels;
 
 namespace Surveys.Web.Application.Messaging.SurveyMessages.Queries;
@@ -31,6 +33,21 @@ public sealed class GetSurveyPaged
 
             if (mapped is null)
                 return Operation.Error(AppData.Exceptions.MappingException);
+
+            foreach (SurveyViewModel survey in mapped.Items)
+            {
+                if (survey.Anamneses == null)
+                    continue;
+
+                foreach (AnamnesisViewModel anamnesis in survey.Anamneses)
+                {
+                    if (anamnesis.Responses == null)
+                        continue;
+
+                    foreach (ResponseViewModel response in anamnesis.Responses)
+                        response.Anamnesis = null;
+                }
+            }
 
             return Operation.Result(mapped);
         }

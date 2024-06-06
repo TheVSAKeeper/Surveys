@@ -115,22 +115,22 @@
             <Link>Endpoints\QuestionEndpoints\ViewModels\QuestionOptionViewModel.cs</Link>
         </Compile>
         <Compile Include="..\..\Surveys.Web\Application\Messaging\ResponseAnswerMessages\ViewModels\ResponseAnswerCreateViewModel.cs">
-            <Link>Endpoints\AnamnesisEndpoints\ViewModels\ResponseAnswerCreateViewModel.cs</Link>
+            <Link>Endpoints\ResponseEndpoints\ViewModels\ResponseAnswerCreateViewModel.cs</Link>
         </Compile>
         <Compile Include="..\..\Surveys.Web\Application\Messaging\ResponseAnswerMessages\ViewModels\ResponseAnswerUpdateViewModel.cs">
-            <Link>Endpoints\AnamnesisEndpoints\ViewModels\ResponseAnswerUpdateViewModel.cs</Link>
+            <Link>Endpoints\ResponseEndpoints\ViewModels\ResponseAnswerUpdateViewModel.cs</Link>
         </Compile>
         <Compile Include="..\..\Surveys.Web\Application\Messaging\ResponseAnswerMessages\ViewModels\ResponseAnswerViewModel.cs">
-            <Link>Endpoints\AnamnesisEndpoints\ViewModels\ResponseAnswerViewModel.cs</Link>
+            <Link>Endpoints\ResponseEndpoints\ViewModels\ResponseAnswerViewModel.cs</Link>
         </Compile>
         <Compile Include="..\..\Surveys.Web\Application\Messaging\ResponseMessages\ViewModels\ResponseCreateViewModel.cs">
-            <Link>Endpoints\AnamnesisEndpoints\ViewModels\ResponseCreateViewModel.cs</Link>
+            <Link>Endpoints\ResponseEndpoints\ViewModels\ResponseCreateViewModel.cs</Link>
         </Compile>
         <Compile Include="..\..\Surveys.Web\Application\Messaging\ResponseMessages\ViewModels\ResponseUpdateViewModel.cs">
-            <Link>Endpoints\AnamnesisEndpoints\ViewModels\ResponseUpdateViewModel.cs</Link>
+            <Link>Endpoints\ResponseEndpoints\ViewModels\ResponseUpdateViewModel.cs</Link>
         </Compile>
         <Compile Include="..\..\Surveys.Web\Application\Messaging\ResponseMessages\ViewModels\ResponseViewModel.cs">
-            <Link>Endpoints\AnamnesisEndpoints\ViewModels\ResponseViewModel.cs</Link>
+            <Link>Endpoints\ResponseEndpoints\ViewModels\ResponseViewModel.cs</Link>
         </Compile>
         <Compile Include="..\..\Surveys.Web\Application\Messaging\SurveyMessages\ViewModels\SurveyCreateViewModel.cs">
             <Link>Endpoints\SurveyEndpoints\ViewModels\SurveyCreateViewModel.cs</Link>

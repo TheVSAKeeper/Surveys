@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 using Surveys.Infrastructure;
 
 namespace Surveys.Web.Application.Messaging.AnamnesisMessages.Queries;
@@ -8,12 +9,12 @@ public sealed class CreateAnamnesis
     public class Handler(IUnitOfWork unitOfWork, IMapper mapper, ILogger<Handler> logger)
         : IRequestHandler<Request, Operation<AnamnesisViewModel, string>>
     {
-        public async Task<Operation<AnamnesisViewModel, string>> Handle(Request anamnesisRequest, CancellationToken cancellationToken)
+        public async Task<Operation<AnamnesisViewModel, string>> Handle(Request request, CancellationToken cancellationToken)
         {
             logger.LogDebug("Creating new Anamnesis");
 
-            Anamnesis? entity = mapper.Map<AnamnesisCreateViewModel, Anamnesis>(anamnesisRequest.Model,
-                options => options.Items[nameof(ApplicationUser)] = anamnesisRequest.User.Identity!.Name);
+            Anamnesis? entity = mapper.Map<AnamnesisCreateViewModel, Anamnesis>(request.Model,
+                options => options.Items[nameof(ApplicationUser)] = request.User.Identity!.Name);
 
             if (entity == null)
             {
@@ -21,19 +22,22 @@ public sealed class CreateAnamnesis
                 return Operation.Error(AppData.Exceptions.MappingException);
             }
 
-            AnamnesisTemplate? template = await unitOfWork.GetRepository<AnamnesisTemplate>().FindAsync([anamnesisRequest.Model.AnamnesisTemplateId], cancellationToken);
+            AnamnesisTemplate? template = await unitOfWork.GetRepository<AnamnesisTemplate>()
+                    .GetFirstOrDefaultAsync(predicate: p => p.Id == request.Model.AnamnesisTemplateId,
+                        include: i => i.Include(x => x.Questions))
+                ;
 
             if (template == null)
             {
                 logger.LogError("Template of anamnesis not found");
-                return Operation.Error($"Entity with identifier {anamnesisRequest.Model.AnamnesisTemplateId} not found");
+                return Operation.Error($"Entity with identifier {request.Model.AnamnesisTemplateId} not found");
             }
 
             List<Response> responses = [];
 
             responses.AddRange(template.Questions.Select(question => new Response
             {
-                AnamnesisId = anamnesisRequest.Model.Id,
+                AnamnesisId = entity.Id,
                 QuestionId = question.Id,
                 Answers = []
             }));
@@ -45,20 +49,20 @@ public sealed class CreateAnamnesis
 
             SaveChangesResult lastResult = unitOfWork.LastSaveChangesResult;
 
-            if (lastResult.IsOk)
+            if (lastResult.IsOk == false)
             {
-                AnamnesisViewModel? mapped = mapper.Map<Anamnesis, AnamnesisViewModel>(entity);
-
-                if (mapped is null)
-                    return Operation.Error(AppData.Exceptions.MappingException);
-
-                logger.LogInformation("New entity {@Anamnesis} successfully created", entity);
-                return Operation.Result(mapped);
+                string errorMessage = lastResult.Exception?.Message ?? "Something went wrong";
+                logger.LogError(errorMessage);
+                return Operation.Error(errorMessage);
             }
 
-            string errorMessage = lastResult.Exception?.Message ?? "Something went wrong";
-            logger.LogError(errorMessage);
-            return Operation.Error(errorMessage);
+            AnamnesisViewModel? mapped = mapper.Map<Anamnesis, AnamnesisViewModel>(entity);
+
+            if (mapped is null)
+                return Operation.Error(AppData.Exceptions.MappingException);
+
+            //logger.LogInformation("New entity {@Anamnesis} successfully created", entity);
+            return Operation.Result(mapped);
         }
     }
 

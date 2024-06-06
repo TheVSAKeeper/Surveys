@@ -1,5 +1,5 @@
-@using Surveys.Blazor.Endpoints.QuestionEndpoints.Components
-@using Surveys.Web.Application.Messaging.QuestionMessages.ViewModels
+@using Surveys.Blazor.Endpoints.ResponseEndpoints.Components
+@using Surveys.Web.Application.Messaging.ResponseMessages.ViewModels
 <Card>
     <CardHeader>
         <CardTitle>
@@ -7,12 +7,18 @@
         </CardTitle>
     </CardHeader>
     <CardBody>
-        @if (Anamnesis.AnamnesisTemplate != null)
+        @if (Anamnesis.Responses != null)
         {
-            foreach (QuestionViewModel question in Anamnesis.AnamnesisTemplate.Questions)
+            <Paragraph>Не найден отклик @Anamnesis.Responses.Count</Paragraph>
+
+            foreach (ResponseViewModel response in Anamnesis.Responses)
             {
-                <QuestionCard OnAnswerSaved="OnAnswerSaved" Question="@question"/>
+                <ResponseCard Response="@response"/>
             }
+        }
+        else
+        {
+            <Paragraph>Не найден отклик</Paragraph>
         }
     </CardBody>
 </Card>
