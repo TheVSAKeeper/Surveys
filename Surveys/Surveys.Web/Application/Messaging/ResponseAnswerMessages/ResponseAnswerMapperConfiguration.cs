@@ -14,7 +14,6 @@ public class ResponseAnswerMapperConfiguration : Profile
             ;
 
         CreateMap<ResponseAnswer, ResponseAnswerViewModel>()
-            .ForMember(dest => dest.QuestionId, opt => opt.MapFrom(src => src.Response!.QuestionId))
             ;
 
         CreateMap<ResponseAnswer, ResponseAnswerUpdateViewModel>();
