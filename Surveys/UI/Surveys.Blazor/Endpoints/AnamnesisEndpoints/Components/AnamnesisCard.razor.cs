@@ -15,5 +15,12 @@ public partial class AnamnesisCard
 
     private AnamnesisTemplateViewModel? AnamnesisTemplate => Anamnesis.AnamnesisTemplate;
 
-    private Task OnAnswerChanged() => AnamnesisChanged.InvokeAsync();
+    private async Task OnAnswerChanged()
+    {
+        /*Anamnesis = null;
+        Operation<AnamnesisViewModel>? result = await Client.GetFromJsonAsync<AnamnesisViewModel>($"anamneses/{Anamnesis.Id}");
+        Anamnesis = result.Result;*/
+
+        await AnamnesisChanged.InvokeAsync();
+    }
 }

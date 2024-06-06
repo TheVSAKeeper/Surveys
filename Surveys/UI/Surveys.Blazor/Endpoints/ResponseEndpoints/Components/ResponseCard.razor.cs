@@ -29,6 +29,9 @@ public partial class ResponseCard
 
     protected override async Task OnParametersSetAsync()
     {
+        Operation<ResponseViewModel>? result = await Client.GetFromJsonAsync<ResponseViewModel>($"response/{Response.Id}");
+        Response = result.Result;
+
         await UpdateCard();
         await base.OnParametersSetAsync();
     }
