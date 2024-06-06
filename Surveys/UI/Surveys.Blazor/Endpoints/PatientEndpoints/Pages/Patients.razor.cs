@@ -35,7 +35,7 @@ public partial class Patients
     private async Task<PagedListResult<PatientViewModel>> GetPaged(int pageIndex, int pageSize = 10)
     {
         Operation<PagedListResult<PatientViewModel>>? response = await Client
-            .GetFromJsonAsync<Operation<PagedListResult<PatientViewModel>>>($"patients/paged/{pageIndex}?pageSize={pageSize}");
+            .GetFromJsonAsync<PagedListResult<PatientViewModel>>($"patients/paged/{pageIndex}?pageSize={pageSize}");
 
         return response?.Result
                ?? new PagedListResult<PatientViewModel>

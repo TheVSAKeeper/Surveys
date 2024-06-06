@@ -35,7 +35,7 @@ public partial class PatientSurveys
     private async Task<PagedListResult<SurveyViewModel>> GetPaged(int pageIndex, int pageSize = 10)
     {
         Operation<PagedListResult<SurveyViewModel>>? response = await Client
-            .GetFromJsonAsync<Operation<PagedListResult<SurveyViewModel>>>($"surveys/paged/{pageIndex}?pageSize={pageSize}&patientId={PatientId}");
+            .GetFromJsonAsync<PagedListResult<SurveyViewModel>>($"surveys/paged/{pageIndex}?pageSize={pageSize}&patientId={PatientId}");
 
         if (response?.Result != null)
         {
