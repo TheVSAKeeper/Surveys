@@ -1,3 +1,5 @@
+using System.Security.Claims;
+using Surveys.Infrastructure;
 using Surveys.Web.Application.Messaging.ResponseMessages.ViewModels;
 
 namespace Surveys.Web.Application.Messaging.ResponseMessages.Queries;
@@ -16,7 +18,7 @@ public sealed class UpdateResponse
             if (entity == null)
                 return Operation.Error(AppData.Exceptions.NotFoundException);
 
-            mapper.Map(responseRequest.Model, entity);
+            mapper.Map(responseRequest.Model, entity, options => options.Items[nameof(ApplicationUser)] = responseRequest.User.Identity!.Name);
 
             repository.Update(entity);
             await unitOfWork.SaveChangesAsync();
@@ -38,5 +40,5 @@ public sealed class UpdateResponse
         }
     }
 
-    public record Request(Guid Id, ResponseUpdateViewModel Model) : IRequest<Operation<ResponseViewModel, string>>;
+    public record Request(Guid Id, ResponseUpdateViewModel Model, ClaimsPrincipal User) : IRequest<Operation<ResponseViewModel, string>>;
 }

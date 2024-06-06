@@ -40,7 +40,7 @@ internal static class ResponseEndpointsExtensions
             .WithOpenApi();
 
         group.MapPost("", async ([FromServices] IMediator mediator, ResponseCreateViewModel model, HttpContext context)
-                => await mediator.Send(new CreateResponse.Request(model), context.RequestAborted))
+                => await mediator.Send(new CreateResponse.Request(model, context.User), context.RequestAborted))
             .RequireAuthorization(AppData.PolicyDefaultName)
             .Produces(200)
             .ProducesProblem(401)
@@ -48,7 +48,7 @@ internal static class ResponseEndpointsExtensions
             .WithOpenApi();
 
         group.MapPut("{id:guid}", async ([FromServices] IMediator mediator, Guid id, ResponseUpdateViewModel model, HttpContext context)
-                => await mediator.Send(new UpdateResponse.Request(id, model), context.RequestAborted))
+                => await mediator.Send(new UpdateResponse.Request(id, model, context.User), context.RequestAborted))
             .RequireAuthorization(AppData.PolicyDefaultName)
             .Produces(200)
             .ProducesProblem(401)

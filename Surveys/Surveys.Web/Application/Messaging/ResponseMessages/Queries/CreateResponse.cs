@@ -1,3 +1,5 @@
+using System.Security.Claims;
+using Surveys.Infrastructure;
 using Surveys.Web.Application.Messaging.ResponseMessages.ViewModels;
 
 namespace Surveys.Web.Application.Messaging.ResponseMessages.Queries;
@@ -11,7 +13,8 @@ public sealed class CreateResponse
         {
             logger.LogDebug("Creating new Response");
 
-            Response? entity = mapper.Map<ResponseCreateViewModel, Response>(responseRequest.Model);
+            Response? entity = mapper.Map<ResponseCreateViewModel, Response>(responseRequest.Model,
+                options => options.Items[nameof(ApplicationUser)] = responseRequest.User.Identity!.Name);
 
             if (entity == null)
             {
@@ -41,5 +44,5 @@ public sealed class CreateResponse
         }
     }
 
-    public record Request(ResponseCreateViewModel Model) : IRequest<Operation<ResponseViewModel, string>>;
+    public record Request(ResponseCreateViewModel Model, ClaimsPrincipal User) : IRequest<Operation<ResponseViewModel, string>>;
 }
