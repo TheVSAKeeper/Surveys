@@ -1,4 +1,6 @@
-﻿namespace Surveys.Web.Definitions.Common;
+﻿using System.Text.Json.Serialization;
+
+namespace Surveys.Web.Definitions.Common;
 
 /// <summary>
 ///     AspNetCore common configuration
@@ -17,6 +19,11 @@ public class CommonDefinition : AppDefinition
         builder.Services.AddMemoryCache();
         builder.Services.AddMvc();
         builder.Services.AddRazorPages();
+
+        builder.Services.ConfigureHttpJsonOptions(options =>
+        {
+            options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        });
     }
 
     /// <summary>
