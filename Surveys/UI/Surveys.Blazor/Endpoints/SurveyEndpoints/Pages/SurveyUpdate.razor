@@ -62,7 +62,7 @@
 
                         @if (ViewModel.Anamneses.Any())
                         {
-                            foreach (AnamnesisViewModel anamnesis in ViewModel.Anamneses)
+                            foreach (AnamnesisViewModel anamnesis in ViewModel.Anamneses.OrderBy(anamnesis => anamnesis.SortIndex))
                             {
                                 <AnamnesisCard Anamnesis="@anamnesis" AnamnesisChanged="OnAnswerChanged"/>
                             }

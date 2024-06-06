@@ -5,7 +5,6 @@ using Surveys.Blazor.Endpoints.AnamnesisTemplateEndpoints.Components;
 using Surveys.Blazor.Services;
 using Surveys.Web.Application.Messaging.AnamnesisMessages;
 using Surveys.Web.Application.Messaging.AnamnesisTemplateMessages.ViewModels;
-using Surveys.Web.Application.Messaging.ResponseMessages.ViewModels;
 using Surveys.Web.Application.Messaging.SurveyMessages.ViewModels;
 
 namespace Surveys.Blazor.Endpoints.SurveyEndpoints.Pages;
@@ -43,7 +42,8 @@ public partial class SurveyUpdate
             await Client.PostAsync("anamneses", new AnamnesisCreateViewModel
             {
                 SurveyId = ViewModel.Id,
-                AnamnesisTemplateId = template.Id
+                AnamnesisTemplateId = template.Id,
+                SortIndex = template.SortIndex
             });
         }
 

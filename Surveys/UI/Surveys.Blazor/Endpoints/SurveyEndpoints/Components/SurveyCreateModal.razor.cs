@@ -66,7 +66,8 @@ public partial class SurveyCreateModal
             await Client.PostAsync("anamneses", new AnamnesisCreateViewModel
             {
                 SurveyId = id,
-                AnamnesisTemplateId = template.Id
+                AnamnesisTemplateId = template.Id,
+                SortIndex = template.SortIndex
             });
         }
     }

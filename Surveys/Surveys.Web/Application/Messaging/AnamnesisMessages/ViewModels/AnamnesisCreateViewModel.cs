@@ -4,7 +4,7 @@ public class AnamnesisCreateViewModel
 {
     public Guid Id { get; set; }
 
-    public Guid SurveyId { get; set; }
-    public Guid AnamnesisTemplateId { get; set; }
-    public int SortIndex { get; set; }
+    public required Guid SurveyId { get; set; }
+    public required Guid AnamnesisTemplateId { get; set; }
+    public required int SortIndex { get; set; }
 }

@@ -17,7 +17,7 @@
                 @Anamnesis.Responses.Count(response => response.Answers.Any(answer => string.IsNullOrWhiteSpace(answer.Value) == false))
             </Paragraph>
 
-            @foreach (ResponseViewModel response in Anamnesis.Responses)
+            @foreach (ResponseViewModel response in Anamnesis.Responses.OrderBy(model => model.Question!.SortIndex))
             {
                 <ResponseCard AnswerChanged="OnAnswerChanged" Response="@response"/>
             }
