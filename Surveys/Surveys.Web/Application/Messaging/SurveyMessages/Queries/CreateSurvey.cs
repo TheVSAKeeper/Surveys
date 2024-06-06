@@ -44,5 +44,5 @@ public sealed class CreateSurvey
         }
     }
 
-    public record Request(SurveyCreateViewModel Model, ClaimsPrincipal User) : IRequest<Operation<SurveyViewModel, string>>;
+    public record Request(SurveyCreateViewModel Model, ClaimsPrincipal User, bool? IsDefault) : IRequest<Operation<SurveyViewModel, string>>;
 }
