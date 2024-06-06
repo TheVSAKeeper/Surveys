@@ -50,5 +50,7 @@ public partial class SurveyUpdate
         await LoadSurveyUpdateViewModel();
     }
 
-    private Task OnAnswerChanged() => LoadSurveyUpdateViewModel();
+    private Task OnAnswerChanged() =>
+        //return LoadSurveyUpdateViewModel();
+        Task.CompletedTask;
 }

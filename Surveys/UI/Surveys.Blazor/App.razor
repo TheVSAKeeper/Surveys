@@ -1,5 +1,5 @@
-﻿@using Surveys.Blazor.Endpoints.BaseEndpoints.Layouts
-@using Surveys.Blazor.Endpoints.AuthenticationEndpoints.Components
+﻿@using Surveys.Blazor.Endpoints.AuthenticationEndpoints.Components
+@using Surveys.Blazor.Endpoints.BaseEndpoints.Layouts
 <CascadingAuthenticationState>
     <Blazorise.ThemeProvider Theme="@_theme">
         <Router AppAssembly="@typeof(App).Assembly">
@@ -27,7 +27,7 @@
         </Router>
         <MessageProvider/>
         <PageProgressProvider/>
-        <ToastProvider />
+        <ToastProvider/>
     </Blazorise.ThemeProvider>
 </CascadingAuthenticationState>
 

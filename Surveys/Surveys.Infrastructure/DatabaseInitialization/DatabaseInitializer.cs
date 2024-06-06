@@ -16,7 +16,7 @@ public static class DatabaseInitializer
     /// </summary>
     /// <param name="serviceProvider"></param>
     /// <exception cref="InvalidOperationException"></exception>
-    public static async void SeedUsers(IServiceProvider serviceProvider)
+    public static async Task SeedUsers(IServiceProvider serviceProvider)
     {
         using IServiceScope scope = serviceProvider.CreateScope();
         await using ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
@@ -263,7 +263,7 @@ public static class DatabaseInitializer
     ///     Seeds one event to database for demo purposes only
     /// </summary>
     /// <param name="serviceProvider"></param>
-    public static async void SeedEvents(IServiceProvider serviceProvider)
+    public static async Task SeedEvents(IServiceProvider serviceProvider)
     {
         using IServiceScope scope = serviceProvider.CreateScope();
         await using ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
@@ -294,7 +294,7 @@ public static class DatabaseInitializer
         await context.SaveChangesAsync();
     }
 
-    public static async void SeedPatients(IServiceProvider serviceProvider, string dataPath)
+    public static async Task SeedPatients(IServiceProvider serviceProvider, string dataPath)
     {
         using IServiceScope scope = serviceProvider.CreateScope();
         await using ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();

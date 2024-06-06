@@ -39,7 +39,7 @@ internal static class SurveyEndpointsExtensions
             .ProducesProblem(404)
             .WithOpenApi();
 
-        group.MapDelete("{id:guid}", async ([FromServices] IMediator mediator, Guid id,HttpContext context)
+        group.MapDelete("{id:guid}", async ([FromServices] IMediator mediator, Guid id, HttpContext context)
                 => await mediator.Send(new DeleteSurvey.Request(id), context.RequestAborted))
             .RequireAuthorization(AppData.PolicyDefaultName)
             .Produces(200)
@@ -47,7 +47,7 @@ internal static class SurveyEndpointsExtensions
             .ProducesProblem(404)
             .WithOpenApi();
 
-        group.MapPost("", async ([FromServices] IMediator mediator, SurveyCreateViewModel model, bool? isDefault,  HttpContext context)
+        group.MapPost("", async ([FromServices] IMediator mediator, SurveyCreateViewModel model, bool? isDefault, HttpContext context)
                 => await mediator.Send(new CreateSurvey.Request(model, context.User, isDefault), context.RequestAborted))
             .RequireAuthorization(AppData.PolicyDefaultName)
             .Produces(200)

@@ -11,13 +11,13 @@ public class DataSeedingDefinition : AppDefinition
     ///     Configure application for current application
     /// </summary>
     /// <param name="app"></param>
-    public override void ConfigureApplication(WebApplication app)
+    public override async void ConfigureApplication(WebApplication app)
     {
         const string DataPath = @"Definitions\DataSeeding\data\";
 
-        DatabaseInitializer.SeedUsers(app.Services);
-        DatabaseInitializer.SeedEvents(app.Services);
-        DatabaseInitializer.SeedPatients(app.Services, DataPath);
-        DatabaseInitializer.SeedAnamnesisTemplates(app.Services, DataPath);
+        await DatabaseInitializer.SeedUsers(app.Services);
+        await DatabaseInitializer.SeedEvents(app.Services);
+        await DatabaseInitializer.SeedPatients(app.Services, DataPath);
+        await DatabaseInitializer.SeedAnamnesisTemplates(app.Services, DataPath);
     }
 }
