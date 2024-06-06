@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using Surveys.Blazor.Domain;
 
 namespace Surveys.Blazor.Services;
 
@@ -16,10 +17,16 @@ public class AuthorizedHttpClient(HttpClient httpClient, IAccessTokenProvider ac
         return await httpClient.SendAsync(request);
     }
 
-    public async Task<T?> GetFromJsonAsync<T>(string url)
+    public async Task<Operation<T>?> GetFromJsonAsync<T>(string url)
     {
         await AddAuthorizationHeaderAsync(httpClient);
-        return await httpClient.GetFromJsonAsync<T>(ApiUrl + url);
+        return await httpClient.GetFromJsonAsync<Operation<T>>(ApiUrl + url);
+    }
+
+    public async Task<Operation<PagedListResult<T>>?> GetPagedAsync<T>(string url, int pageIndex = 0, int pageSize = 10, string search = "")
+    {
+        await AddAuthorizationHeaderAsync(httpClient);
+        return await httpClient.GetFromJsonAsync<Operation<PagedListResult<T>>>($"{ApiUrl}{url}/paged/{pageIndex}?pageSize={pageSize}&search={search}");
     }
 
     public async Task<HttpResponseMessage> PostAsync<T>(string url, T data)
@@ -49,6 +56,27 @@ public class AuthorizedHttpClient(HttpClient httpClient, IAccessTokenProvider ac
         HttpRequestMessage request = new(HttpMethod.Delete, ApiUrl + url);
         await AddAuthorizationHeaderAsync(request);
         return await httpClient.SendAsync(request);
+    }
+
+    public async Task<Operation<TR>?> PostFromJsonAsync<T, TR>(string url, T data)
+    {
+        await AddAuthorizationHeaderAsync(httpClient);
+        HttpResponseMessage response = await httpClient.PostAsJsonAsync(ApiUrl + url, data);
+        return await response.Content.ReadFromJsonAsync<Operation<TR>>();
+    }
+
+    public async Task<Operation<TR>?> PutFromJsonAsync<T, TR>(string url, T data)
+    {
+        await AddAuthorizationHeaderAsync(httpClient);
+        HttpResponseMessage response = await httpClient.PutAsJsonAsync(ApiUrl + url, data);
+        return await response.Content.ReadFromJsonAsync<Operation<TR>>();
+    }
+
+    public async Task<Operation<TR>?> DeleteFromJsonAsync<T, TR>(string url)
+    {
+        await AddAuthorizationHeaderAsync(httpClient);
+        HttpResponseMessage response = await httpClient.DeleteAsync(ApiUrl + url);
+        return await response.Content.ReadFromJsonAsync<Operation<TR>>();
     }
 
     private async Task AddAuthorizationHeaderAsync(HttpRequestMessage request)
