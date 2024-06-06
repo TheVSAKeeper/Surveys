@@ -39,10 +39,10 @@ public sealed class GetResponseAnswerPaged
         {
             Expression<Func<ResponseAnswer, bool>>? predicate = PredicateBuilder.True<ResponseAnswer>();
 
-            if (search is null)
+            if (string.IsNullOrWhiteSpace(search))
                 return predicate;
 
-            //  predicate = predicate.And(x => x.Name.Contains(search));
+            predicate = predicate.And(x => x.ResponseId.ToString() == search);
             return predicate;
         }
     }
