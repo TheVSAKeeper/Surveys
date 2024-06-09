@@ -15,9 +15,6 @@ public class DataSeedingDefinition : AppDefinition
     {
         const string DataPath = @"Definitions\DataSeeding\data\";
 
-        await DatabaseInitializer.SeedUsers(app.Services);
-        await DatabaseInitializer.SeedEvents(app.Services);
-        await DatabaseInitializer.SeedPatients(app.Services, DataPath);
-        await DatabaseInitializer.SeedAnamnesisTemplates(app.Services, DataPath);
+        await DatabaseInitializer.SeedUsers(app.Services, DataPath);
     }
 }
