@@ -14,12 +14,16 @@ public sealed class GetAnamnesisTemplateById
             AnamnesisTemplate? entityWithoutIncludes = await repository.GetFirstOrDefaultAsync(predicate: anamnesisTemplate => anamnesisTemplate.Id == id);
 
             if (entityWithoutIncludes == null)
+            {
                 return Operation.Error($"Entity with identifier {id} not found");
+            }
 
             AnamnesisTemplateViewModel? mapped = mapper.Map<AnamnesisTemplateViewModel>(entityWithoutIncludes);
 
             if (mapped is null)
+            {
                 return Operation.Error(AppData.Exceptions.MappingException);
+            }
 
             return Operation.Result(mapped);
         }

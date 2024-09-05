@@ -21,7 +21,9 @@ public class CorsDefinition : AppDefinition
                 policyBuilder.AllowAnyMethod();
 
                 if (origins is not { Length: > 0 })
+                {
                     return;
+                }
 
                 if (origins.Contains("*"))
                 {
@@ -33,7 +35,9 @@ public class CorsDefinition : AppDefinition
                 else
                 {
                     foreach (string origin in origins)
+                    {
                         policyBuilder.WithOrigins(origin);
+                    }
                 }
             });
         });

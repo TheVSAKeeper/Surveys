@@ -38,6 +38,7 @@ public sealed class AuthorizeEndpoints : AppDefinition
         AuthenticateResult result = await httpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
         if (!result.Succeeded)
+        {
             return Results.Challenge(new AuthenticationProperties
                 {
                     RedirectUri = request.PathBase
@@ -47,6 +48,7 @@ public sealed class AuthorizeEndpoints : AppDefinition
                                       : request.Query.ToList())
                 },
                 new List<string> { CookieAuthenticationDefaults.AuthenticationScheme });
+        }
 
         // ATTENTION:  If you use are "IN-Memory" mode, then system cannot track user that recreated every time on start. You should clear cookies (site data) in browser.
         ApplicationUser user = await userManager.GetUserAsync(result.Principal)

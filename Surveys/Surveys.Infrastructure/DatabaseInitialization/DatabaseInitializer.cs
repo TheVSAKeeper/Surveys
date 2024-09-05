@@ -32,7 +32,9 @@ public static class DatabaseInitializer
         IEnumerable<string> pending = await context.Database.GetPendingMigrationsAsync();
 
         if (pending.Any())
+        {
             await context.Database.MigrateAsync();
+        }
 
         if (!context.Users.Any())
         {
@@ -43,7 +45,9 @@ public static class DatabaseInitializer
                 RoleManager<ApplicationRole> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
 
                 if (!context.Roles.Any(r => r.Name == role))
+                {
                     await roleManager.CreateAsync(new ApplicationRole { Name = role, NormalizedName = role.ToUpper() });
+                }
             }
 
             #region developer
@@ -86,7 +90,9 @@ public static class DatabaseInitializer
                 IdentityResult result = await userStore.CreateAsync(developer1);
 
                 if (!result.Succeeded)
+                {
                     throw new InvalidOperationException("Cannot create account");
+                }
 
                 UserManager<ApplicationUser>? userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
 
@@ -95,7 +101,9 @@ public static class DatabaseInitializer
                     IdentityResult roleAdded = await userManager!.AddToRoleAsync(developer1, role);
 
                     if (roleAdded.Succeeded)
+                    {
                         await context.SaveChangesAsync();
+                    }
                 }
             }
 
@@ -141,14 +149,18 @@ public static class DatabaseInitializer
                 IdentityResult result = await userStore.CreateAsync(admin);
 
                 if (!result.Succeeded)
+                {
                     throw new InvalidOperationException("Cannot create account");
+                }
 
                 UserManager<ApplicationUser>? userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
 
                 IdentityResult roleAdded = await userManager!.AddToRoleAsync(admin, AppData.SystemAdministratorRoleName);
 
                 if (roleAdded.Succeeded)
+                {
                     await context.SaveChangesAsync();
+                }
             }
 
             #endregion
@@ -193,14 +205,18 @@ public static class DatabaseInitializer
                 IdentityResult result = await userStore.CreateAsync(doctor);
 
                 if (!result.Succeeded)
+                {
                     throw new InvalidOperationException("Cannot create account");
+                }
 
                 UserManager<ApplicationUser>? userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
 
                 IdentityResult roleAdded = await userManager!.AddToRoleAsync(doctor, AppData.DoctorRoleName);
 
                 if (roleAdded.Succeeded)
+                {
                     await context.SaveChangesAsync();
+                }
             }
 
             #endregion
@@ -245,14 +261,18 @@ public static class DatabaseInitializer
                 IdentityResult result = await userStore.CreateAsync(nurse);
 
                 if (!result.Succeeded)
+                {
                     throw new InvalidOperationException("Cannot create account");
+                }
 
                 UserManager<ApplicationUser>? userManager = scope.ServiceProvider.GetService<UserManager<ApplicationUser>>();
 
                 IdentityResult roleAdded = await userManager!.AddToRoleAsync(nurse, AppData.NurseRoleName);
 
                 if (roleAdded.Succeeded)
+                {
                     await context.SaveChangesAsync();
+                }
             }
 
             #endregion
@@ -280,9 +300,13 @@ public static class DatabaseInitializer
                     DateOnly birthDate;
 
                     if (DateTime.TryParseExact(parts[4], "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate))
+                    {
                         birthDate = new DateOnly(parsedDate.Year, parsedDate.Month, parsedDate.Day);
+                    }
                     else
+                    {
                         throw new InvalidOperationException($"Cannot parse data {parts[4]}");
+                    }
 
                     return new Patient
                     {
@@ -343,7 +367,7 @@ public static class DatabaseInitializer
                     {
                         Id = Guid.NewGuid(),
                         AnamnesisTemplateId = anamnesisTemplate.Id,
-                        Text = content[0].Trim(['-', '?', ',', '.', ';', '[', ']']).Trim().ToLower() + "?",
+                        Text = content[0].Trim('-', '?', ',', '.', ';', '[', ']').Trim().ToLower() + "?",
                         Type = QuestionType.Text,
                         SortIndex = i
                     };
@@ -359,7 +383,7 @@ public static class DatabaseInitializer
                                 Id = Guid.NewGuid(),
                                 SortIndex = index,
                                 QuestionId = question.Id,
-                                Value = option.Trim(['-', '?', ',', '.', ';', '[', ']']).Trim().ToLower()
+                                Value = option.Trim('-', '?', ',', '.', ';', '[', ']').Trim().ToLower()
                             }));
 
                         question.Options = options;

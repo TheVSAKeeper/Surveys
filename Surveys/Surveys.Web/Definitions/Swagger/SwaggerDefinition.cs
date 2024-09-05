@@ -21,7 +21,9 @@ public class SwaggerDefinition : AppDefinition
     public override void ConfigureApplication(WebApplication app)
     {
         if (app.Environment.IsDevelopment() == false)
+        {
             return;
+        }
 
         string? url = app.Services.GetRequiredService<IConfiguration>().GetValue<string>("AuthServer:Url");
 

@@ -30,7 +30,9 @@ public sealed class CreatePatient
                 PatientViewModel? mapped = mapper.Map<Patient, PatientViewModel>(entity);
 
                 if (mapped is null)
+                {
                     return Operation.Error(AppData.Exceptions.MappingException);
+                }
 
                 logger.LogInformation("New entity {@Patient} successfully created", entity);
                 return Operation.Result(mapped);

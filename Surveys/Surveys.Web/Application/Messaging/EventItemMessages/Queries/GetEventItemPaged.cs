@@ -26,14 +26,18 @@ public sealed class GetEventItemPaged
                     cancellationToken: cancellationToken);
 
             if (pagedList.PageIndex > pagedList.TotalPages)
+            {
                 pagedList = await unitOfWork.GetRepository<EventItem>()
                     .GetPagedListAsync(pageIndex: 0,
                         pageSize: request.PageSize, cancellationToken: cancellationToken);
+            }
 
             IPagedList<EventItemViewModel>? mapped = mapper.Map<IPagedList<EventItemViewModel>>(pagedList);
 
             if (mapped is not null)
+            {
                 return Operation.Result(mapped);
+            }
 
             return Operation.Error(AppData.Exceptions.MappingException);
         }
@@ -43,7 +47,9 @@ public sealed class GetEventItemPaged
             Expression<Func<EventItem, bool>>? predicate = PredicateBuilder.True<EventItem>();
 
             if (search is null)
+            {
                 return predicate;
+            }
 
             predicate = predicate.And(x => x.Message.Contains(search));
             predicate = predicate.Or(x => x.Logger.Contains(search));

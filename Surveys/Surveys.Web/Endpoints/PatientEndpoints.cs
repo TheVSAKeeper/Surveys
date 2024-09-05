@@ -6,7 +6,10 @@ namespace Surveys.Web.Endpoints;
 
 public sealed class PatientEndpoints : AppDefinition
 {
-    public override void ConfigureApplication(WebApplication app) => app.MapPatientEndpoints();
+    public override void ConfigureApplication(WebApplication app)
+    {
+        app.MapPatientEndpoints();
+    }
 }
 
 internal static class PatientEndpointsExtensions

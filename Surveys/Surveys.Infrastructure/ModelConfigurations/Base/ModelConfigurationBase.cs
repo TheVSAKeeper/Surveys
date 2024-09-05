@@ -11,7 +11,10 @@ public abstract class ModelConfigurationBase<T> : IEntityTypeConfiguration<T> wh
         AddBaseConfiguration(builder);
     }
 
-    protected abstract void AddBaseConfiguration(EntityTypeBuilder<T> builder);
+    protected virtual string GetTableName()
+    {
+        return typeof(T).Name;
+    }
 
-    protected virtual string GetTableName() => typeof(T).Name;
+    protected abstract void AddBaseConfiguration(EntityTypeBuilder<T> builder);
 }

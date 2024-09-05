@@ -18,7 +18,9 @@ public sealed class UpdateEventItem
             EventItem? entity = await repository.GetFirstOrDefaultAsync(predicate: eventItem => eventItem.Id == eventItemRequest.Id, disableTracking: false);
 
             if (entity == null)
+            {
                 return Operation.Error(AppContracts.Exceptions.NotFoundException);
+            }
 
             mapper.Map(eventItemRequest.Model, entity);
 
@@ -32,7 +34,9 @@ public sealed class UpdateEventItem
                 EventItemViewModel? mapped = mapper.Map<EventItem, EventItemViewModel>(entity);
 
                 if (mapped is not null)
+                {
                     return Operation.Result(mapped);
+                }
 
                 return Operation.Error(AppData.Exceptions.MappingException);
             }

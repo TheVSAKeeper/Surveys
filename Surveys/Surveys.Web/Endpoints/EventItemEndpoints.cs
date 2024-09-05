@@ -6,7 +6,10 @@ namespace Surveys.Web.Endpoints;
 
 public sealed class EventItemEndpoints : AppDefinition
 {
-    public override void ConfigureApplication(WebApplication app) => app.MapEventItemEndpoints();
+    public override void ConfigureApplication(WebApplication app)
+    {
+        app.MapEventItemEndpoints();
+    }
 }
 
 internal static class EventItemEndpointsExtensions

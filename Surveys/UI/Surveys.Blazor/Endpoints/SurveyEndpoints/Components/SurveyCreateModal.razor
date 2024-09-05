@@ -3,25 +3,25 @@
     <ModalContent Centered>
         <ModalHeader>
             <ModalTitle>
-                <Icon Name="IconName.Pen"/> Создание опроса
+                <Icon Name="IconName.Pen" /> Создание опроса
             </ModalTitle>
-            <CloseButton/>
+            <CloseButton />
         </ModalHeader>
         <ModalBody>
             @if (_createViewModel is { Patient: not null })
             {
-                <PatientInfoComponent ViewModel="@_createViewModel.Patient"/>
+                <PatientInfoComponent ViewModel="@_createViewModel.Patient" />
 
                 <EditForm Model="@_createViewModel" OnValidSubmit="SubmitComplaint">
                     <Validations HandlerType="typeof(FluentValidationHandler)" Mode="ValidationMode.Auto" Model="@_createViewModel" @ref="@_fluentValidations">
                         <Validation>
                             <Field>
                                 <FieldLabel>
-                                    <Icon Name="IconName.Edit"/> Жалоба
+                                    <Icon Name="IconName.Edit" /> Жалоба
                                 </FieldLabel>
                                 <TextEdit @bind-Text="@_createViewModel.Complaint" Placeholder="Введите жалобу">
                                     <Feedback>
-                                        <ValidationError/>
+                                        <ValidationError />
                                     </Feedback>
                                 </TextEdit>
                             </Field>
@@ -31,7 +31,7 @@
                     <Check @bind-Checked="_isDefaultSurvey" TValue="bool">Опрос по-умолчанию</Check>
 
                     <Button Color="Color.Primary" Type="ButtonType.Submit">
-                        <Icon Name="IconName.Check"/> Подтвердить
+                        <Icon Name="IconName.Check" /> Подтвердить
                     </Button>
                 </EditForm>
             }

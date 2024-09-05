@@ -23,15 +23,19 @@ public sealed class GetPatientPaged
                     cancellationToken: cancellationToken);
 
             if (pagedList.PageIndex > pagedList.TotalPages)
+            {
                 pagedList = await unitOfWork.GetRepository<Patient>()
                     .GetPagedListAsync(pageIndex: 0,
                         pageSize: request.PageSize,
                         cancellationToken: cancellationToken);
+            }
 
             IPagedList<PatientViewModel>? mapped = mapper.Map<IPagedList<PatientViewModel>>(pagedList);
 
             if (mapped is not null)
+            {
                 return Operation.Result(mapped);
+            }
 
             return Operation.Error(AppData.Exceptions.MappingException);
         }
@@ -41,7 +45,9 @@ public sealed class GetPatientPaged
             Expression<Func<Patient, bool>>? predicate = PredicateBuilder.True<Patient>();
 
             if (search is null)
+            {
                 return predicate;
+            }
 
             predicate = predicate.And(patient => patient.FirstName.Contains(search));
             predicate = predicate.Or(patient => patient.LastName.Contains(search));

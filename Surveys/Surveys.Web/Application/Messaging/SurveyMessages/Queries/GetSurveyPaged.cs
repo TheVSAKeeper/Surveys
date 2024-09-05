@@ -25,27 +25,37 @@ public sealed class GetSurveyPaged
                     cancellationToken: cancellationToken);
 
             if (pagedList.PageIndex > pagedList.TotalPages)
+            {
                 pagedList = await unitOfWork.GetRepository<Survey>()
                     .GetPagedListAsync(pageIndex: 0,
                         pageSize: request.PageSize, cancellationToken: cancellationToken);
+            }
 
             IPagedList<SurveyViewModel>? mapped = mapper.Map<IPagedList<SurveyViewModel>>(pagedList);
 
             if (mapped is null)
+            {
                 return Operation.Error(AppData.Exceptions.MappingException);
+            }
 
             foreach (SurveyViewModel survey in mapped.Items)
             {
                 if (survey.Anamneses == null)
+                {
                     continue;
+                }
 
                 foreach (AnamnesisViewModel anamnesis in survey.Anamneses)
                 {
                     if (anamnesis.Responses == null)
+                    {
                         continue;
+                    }
 
                     foreach (ResponseViewModel response in anamnesis.Responses)
+                    {
                         response.Anamnesis = null;
+                    }
                 }
             }
 
@@ -57,10 +67,14 @@ public sealed class GetSurveyPaged
             Expression<Func<Survey, bool>>? predicate = PredicateBuilder.True<Survey>();
 
             if (patientId is not null)
+            {
                 predicate = predicate.And(x => x.PatientId == patientId);
+            }
 
             if (search is null)
+            {
                 return predicate;
+            }
 
             predicate = predicate.And(x => x.Complaint.Contains(search));
             return predicate;

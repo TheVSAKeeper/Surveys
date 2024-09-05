@@ -15,6 +15,7 @@ public sealed class OpenIddictWorker(IServiceProvider serviceProvider) : IHosted
         IOpenIddictApplicationManager manager = scope.ServiceProvider.GetRequiredService<IOpenIddictApplicationManager>();
 
         if (await manager.FindByClientIdAsync("blazor-client", cancellationToken) is null)
+        {
             await manager.CreateAsync(new OpenIddictApplicationDescriptor
             {
                 ClientId = "blazor-client",
@@ -56,11 +57,13 @@ public sealed class OpenIddictWorker(IServiceProvider serviceProvider) : IHosted
                     OpenIddictConstants.Requirements.Features.ProofKeyForCodeExchange
                 }
             }, cancellationToken);
+        }
 
         // credentials password
         const string client_id1 = "client_id1";
 
         if (await manager.FindByClientIdAsync(client_id1, cancellationToken) is null)
+        {
             await manager.CreateAsync(new OpenIddictApplicationDescriptor
             {
                 ClientId = client_id1,
@@ -77,6 +80,7 @@ public sealed class OpenIddictWorker(IServiceProvider serviceProvider) : IHosted
                     OpenIddictConstants.Permissions.Prefixes.Scope + "api"
                 }
             }, cancellationToken);
+        }
 
         const string client_id2 = "client-id-code";
 
@@ -120,5 +124,8 @@ public sealed class OpenIddictWorker(IServiceProvider serviceProvider) : IHosted
         }
     }
 
-    public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
+    public Task StopAsync(CancellationToken cancellationToken)
+    {
+        return Task.CompletedTask;
+    }
 }

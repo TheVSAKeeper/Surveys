@@ -6,7 +6,10 @@ namespace Surveys.Web.Endpoints;
 
 public sealed class QuestionEndpoints : AppDefinition
 {
-    public override void ConfigureApplication(WebApplication app) => app.MapQuestionEndpoints();
+    public override void ConfigureApplication(WebApplication app)
+    {
+        app.MapQuestionEndpoints();
+    }
 }
 
 internal static class QuestionEndpointsExtensions

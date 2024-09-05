@@ -33,7 +33,9 @@ public sealed class CreateEventItem
                 EventItemViewModel? mapped = mapper.Map<EventItem, EventItemViewModel>(entity);
 
                 if (mapped is null)
+                {
                     return Operation.Error(AppData.Exceptions.MappingException);
+                }
 
                 logger.LogInformation("New entity {@EventItem} successfully created", entity);
                 return Operation.Result(mapped);

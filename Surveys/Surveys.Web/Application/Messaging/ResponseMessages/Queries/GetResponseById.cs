@@ -14,12 +14,16 @@ public sealed class GetResponseById
             Response? entityWithoutIncludes = await repository.GetFirstOrDefaultAsync(predicate: response => response.Id == id);
 
             if (entityWithoutIncludes == null)
+            {
                 return Operation.Error($"Entity with identifier {id} not found");
+            }
 
             ResponseViewModel? mapped = mapper.Map<ResponseViewModel>(entityWithoutIncludes);
 
             if (mapped is null)
+            {
                 return Operation.Error(AppData.Exceptions.MappingException);
+            }
 
             return Operation.Result(mapped);
         }

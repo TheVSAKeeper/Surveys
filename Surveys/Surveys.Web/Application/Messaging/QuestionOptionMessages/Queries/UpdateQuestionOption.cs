@@ -14,7 +14,9 @@ public sealed class UpdateQuestionOption
             QuestionOption? entity = await repository.GetFirstOrDefaultAsync(predicate: questionOption => questionOption.Id == questionOptionRequest.Id, disableTracking: false);
 
             if (entity == null)
+            {
                 return Operation.Error(AppData.Exceptions.NotFoundException);
+            }
 
             mapper.Map(questionOptionRequest.Model, entity);
 
@@ -28,7 +30,9 @@ public sealed class UpdateQuestionOption
                 QuestionOptionViewModel? mapped = mapper.Map<QuestionOption, QuestionOptionViewModel>(entity);
 
                 if (mapped is not null)
+                {
                     return Operation.Result(mapped);
+                }
 
                 return Operation.Error(AppData.Exceptions.MappingException);
             }

@@ -14,12 +14,16 @@ public sealed class GetSurveyForUpdateById
             Survey? entity = await repository.GetFirstOrDefaultAsync(predicate: survey => survey.Id == id);
 
             if (entity == null)
+            {
                 return Operation.Error($"Entity with identifier {id} not found");
+            }
 
             SurveyUpdateViewModel? mapped = mapper.Map<SurveyUpdateViewModel>(entity);
 
             if (mapped is null)
+            {
                 return Operation.Error(AppData.Exceptions.MappingException);
+            }
 
             return Operation.Result(mapped);
         }

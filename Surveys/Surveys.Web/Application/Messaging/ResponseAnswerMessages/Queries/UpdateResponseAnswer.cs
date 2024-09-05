@@ -14,7 +14,9 @@ public sealed class UpdateResponseAnswer
             ResponseAnswer? entity = await repository.GetFirstOrDefaultAsync(predicate: responseAnswer => responseAnswer.Id == request.Id, disableTracking: false);
 
             if (entity == null)
+            {
                 return Operation.Error(AppData.Exceptions.NotFoundException);
+            }
 
             mapper.Map(request.Model, entity);
 
@@ -46,7 +48,9 @@ public sealed class UpdateResponseAnswer
             ResponseAnswerViewModel? mapped = mapper.Map<ResponseAnswer, ResponseAnswerViewModel>(entity);
 
             if (mapped is null)
+            {
                 return Operation.Error(AppData.Exceptions.MappingException);
+            }
 
             return Operation.Result(mapped);
         }

@@ -16,24 +16,6 @@ public partial class QuestionCard
     private decimal AnswerNumber { get; set; }
     private DateTime AnswerDate { get; set; }
 
-    private void OnAnswerChanged(FocusEventArgs focusEventArgs)
-    {
-        string answer = GetAnswer();
-        OnAnswerSaved.InvokeAsync(new AnswerSavedEventArgs(answer, Question.Id));
-    }
-
-    private string GetAnswer()
-    {
-        return Question.Type switch
-        {
-            QuestionType.SingleChoice or QuestionType.MultipleChoice => SelectedOption,
-            QuestionType.Text => AnswerText,
-            QuestionType.Number => AnswerNumber.ToString(CultureInfo.InvariantCulture),
-            QuestionType.Date => AnswerDate.ToString(CultureInfo.InvariantCulture),
-            var _ => string.Empty
-        };
-    }
-
     protected override void OnParametersSet()
     {
         /*if (Question.Answers?.Count > 0)
@@ -58,6 +40,24 @@ public partial class QuestionCard
                     break;
             }
         }*/
+    }
+
+    private void OnAnswerChanged(FocusEventArgs focusEventArgs)
+    {
+        string answer = GetAnswer();
+        OnAnswerSaved.InvokeAsync(new AnswerSavedEventArgs(answer, Question.Id));
+    }
+
+    private string GetAnswer()
+    {
+        return Question.Type switch
+        {
+            QuestionType.SingleChoice or QuestionType.MultipleChoice => SelectedOption,
+            QuestionType.Text => AnswerText,
+            QuestionType.Number => AnswerNumber.ToString(CultureInfo.InvariantCulture),
+            QuestionType.Date => AnswerDate.ToString(CultureInfo.InvariantCulture),
+            var _ => string.Empty
+        };
     }
 
     public class AnswerSavedEventArgs(string answer, Guid questionId) : EventArgs

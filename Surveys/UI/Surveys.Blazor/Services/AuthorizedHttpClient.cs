@@ -84,7 +84,9 @@ public class AuthorizedHttpClient(HttpClient httpClient, IAccessTokenProvider ac
         AccessTokenResult tokenResult = await accessTokenProvider.RequestAccessToken();
 
         if (tokenResult.TryGetToken(out AccessToken? token))
+        {
             request.Headers.Authorization = new AuthenticationHeaderValue(AuthorizationShame, token.Value);
+        }
     }
 
     private async Task AddAuthorizationHeaderAsync(HttpClient client)
@@ -92,6 +94,8 @@ public class AuthorizedHttpClient(HttpClient httpClient, IAccessTokenProvider ac
         AccessTokenResult tokenResult = await accessTokenProvider.RequestAccessToken();
 
         if (tokenResult.TryGetToken(out AccessToken? token))
+        {
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(AuthorizationShame, token.Value);
+        }
     }
 }

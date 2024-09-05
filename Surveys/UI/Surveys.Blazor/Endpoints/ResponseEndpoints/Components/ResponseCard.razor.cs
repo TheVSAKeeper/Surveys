@@ -76,13 +76,17 @@ public partial class ResponseCard
             Operation<PagedListResult<ResponseAnswerViewModel>>? answersResult = await Client.GetPagedAsync<ResponseAnswerViewModel>(AppData.ResponseAnswerUrl, search: $"{Response.Id}");
 
             if (answersResult is not { Ok: true })
+            {
                 throw new HttpRequestException();
+            }
 
             answers = answersResult.Result.Items.ToList();
         }
 
         if (answers.Count != 0)
+        {
             return answers.First();
+        }
 
         Operation<ResponseAnswerViewModel>? answer = await Client.PostFromJsonAsync<ResponseAnswerCreateViewModel,
             ResponseAnswerViewModel>(AppData.ResponseAnswerUrl, new ResponseAnswerCreateViewModel
@@ -93,7 +97,9 @@ public partial class ResponseCard
         });
 
         if (answer is { Ok: true })
+        {
             return answer.Result;
+        }
 
         return new ResponseAnswerViewModel
         {

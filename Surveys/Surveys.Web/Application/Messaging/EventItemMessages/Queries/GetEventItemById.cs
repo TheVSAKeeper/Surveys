@@ -21,12 +21,16 @@ public sealed class GetEventItemById
             EventItem? entityWithoutIncludes = await repository.GetFirstOrDefaultAsync(predicate: eventItem => eventItem.Id == id);
 
             if (entityWithoutIncludes == null)
+            {
                 return Operation.Error($"Entity with identifier {id} not found");
+            }
 
             EventItemViewModel? mapped = mapper.Map<EventItemViewModel>(entityWithoutIncludes);
 
             if (mapped is not null)
+            {
                 return Operation.Result(mapped);
+            }
 
             return Operation.Error(AppData.Exceptions.MappingException);
         }

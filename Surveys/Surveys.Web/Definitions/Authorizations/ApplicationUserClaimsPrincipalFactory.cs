@@ -41,7 +41,9 @@ public class ApplicationUserClaimsPrincipalFactory : UserClaimsPrincipalFactory<
     private static void AddPermissionClaims(ApplicationUser user, ClaimsIdentity identity)
     {
         if (user.ApplicationUserProfile?.Permissions == null || user.ApplicationUserProfile.Permissions.Count == 0)
+        {
             return;
+        }
 
         List<AppPermission> permissions = user.ApplicationUserProfile.Permissions.ToList();
         permissions.ForEach(permission => identity.AddClaim(new Claim(permission.PolicyName, nameof(permission.PolicyName).ToLower())));
@@ -50,15 +52,23 @@ public class ApplicationUserClaimsPrincipalFactory : UserClaimsPrincipalFactory<
     private static void AddUserClaims(ApplicationUser user, ClaimsIdentity identity)
     {
         if (string.IsNullOrWhiteSpace(user.UserName) == false)
+        {
             identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
+        }
 
         if (string.IsNullOrWhiteSpace(user.FirstName) == false)
+        {
             identity.AddClaim(new Claim(ClaimTypes.GivenName, user.FirstName));
+        }
 
         if (string.IsNullOrWhiteSpace(user.LastName) == false)
+        {
             identity.AddClaim(new Claim(ClaimTypes.Surname, user.LastName));
+        }
 
         if (string.IsNullOrWhiteSpace(user.Patronymic) == false)
+        {
             identity.AddClaim(new Claim(nameof(user.Patronymic).ToLower(), user.Patronymic));
+        }
     }
 }

@@ -12,7 +12,9 @@ public class AutomapperDefinition : AppDefinition
     /// </summary>
     /// <param name="builder"></param>
     public override void ConfigureServices(WebApplicationBuilder builder)
-        => builder.Services.AddAutoMapper(typeof(Program));
+    {
+        builder.Services.AddAutoMapper(typeof(Program));
+    }
 
     /// <summary>
     ///     Configure application for current application
@@ -24,8 +26,12 @@ public class AutomapperDefinition : AppDefinition
 
         if (app.Environment.IsDevelopment())
             // validate Mapper Configuration
+        {
             mapper.AssertConfigurationIsValid();
+        }
         else
+        {
             mapper.CompileMappings();
+        }
     }
 }

@@ -83,7 +83,9 @@ public class AccountService : IAccountService
         if (result.Succeeded)
         {
             if (await _roleManager.FindByNameAsync(Role) == null)
+            {
                 return await Task.FromResult(Operation.Error(AppData.Exceptions.UserNotFoundException));
+            }
 
             await _userManager.AddToRoleAsync(user!, Role);
 
@@ -101,7 +103,9 @@ public class AccountService : IAccountService
                 _logger.LogInformation("User {@User} successfully created with {@Role}", model, Role);
 
                 if (mapped is not null)
+                {
                     return Operation.Result(mapped);
+                }
 
                 return Operation.Error(AppData.Exceptions.MappingException);
             }
@@ -121,12 +125,16 @@ public class AccountService : IAccountService
     public async Task<ClaimsPrincipal> GetPrincipalByIdAsync(string identifier)
     {
         if (string.IsNullOrEmpty(identifier))
+        {
             throw new MicroserviceException();
+        }
 
         ApplicationUser? user = await _userManager.FindByIdAsync(identifier);
 
         if (user == null)
+        {
             throw new MicroserviceUserNotFoundException();
+        }
 
         ClaimsPrincipal defaultClaims = await _claimsFactory.CreateAsync(user);
         return defaultClaims;
@@ -136,13 +144,19 @@ public class AccountService : IAccountService
     ///     Returns ClaimPrincipal by user identity
     /// </summary>
     /// <param name="user"></param>
-    public Task<ClaimsPrincipal> GetPrincipalForUserAsync(ApplicationUser user) => _claimsFactory.CreateAsync(user);
+    public Task<ClaimsPrincipal> GetPrincipalForUserAsync(ApplicationUser user)
+    {
+        return _claimsFactory.CreateAsync(user);
+    }
 
     /// <summary>
     ///     Returns user by his identifier
     /// </summary>
     /// <param name="id"></param>
-    public Task<ApplicationUser?> GetByIdAsync(Guid id) => _userManager.FindByIdAsync(id.ToString());
+    public Task<ApplicationUser?> GetByIdAsync(Guid id)
+    {
+        return _userManager.FindByIdAsync(id.ToString());
+    }
 
     /// <summary>
     ///     Returns current user account information or null when user does not logged in
@@ -167,7 +181,9 @@ public class AccountService : IAccountService
             ApplicationUser? user = await _userManager.FindByEmailAsync(email);
 
             if (user != null && result.Contains(user) == false)
+            {
                 result.Add(user);
+            }
         }
 
         return await Task.FromResult(result);
@@ -194,7 +210,9 @@ public class AccountService : IAccountService
             bool ok = await _userManager.IsInRoleAsync(user, roleName);
 
             if (ok)
+            {
                 return new PermissionValidationResult();
+            }
         }
 
         PermissionValidationResult result = new();
@@ -203,22 +221,25 @@ public class AccountService : IAccountService
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<ApplicationUser>> GetUsersInRoleAsync(string roleName) => await _userManager.GetUsersInRoleAsync(roleName);
-
-    #region privates
+    public async Task<IEnumerable<ApplicationUser>> GetUsersInRoleAsync(string roleName)
+    {
+        return await _userManager.GetUsersInRoleAsync(roleName);
+    }
 
     private async Task AddClaimsToUser(UserManager<ApplicationUser> userManager, ApplicationUser user, string role)
     {
         if (!string.IsNullOrEmpty(user.UserName))
+        {
             await userManager.AddClaimAsync(user, new Claim(OpenIddictConstants.Claims.Name, user.UserName));
+        }
 
         if (!string.IsNullOrEmpty(user.Email))
+        {
             await userManager.AddClaimAsync(user, new Claim(OpenIddictConstants.Claims.Email, user.Email));
+        }
 
         await userManager.AddClaimAsync(user, new Claim(ClaimTypes.GivenName, user.FirstName ?? "John"));
         await userManager.AddClaimAsync(user, new Claim(ClaimTypes.Surname, user.LastName ?? "Doe"));
         await userManager.AddClaimAsync(user, new Claim(OpenIddictConstants.Claims.Role, role));
     }
-
-    #endregion
 }

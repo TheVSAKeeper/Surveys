@@ -4,7 +4,7 @@
 @using Surveys.Web.Application.Messaging.PatientMessages.ViewModels
 @attribute [Authorize(Roles = $"{AppData.SystemAdministratorRoleName}, {AppData.DoctorRoleName}, {AppData.NurseRoleName}")]
 
-<SurveyCreateModal OnSubmitComplaint="SubmitComplaint" @ref="_surveyCreateModal"/>
+<SurveyCreateModal OnSubmitComplaint="SubmitComplaint" @ref="_surveyCreateModal" />
 
 <DataGrid @bind-SelectedRow="@SelectedPatient"
           Bordered
@@ -28,13 +28,13 @@
           TotalItems="@_totalPatients">
     <DataGridColumns>
         <AuthorizeView Roles="@AppData.SystemAdministratorRoleName">
-            <DataGridColumn Caption="ID" Editable Field="@nameof(PatientViewModel.Id)"/>
+            <DataGridColumn Caption="ID" Editable Field="@nameof(PatientViewModel.Id)" />
         </AuthorizeView>
-        <DataGridColumn Caption="Фамилия" Editable Field="@nameof(PatientViewModel.LastName)"/>
-        <DataGridColumn Caption="Имя" Editable Field="@nameof(PatientViewModel.FirstName)"/>
-        <DataGridColumn Caption="Отчество" Editable Field="@nameof(PatientViewModel.Patronymic)"/>
-        <DataGridColumn Caption="Пол" Editable Field="@nameof(PatientViewModel.Gender)" Groupable/>
-        <DataGridColumn Caption="Дата рождения" Editable Field="@nameof(PatientViewModel.BirthDate)" Groupable/>
+        <DataGridColumn Caption="Фамилия" Editable Field="@nameof(PatientViewModel.LastName)" />
+        <DataGridColumn Caption="Имя" Editable Field="@nameof(PatientViewModel.FirstName)" />
+        <DataGridColumn Caption="Отчество" Editable Field="@nameof(PatientViewModel.Patronymic)" />
+        <DataGridColumn Caption="Пол" Editable Field="@nameof(PatientViewModel.Gender)" Groupable />
+        <DataGridColumn Caption="Дата рождения" Editable Field="@nameof(PatientViewModel.BirthDate)" Groupable />
         <DataGridColumn Field="@nameof(PatientViewModel.Id)" Filterable="false" Sortable="false" TItem="PatientViewModel">
             <DisplayTemplate>
                 <Button Clicked="() => ShowComplaintModal(context)" Color="Color.Primary">Создать опрос</Button>

@@ -6,7 +6,10 @@ namespace Surveys.Web.Endpoints;
 
 public sealed class AnamnesisEndpoints : AppDefinition
 {
-    public override void ConfigureApplication(WebApplication app) => app.MapAnamnesisEndpoints();
+    public override void ConfigureApplication(WebApplication app)
+    {
+        app.MapAnamnesisEndpoints();
+    }
 }
 
 internal static class AnamnesisEndpointsExtensions

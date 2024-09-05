@@ -14,7 +14,9 @@ public sealed class UpdateAnamnesisTemplate
             AnamnesisTemplate? entity = await repository.GetFirstOrDefaultAsync(predicate: anamnesisTemplate => anamnesisTemplate.Id == anamnesisTemplateRequest.Id, disableTracking: false);
 
             if (entity == null)
+            {
                 return Operation.Error(AppData.Exceptions.NotFoundException);
+            }
 
             mapper.Map(anamnesisTemplateRequest.Model, entity);
 
@@ -28,7 +30,9 @@ public sealed class UpdateAnamnesisTemplate
                 AnamnesisTemplateViewModel? mapped = mapper.Map<AnamnesisTemplate, AnamnesisTemplateViewModel>(entity);
 
                 if (mapped is not null)
+                {
                     return Operation.Result(mapped);
+                }
 
                 return Operation.Error(AppData.Exceptions.MappingException);
             }

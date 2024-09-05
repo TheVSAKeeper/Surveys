@@ -1,11 +1,11 @@
 ﻿@using Surveys.Blazor.Domain
 <Bar Breakpoint="Breakpoint.Desktop" CollapseMode="BarCollapseMode.Small" Mode="BarMode.VerticalInline"
      NavigationBreakpoint="Breakpoint.Tablet" ThemeContrast="ThemeContrast.Dark">
-    <BarToggler/>
+    <BarToggler />
     <BarBrand>
         <BarItem>
             <BarLink To="">
-                <BarIcon IconName="customIcon"/>
+                <BarIcon IconName="customIcon" />
                 Опросы
             </BarLink>
         </BarItem>
@@ -14,7 +14,7 @@
         <BarStart>
             <BarItem>
                 <BarLink To="/">
-                    <BarIcon IconName="IconName.Dashboard"/>
+                    <BarIcon IconName="IconName.Dashboard" />
                     Главная страница
                 </BarLink>
             </BarItem>
@@ -22,7 +22,7 @@
                 <BarItem>
                     <BarDropdown @bind-Visible="pagesBarVisible">
                         <BarDropdownToggle>
-                            <BarIcon IconName="IconName.Edit"/>
+                            <BarIcon IconName="IconName.Edit" />
                             Страницы
                         </BarDropdownToggle>
                         <BarDropdownMenu>
@@ -35,7 +35,7 @@
                 <BarItem>
                     <BarDropdown @bind-Visible="pagesBarVisible">
                         <BarDropdownToggle>
-                            <BarIcon IconName="IconName.Edit"/>
+                            <BarIcon IconName="IconName.Edit" />
                             Страницы
                         </BarDropdownToggle>
                         <BarDropdownMenu>
@@ -48,7 +48,7 @@
                 <BarItem>
                     <BarDropdown @bind-Visible="pagesBarVisible">
                         <BarDropdownToggle>
-                            <BarIcon IconName="IconName.Edit"/>
+                            <BarIcon IconName="IconName.Edit" />
                             Страницы
                         </BarDropdownToggle>
                         <BarDropdownMenu>
@@ -64,6 +64,6 @@
 @code {
     private bool pagesBarVisible = true;
 
-    RenderFragment customIcon = @<img src="/brand-logo.png" style="width:32px; height: 32px"/>;
+    RenderFragment customIcon = @<img src="/brand-logo.png" style="width:32px; height: 32px" />;
 
 }

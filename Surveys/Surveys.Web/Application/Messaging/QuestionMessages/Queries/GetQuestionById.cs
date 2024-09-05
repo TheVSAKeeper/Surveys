@@ -14,12 +14,16 @@ public sealed class GetQuestionById
             Question? entityWithoutIncludes = await repository.GetFirstOrDefaultAsync(predicate: question => question.Id == id);
 
             if (entityWithoutIncludes == null)
+            {
                 return Operation.Error($"Entity with identifier {id} not found");
+            }
 
             QuestionViewModel? mapped = mapper.Map<QuestionViewModel>(entityWithoutIncludes);
 
             if (mapped is null)
+            {
                 return Operation.Error(AppData.Exceptions.MappingException);
+            }
 
             return Operation.Result(mapped);
         }

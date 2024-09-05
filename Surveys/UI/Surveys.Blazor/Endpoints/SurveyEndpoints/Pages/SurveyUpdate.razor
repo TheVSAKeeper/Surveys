@@ -19,11 +19,11 @@
                             <Validation>
                                 <Field>
                                     <FieldLabel>
-                                        <Icon Name="IconName.Edit"/> Жалоба
+                                        <Icon Name="IconName.Edit" /> Жалоба
                                     </FieldLabel>
                                     <TextEdit @bind-Text="@ViewModel.Complaint" Placeholder="Введите жалобу">
                                         <Feedback>
-                                            <ValidationError/>
+                                            <ValidationError />
                                         </Feedback>
                                     </TextEdit>
                                 </Field>
@@ -49,7 +49,7 @@
                 <Column ColumnSize="ColumnSize.Is12">
                     <Field>
                         <FieldLabel>Пациент</FieldLabel>
-                        <PatientInfoComponent ViewModel="@ViewModel.Patient"/>
+                        <PatientInfoComponent ViewModel="@ViewModel.Patient" />
                     </Field>
                 </Column>
             </Row>
@@ -58,18 +58,18 @@
                 <Column ColumnSize="ColumnSize.Is12">
                     <Field>
                         <FieldLabel>Анамнезы</FieldLabel>
-                        <AnamnesisTemplateModal OnTemplatesSelected="HandleTemplatesSelected" @ref="_anamnesisTemplateModal"/>
+                        <AnamnesisTemplateModal OnTemplatesSelected="HandleTemplatesSelected" @ref="_anamnesisTemplateModal" />
 
                         @if (ViewModel.Anamneses.Any())
                         {
                             foreach (AnamnesisViewModel anamnesis in ViewModel.Anamneses.OrderBy(anamnesis => anamnesis.SortIndex))
                             {
-                                <AnamnesisCard Anamnesis="@anamnesis" AnamnesisChanged="OnAnswerChanged"/>
+                                <AnamnesisCard Anamnesis="@anamnesis" AnamnesisChanged="OnAnswerChanged" />
                             }
                         }
                         else
                         {
-                            <TextEdit ReadOnly="true" Text="No anamneses available"/>
+                            <TextEdit ReadOnly="true" Text="No anamneses available" />
                         }
                     </Field>
                 </Column>
@@ -78,7 +78,7 @@
             <Row>
                 <Column ColumnSize="ColumnSize.Is6">
                     <Button Clicked="() => _anamnesisTemplateModal.Show()" Color="Color.Primary">
-                        <Icon Name="IconName.Add"/> Добавить
+                        <Icon Name="IconName.Add" /> Добавить
                     </Button>
                 </Column>
             </Row>

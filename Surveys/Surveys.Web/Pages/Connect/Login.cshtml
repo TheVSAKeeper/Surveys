@@ -6,7 +6,7 @@
     @if (Model.Input != null)
     {
         <form method="post">
-            <input asp-for="@Model.Input.ReturnUrl" type="hidden"/>
+            <input asp-for="@Model.Input.ReturnUrl" type="hidden" />
 
             <div asp-validation-summary="All" class="w3-text-red"></div>
 
@@ -17,7 +17,7 @@
 
             <div class="w3-section">
                 <label asp-for="@Model.Input.Password" class="w3-label" style="font-weight: bold;"></label>
-                <input asp-for="@Model.Input.Password" class="w3-border w3-input" type="password"/>
+                <input asp-for="@Model.Input.Password" class="w3-border w3-input" type="password" />
             </div>
             <div class="w3-section">
                 <button class="w3-block w3-blue w3-button w3-padding w3-section" type="submit">Вход</button>

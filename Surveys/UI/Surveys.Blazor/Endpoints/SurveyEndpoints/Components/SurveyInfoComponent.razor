@@ -12,13 +12,13 @@
                 <Column ColumnSize="ColumnSize.Is6">
                     <Field>
                         <FieldLabel>Жалоба</FieldLabel>
-                        <TextEdit ReadOnly="true" Text="@ViewModel.Complaint"/>
+                        <TextEdit ReadOnly="true" Text="@ViewModel.Complaint" />
                     </Field>
                 </Column>
                 <Column ColumnSize="ColumnSize.Is6">
                     <Field>
                         <FieldLabel>Статус</FieldLabel>
-                        <TextEdit ReadOnly="true" Text="@ViewModel.Status.ToString()"/>
+                        <TextEdit ReadOnly="true" Text="@ViewModel.Status.ToString()" />
                     </Field>
                 </Column>
             </Row>
@@ -27,13 +27,13 @@
                 <Column ColumnSize="ColumnSize.Is6">
                     <Field>
                         <FieldLabel>Создан в</FieldLabel>
-                        <TextEdit ReadOnly="true" Text="@ViewModel.CreatedAt.ToString("G")"/>
+                        <TextEdit ReadOnly="true" Text="@ViewModel.CreatedAt.ToString("G")" />
                     </Field>
                 </Column>
                 <Column ColumnSize="ColumnSize.Is6">
                     <Field>
                         <FieldLabel>Создан</FieldLabel>
-                        <TextEdit ReadOnly="true" Text="@ViewModel.CreatedBy"/>
+                        <TextEdit ReadOnly="true" Text="@ViewModel.CreatedBy" />
                     </Field>
                 </Column>
             </Row>
@@ -44,13 +44,13 @@
                 <Column ColumnSize="ColumnSize.Is6">
                     <Field>
                         <FieldLabel>Жалоба</FieldLabel>
-                        <TextEdit ReadOnly="true" Text="@ViewModel.Complaint"/>
+                        <TextEdit ReadOnly="true" Text="@ViewModel.Complaint" />
                     </Field>
                 </Column>
                 <Column ColumnSize="ColumnSize.Is6">
                     <Field>
                         <FieldLabel>Status</FieldLabel>
-                        <TextEdit ReadOnly="true" Text="@ViewModel.Status.ToString()"/>
+                        <TextEdit ReadOnly="true" Text="@ViewModel.Status.ToString()" />
                     </Field>
                 </Column>
             </Row>
@@ -61,11 +61,11 @@
                         <FieldLabel>Patient</FieldLabel>
                         @if (ViewModel.Patient != null)
                         {
-                            <PatientInfoComponent ViewModel="@ViewModel.Patient"/>
+                            <PatientInfoComponent ViewModel="@ViewModel.Patient" />
                         }
                         else
                         {
-                            <TextEdit ReadOnly="true" Text="No patient information available"/>
+                            <TextEdit ReadOnly="true" Text="No patient information available" />
                         }
                     </Field>
                 </Column>
@@ -75,13 +75,13 @@
                 <Column ColumnSize="ColumnSize.Is6">
                     <Field>
                         <FieldLabel>Created At</FieldLabel>
-                        <TextEdit ReadOnly="true" Text="@ViewModel.CreatedAt.ToString("G")"/>
+                        <TextEdit ReadOnly="true" Text="@ViewModel.CreatedAt.ToString("G")" />
                     </Field>
                 </Column>
                 <Column ColumnSize="ColumnSize.Is6">
                     <Field>
                         <FieldLabel>Created By</FieldLabel>
-                        <TextEdit ReadOnly="true" Text="@ViewModel.CreatedBy"/>
+                        <TextEdit ReadOnly="true" Text="@ViewModel.CreatedBy" />
                     </Field>
                 </Column>
             </Row>
@@ -90,13 +90,13 @@
                 <Column ColumnSize="ColumnSize.Is6">
                     <Field>
                         <FieldLabel>Updated At</FieldLabel>
-                        <TextEdit ReadOnly="true" Text="@(ViewModel.UpdatedAt?.ToString("G") ?? "N/A")"/>
+                        <TextEdit ReadOnly="true" Text="@(ViewModel.UpdatedAt?.ToString("G") ?? "N/A")" />
                     </Field>
                 </Column>
                 <Column ColumnSize="ColumnSize.Is6">
                     <Field>
                         <FieldLabel>Updated By</FieldLabel>
-                        <TextEdit ReadOnly="true" Text="@(ViewModel.UpdatedBy ?? "N/A")"/>
+                        <TextEdit ReadOnly="true" Text="@(ViewModel.UpdatedBy ?? "N/A")" />
                     </Field>
                 </Column>
             </Row>
@@ -117,7 +117,7 @@
                         }
                         else
                         {
-                            <TextEdit ReadOnly="true" Text="No anamneses available"/>
+                            <TextEdit ReadOnly="true" Text="No anamneses available" />
                         }
                     </Field>
                 </Column>
@@ -156,6 +156,6 @@
             <TableRowCell>@item.CreatedAt.ToString("G")</TableRowCell>
             <TableRowCell>@item.CreatedBy</TableRowCell>
             <TableRowCell>@item.AnamnesisTemplate?.Title</TableRowCell>
-    </TableRow>;
+        </TableRow>;
 
 }

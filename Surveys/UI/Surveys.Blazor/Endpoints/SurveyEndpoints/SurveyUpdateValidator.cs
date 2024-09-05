@@ -1,19 +1,16 @@
-using FluentValidation;
+﻿using FluentValidation;
 using Surveys.Web.Application.Messaging.SurveyMessages.ViewModels;
 
 namespace Surveys.Blazor.Endpoints.SurveyEndpoints;
 
-public class SurveyCreateValidator : AbstractValidator<SurveyCreateViewModel>
+public class SurveyUpdateValidator : AbstractValidator<SurveyUpdateViewModel>
 {
-    public SurveyCreateValidator()
+    public SurveyUpdateValidator()
     {
         RuleFor(viewModel => viewModel.Complaint)
             .NotEmpty()
             .MinimumLength(8)
             .MaximumLength(1024)
             .WithName("Жалоба");
-
-        RuleFor(viewModel => viewModel.PatientId)
-            .NotNull();
     }
 }

@@ -9,12 +9,17 @@ namespace Surveys.Blazor.Endpoints.AnamnesisTemplateEndpoints.Components;
 public partial class AnamnesisTemplateModal
 {
     private Modal _modal = null!;
-    private List<AnamnesisTemplateViewModel> Templates { get; set; } = [];
-    private List<AnamnesisTemplateViewModel> SelectedTemplates { get; set; } = [];
 
     [Parameter] public EventCallback<List<AnamnesisTemplateViewModel>> OnTemplatesSelected { get; set; }
 
     [Inject] public IAuthorizedHttpClient Client { get; set; } = null!;
+    private List<AnamnesisTemplateViewModel> Templates { get; set; } = [];
+    private List<AnamnesisTemplateViewModel> SelectedTemplates { get; set; } = [];
+
+    public void Show()
+    {
+        _modal.Show();
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -28,12 +33,9 @@ public partial class AnamnesisTemplateModal
             .GetFromJsonAsync<PagedListResult<AnamnesisTemplateViewModel>>($"anamnesis-template/paged/{0}?pageSize={999}");
 
         if (response?.Ok ?? false)
+        {
             Templates = [..response.Result.Items.ToList()];
-    }
-
-    public void Show()
-    {
-        _modal.Show();
+        }
     }
 
     private void SaveAndClose()

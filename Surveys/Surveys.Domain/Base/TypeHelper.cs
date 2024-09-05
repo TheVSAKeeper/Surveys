@@ -14,7 +14,9 @@ public static class TypeHelper
     public static bool CanChangeType(object value, Type conversionType)
     {
         if (conversionType == null)
+        {
             return false;
+        }
 
         return value is IConvertible;
     }

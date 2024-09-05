@@ -23,14 +23,18 @@ public sealed class GetResponsePaged
                     cancellationToken: cancellationToken);
 
             if (pagedList.PageIndex > pagedList.TotalPages)
+            {
                 pagedList = await unitOfWork.GetRepository<Response>()
                     .GetPagedListAsync(pageIndex: 0,
                         pageSize: request.PageSize, cancellationToken: cancellationToken);
+            }
 
             IPagedList<ResponseViewModel>? mapped = mapper.Map<IPagedList<ResponseViewModel>>(pagedList);
 
             if (mapped is null)
+            {
                 return Operation.Error(AppData.Exceptions.MappingException);
+            }
 
             return Operation.Result(mapped);
         }
@@ -40,7 +44,9 @@ public sealed class GetResponsePaged
             Expression<Func<Response, bool>>? predicate = PredicateBuilder.True<Response>();
 
             if (search is null)
+            {
                 return predicate;
+            }
 
             //predicate = predicate.And(x => x.Name.Contains(search));
             return predicate;

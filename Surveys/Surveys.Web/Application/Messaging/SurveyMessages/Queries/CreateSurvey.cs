@@ -32,7 +32,9 @@ public sealed class CreateSurvey
                 SurveyViewModel? mapped = mapper.Map<Survey, SurveyViewModel>(entity);
 
                 if (mapped is null)
+                {
                     return Operation.Error(AppData.Exceptions.MappingException);
+                }
 
                 logger.LogInformation("New entity {@Survey} successfully created", entity);
                 return Operation.Result(mapped);

@@ -19,17 +19,20 @@ public partial class Patients
     [Inject] private IAuthorizedHttpClient Client { get; set; } = null!;
     [Inject] private NavigationManager Navigation { get; set; } = null!;
 
+    protected override async Task OnInitializedAsync()
+    {
+        _patients = [..(await GetPaged(0)).Items];
+        await base.OnInitializedAsync();
+    }
+
     private void ShowComplaintModal(PatientViewModel patient)
     {
         _surveyCreateModal?.Show(patient);
     }
 
-    private void SubmitComplaint(SurveyCreateViewModel createViewModel) => Navigation.NavigateTo($"/survey-update/{createViewModel.Id}");
-
-    protected override async Task OnInitializedAsync()
+    private void SubmitComplaint(SurveyCreateViewModel createViewModel)
     {
-        _patients = [..(await GetPaged(0)).Items];
-        await base.OnInitializedAsync();
+        Navigation.NavigateTo($"/survey-update/{createViewModel.Id}");
     }
 
     private async Task<PagedListResult<PatientViewModel>> GetPaged(int pageIndex, int pageSize = 10)
@@ -47,7 +50,9 @@ public partial class Patients
     private async Task OnReadData(DataGridReadDataEventArgs<PatientViewModel> eventArgs)
     {
         if (eventArgs.CancellationToken.IsCancellationRequested)
+        {
             return;
+        }
 
         PagedListResult<PatientViewModel> collection = await GetPaged(eventArgs.Page - 1, eventArgs.PageSize);
 

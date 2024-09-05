@@ -29,7 +29,9 @@ public sealed class CreateQuestion
                 QuestionViewModel? mapped = mapper.Map<Question, QuestionViewModel>(entity);
 
                 if (mapped is null)
+                {
                     return Operation.Error(AppData.Exceptions.MappingException);
+                }
 
                 logger.LogInformation("New entity {@Question} successfully created", entity);
                 return Operation.Result(mapped);

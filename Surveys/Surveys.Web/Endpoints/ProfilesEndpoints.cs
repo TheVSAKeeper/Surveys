@@ -7,7 +7,9 @@ namespace Surveys.Web.Endpoints;
 public sealed class ProfilesEndpointDefinition : AppDefinition
 {
     public override void ConfigureApplication(WebApplication app)
-        => app.MapProfilesEndpoints();
+    {
+        app.MapProfilesEndpoints();
+    }
 }
 
 internal static class ProfilesEndpointDefinitionExtensions

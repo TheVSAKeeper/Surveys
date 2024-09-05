@@ -29,7 +29,9 @@ public sealed class CreateQuestionOption
                 QuestionOptionViewModel? mapped = mapper.Map<QuestionOption, QuestionOptionViewModel>(entity);
 
                 if (mapped is null)
+                {
                     return Operation.Error(AppData.Exceptions.MappingException);
+                }
 
                 logger.LogInformation("New entity {@QuestionOption} successfully created", entity);
                 return Operation.Result(mapped);

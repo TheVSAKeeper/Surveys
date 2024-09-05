@@ -13,18 +13,24 @@ public sealed class DeleteResponse
             Response? entity = await repository.FindAsync([request.Id], cancellationToken);
 
             if (entity == null)
+            {
                 return Operation.Error("Entity not found");
+            }
 
             repository.Delete(entity);
             await unitOfWork.SaveChangesAsync();
 
             if (unitOfWork.LastSaveChangesResult.IsOk == false)
+            {
                 return Operation.Error(unitOfWork.LastSaveChangesResult.Exception?.Message ?? AppData.Exceptions.SomethingWrong);
+            }
 
             ResponseViewModel? mapped = mapper.Map<ResponseViewModel>(entity);
 
             if (mapped is not null)
+            {
                 return Operation.Result(mapped);
+            }
 
             return Operation.Error(AppData.Exceptions.MappingException);
         }

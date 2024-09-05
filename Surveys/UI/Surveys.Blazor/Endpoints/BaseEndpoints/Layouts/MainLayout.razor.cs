@@ -28,7 +28,9 @@ public partial class MainLayout
     private Task OnThemeEnabledChanged(bool value)
     {
         if (Theme is null)
+        {
             return Task.CompletedTask;
+        }
 
         Theme.Enabled = value;
 
@@ -38,7 +40,9 @@ public partial class MainLayout
     private Task OnThemeGradientChanged(bool value)
     {
         if (Theme is null)
+        {
             return Task.CompletedTask;
+        }
 
         Theme.IsGradient = value;
 
@@ -48,7 +52,9 @@ public partial class MainLayout
     private Task OnThemeRoundedChanged(bool value)
     {
         if (Theme is null)
+        {
             return Task.CompletedTask;
+        }
 
         Theme.IsRounded = value;
 
@@ -58,7 +64,9 @@ public partial class MainLayout
     private Task OnThemeColorChanged(string value)
     {
         if (Theme is null)
+        {
             return Task.CompletedTask;
+        }
 
         Theme.ColorOptions ??= new ThemeColorOptions();
 

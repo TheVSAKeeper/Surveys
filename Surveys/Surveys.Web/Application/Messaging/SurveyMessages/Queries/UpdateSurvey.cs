@@ -18,7 +18,9 @@ public sealed class UpdateSurvey
             // TODO: !!Anamneses
 
             if (entity == null)
+            {
                 return Operation.Error(AppData.Exceptions.NotFoundException);
+            }
 
             mapper.Map(surveyRequest.Model, entity, options => options.Items[nameof(ApplicationUser)] = surveyRequest.User.Identity!.Name);
 
@@ -32,7 +34,9 @@ public sealed class UpdateSurvey
                 SurveyViewModel? mapped = mapper.Map<Survey, SurveyViewModel>(entity);
 
                 if (mapped is not null)
+                {
                     return Operation.Result(mapped);
+                }
 
                 return Operation.Error(AppData.Exceptions.MappingException);
             }

@@ -5,7 +5,7 @@
     <CardHeader>
         <CardTitle>
             @(AnamnesisTemplate?.Title ?? "Нет названия")
-            <Blazorise.Icons.FontAwesome.Icon Name="@(Anamnesis.IsComplete ? FontAwesomeIcons.CheckCircle : FontAwesomeIcons.CircleXmark)" TextColor="@(Anamnesis.IsComplete ? TextColor.Success : TextColor.Danger)"/>
+            <Blazorise.Icons.FontAwesome.Icon Name="@(Anamnesis.IsComplete ? FontAwesomeIcons.CheckCircle : FontAwesomeIcons.CircleXmark)" TextColor="@(Anamnesis.IsComplete ? TextColor.Success : TextColor.Danger)" />
         </CardTitle>
     </CardHeader>
     <CardBody>
@@ -18,7 +18,7 @@
 
             @foreach (ResponseViewModel response in Anamnesis.Responses.OrderBy(model => model.Question!.SortIndex))
             {
-                <ResponseCard AnswerChanged="OnAnswerChanged" Response="@response"/>
+                <ResponseCard AnswerChanged="OnAnswerChanged" Response="@response" />
             }
         }
         else

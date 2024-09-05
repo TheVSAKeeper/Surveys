@@ -23,10 +23,12 @@ public class ApplicationUserStore(ApplicationDbContext context, IdentityErrorDes
     ///     matching the specified <paramref name="userId" /> if it exists.
     /// </returns>
     public override Task<ApplicationUser?> FindByIdAsync(string userId, CancellationToken cancellationToken = default)
-        => Users
+    {
+        return Users
             .Include(x => x.ApplicationUserProfile)
             .ThenInclude(x => x!.Permissions)
             .FirstOrDefaultAsync(u => u.Id.ToString() == userId, cancellationToken)!;
+    }
 
     /// <summary>
     ///     Finds and returns a user, if any, who has the specified normalized user name.
@@ -41,8 +43,10 @@ public class ApplicationUserStore(ApplicationDbContext context, IdentityErrorDes
     ///     matching the specified <paramref name="normalizedUserName" /> if it exists.
     /// </returns>
     public override Task<ApplicationUser?> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken = default)
-        => Users
+    {
+        return Users
             .Include(x => x.ApplicationUserProfile)
             .ThenInclude(x => x!.Permissions)
             .FirstOrDefaultAsync(u => u.NormalizedUserName == normalizedUserName, cancellationToken)!;
+    }
 }

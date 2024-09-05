@@ -22,17 +22,17 @@
                     break;
 
                 case QuestionType.Text:
-                    <TextEdit @bind-Text="@AnswerText" @onfocusout="OnAnswerChanged"/>
+                    <TextEdit @bind-Text="@AnswerText" @onfocusout="OnAnswerChanged" />
 
                     break;
 
                 case QuestionType.Number:
-                    <NumericEdit @bind-Value="@AnswerNumber" @onfocusout="OnAnswerChanged" TValue="decimal"/>
+                    <NumericEdit @bind-Value="@AnswerNumber" @onfocusout="OnAnswerChanged" TValue="decimal" />
 
                     break;
 
                 case QuestionType.Date:
-                    <DateEdit @bind-Date="@AnswerDate" @onfocusout="OnAnswerChanged" TValue="DateTime"/>
+                    <DateEdit @bind-Date="@AnswerDate" @onfocusout="OnAnswerChanged" TValue="DateTime" />
 
                     break;
 

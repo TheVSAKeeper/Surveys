@@ -14,12 +14,16 @@ public sealed class GetPatientById
             Patient? entityWithoutIncludes = await repository.GetFirstOrDefaultAsync(predicate: x => x.Id == id);
 
             if (entityWithoutIncludes == null)
+            {
                 return Operation.Error($"Entity with identifier {id} not found");
+            }
 
             PatientViewModel? mapped = mapper.Map<PatientViewModel>(entityWithoutIncludes);
 
             if (mapped is not null)
+            {
                 return Operation.Result(mapped);
+            }
 
             return Operation.Error(AppData.Exceptions.MappingException);
         }

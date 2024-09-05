@@ -53,13 +53,17 @@ public partial class PatientSurveys
     private async Task Previous()
     {
         if (_currentPage > 1)
+        {
             await LoadSurveys(_currentPage - 1);
+        }
     }
 
     private async Task Next()
     {
         if (_currentPage < _totalPages)
+        {
             await LoadSurveys(_currentPage + 1);
+        }
     }
 
     private bool IsPageNavigationDisabled(string navigation)
@@ -78,7 +82,13 @@ public partial class PatientSurveys
         await LoadSurveys(1);
     }
 
-    private async Task SetActive(string page) => await LoadSurveys(Convert.ToInt32(page));
+    private async Task SetActive(string page)
+    {
+        await LoadSurveys(Convert.ToInt32(page));
+    }
 
-    private bool IsActive(int page) => _currentPage == page;
+    private bool IsActive(int page)
+    {
+        return _currentPage == page;
+    }
 }

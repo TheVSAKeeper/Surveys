@@ -32,7 +32,9 @@ public sealed class CreateResponse
                 ResponseViewModel? mapped = mapper.Map<Response, ResponseViewModel>(entity);
 
                 if (mapped is null)
+                {
                     return Operation.Error(AppData.Exceptions.MappingException);
+                }
 
                 logger.LogInformation("New entity {@Response} successfully created", entity);
                 return Operation.Result(mapped);

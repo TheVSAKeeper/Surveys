@@ -17,7 +17,8 @@ public class ErrorHandlingDefinition : AppDefinition
     ///     Configure application for current application
     /// </summary>
     /// <param name="app"></param>
-    public override void ConfigureApplication(WebApplication app) =>
+    public override void ConfigureApplication(WebApplication app)
+    {
         app.UseExceptionHandler(error => error.Run(async context =>
         {
             context.Response.ContentType = "application/json";
@@ -30,18 +31,25 @@ public class ErrorHandlingDefinition : AppDefinition
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;
 
                 if (app.Environment.IsDevelopment())
+                {
                     await context.Response.WriteAsync($"INTERNAL SERVER ERROR: {contextFeature.Error}");
+                }
                 else
+                {
                     await context.Response.WriteAsync("INTERNAL SERVER ERROR. PLEASE TRY AGAIN LATER");
+                }
             }
         }));
+    }
 
     private static HttpStatusCode GetErrorCode(Exception exception)
-        => exception switch
+    {
+        return exception switch
         {
             ValidationException _ => HttpStatusCode.BadRequest,
             AuthenticationException _ => HttpStatusCode.Forbidden,
             NotImplementedException _ => HttpStatusCode.NotImplemented,
             _ => HttpStatusCode.InternalServerError
         };
+    }
 }

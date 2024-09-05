@@ -24,16 +24,20 @@ public sealed class GetAnamnesisTemplatePaged
                     cancellationToken: cancellationToken);
 
             if (pagedList.PageIndex > pagedList.TotalPages)
+            {
                 pagedList = await unitOfWork.GetRepository<AnamnesisTemplate>()
                     .GetPagedListAsync(pageIndex: 0,
                         pageSize: request.PageSize,
                         orderBy: o => o.OrderBy(x => x.SortIndex),
                         cancellationToken: cancellationToken);
+            }
 
             IPagedList<AnamnesisTemplateViewModel>? mapped = mapper.Map<IPagedList<AnamnesisTemplateViewModel>>(pagedList);
 
             if (mapped is null)
+            {
                 return Operation.Error(AppData.Exceptions.MappingException);
+            }
 
             return Operation.Result(mapped);
         }
@@ -43,7 +47,9 @@ public sealed class GetAnamnesisTemplatePaged
             Expression<Func<AnamnesisTemplate, bool>>? predicate = PredicateBuilder.True<AnamnesisTemplate>();
 
             if (search is null)
+            {
                 return predicate;
+            }
 
             // predicate = predicate.And(x => x.Name.Contains(search));
             return predicate;

@@ -8,7 +8,7 @@
                     <NotAuthorized>
                         @if (context.User.Identity?.IsAuthenticated == false)
                         {
-                            <RedirectToLogin/>
+                            <RedirectToLogin />
                         }
                         else
                         {
@@ -16,7 +16,7 @@
                         }
                     </NotAuthorized>
                 </AuthorizeRouteView>
-                <FocusOnNavigate RouteData="@routeData" Selector="h1"/>
+                <FocusOnNavigate RouteData="@routeData" Selector="h1" />
             </Found>
             <NotFound>
                 <PageTitle>Not found</PageTitle>
@@ -25,9 +25,9 @@
                 </LayoutView>
             </NotFound>
         </Router>
-        <MessageProvider/>
-        <PageProgressProvider/>
-        <ToastProvider/>
+        <MessageProvider />
+        <PageProgressProvider />
+        <ToastProvider />
     </Blazorise.ThemeProvider>
 </CascadingAuthenticationState>
 

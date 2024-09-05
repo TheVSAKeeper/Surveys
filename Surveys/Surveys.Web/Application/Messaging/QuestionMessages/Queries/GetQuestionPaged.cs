@@ -24,16 +24,20 @@ public sealed class GetQuestionPaged
                     cancellationToken: cancellationToken);
 
             if (pagedList.PageIndex > pagedList.TotalPages)
+            {
                 pagedList = await unitOfWork.GetRepository<Question>()
                     .GetPagedListAsync(pageIndex: 0,
                         pageSize: request.PageSize,
                         orderBy: o => o.OrderBy(x => x.SortIndex),
                         cancellationToken: cancellationToken);
+            }
 
             IPagedList<QuestionViewModel>? mapped = mapper.Map<IPagedList<QuestionViewModel>>(pagedList);
 
             if (mapped is null)
+            {
                 return Operation.Error(AppData.Exceptions.MappingException);
+            }
 
             return Operation.Result(mapped);
         }
@@ -43,7 +47,9 @@ public sealed class GetQuestionPaged
             Expression<Func<Question, bool>>? predicate = PredicateBuilder.True<Question>();
 
             if (search is null)
+            {
                 return predicate;
+            }
 
             // predicate = predicate.And(x => x.Name.Contains(search));
             return predicate;

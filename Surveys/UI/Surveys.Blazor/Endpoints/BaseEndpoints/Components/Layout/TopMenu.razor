@@ -4,12 +4,12 @@
     <BarBrand>
         <BarItem>
             <BarLink To="">
-                <BarIcon IconName="IconName.Dashboard" Margin="Margin.Is2.FromEnd"/>
+                <BarIcon IconName="IconName.Dashboard" Margin="Margin.Is2.FromEnd" />
                 Опросы
             </BarLink>
         </BarItem>
     </BarBrand>
-    <BarToggler/>
+    <BarToggler />
     <BarMenu>
         <BarStart>
             <BarItem>
@@ -22,21 +22,21 @@
                         <BarDropdownItem Clicked="@(() => OnLayoutTypeChecked("fixed-header"))">
                             @if (LayoutType == "fixed-header")
                             {
-                                <Icon Name="IconName.CheckCircle" TextColor="TextColor.Success"/>
+                                <Icon Name="IconName.CheckCircle" TextColor="TextColor.Success" />
                             }
                             Фиксированный заголовок
                         </BarDropdownItem>
                         <BarDropdownItem Clicked="@(() => OnLayoutTypeChecked("fixed-header-footer-only"))">
                             @if (LayoutType == "fixed-header-footer-only")
                             {
-                                <Icon Name="IconName.CheckCircle" TextColor="TextColor.Success"/>
+                                <Icon Name="IconName.CheckCircle" TextColor="TextColor.Success" />
                             }
                             Только фиксированный верхний и нижний колонтитулы
                         </BarDropdownItem>
                         <BarDropdownItem Clicked="@(() => OnLayoutTypeChecked("sider-with-header-on-top"))">
                             @if (LayoutType == "sider-with-header-on-top")
                             {
-                                <Icon Name="IconName.CheckCircle" TextColor="TextColor.Success"/>
+                                <Icon Name="IconName.CheckCircle" TextColor="TextColor.Success" />
                             }
                             Сайдер с заголовком сверху
                         </BarDropdownItem>
@@ -51,7 +51,7 @@
             </BarItem>
             <BarItem>
                 <BarDropdown RightAligned>
-                    <BarDropdownToggle><Icon Name="IconName.Tint"/> Theme</BarDropdownToggle>
+                    <BarDropdownToggle><Icon Name="IconName.Tint" /> Theme</BarDropdownToggle>
                     <BarDropdownMenu Style="padding: 15px; min-width:550px;">
                         <Row>
                             <Column Margin="Margin.Is2.FromBottom">

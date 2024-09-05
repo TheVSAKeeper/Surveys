@@ -29,13 +29,17 @@ public partial class SurveyUpdate
         Operation<SurveyUpdateViewModel>? result = await Client.GetFromJsonAsync<SurveyUpdateViewModel>($"surveys/get-for-edit/{Id}");
 
         if (result is { Ok: true })
+        {
             ViewModel = result.Result;
+        }
     }
 
     private async Task HandleTemplatesSelected(List<AnamnesisTemplateViewModel> obj)
     {
         if (ViewModel == null)
+        {
             return;
+        }
 
         foreach (AnamnesisTemplateViewModel template in obj)
         {
@@ -50,5 +54,8 @@ public partial class SurveyUpdate
         await LoadSurveyUpdateViewModel();
     }
 
-    private Task OnAnswerChanged() => LoadSurveyUpdateViewModel();
+    private Task OnAnswerChanged()
+    {
+        return LoadSurveyUpdateViewModel();
+    }
 }

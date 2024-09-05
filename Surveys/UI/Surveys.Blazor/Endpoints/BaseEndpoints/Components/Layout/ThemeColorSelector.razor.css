@@ -2,15 +2,15 @@
     display: table-cell;
     width: 36px;
     height: 36px;
-    vertical-align: top;
-    text-align: center;
-    color: white;
     cursor: pointer;
+    text-align: center;
+    vertical-align: top;
+    color: white;
 }
 
 .demo-theme-color-item .material-icons {
     display: flex;
-    height: 100%;
     align-items: center;
     justify-content: center;
+    height: 100%;
 }

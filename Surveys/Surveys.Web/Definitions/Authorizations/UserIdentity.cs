@@ -22,11 +22,13 @@ public sealed class UserIdentity
         get
         {
             if (IsInitialized)
+            {
                 return ContextAccessor.HttpContext!.User.Identity != null
                        && ContextAccessor.HttpContext != null
                        && ContextAccessor.HttpContext.User.Identity.IsAuthenticated
                     ? ContextAccessor.HttpContext.User.Identity
                     : null;
+            }
 
             throw new MicroserviceArgumentNullException($"{nameof(UserIdentity)} has not been initialized. Please use {nameof(UserIdentity)}.Instance.Configure(...) in Configure Application method in Startup.cs");
         }
@@ -37,9 +39,9 @@ public sealed class UserIdentity
             ? ContextAccessor.HttpContext!.User.Claims
             : Enumerable.Empty<Claim>();
 
-    private bool IsInitialized { get; set; }
-
     private static IHttpContextAccessor ContextAccessor { get; set; } = null!;
+
+    private bool IsInitialized { get; set; }
 
     public void Configure(IHttpContextAccessor httpContextAccessor)
     {

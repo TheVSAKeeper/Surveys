@@ -17,7 +17,10 @@ public abstract class DbContextBase(DbContextOptions options) : IdentityDbContex
 
     public SaveChangesResult LastSaveChangesResult { get; } = new();
 
-    public override int SaveChanges() => SaveChanges(true);
+    public override int SaveChanges()
+    {
+        return SaveChanges(true);
+    }
 
     public override int SaveChanges(bool acceptAllChangesOnSuccess)
     {
@@ -33,7 +36,10 @@ public abstract class DbContextBase(DbContextOptions options) : IdentityDbContex
         }
     }
 
-    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new()) => SaveChangesAsync(true, cancellationToken);
+    public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
+    {
+        return SaveChangesAsync(true, cancellationToken);
+    }
 
     public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new())
     {
@@ -47,6 +53,12 @@ public abstract class DbContextBase(DbContextOptions options) : IdentityDbContex
             LastSaveChangesResult.Exception = exception;
             return Task.FromResult(0);
         }
+    }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+        builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 
     private void DbSaveChanges()
@@ -64,16 +76,22 @@ public abstract class DbContextBase(DbContextOptions options) : IdentityDbContex
         foreach (EntityEntry entry in createdEntries)
         {
             if (entry.Entity is not IAuditable)
+            {
                 continue;
+            }
 
             object userName = entry.Property(CreatedBy).CurrentValue ?? DefaultUserName;
             DateTime creationDate = DateTime.UtcNow;
 
             if (entry.Property(CreatedAt).CurrentValue == null || ((DateTime)entry.Property(CreatedAt).CurrentValue!).Year < 1950)
+            {
                 entry.Property(CreatedAt).CurrentValue = creationDate;
+            }
 
             if (entry.Property(UpdatedAt).CurrentValue == null || ((DateTime)entry.Property(UpdatedAt).CurrentValue!).Year < 1950)
+            {
                 entry.Property(UpdatedAt).CurrentValue = creationDate;
+            }
 
             entry.Property(CreatedBy).CurrentValue = userName;
             entry.Property(UpdatedBy).CurrentValue = userName;
@@ -91,18 +109,14 @@ public abstract class DbContextBase(DbContextOptions options) : IdentityDbContex
         foreach (EntityEntry entry in updatedEntries)
         {
             if (entry.Entity is not IAuditable)
+            {
                 continue;
+            }
 
             entry.Property(UpdatedBy).CurrentValue ??= DefaultUserName;
             entry.Property(UpdatedAt).CurrentValue = DateTime.UtcNow;
 
             LastSaveChangesResult.AddMessage($"ChangeTracker has modified entities: {entry.Entity.GetType()}");
         }
-    }
-
-    protected override void OnModelCreating(ModelBuilder builder)
-    {
-        base.OnModelCreating(builder);
-        builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 }

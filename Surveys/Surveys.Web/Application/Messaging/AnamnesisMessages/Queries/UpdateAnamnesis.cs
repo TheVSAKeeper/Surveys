@@ -15,7 +15,9 @@ public sealed class UpdateAnamnesis
             Anamnesis? entity = await repository.GetFirstOrDefaultAsync(predicate: anamnesis => anamnesis.Id == anamnesisRequest.Id, disableTracking: false);
 
             if (entity == null)
+            {
                 return Operation.Error(AppData.Exceptions.NotFoundException);
+            }
 
             mapper.Map(anamnesisRequest.Model, entity, options => options.Items[nameof(ApplicationUser)] = anamnesisRequest.User.Identity!.Name);
 
@@ -29,7 +31,9 @@ public sealed class UpdateAnamnesis
                 AnamnesisViewModel? mapped = mapper.Map<Anamnesis, AnamnesisViewModel>(entity);
 
                 if (mapped is not null)
+                {
                     return Operation.Result(mapped);
+                }
 
                 return Operation.Error(AppData.Exceptions.MappingException);
             }

@@ -23,15 +23,20 @@ public class LoginModel(
 
     [BindProperty] public LoginViewModel? Input { get; set; }
 
-    public void OnGet() => Input = new LoginViewModel
+    public void OnGet()
     {
-        ReturnUrl = ReturnUrl
-    };
+        Input = new LoginViewModel
+        {
+            ReturnUrl = ReturnUrl
+        };
+    }
 
     public async Task<IActionResult> OnPostAsync()
     {
         if (ModelState.IsValid == false)
+        {
             return Page();
+        }
 
         if (Input != null)
         {
@@ -51,7 +56,9 @@ public class LoginModel(
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
                 if (Url.IsLocalUrl(ReturnUrl))
+                {
                     return Redirect(ReturnUrl);
+                }
 
                 return RedirectToPage("/swagger");
             }

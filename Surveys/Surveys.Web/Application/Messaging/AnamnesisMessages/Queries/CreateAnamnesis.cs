@@ -59,7 +59,9 @@ public sealed class CreateAnamnesis
             AnamnesisViewModel? mapped = mapper.Map<Anamnesis, AnamnesisViewModel>(entity);
 
             if (mapped is null)
+            {
                 return Operation.Error(AppData.Exceptions.MappingException);
+            }
 
             //logger.LogInformation("New entity {@Anamnesis} successfully created", entity);
             return Operation.Result(mapped);

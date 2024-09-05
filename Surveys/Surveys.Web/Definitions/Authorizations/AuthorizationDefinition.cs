@@ -54,18 +54,24 @@ public class AuthorizationDefinition : AppDefinition
 
                         // Ensure we always have an error and error description.
                         if (string.IsNullOrEmpty(context.Error))
+                        {
                             context.Error = "invalid_token";
+                        }
 
                         if (string.IsNullOrEmpty(context.ErrorDescription))
+                        {
                             context.ErrorDescription = "This request requires a valid JWT access token to be provided";
+                        }
 
                         // Add some extra context for expired tokens.
                         if (context.AuthenticateFailure == null || context.AuthenticateFailure.GetType() != typeof(SecurityTokenExpiredException))
+                        {
                             return context.Response.WriteAsync(JsonSerializer.Serialize(new
                             {
                                 error = context.Error,
                                 error_description = context.ErrorDescription
                             }));
+                        }
 
                         SecurityTokenExpiredException? authenticationException = context.AuthenticateFailure as SecurityTokenExpiredException;
                         context.Response.Headers.Append("x-token-expired", authenticationException?.Expires.ToString("o"));
